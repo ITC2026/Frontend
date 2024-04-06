@@ -1,30 +1,29 @@
-# React + TypeScript + Vite
+# Encora Talent Management System
+## Proyecto Final
+### Construcción de Software y Toma de Decisiones 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Prof. Sasha Valdés Jímenez 
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Integrantes 
 
-## Expanding the ESLint configuration
+- Daniel Fernández Clausen - A01254659
+- Bruno Gaxiola González - A01253874
+- Ramón Alberto Gómez Urquídez - A01254784
+- Fernanda Granados Monge - A01252895
+- Daniel Antonio Luján - A01254903
+- Andrés Daniel Martínez Bermúdez - A00227463
+- Santiago Eduardo Poblete Talamante - A01254609
+- Francisco Rochín Gómez - A01252974
+- Andrés Sandoval Ibarra - A01253138
+- Martín Gerardo Tánori Sitten - A01252900
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Cómo correr el proyecto
 
-- Configure the top-level `parserOptions` property like this:
+1. Clonar el repositorio `git clone https://www.github.com/ITC2016/Frontend`
+2. Correr el comando `npm install` para instalar las dependencias
+3. Correr el comando `npm run dev` para correr el servidor
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### Descripción
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Este es el repositorio front-end para el proyecto final de la materia Construcción de Software y Toma de Decisiones.

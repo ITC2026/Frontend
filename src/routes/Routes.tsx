@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../pages/ErrorPage";
 import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
+import Chart from "../pages/dashboards/Chart";
 
 
 const router = createBrowserRouter(
@@ -18,6 +19,10 @@ const router = createBrowserRouter(
       ],
       errorElement: <ErrorPage/>,
     },
+    {
+      path: "/Chart",
+      element: <Chart />,
+    }
   ],
 );
 

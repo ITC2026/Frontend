@@ -1,6 +1,6 @@
+import "./LoginPage.css";
 import EncoraLogo from "./EncoraLogo";
 import MicrosoftLogo from "../../assets/login/microsoft_logo.png";
-import "./LoginPage.css";
 
 const LoginCard = () => {
   return (
@@ -39,7 +39,12 @@ const LoginCard = () => {
             placeholder="Ingresa tu contraseña"
           />
         </div>
-        <button type="submit" className="btn btn-primary" id="login-button">
+        
+        <button 
+          type="submit" 
+          className="btn btn-primary encora-purple" 
+          id="login-button"
+        >
           Submit
         </button>
 

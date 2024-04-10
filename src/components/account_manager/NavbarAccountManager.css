@@ -1,0 +1,29 @@
+.navbar-account-manager {
+    display: absolute;
+    height: 100vh;
+    width: 4rem;
+    background-color: #2D1154;
+    left: 0;
+    margin-right: 5rem;
+}
+
+.navbar-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.navbar-icon {
+    width: 100%;
+}
+
+.navbar-icon>* {
+    width: 50%;
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}

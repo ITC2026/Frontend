@@ -1,8 +1,11 @@
 import EncoraLogo from "./EncoraLogo";
 import MicrosoftLogo from "../../assets/login/microsoft_logo.png";
 import "./LoginPage.css";
+import { useNavigate } from "react-router-dom";
 
 const LoginCard = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="login-view">
       <form>
@@ -39,8 +42,13 @@ const LoginCard = () => {
             placeholder="Ingresa tu contraseña"
           />
         </div>
-        <button type="submit" className="btn btn-primary" id="login-button">
-          Submit
+        <button
+          type="submit"
+          className="btn btn-primary"
+          id="login-button"
+          onClick={() => navigate("/")}
+        >
+          Login
         </button>
 
         <button

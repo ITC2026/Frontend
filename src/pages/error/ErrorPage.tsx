@@ -14,7 +14,7 @@ const ErrorPage = () => {
         <h2 className="error-description">La petición solicitada no fue encontrada dentro de nuestros servidores. Probablemente, la página que usted buscó no exista o ha sido movida.</h2>
         <button 
           type="submit" 
-          className="btn btn-primary align-self-start encora-purple "
+          className="btn btn-primary align-self-start encora-purple-button"
         >
           Ir a la Página de Inicio
         </button>

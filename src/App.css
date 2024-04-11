@@ -1,0 +1,30 @@
+#root {
+    text-align: center;
+}
+
+h1 {
+    color: #000;
+    font-family: Inter;
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;
+    text-align: left;
+}
+
+h2 {
+    color: #757575;
+    font-family: Inter;
+    font-size: 1.875rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;
+    text-align: left;
+}
+
+/* Colors */
+
+.encora-purple {
+    background: #2d1154;
+    border-color: #2d1154;
+}

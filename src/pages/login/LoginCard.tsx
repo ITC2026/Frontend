@@ -1,3 +1,4 @@
+import "./LoginPage.css";
 import EncoraLogo from "./EncoraLogo";
 import MicrosoftLogo from "../../assets/login/microsoft_logo.png";
 import "./LoginPage.css";

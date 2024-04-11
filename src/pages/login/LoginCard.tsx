@@ -1,6 +1,6 @@
-import EncoraLogo from "./EncoraLogo";
-import MicrosoftLogo from "../../assets/login/microsoft_logo.png";
 import "./LoginPage.css";
+import EncoraLogo from "../../assets/EncoraLogo";
+import MicrosoftLogo from "../../assets/MicrosoftLogo";
 
 const LoginCard = () => {
   return (
@@ -39,7 +39,12 @@ const LoginCard = () => {
             placeholder="Ingresa tu contraseña"
           />
         </div>
-        <button type="submit" className="btn btn-primary" id="login-button">
+        
+        <button 
+          type="submit" 
+          className="btn btn-primary encora-purple-button" 
+          id="login-button"
+        >
           Submit
         </button>
 
@@ -48,11 +53,7 @@ const LoginCard = () => {
           className="btn btn-primary"
           id="login-button-microsoft"
         >
-          <img
-            src={MicrosoftLogo}
-            alt="Microsoft Logo"
-            className="microsoft-logo"
-          />
+          <MicrosoftLogo />
           Iniciar Sesion con Microsoft
         </button>
       </form>

@@ -14,11 +14,12 @@
 }
 
 .navbar-icon {
-    width: 100%;
+    width: 4rem;
+    height: auto; 
+    margin-left: 0.5rem;
 }
 
 .navbar-icon>* {
-    width: 25%;
 
     display: block;
     margin-left: auto;
@@ -26,4 +27,11 @@
 
     margin-top: 2rem;
     margin-bottom: 2rem;
+}
+
+.navbar-img {
+    width: 3rem;
+    height: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }

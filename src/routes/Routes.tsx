@@ -2,16 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../pages/error/ErrorPage";
 import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
-<<<<<<< HEAD
-import Settings from "../components/Configuration";
-import AccountManagerWrapper from "../pages/accountManager/AccountManager";
-
-interface Props {
-  route: string;
-}
-=======
 import SettingsPage from "../pages/settings/SettingsPage";
->>>>>>> 1fc3c2fc637493d5a8c563d6fd27b2c9b40b2c69
+import AccountManagerWrapper from "../pages/accountManager/AccountManager";
 
 const router = createBrowserRouter([
   {
@@ -20,22 +12,51 @@ const router = createBrowserRouter([
   },
   {
     path: "/settings",
-    element: <SettingsPage/>,
+    element: <SettingsPage />,
   },
   {
-    path: "/",
+    path: "",
     element: <App />,
     children: [],
-    errorElement: <ErrorPage />,
   },
   {
     path: "/account_manager",
-    element: <AccountManagerWrapper route={"/account_manager"} />,
+    element: (
+      <>
+        <AccountManagerWrapper route="/account_manager" content={":)"} />
+      </>
+    ),
+    children: [
+      {
+        path: "/account_manager/clients",
+        element: (
+          <>
+            <h1>clients</h1>
+          </>
+        ),
+      },
+      {
+        path: "/account_manager/projects",
+        element: (
+          <>
+            <h1>projects</h1>
+          </>
+        ),
+      },
+      {
+        path: "/account_manager/settings",
+        element: (
+          <>
+            <h1>settings</h1>
+          </>
+        ),
+      }
+    ],
+    errorElement: <ErrorPage />,
   },
   {
     path: "*",
     element: <ErrorPage />,
   },
 ]);
-
 export default router;

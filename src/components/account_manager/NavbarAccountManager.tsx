@@ -15,25 +15,25 @@ const NavbarAccountManager = (props: Props) => {
       <div className="navbar-wrap">
         <div className="navbar-icon">
           <Link to={props.route}>
-            <img src={Home} alt="Home" />
+            <img src={Home} alt="Home" className="navbar-img" />
           </Link>
         </div>
 
         <div className="navbar-icon">
           <Link to={props.route + "/clients"}>
-            <img src={Clients} alt="Clients" />
+            <img src={Clients} alt="Clients" className="navbar-img" />
           </Link>
         </div>
 
         <div className="navbar-icon">
           <Link to={props.route + "/projects"}>
-            <img src={Projects} alt="Projects" />
+            <img src={Projects} alt="Projects" className="navbar-img" />
           </Link>
         </div>
 
         <div className="navbar-icon">
           <Link to={props.route + "/settings"}>
-            <img src={Settings} alt="Settings" />
+            <img src={Settings} alt="Settings" className="navbar-img" />
           </Link>
         </div>
       </div>

@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import ErrorPage from "../pages/error/ErrorPage";
 import LoginPage from "../pages/login/LoginPage";
-import Settings from "../components/Configuration";
+import SettingsPage from "../pages/settings/SettingsPage";
 
 const router = createBrowserRouter([
   {
@@ -10,8 +10,8 @@ const router = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    path: "/configuration",
-    element: <Settings />,
+    path: "/settings",
+    element: <SettingsPage/>,
   },
   {
     path: "/",

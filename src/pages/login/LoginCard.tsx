@@ -1,6 +1,6 @@
 import "./LoginPage.css";
-import EncoraLogo from "./EncoraLogo";
-import MicrosoftLogo from "../../assets/login/microsoft_logo.png";
+import EncoraLogo from "../../assets/EncoraLogo";
+import MicrosoftLogo from "../../assets/MicrosoftLogo";
 
 const LoginCard = () => {
   return (
@@ -53,11 +53,7 @@ const LoginCard = () => {
           className="btn btn-primary"
           id="login-button-microsoft"
         >
-          <img
-            src={MicrosoftLogo}
-            alt="Microsoft Logo"
-            className="microsoft-logo"
-          />
+          <MicrosoftLogo />
           Iniciar Sesion con Microsoft
         </button>
       </form>

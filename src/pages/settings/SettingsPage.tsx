@@ -1,4 +1,4 @@
-function Settings() {
+function SettingsPage() {
   return (
     <>
       <h1>Configuración</h1>
@@ -26,4 +26,4 @@ function Settings() {
   );
 }
 
-export default Settings;
+export default SettingsPage;

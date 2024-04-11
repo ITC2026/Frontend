@@ -1,8 +1,13 @@
 import "./LoginPage.css";
+<<<<<<< HEAD
 import EncoraLogo from "./EncoraLogo";
 import MicrosoftLogo from "../../assets/login/microsoft_logo.png";
 import "./LoginPage.css";
 import { useNavigate } from "react-router-dom";
+=======
+import EncoraLogo from "../../assets/EncoraLogo";
+import MicrosoftLogo from "../../assets/MicrosoftLogo";
+>>>>>>> 1fc3c2fc637493d5a8c563d6fd27b2c9b40b2c69
 
 const LoginCard = () => {
   const navigate = useNavigate();
@@ -43,9 +48,16 @@ const LoginCard = () => {
             placeholder="Ingresa tu contraseña"
           />
         </div>
+<<<<<<< HEAD
         <button
           type="submit"
           className="btn btn-primary"
+=======
+        
+        <button 
+          type="submit" 
+          className="btn btn-primary encora-purple-button" 
+>>>>>>> 1fc3c2fc637493d5a8c563d6fd27b2c9b40b2c69
           id="login-button"
           onClick={() => navigate("/")}
         >
@@ -57,11 +69,7 @@ const LoginCard = () => {
           className="btn btn-primary"
           id="login-button-microsoft"
         >
-          <img
-            src={MicrosoftLogo}
-            alt="Microsoft Logo"
-            className="microsoft-logo"
-          />
+          <MicrosoftLogo />
           Iniciar Sesion con Microsoft
         </button>
       </form>

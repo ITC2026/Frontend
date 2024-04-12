@@ -1,0 +1,18 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+$encora: #2D1154;
+$custom-colors: ('custom-encora': $encora,
+);
+
+$utilities: map-merge($utilities,
+  ("background-color": (property: background-color,
+      class: bg,
+      values: $custom-colors),
+    "table-row-background-color": (property: background-color,
+      class: bg-tr,
+      values: $custom-colors),
+  ));

@@ -1,0 +1,12 @@
+.custom-table th,
+.custom-table td {
+    border: none;
+}
+
+.custom-table th {
+    border-bottom: none;
+}
+
+.custom-table {
+    border: none;
+}

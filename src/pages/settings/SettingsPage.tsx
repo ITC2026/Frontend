@@ -1,3 +1,5 @@
+import React from "react";
+import "./SettingsPage.css";
 function SettingsPage() {
   return (
     <>

@@ -11,10 +11,11 @@ interface Props {
 const NavbarAccountManager = (props: Props) => {
   const location = useLocation();
   const [activeRoute, setActiveRoute] = useState<string>("");
-  const routes = ["/", "/clients", "/projects"];
+  const routes = ["/", "/clients", "/projects", "/positions"];
 
   useEffect(() => {
     setActiveRoute(location.pathname);
+    document.title = "Encora - Account Manager";
   }, [location]);
 
   const renderNavIcons = () => {
@@ -49,6 +50,8 @@ const NavbarAccountManager = (props: Props) => {
           : "bi-journal-code project-active";
       case "/settings":
         return isSelected ? "bi-gear-fill" : "bi-gear";
+      case "/positions":
+        return "bi-person-workspace";
       default:
         return null;
     }

@@ -58,6 +58,14 @@ const router = createBrowserRouter([
           </>
         ),
       },
+      {
+        path: "positions",
+        element: (
+          <>
+            <h1>positions</h1>
+          </>
+        ),
+      },
     ],
     errorElement: <ErrorPage />,
   },

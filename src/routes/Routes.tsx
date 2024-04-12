@@ -17,18 +17,25 @@ const router = createBrowserRouter([
   {
     path: "",
     element: <App />,
-    children: [],
   },
   {
-    path: "/account_manager",
+    path: "account_manager",
     element: (
       <>
-        <AccountManagerWrapper route="/account_manager" content={":)"} />
+        <AccountManagerWrapper route="/account_manager" />
       </>
     ),
     children: [
       {
-        path: "/account_manager/clients",
+        path: "",
+        element: (
+          <>
+            <h1>home</h1>
+          </>
+        ),
+      },
+      {
+        path: "clients",
         element: (
           <>
             <h1>clients</h1>
@@ -36,7 +43,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/account_manager/projects",
+        path: "projects",
         element: (
           <>
             <h1>projects</h1>
@@ -44,13 +51,13 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/account_manager/settings",
+        path: "settings",
         element: (
           <>
             <h1>settings</h1>
           </>
         ),
-      }
+      },
     ],
     errorElement: <ErrorPage />,
   },

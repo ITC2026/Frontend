@@ -1,6 +1,8 @@
+import "./SettingsPage.css";
+
 function SettingsPage() {
   return (
-    <>
+    <div className="settings">
       <h1>Configuración</h1>
       <h4>Seleccionar estilo de la plataforma:</h4>
       <select className="form-select" aria-label="Default select example">
@@ -22,7 +24,7 @@ function SettingsPage() {
         <option selected>Español</option>
         <option value="1">Ingles</option>
       </select>
-    </>
+    </div>
   );
 }
 

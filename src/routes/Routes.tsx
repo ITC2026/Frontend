@@ -3,7 +3,8 @@ import ErrorPage from "../pages/error/ErrorPage";
 import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
-import AccountManagerWrapper from "../pages/accountManager/AccountManager";
+import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
+
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
     path: "account_manager",
     element: (
       <>
-        <AccountManagerWrapper route="/account_manager" />
+        <AccountManagerWrapper route="/account_manager"/>
       </>
     ),
     children: [
@@ -54,7 +55,7 @@ const router = createBrowserRouter([
         path: "settings",
         element: (
           <>
-            <h1>settings</h1>
+            <SettingsPage />
           </>
         ),
       },

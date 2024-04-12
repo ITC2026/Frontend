@@ -1,21 +1,26 @@
-import "./NavbarAccountManager.css";
-import { Link } from "react-router-dom";
-
-import { useLocation } from "react-router-dom";
+import "./Navbar.css";
+import { useLocation, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import iconsInfo from "../../icons.json";
 
 interface Props {
   route: string;
+  windowTitle?: string;
+  routes: string[];
 }
 
-const NavbarAccountManager = (props: Props) => {
+const Navbar = (props: Props) => {
   const location = useLocation();
   const [activeRoute, setActiveRoute] = useState<string>("");
-  const routes = ["/", "/clients", "/projects"];
+  const routes = props.routes;
+  const routePrefix = location.pathname.split("/")[1];
 
   useEffect(() => {
     setActiveRoute(location.pathname);
-  }, [location]);
+    if (props.windowTitle) {
+      document.title = props.windowTitle;
+    }
+  }, [location, props.windowTitle, routePrefix]);
 
   const renderNavIcons = () => {
     return routes.map((route) => (
@@ -23,13 +28,13 @@ const NavbarAccountManager = (props: Props) => {
         {activeRoute === props.route + route ? (
           <div className="navbar-icon navbar-img-active">
             <Link to={props.route + route} key={route}>
-              <i className={`bi ${getIcon(route, true)}`}></i>
+              <i className={`bi ${getIcon(route)}`}></i>
             </Link>
           </div>
         ) : (
           <div className="navbar-icon">
             <Link to={props.route + route} key={route}>
-              <i className={`bi ${getIcon(route, false)}`}></i>
+              <i className={`bi ${getIcon(route)}`}></i>
             </Link>
           </div>
         )}
@@ -37,26 +42,23 @@ const NavbarAccountManager = (props: Props) => {
     ));
   };
 
-  const getIcon = (route: string, isSelected: boolean) => {
-    switch (route) {
-      case "/":
-        return "bi-house-door-fill";
-      case "/clients":
-        return "bi-buildings";
-      case "/projects":
-        return isSelected
-          ? "bi-journal-code"
-          : "bi-journal-code project-active";
-      case "/settings":
-        return isSelected ? "bi-gear-fill" : "bi-gear";
-      default:
-        return null;
+  const getIcon = (route: string) => {
+    const iconInfo = iconsInfo[routePrefix as keyof typeof iconsInfo]?.find(
+      (item) => item.route === route
+    );
+
+    {/** If it can find the proper icon with the received route*/}
+    if (iconInfo) { 
+      return iconInfo.isSelected === undefined || iconInfo.isSelected === true
+        ? iconInfo.icon
+        : iconInfo.isSelected;
     }
+    return null;
   };
 
   const SettingsProp = () => {
     return (
-      <div>
+      <div className="navbar-settings">
         {activeRoute === props.route + "/settings" ? (
           <div className="navbar-icon navbar-img-active">
             <Link to={props.route + "/settings"}>
@@ -77,12 +79,10 @@ const NavbarAccountManager = (props: Props) => {
     <div className="navbar-account-manager">
       <div className="navbar-wrap">
         {renderNavIcons()}
-        <div className="navbar-settings">
-          <SettingsProp />
-        </div>
+        <SettingsProp />
       </div>
     </div>
   );
 };
 
-export default NavbarAccountManager;
+export default Navbar;

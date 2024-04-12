@@ -28,10 +28,12 @@
 
 .navbar-icon a {
     color: white;
+
 }
 
 .navbar-icon a:hover {
-    color: white;
+    color: rgb(103, 120, 242);
+    transition: 0.2s ease-in-out;
 }
 
 
@@ -50,7 +52,7 @@
 }
 
 .navbar-img-active a:hover {
-    color: #2D1154;
+    color: rgb(103, 120, 242);
 }
 
 .navbar-settings {
@@ -58,5 +60,4 @@
     bottom: 0rem;
     width: 5rem;
     text-align: center;
-
 }

@@ -16,7 +16,7 @@
     {
       "route": "/projects",
       "isSelected": false,
-      "icon": "bi-journal-code project-active"
+      "icon": "bi-journal-code"
     },
     {
       "route": "/settings",

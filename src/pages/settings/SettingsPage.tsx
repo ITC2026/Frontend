@@ -2,7 +2,7 @@ import "./SettingsPage.css";
 
 function SettingsPage() {
   return (
-    <div className="settings">
+    <div>
       <h1>Configuración</h1>
       <h4>Seleccionar estilo de la plataforma:</h4>
       <select className="form-select" aria-label="Default select example">

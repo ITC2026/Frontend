@@ -1,0 +1,9 @@
+.account-manager-wrapper { 
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.account-manager-content {
+    margin-top: 2rem;
+}

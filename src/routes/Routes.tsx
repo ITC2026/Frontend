@@ -1,8 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
 import ErrorPage from "../pages/error/ErrorPage";
+import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
+import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
+
 
 const router = createBrowserRouter([
   {
@@ -11,14 +13,66 @@ const router = createBrowserRouter([
   },
   {
     path: "/settings",
-    element: <SettingsPage/>,
+    element: <SettingsPage />,
   },
   {
-    path: "/",
+    path: "",
     element: <App />,
-    children: [],
+  },
+  {
+    path: "account_manager",
+    element: (
+      <>
+        <AccountManagerWrapper route="/account_manager"/>
+      </>
+    ),
+    children: [
+      {
+        path: "",
+        element: (
+          <>
+            <h1>home</h1>
+          </>
+        ),
+      },
+      {
+        path: "clients",
+        element: (
+          <>
+            <h1>clients</h1>
+          </>
+        ),
+      },
+      {
+        path: "projects",
+        element: (
+          <>
+            <h1>projects</h1>
+          </>
+        ),
+      },
+      {
+        path: "settings",
+        element: (
+          <>
+            <SettingsPage />
+          </>
+        ),
+      },
+      {
+        path: "positions",
+        element: (
+          <>
+            <h1>positions</h1>
+          </>
+        ),
+      },
+    ],
     errorElement: <ErrorPage />,
   },
+  {
+    path: "*",
+    element: <ErrorPage />,
+  },
 ]);
-
 export default router;

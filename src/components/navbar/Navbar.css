@@ -1,0 +1,63 @@
+.navbar-account-manager {
+    display: absolute;
+    height: 100vh;
+    width: 5rem;
+    background-color: #2D1154;
+    left: 0;
+    margin-right: 5rem;
+}
+
+.navbar-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.navbar-icon {
+    width: 4rem;
+    height: auto;
+    text-align: center;
+    font-size: 2.4rem;
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.navbar-icon a {
+    color: white;
+
+}
+
+.navbar-icon a:hover {
+    color: rgb(103, 120, 242);
+    transition: 0.2s ease-in-out;
+}
+
+
+.navbar-img {
+    width: 2.5rem;
+
+}
+
+.navbar-img-active {
+    margin-left: 0;
+    background-color: #ffffff;
+}
+
+.navbar-img-active a {
+    color: #2D1154;
+}
+
+.navbar-img-active a:hover {
+    color: rgb(103, 120, 242);
+}
+
+.navbar-settings {
+    position: absolute;
+    bottom: 0rem;
+    width: 5rem;
+    text-align: center;
+}

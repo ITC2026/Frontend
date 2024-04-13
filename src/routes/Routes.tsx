@@ -5,7 +5,20 @@ import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import StafferWrapper from "../pages/staffer/stafferWrapper";
+import ProjectTable from "../components/stafferComponents/ProjectTable"; // Importa ProjectTable
 
+// Datos de proyectos simulados
+const simulatedProjects = [
+  {
+    name: 'Proyecto 1',
+    client: 'Cliente A',
+    completionPercentage: 50,
+    dueDate: '2023-04-30',
+    positions: 3,
+    vacancies: 2,
+  },
+  // Agrega más proyectos según sea necesario
+];
 
 const router = createBrowserRouter([
   {
@@ -24,7 +37,7 @@ const router = createBrowserRouter([
     path: "account_manager",
     element: (
       <>
-        <AccountManagerWrapper route="/account_manager" routes = {["/", "/clients", "/projects", "/positions"]}/>
+        <AccountManagerWrapper route="/account_manager" routes={["/", "/clients", "/projects", "/positions"]} />
       </>
     ),
     children: [
@@ -75,7 +88,7 @@ const router = createBrowserRouter([
     path: "staffer",
     element: (
       <>
-        <StafferWrapper route = "/staffer" routes = {["/", "/projects", "/people"]}/>
+        <StafferWrapper route="/staffer" routes={["/", "/projects", "/people"]} />
       </>
     ),
     children: [
@@ -89,11 +102,7 @@ const router = createBrowserRouter([
       },
       {
         path: "projects",
-        element: (
-          <>
-            <h1>Projects</h1>
-          </>
-        ),
+        element: <ProjectTable projects={simulatedProjects} />,
       },
       {
         path: "people",
@@ -118,4 +127,5 @@ const router = createBrowserRouter([
     element: <ErrorPage />,
   },
 ]);
+
 export default router;

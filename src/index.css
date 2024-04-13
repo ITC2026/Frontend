@@ -57,6 +57,16 @@ a:hover {
   border-color: #2d1154;
 }
 
+.white {
+  background: white;
+  border-color: white;
+}
+
+.background-gray {
+  background: #283343BF;
+  border-color: #283343BF
+}
+
 /* Button Colors */
 
 .encora-purple-button {
@@ -68,4 +78,14 @@ a:hover {
   background: #C1B2D4;
   border-color: #C1B2D4;
   color: #44197e;
+}
+
+.gray-button {
+  background: #A3A3A3;
+  border-color: #A3A3A3;
+}
+
+.gray-button:hover {
+  background: #6C757D;
+  border-color: #6C757D;
 }

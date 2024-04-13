@@ -4,6 +4,7 @@ import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
+import TestModal from "../pages/TestModal/TestModal";
 
 
 const router = createBrowserRouter([
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <ErrorPage />,
+  },
+  {
+    path: "/testModal",
+    element: <TestModal />,
   },
 ]);
 export default router;

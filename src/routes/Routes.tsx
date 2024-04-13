@@ -6,8 +6,6 @@ import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import ProjectPage from "../pages/accountManager/projects/Projects";
 
-const categories = ["Name", "Age", "Sex"];
-
 const router = createBrowserRouter([
   {
     path: "login",
@@ -49,7 +47,7 @@ const router = createBrowserRouter([
         path: "projects",
         element: (
           <>
-            <ProjectPage categories={categories} />
+            <ProjectPage />
           </>
         ),
       },

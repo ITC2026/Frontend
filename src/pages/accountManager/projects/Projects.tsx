@@ -1,48 +1,26 @@
 import "./Projects.css";
-import Table from "react-bootstrap/Table";
+import TableView from "../../../components/table/Table";
+import { Project } from "../../../types/.";
+import { getAllProjects } from "../../../api/ProjectAPI";
+import { useState, useEffect } from "react";
 
-interface Props {
-  categories: string[];
-}
+const projectCategories = ["Project Name", "Description", "Client ID"];
 
-const ProjectPage = (prop: Props) => {
+const ProjectPage = () => {
+  const [project, setProject] = useState<Project[]>([]);
+
+  useEffect(() => {
+    getAllProjects().then((data: any) => {
+      setProject(data);
+      console.log(data);
+    });
+  }, [setProject]);
+
   return (
     <div>
       <h1>Proyectos</h1>
 
-      <Table striped bordered hover className="custom-table">
-        <thead>
-          <tr>
-            <th className="bg-custom-encora text-light">#</th>
-            {prop.categories.map((category: string, index: number) => (
-              <th key={index} className="bg-tr-custom-encora text-light">
-                {category}
-              </th>
-            ))}
-            <th className="bg-tr-custom-encora text-light">Options</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td> a </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td colSpan={2}>Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </Table>
+      <TableView categories={projectCategories} content={project} />
     </div>
   );
 };

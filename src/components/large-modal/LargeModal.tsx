@@ -1,10 +1,11 @@
 import "./LargeModal.css";
 import "../../index.css"
-//import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 interface Props {
   titleModal: string;
-  btnArr: React.ReactNode[];
+  btnArr?: React.ReactNode[];
+  typeOfModal: string;
 }
 
 const LargeModal = (props: Props) => {
@@ -13,7 +14,13 @@ const LargeModal = (props: Props) => {
       <div className="large-modal white">
         <h1>{props.titleModal}</h1>
         <div className="button-wrapper">
-          {props.btnArr.map((btn) => btn)}
+          {props.btnArr && props.btnArr.map((btn) => btn)}
+          <button 
+            type="submit" 
+            className={"btn btn-primary " + (props.typeOfModal === "Info" ? "encora-purple-button" : "gray-button")}
+          >
+            {props.typeOfModal === "Info" ? "Finalizar" : "Cancelar"}
+          </button>
         </div>
       </div>
     </div>

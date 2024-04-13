@@ -11,4 +11,4 @@ const FinishButton = () => {
   )
 }
 
-export default FinishButton
+export default FinishButton;

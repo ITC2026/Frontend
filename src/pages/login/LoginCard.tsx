@@ -42,7 +42,7 @@ const LoginCard = () => {
         
         <button 
           type="submit" 
-          className="btn btn-primary encora-purple-button" 
+          className="btn btn-primary encora-purple-button " 
           id="login-button"
         >
           Submit

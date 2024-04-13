@@ -4,6 +4,7 @@ import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
+import StafferWrapper from "../pages/staffer/stafferWrapper";
 
 
 const router = createBrowserRouter([
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
     path: "account_manager",
     element: (
       <>
-        <AccountManagerWrapper route="/account_manager"/>
+        <AccountManagerWrapper route="/account_manager" routes = {["/", "/clients", "/projects", "/positions"]}/>
       </>
     ),
     children: [
@@ -69,6 +70,48 @@ const router = createBrowserRouter([
       },
     ],
     errorElement: <ErrorPage />,
+  },
+  {
+    path: "staffer",
+    element: (
+      <>
+        <StafferWrapper route = "/staffer" routes = {["/", "/projects", "/people"]}/>
+      </>
+    ),
+    children: [
+      {
+        path: "",
+        element: (
+          <>
+            <h1>Dashboards</h1>
+          </>
+        ),
+      },
+      {
+        path: "projects",
+        element: (
+          <>
+            <h1>Projects</h1>
+          </>
+        ),
+      },
+      {
+        path: "people",
+        element: (
+          <>
+            <h1>People</h1>
+          </>
+        ),
+      },
+      {
+        path: "settings",
+        element: (
+          <>
+            <SettingsPage />
+          </>
+        ),
+      },
+    ],
   },
   {
     path: "*",

@@ -4,16 +4,15 @@ import { Outlet } from "react-router-dom";
 
 interface Props {
   route: string;
+  routes: string[];
 }
-
-const accountManagerRoutes = ["/", "/clients", "/projects", "/positions"];
 
 const AccountManagerWrapper = (props: Props) => {
   return (
     <div className="account-manager-wrapper">
       <Navbar
         route={props.route}
-        routes={accountManagerRoutes}
+        routes={props.routes}
         windowTitle="Account Manager"
       />
       <div className="account-manager-content">

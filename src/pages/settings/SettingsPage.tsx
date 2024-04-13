@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import React from "react";
 import "./SettingsPage.css";
-=======
-import "./SettingsPage.css";
-
->>>>>>> 043f1b8a8b0bfff906bc98b3a338751c971cd782
 function SettingsPage() {
   return (
     <div>

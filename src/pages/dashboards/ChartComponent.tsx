@@ -6,13 +6,15 @@ interface ChartComponentProps {
   data: number[];
   labels: string[];
   labelcolor: string;
+  legendDisplay: boolean;
+  legendposition: 'top' | 'bottom' | 'left' | 'right';
   axiscolor: string;
   bgcolor: string[];
   bdcolor: string;
   bdwidth: number;
 }
 
-const ChartComponent: React.FC<ChartComponentProps> = ({ type, data, labels, labelcolor, axiscolor, bgcolor, bdcolor, bdwidth}) => {
+const ChartComponent: React.FC<ChartComponentProps> = ({ type, data, labels, labelcolor, legendDisplay, legendposition, axiscolor, bgcolor, bdcolor, bdwidth}) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstance = useRef<Chart>();
 
@@ -28,7 +30,7 @@ const ChartComponent: React.FC<ChartComponentProps> = ({ type, data, labels, lab
         }
 
         // Create a new chart instance
-        chartInstance.current = new Chart(ctx, createChartConfig(type, data, labels, labelcolor, axiscolor, bgcolor, bdcolor, bdwidth));
+        chartInstance.current = new Chart(ctx, createChartConfig(type, data, labels, labelcolor, legendDisplay, legendposition, axiscolor, bgcolor, bdcolor, bdwidth));
       }
     }
 
@@ -44,7 +46,7 @@ const ChartComponent: React.FC<ChartComponentProps> = ({ type, data, labels, lab
 };
 
 // Helper function to create chart configuration
-const createChartConfig = (type: keyof ChartTypeRegistry, data: number[], labels: string[], labelcolor: string, axiscolor: string ,bgcolor: string[], bdcolor: string, bdwidth: number): ChartConfiguration => {
+const createChartConfig = (type: keyof ChartTypeRegistry, data: number[], labels: string[], labelcolor: string, legendDisplay: boolean , legendposition: 'top' | 'bottom' | 'left' | 'right', axiscolor: string ,bgcolor: string[], bdcolor: string, bdwidth: number): ChartConfiguration => {
   return {
     type: type,
     data: {
@@ -80,10 +82,12 @@ const createChartConfig = (type: keyof ChartTypeRegistry, data: number[], labels
           labels: {
             color: labelcolor, // Example color
           },
+          display: legendDisplay,
+          position: legendposition,
         },
+      }, 
     },
-  },
-};
+  };
 };
 
 export default ChartComponent;

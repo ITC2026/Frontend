@@ -18,10 +18,6 @@ const router = createBrowserRouter([
     element: <SettingsPage />,
   },
   {
-    path: "/chart",
-    element: <Chart />,
-  },
-  {
     path: "",
     element: <App />,
   },
@@ -37,7 +33,7 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <>
-            <h1>home</h1>
+          <Chart />,
           </>
         ),
       },

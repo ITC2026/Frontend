@@ -3,11 +3,9 @@ import "../../index.css"
 import { useState, useEffect } from "react";
 
 interface Props {
-  
   titleModal: string;
   btnArr?: React.ReactNode[];
   typeOfModal: string;
-  children?: React.ReactNode;
 }
 
 const LargeModal = (props: Props) => {
@@ -15,10 +13,6 @@ const LargeModal = (props: Props) => {
     <div className="overlay background-gray">
       <div className="large-modal white">
         <h1>{props.titleModal}</h1>
-        <div className="modal-content">
-          {props.children}
-        </div>
-        
         <div className="button-wrapper">
           {props.btnArr && props.btnArr.map((btn) => btn)}
           <button 

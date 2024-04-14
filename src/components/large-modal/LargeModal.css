@@ -6,10 +6,10 @@
 }
 
 .large-modal {
-  width: 82.125rem;
-  height: 55.5rem;
+  width: 60rem;
+  height: 40rem;
   border-radius: 0.9375rem;
-  padding: 5rem;
+  padding: 4rem;
   position: relative;
   top: 50%;
   left: 50%;

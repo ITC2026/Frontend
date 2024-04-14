@@ -9,6 +9,7 @@ import AAAAAA from "../../components/buttons/AAAAAA";
 import BBBBBB from "../../components/buttons/BBBBBB";
 
 
+import ModalRegistrarCliente from "../../components/accountModals/registrarCliente";
 const buttonArray: React.ReactNode[] = [<AAAAAA/>, <BBBBBB/>];
 
 
@@ -16,10 +17,11 @@ const TestModal = () => {
   return (
     <div className="login-container">
       <LargeModal 
-        titleModal="Test" 
+        titleModal="Registrar Cliente" 
         btnArr={buttonArray} 
-        typeOfModal="Modificar"
-      />
+        typeOfModal="Modificar">
+        <ModalRegistrarCliente />
+      </LargeModal>
       <div className="login-card">
         <LoginCard />
       </div>

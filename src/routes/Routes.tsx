@@ -6,7 +6,7 @@ import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import StafferWrapper from "../pages/staffer/stafferWrapper";
 import ProjectTable from "../components/stafferComponents/ProjectTable";
-import PeoplePage from "../pages/staffer/PeoplePage"; // Asegúrate de que esta ruta sea correcta
+import PeoplePage from "../pages/staffer/PeoplePage";
 
 const simulatedProjects = [
   {
@@ -101,7 +101,7 @@ const router = createBrowserRouter([
       },
       {
         path: "people",
-        element: <PeoplePage />, // Aquí es donde se renderiza PeoplePage
+        element: <PeoplePage />, 
       },
       {
         path: "settings",

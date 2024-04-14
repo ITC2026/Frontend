@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './BenchTable.css';
 import vectorIcon from '../../assets/Staffer/Vector.png';
 import vectorIcon1 from '../../assets/Staffer/Vector (1).png';
+import ChangeStatusModal from '../stafferComponents/ChangeStatusModal';
 
 interface Postulate {
     name: string;
@@ -15,6 +16,12 @@ interface TableProps {
 }
 
 const BenchTable: React.FC<TableProps> = ({ postulates }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleImageClick = () => {
+        setIsModalOpen(true);
+    };
+
     return (
         <div className="bench-table-container">
             <h2 className="bench-table-title">Lista de Postulados en Bench</h2>
@@ -38,13 +45,14 @@ const BenchTable: React.FC<TableProps> = ({ postulates }) => {
                             <td>
                                 <div className="icon-container">
                                     <img src={vectorIcon} alt="Opciones" className="option-icon-1" />
-                                    <img src={vectorIcon1} alt="Opciones" className="option-icon-2" />
+                                    <img src={vectorIcon1} alt="Opciones" className="option-icon-2" onClick={handleImageClick} />
                                 </div>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+            <ChangeStatusModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </div>
     );
 };

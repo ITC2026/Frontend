@@ -7,6 +7,16 @@
     width: 150%;
 }
 
+.buttons-container {
+    display: flex;
+    justify-content: flex-start; 
+    margin-bottom: 50px; 
+}
+
+.buttons-container button {
+    margin-right: 10px; 
+}
+
 .bench-table-title {
     font-size: 48px;
     font-weight: bold;
@@ -43,5 +53,5 @@
 
 
 .icon-container img {
-    margin-right: 10px; /* Ajusta este valor para reducir el espacio */
+    margin-right: 10px; 
 }

@@ -1,6 +1,13 @@
+<<<<<<< HEAD
+import React from "react";
+import "./SettingsPage.css";
+=======
+import "./SettingsPage.css";
+
+>>>>>>> 043f1b8a8b0bfff906bc98b3a338751c971cd782
 function SettingsPage() {
   return (
-    <>
+    <div>
       <h1>Configuración</h1>
       <h4>Seleccionar estilo de la plataforma:</h4>
       <select className="form-select" aria-label="Default select example">
@@ -22,7 +29,7 @@ function SettingsPage() {
         <option selected>Español</option>
         <option value="1">Ingles</option>
       </select>
-    </>
+    </div>
   );
 }
 

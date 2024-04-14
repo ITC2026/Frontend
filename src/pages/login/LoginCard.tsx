@@ -1,8 +1,11 @@
 import "./LoginPage.css";
 import EncoraLogo from "../../assets/EncoraLogo";
 import MicrosoftLogo from "../../assets/MicrosoftLogo";
+import { useNavigate } from "react-router-dom";
 
 const LoginCard = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="login-view">
       <form>
@@ -44,8 +47,9 @@ const LoginCard = () => {
           type="submit" 
           className="btn btn-primary encora-purple-button" 
           id="login-button"
+          onClick={() => navigate("/")}
         >
-          Submit
+          Login
         </button>
 
         <button

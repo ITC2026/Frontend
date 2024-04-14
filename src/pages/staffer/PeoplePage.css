@@ -1,0 +1,7 @@
+.buttons-container {
+    display: flex;
+    justify-content: flex-start; /* Alinea los botones a la izquierda */
+    margin-bottom: 20px; /* Ajusta el espacio entre los botones y el título */
+    margin-left: 20px; /* Aumenta este valor para mover los botones hacia la derecha */
+    margin-top: 10px; /* Disminuye este valor para mover los botones hacia arriba */
+}

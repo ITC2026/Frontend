@@ -5,9 +5,9 @@ import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import StafferWrapper from "../pages/staffer/stafferWrapper";
-import ProjectTable from "../components/stafferComponents/ProjectTable"; // Importa ProjectTable
+import ProjectTable from "../components/stafferComponents/ProjectTable";
+import PeoplePage from "../pages/staffer/PeoplePage"; // Asegúrate de que esta ruta sea correcta
 
-// Datos de proyectos simulados
 const simulatedProjects = [
   {
     name: 'Proyecto 1',
@@ -17,7 +17,6 @@ const simulatedProjects = [
     positions: 3,
     vacancies: 2,
   },
-  // Agrega más proyectos según sea necesario
 ];
 
 const router = createBrowserRouter([
@@ -59,11 +58,7 @@ const router = createBrowserRouter([
       },
       {
         path: "projects",
-        element: (
-          <>
-            <h1>projects</h1>
-          </>
-        ),
+        element: <ProjectTable projects={simulatedProjects} />,
       },
       {
         path: "settings",
@@ -106,11 +101,7 @@ const router = createBrowserRouter([
       },
       {
         path: "people",
-        element: (
-          <>
-            <h1>People</h1>
-          </>
-        ),
+        element: <PeoplePage />, // Aquí es donde se renderiza PeoplePage
       },
       {
         path: "settings",

@@ -43,14 +43,14 @@ const Chart: React.FC = () => {
         <div className='col-sm-6 c1'>
 
           <div className='graph1'>
-            <h2 className='graph1-title'>Simple Chart Example 1</h2>
+            <h2 className='graph1-title'>Estado Actual de Postulados</h2>
             <ChartComponent type={chartType} data={chartData} labels={chartLabels} legendDisplay={legendDisplay} legendposition={legendposition} labelcolor={labelcolor} axiscolor={axiscolor} bgcolor={chartBgColor} bdcolor={chartBdColor} bdwidth={chartBdWidths} />
           </div>
 
           <div><br></br></div>
 
           <div className='graph3'>
-            <h2 className='graph1-title'>Simple Chart Example 3</h2>
+            <h2 className='graph1-title'>Tech Stacks en Empleados</h2>
             <ChartComponent type={chartType2} data={chartData3} labels={chartLabels2}  legendDisplay={legendDisplay2} legendposition={legendposition} labelcolor={labelcolor} axiscolor={axiscolor} bgcolor={chartBgColor2} bdcolor={chartBdColor2} bdwidth={chartBdWidths3} />
           </div>
 
@@ -59,14 +59,14 @@ const Chart: React.FC = () => {
         <div className='col-sm-6'>
 
           <div className='graph2'>
-            <h2 className='graph1-title'>Simple Chart Example 2</h2>
+            <h2 className='graph1-title'>Tech Stacks en Posiciones</h2>
             <ChartComponent type={chartType2} data={chartData2} labels={chartLabels2}  legendDisplay={legendDisplay2} legendposition={legendposition} labelcolor={labelcolor} axiscolor={axiscolor} bgcolor={chartBgColor2} bdcolor={chartBdColor2} bdwidth={chartBdWidths2} />
           </div>
 
           <div><br></br></div>
 
           <div className='graph4'>
-            <h2 className='graph1-title'>Simple Chart Example 4</h2>
+            <h2 className='graph1-title'>Posiciones Activas Proyecto</h2>
             <ChartComponent type={chartType2} data={chartData4} labels={chartLabels3} legendDisplay={legendDisplay} legendposition={legendposition} labelcolor={labelcolor} axiscolor={axiscolor} bgcolor={chartBgColor2} bdcolor={chartBdColor2} bdwidth={chartBdWidths2} />
           </div>
 

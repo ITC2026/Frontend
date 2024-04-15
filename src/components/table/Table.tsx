@@ -4,7 +4,7 @@ import { Project } from "../../types/.";
 
 interface Props {
   categories: string[];
-  content?: Project[]; 
+  content?: Project[];
 }
 
 const TableView = (prop: Props) => {
@@ -22,27 +22,22 @@ const TableView = (prop: Props) => {
         </tr>
       </thead>
       <tbody>
-      {prop.content ? (
-    prop.content.map((project: Project, index: number) => (
-      <tr key={index}>
-        <td>{index + 1}</td>
-        <td>{project.project_title || "N/A"}</td>
-        <td>{project.project_description || "N/A"}</td>
-        <td>{project.client_id || "N/A"}</td>
-        <td>
-          {/* Add options here */}
-        </td>
-      </tr>
-    ))
-  ) : (
-    <tr>
-      <td colSpan={prop.categories.length + 2}>No projects available</td>
-    </tr>
-  )}
-
+        {prop.content ? (
+          prop.content.map((project: Project, index: number) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{project.project_title}</td>
+              <td>{project.project_description}</td> 
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan={prop.categories.length + 2}>No projects available</td>
+          </tr>
+        )}
       </tbody>
     </Table>
   );
-}
+};
 
 export default TableView;

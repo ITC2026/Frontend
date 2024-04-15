@@ -4,14 +4,14 @@ import { Project } from "../../../types/.";
 import { getAllProjects } from "../../../api/ProjectAPI";
 import { useState, useEffect } from "react";
 
-const projectCategories = ["Project Name", "Description", "Client ID"];
+const projectCategories = ["Title", "Description", "Client ID"];
 
 const ProjectPage = () => {
   const [project, setProject] = useState<Project[]>([]);
 
   useEffect(() => {
-    getAllProjects().then((data: any) => {
-      setProject(data);
+    getAllProjects().then((data: unknown) => {
+      setProject(data as Project[]);
       console.log(data);
     });
   }, [setProject]);

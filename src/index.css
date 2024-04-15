@@ -90,10 +90,12 @@ a:hover {
   border-color: #6C757D;
 }
 
-.green {
-  background: green;
+.red-encora-button {
+  background: #FF564D;
+  border-color: #FF564D;
 }
 
-.blue {
-  background: blue;
+.red-encora-button:hover {
+  background: #FFC7C4;
+  border-color: #FFC7C4;
 }

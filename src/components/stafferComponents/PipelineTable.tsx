@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import './PipelineTable.css';
+import './BenchTable.css';
 import vectorIcon from '../../assets/Staffer/Vector.png';
 import vectorIcon1 from '../../assets/Staffer/Vector (1).png';
 import ChangeStatusModal from '../stafferComponents/ChangeStatusModal';
+import SearchBar from '../SearchBar/Search_bar.tsx';
 
 interface Postulate {
     name: string;
@@ -15,16 +16,24 @@ interface TableProps {
     postulates: Postulate[];
 }
 
-const BenchTable: React.FC<TableProps> = ({ postulates }) => {
+const PipelineTable: React.FC<TableProps> = ({ postulates }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const handleImageClick = () => {
         setIsModalOpen(true);
     };
 
+    const filteredPostulates = postulates.filter(postulate =>
+        postulate.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        postulate.project.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        postulate.position.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div className="bench-table-container">
-            <h2 className="bench-table-title">Lista de Postulados en Bench</h2>
+            <h2 className="bench-table-title">Lista de Postulados en Pipeline</h2>
+            <SearchBar onSearchTermChange={setSearchTerm} />
             <table className="table">
                 <thead>
                     <tr>
@@ -36,7 +45,7 @@ const BenchTable: React.FC<TableProps> = ({ postulates }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {postulates.map((postulate, index) => (
+                    {filteredPostulates.map((postulate, index) => (
                         <tr key={index}>
                             <td>{postulate.name}</td>
                             <td>{postulate.project}</td>
@@ -57,4 +66,4 @@ const BenchTable: React.FC<TableProps> = ({ postulates }) => {
     );
 };
 
-export default BenchTable;
+export default PipelineTable;

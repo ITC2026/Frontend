@@ -1,42 +1,42 @@
 .project-table-container {
- background-color: var(--encora-purple);
- color: white;
- overflow-y: auto;
- max-height: 400px;
- padding: 20px;
- width: 150%; 
+    background-color: var(--encora-purple);
+    color: white;
+    padding: 20px;
+    width: 150%;
+    max-height: 80vh; 
+    overflow-y: auto; 
 }
 
 .project-table-title {
- font-size: 48px;
- font-weight: bold;
- color: black;
- margin-bottom: 70px;
- margin-top: 30px;
+    font-size: 48px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 70px;
+    margin-top: 30px;
 }
 
 .table {
- width: 90%; 
- border-collapse: collapse; 
+    width: 100%; 
+    border-collapse: collapse; 
 }
 
 .table th,
 .table td {
- padding: 8px;
- text-align: center;
- font-weight: normal; 
- font-family: 'Inter', sans-serif; 
+    padding: 8px;
+    text-align: center;
+    font-weight: normal; 
+    font-family: 'Inter', sans-serif; 
 }
 
 .table th {
- background-color: #44197e;
- color: white;
+    background-color: #44197e;
+    color: white;
 }
 
 .table tbody tr:nth-child(even) {
- background-color: darkgray !important; 
+    background-color: darkgray !important; 
 }
 
 .table tbody tr:nth-child(odd) {
- background-color: white !important;
+    background-color: white !important;
 }

@@ -34,7 +34,7 @@ const clientProps: {
 
 const buttonsModify: React.ReactNode[] = [<FinishButton/>, <DeleteButton entityName={clientProps.Entity}/>];
 
-const renderModal = (modalType: string | null, closeModal: Function) => {
+const renderModal = (modalType: string | null, closeModal: () => void) => {
   switch (modalType) {
     case "Info":
       return (

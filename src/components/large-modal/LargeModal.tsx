@@ -1,8 +1,7 @@
 import "./LargeModal.css";
 import "../../index.css"
-//import { useState, useEffect } from "react";
 
-//type InputType = "text" | "btn" | "checkmark" | "dropdown" | null;
+type InputType = "text" | "btn" | "checkmark" | "dropdown" | null;
 type ModalType = "Info" | "Register" | "Modify";
 
 interface Props {
@@ -10,20 +9,12 @@ interface Props {
   btnArr?: React.ReactNode[];
   typeOfModal: ModalType;
   entityAttributes: {
-    Entity: string;
+    Entity: string,
     Attributes: {
-        "Nombre de Cliente": string;
-        "Descripción": string;
-        "Contrato": string;
-        "Logo": string;
-        "High-Growth Client": string;
-        "Division": string;
-        "ID del Cliente": string | null;
-        "Creado en": string | null;
-        "Última Actualización": string | null;
-    };
-};
-  onClose: Function;
+      [key: string]: string | null;
+    },
+  }
+  onClose: () => void;
 }
 
 const LargeModal = ({ titleModal, btnArr, typeOfModal, entityAttributes, onClose }: Props) => {

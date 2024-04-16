@@ -4,15 +4,15 @@ import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
-
+import ProjectPage from "../pages/accountManager/projects/Projects";
 
 const router = createBrowserRouter([
   {
-    path: "/login",
+    path: "login",
     element: <LoginPage />,
   },
   {
-    path: "/settings",
+    path: "settings",
     element: <SettingsPage />,
   },
   {
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     path: "account_manager",
     element: (
       <>
-        <AccountManagerWrapper route="/account_manager"/>
+        <AccountManagerWrapper route="/account_manager" />
       </>
     ),
     children: [
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         path: "projects",
         element: (
           <>
-            <h1>projects</h1>
+            <ProjectPage />
           </>
         ),
       },

@@ -70,32 +70,76 @@ a:hover {
 /* Button Colors */
 
 .encora-purple-button {
-  background: #44197e;
-  border-color: #44197e;
+  background: #44197e !important;
+  border: 0;
 }
 
 .encora-purple-button:hover {
-  background: #C1B2D4;
-  border-color: #C1B2D4;
-  color: #44197e;
+  background: #C1B2D4 !important;
+  color: #44197e !important;
+}
+
+.encora-purple-button:active {
+  background:#2D1154 !important;
+  color: white !important;
+}
+
+.encora-purple-file::file-selector-button {
+  background: #44197e !important;
+  border: 0;
+  color: white !important;
+}
+
+.encora-purple-file:focus {
+  border-color: #DAD1E5 !important;
+  box-shadow: 0 0 0 0.2rem #F8F3FF
+}
+
+.encora-purple-check {
+  border-color: #44197e;
+}
+
+.encora-purple-check:checked {
+  background-color: #44197e;
+  border: 0;
+}
+
+.encora-purple-check:focus {
+  border-color: #DAD1E5;
+  box-shadow: 0 0 0 0.2rem #F8F3FF;
+}
+
+.encora-purple-dropitem:active {
+  background: #44197e !important;
+  color: white;
 }
 
 .gray-button {
-  background: #A3A3A3;
-  border-color: #A3A3A3;
+  background: #A3A3A3 !important;
+  border: 0;
 }
 
 .gray-button:hover {
-  background: #6C757D;
-  border-color: #6C757D;
+  background: #D1D1D1 !important;
+  color: #A3A3A3 !important;
+}
+
+.gray-button:active {
+  background: #616161 !important;
+  color: white !important;
 }
 
 .red-encora-button {
-  background: #FF564D;
-  border-color: #FF564D;
+  background: #FF564D !important;
+  border: 0;
 }
 
 .red-encora-button:hover {
-  background: #FFC7C4;
-  border-color: #FFC7C4;
+  background: #FFC7C4 !important;
+  color: #FF564D !important;
+}
+
+.red-encora-button:active {
+  background: #86352D !important;
+  color: white !important;
 }

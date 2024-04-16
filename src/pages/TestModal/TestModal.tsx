@@ -1,33 +1,17 @@
 import "../login/LoginPage.css";
 import React, { useState } from "react";
-import LargeModal from "../../components/large-modal/LargeModal";
+import LargeModal, { EntityAttributesType, ModalType } from "../../components/large-modal/LargeModal";
 import FinishButton from "../../components/buttons/FinishButton";
 import DeleteButton from "../../components/buttons/DeleteButton";
 
-const clientProps: {
-  Entity: string;
-  Attributes: {
-    "Nombre de Cliente": string;
-    Descripción: string;
-    Contrato: string;
-    Logo: string;
-    Date: string;
-    "High-Growth Client": string;
-    Division: string;
-
-    "ID del Cliente": string | null;
-    "Creado en": string | null;
-    "Última Actualización": string | null;
-  };
-} = {
+const clientProps: EntityAttributesType = {
   Entity: "Cliente",
   Attributes: {
     "Nombre de Cliente": "text",
     Descripción: "text",
-    Contrato: "button",
-    Logo: "button",
-    Date: "date",
-    "High-Growth Client": "check",
+    Contrato: "file",
+    Logo: "file",
+    "High-Growth Client": "checkbox",
     Division: "dropdown",
     "ID del Cliente": null,
     "Creado en": null,
@@ -40,12 +24,12 @@ const buttonsModify: React.ReactNode[] = [
   <DeleteButton entityName={clientProps.Entity} />,
 ];
 
-const renderModal = (modalType: string | null, closeModal: () => void) => {
+const renderModal = (modalType: ModalType, closeModal: () => void) => {
   switch (modalType) {
     case "Info":
       return (
         <LargeModal
-          titleModal="Información de Clientes"
+          titleModal="Información de Cliente"
           typeOfModal={modalType}
           entityAttributes={clientProps}
           onClose={closeModal}
@@ -54,7 +38,7 @@ const renderModal = (modalType: string | null, closeModal: () => void) => {
     case "Register":
       return (
         <LargeModal
-          titleModal="Registrar Clientes"
+          titleModal="Registrar Cliente"
           btnArr={[<FinishButton />]}
           typeOfModal={modalType}
           entityAttributes={clientProps}
@@ -64,7 +48,7 @@ const renderModal = (modalType: string | null, closeModal: () => void) => {
     case "Modify":
       return (
         <LargeModal
-          titleModal="Modificar Clientes"
+          titleModal="Modificar Cliente"
           btnArr={buttonsModify}
           typeOfModal={modalType}
           entityAttributes={clientProps}
@@ -77,7 +61,7 @@ const renderModal = (modalType: string | null, closeModal: () => void) => {
 };
 
 const TestModal = () => {
-  const [modalType, setModalType] = useState<string | null>(null);
+  const [modalType, setModalType] = useState<ModalType>(null);
   const closeModal = () => setModalType(null);
 
   return (
@@ -103,7 +87,7 @@ const TestModal = () => {
       >
         Modificar
       </button>
-      {renderModal(modalType, closeModal)}
+      {modalType && renderModal(modalType, closeModal)}
     </div>
   );
 };

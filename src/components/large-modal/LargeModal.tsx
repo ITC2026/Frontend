@@ -1,48 +1,106 @@
 import "./LargeModal.css";
 import "../../index.css";
-
-import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 
-type InputType = "text" | "button" | "check" | "dropdown" | "date" | null;
-type ModalType = "Info" | "Register" | "Modify";
+type InputType = "text" | "file" | "checkbox" | "dropdown" | "date" | null;
+
+export type ModalType = "Info" | "Register" | "Modify" | null;
+
+export interface EntityAttributesType {
+  Entity: string;
+  Attributes: {
+    [key: string]: InputType;
+  };
+}
 
 interface Props {
   titleModal: string;
   btnArr?: React.ReactNode[];
   typeOfModal: ModalType;
-  entityAttributes: {
-    Entity: string;
-    Attributes: {
-      [key: string]: InputType;
-    };
-  };
+  entityAttributes: EntityAttributesType;
   onClose: () => void;
 }
 
-const renderInput = (input: InputType) => {
+const renderInput = (nameInput: string, input: InputType) => {
   switch (input) {
     case "text":
-      return <Form.Control type="name" placeholder="" />;
-    case "button":
-      return <Button type="submit">Upload</Button>;
-    case "check":
-      return <Form.Check label="aglasdg" />;
+      return (
+        <>
+          <Form.Label column sm={6} bsPrefix="label-style text-start">
+            {nameInput}
+          </Form.Label>
+          <Col sm={6}>
+            <Form.Control type="text" />
+          </Col>
+        </>
+      );
+    case "file":
+      return (
+        <>
+          <Form.Label column sm={6} bsPrefix="label-style text-start">
+            {nameInput}
+          </Form.Label>
+          <Col sm={6}>
+            <Form.Control
+              type="file"
+              bsPrefix="encora-purple-file form-control"
+            />
+          </Col>
+        </>
+      );
+    case "checkbox":
+      return (
+        <Col sm={{ span: 6 }}>
+          <Form.Check
+            type={"checkbox"}
+            bsPrefix="label-style text-start form-check"
+          >
+            <Form.Check.Input
+              bsPrefix="encora-purple-check form-check-input"
+              type={"checkbox"}
+            />
+            <Form.Check.Label>{nameInput}</Form.Check.Label>
+          </Form.Check>
+        </Col>
+      );
     case "dropdown":
       return (
-        <DropdownButton id="dropdown-basic-button" title="None">
-          <Dropdown.Item href="#/action-1">Brazil</Dropdown.Item>
-          <Dropdown.Item href="#/action-2">México</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">
-            Central & South America
-          </Dropdown.Item>
-        </DropdownButton>
+        <>
+          <Form.Label column sm={6} className="text-start label-style">
+            {nameInput}
+          </Form.Label>
+          <Col sm={{ span: 1 }}>
+            <DropdownButton
+              id="dropdown-basic-button"
+              title="Ninguno"
+              bsPrefix="encora-purple-button dropdown-style btn"
+            >
+              <Dropdown.Item
+                bsPrefix="encora-purple-dropitem dropitem-style dropdown-item"
+                href="#/action-1"
+              >
+                Placeholder
+              </Dropdown.Item>
+              <Dropdown.Item
+                bsPrefix="encora-purple-dropitem dropitem-style dropdown-item"
+                href="#/action-1"
+              >
+                Placeholder
+              </Dropdown.Item>
+              <Dropdown.Item
+                bsPrefix="encora-purple-dropitem dropitem-style dropdown-item"
+                href="#/action-1"
+              >
+                Placeholder
+              </Dropdown.Item>
+            </DropdownButton>
+          </Col>
+        </>
       );
-
     default:
       return null;
   }
@@ -57,51 +115,26 @@ const LargeModal = ({
 }: Props) => {
   const { Attributes } = entityAttributes;
 
-  const renderPropertiesInfo = () => {
-    return Object.keys(Attributes).map((item) => {
-      return <p key={item}>{item}</p>;
-    });
-  };
-
-  const renderPropertiesRegister = () => {
-    return Object.keys(Attributes).map((key, value) => {
-      if (Attributes[key] == "check") {
+  const renderFormAsRegister = () => {
+    return Object.keys(Attributes).map((nameInput: string) => {
+      if (Attributes[nameInput] !== null) {
         return (
-          <Form.Group as={Row} className="mb-3">
-            <Col sm={{ span: 3, offset: 1 }}>
-              <Form.Check label={key} />
-            </Col>
-          </Form.Group>
-        );
-      } else if (Attributes[key] !== null) {
-        return (
-          <Form.Group as={Row} className="mb-3">
-            <Form.Label column sm={2} className="text-start">
-              {key}
-            </Form.Label>
-            <Col sm={5}>{renderInput(Attributes[key])}</Col>
+          <Form.Group as={Row} className="mb-4 row-width">
+            {renderInput(nameInput, Attributes[nameInput])}
           </Form.Group>
         );
       }
     });
   };
 
-  const renderPropertiesModify = () => {
-    return Object.keys(Attributes).map((item, value) => {
-      if (Attributes[item] !== null) {
-        return <p key={item}>{item}</p>;
-      }
-    });
-  };
-
-  const renderProperties = () => {
+  const renderForm = () => {
     switch (typeOfModal) {
       case "Info":
-        return renderPropertiesInfo();
+        return; //renderFormAsInfo();
       case "Register":
-        return renderPropertiesRegister();
+        return renderFormAsRegister();
       case "Modify":
-        return renderPropertiesModify();
+        return; //renderFormAsModify();
       default:
         return null;
     }
@@ -110,8 +143,8 @@ const LargeModal = ({
   return (
     <div className="overlay background-gray">
       <div className="large-modal white">
-        <h1>{titleModal}</h1>
-        <div>{renderProperties()}</div>
+        <h1 className="heading-form">{titleModal}</h1>
+        <div className="form-group">{renderForm()}</div>
         <div className="button-wrapper">
           {btnArr && btnArr.map((btn) => btn)}
           <button

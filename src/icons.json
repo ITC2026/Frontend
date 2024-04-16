@@ -32,5 +32,41 @@
       "route": "/positions",
       "icon": "bi-person-workspace"
     }
+  ],
+  "staffer": [
+    {
+      "route": "/",
+      "icon": "bi-house-door-fill"
+    },
+    {
+      "route": "/projects",
+      "isSelected": true,
+      "icon": "bi-journal-code"
+    },
+    {
+      "route": "/projects",
+      "isSelected": false,
+      "icon": "bi-journal-code"
+    },
+    {
+      "route": "/postulates",
+      "isSelected": true,
+      "icon": "bi-person-workspace"
+    },
+    {
+      "route": "/postulates",
+      "isSelected": false,
+      "icon": "bi-person-workspace"
+    },
+    {
+      "route": "/settings",
+      "isSelected": true,
+      "icon": "bi-gear-fill"
+    },
+    {
+      "route": "/settings",
+      "isSelected": false,
+      "icon": "bi-gear"
+    }
   ]
 }

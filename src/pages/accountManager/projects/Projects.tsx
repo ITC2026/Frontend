@@ -4,23 +4,31 @@ import { Project } from "../../../types/.";
 import { getAllProjects } from "../../../api/ProjectAPI";
 import { useState, useEffect } from "react";
 
-const projectCategories = ["Title", "Description", "Client ID"];
+const projectBlueprint = {
+  "project_title": "Nombre del Proyecto",
+  "client_name": "Cliente",
+  "account_manager": "Account Manager",
+  "percentage_complete": "% de Cobertura",
+  "start_date": "Fecha de Apertura",
+  "expiration_date": "Fecha de Cierre",
+}
+
 
 const ProjectPage = () => {
-  const [project, setProject] = useState<Project[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
     getAllProjects().then((data: unknown) => {
-      setProject(data as Project[]);
+      setProjects(data as Project[]);
       console.log(data);
     });
-  }, [setProject]);
+  }, [setProjects]);
 
   return (
     <div>
       <h1>Proyectos</h1>
 
-      <TableView categories={projectCategories} content={project} />
+      <TableView entity = {projects} types = {projectBlueprint}/>
     </div>
   );
 };

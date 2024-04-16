@@ -1,4 +1,4 @@
-interface Person {
+export interface Person {
   id: number;
   first_name: string;
   last_name: string;
@@ -14,7 +14,7 @@ interface Person {
   movement_reason: string;
 }
 
-interface Opening {
+export interface Opening {
   id: number;
   opening_status: string;
   opening_reason: string;

@@ -61,11 +61,10 @@ a:hover {
 
 .encora-purple-button {
   background: #44197e;
-  border-color: #44197e;
+  border: 0;
 }
 
 .encora-purple-button:hover {
   background: #C1B2D4;
   border-color: #C1B2D4;
-  color: #44197e;
 }

@@ -4,7 +4,7 @@ import { Project } from "../../../types/.";
 import { getAllProjects } from "../../../api/ProjectAPI";
 import { useState, useEffect } from "react";
 
-const projectBlueprint = {
+const project_structure = {
   "project_title": "Nombre del Proyecto",
   "client_name": "Cliente",
   "account_manager": "Account Manager",
@@ -28,7 +28,7 @@ const ProjectPage = () => {
     <div>
       <h1>Proyectos</h1>
 
-      <TableView entity = {projects} types = {projectBlueprint}/>
+      <TableView entity = {projects} types = {project_structure}/>
     </div>
   );
 };

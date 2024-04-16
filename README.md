@@ -4,7 +4,6 @@
 
 Prof. Sasha Valdés Jímenez 
 
-
 ### Integrantes 
 
 - Daniel Fernández Clausen - A01254659

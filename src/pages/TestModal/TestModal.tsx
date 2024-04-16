@@ -1,6 +1,9 @@
 import "../login/LoginPage.css";
 import React, { useState } from "react";
-import LargeModal, { EntityAttributesType, ModalType } from "../../components/large-modal/LargeModal";
+import LargeModal, {
+  EntityAttributesType,
+  ModalType,
+} from "../../components/large-modal/LargeModal";
 import FinishButton from "../../components/buttons/FinishButton";
 import DeleteButton from "../../components/buttons/DeleteButton";
 
@@ -13,9 +16,9 @@ const clientProps: EntityAttributesType = {
     Logo: "file",
     "High-Growth Client": "checkbox",
     Division: "dropdown",
-    "ID del Cliente": null,
-    "Creado en": null,
-    "Última Actualización": null,
+    "ID del Cliente": "text",
+    "Creado en": "text",
+    "Última Actualización": "text",
   },
 };
 

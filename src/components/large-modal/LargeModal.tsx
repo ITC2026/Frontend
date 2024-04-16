@@ -30,51 +30,29 @@ const renderInput = (nameInput: string, input: InputType) => {
     case "text":
       return (
         <>
-          <Form.Label column sm={6} bsPrefix="label-style text-start">
-            {nameInput}
-          </Form.Label>
           <Col sm={6}>
-            <Form.Control type="text" />
+            <Form.Control type="text" disabled />
           </Col>
         </>
       );
     case "file":
       return (
         <>
-          <Form.Label column sm={6} bsPrefix="label-style text-start">
-            {nameInput}
-          </Form.Label>
           <Col sm={6}>
             <Form.Control
+              disabled
               type="file"
               bsPrefix="encora-purple-file form-control"
             />
           </Col>
         </>
       );
-    case "checkbox":
-      return (
-        <Col sm={{ span: 6 }}>
-          <Form.Check
-            type={"checkbox"}
-            bsPrefix="label-style text-start form-check"
-          >
-            <Form.Check.Input
-              bsPrefix="encora-purple-check form-check-input"
-              type={"checkbox"}
-            />
-            <Form.Check.Label>{nameInput}</Form.Check.Label>
-          </Form.Check>
-        </Col>
-      );
     case "dropdown":
       return (
         <>
-          <Form.Label column sm={6} className="text-start label-style">
-            {nameInput}
-          </Form.Label>
           <Col sm={{ span: 1 }}>
             <DropdownButton
+              disabled
               id="dropdown-basic-button"
               title="Ninguno"
               bsPrefix="encora-purple-button dropdown-style btn"
@@ -117,9 +95,29 @@ const LargeModal = ({
 
   const renderFormAsRegister = () => {
     return Object.keys(Attributes).map((nameInput: string) => {
-      if (Attributes[nameInput] !== null) {
+      if (Attributes[nameInput] == "checkbox") {
         return (
           <Form.Group as={Row} className="mb-4 row-width">
+            <Col sm={{ span: 6 }}>
+              <Form.Check
+                type={"checkbox"}
+                bsPrefix="label-style text-start form-check"
+              >
+                <Form.Check.Input
+                  bsPrefix="encora-purple-check form-check-input"
+                  type={"checkbox"}
+                />
+                <Form.Check.Label>{nameInput}</Form.Check.Label>
+              </Form.Check>
+            </Col>
+          </Form.Group>
+        );
+      } else if (Attributes[nameInput] !== null) {
+        return (
+          <Form.Group as={Row} className="mb-4 row-width">
+            <Form.Label column sm={6} bsPrefix="label-style text-start">
+              {nameInput}
+            </Form.Label>
             {renderInput(nameInput, Attributes[nameInput])}
           </Form.Group>
         );
@@ -127,14 +125,78 @@ const LargeModal = ({
     });
   };
 
+  const renderFormAsModify = () => {
+    return Object.keys(Attributes).map((nameInput: string) => {
+      if (Attributes[nameInput] == "checkbox") {
+        return (
+          <Form.Group as={Row} className="mb-4 row-width">
+            <Col sm={{ span: 6 }}>
+              <Form.Check
+                type={"checkbox"}
+                bsPrefix="label-style text-start form-check"
+              >
+                <Form.Check.Input
+                  bsPrefix="encora-purple-check form-check-input"
+                  type={"checkbox"}
+                />
+                <Form.Check.Label>{nameInput}</Form.Check.Label>
+              </Form.Check>
+            </Col>
+          </Form.Group>
+        );
+      } else if (Attributes[nameInput] !== null) {
+        return (
+          <Form.Group as={Row} className="mb-4 row-width">
+            <Form.Label column sm={6} bsPrefix="label-style text-start">
+              {nameInput}
+            </Form.Label>
+            {renderInput(nameInput, Attributes[nameInput])}
+          </Form.Group>
+        );
+      }
+    });
+  };
+
+  const renderFormAsInfo = () => {
+    return Object.keys(Attributes).map((nameInput: string) => {
+      if (Attributes[nameInput] == "checkbox") {
+        return (
+          <Form.Group as={Row} className="mb-4 row-width">
+            <Col sm={{ span: 6 }}>
+              <Form.Check
+                type={"checkbox"}
+                bsPrefix="label-style text-start form-check"
+              >
+                <Form.Check.Input
+                  disabled
+                  bsPrefix="encora-purple-check form-check-input"
+                  type={"checkbox"}
+                />
+                <Form.Check.Label>{nameInput}</Form.Check.Label>
+              </Form.Check>
+            </Col>
+          </Form.Group>
+        );
+      }
+      return (
+        <Form.Group as={Row} className="mb-4 row-width">
+          <Form.Label column sm={6} bsPrefix="label-style text-start">
+            {nameInput}
+          </Form.Label>
+          {renderInput(nameInput, Attributes[nameInput])}
+        </Form.Group>
+      );
+    });
+  };
+
   const renderForm = () => {
     switch (typeOfModal) {
       case "Info":
-        return; //renderFormAsInfo();
+        return renderFormAsInfo();
       case "Register":
         return renderFormAsRegister();
       case "Modify":
-        return; //renderFormAsModify();
+        return renderFormAsModify();
       default:
         return null;
     }

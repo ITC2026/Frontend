@@ -1,12 +1,53 @@
 import React from 'react';
 import ChartComponent from './ChartComponent';
 import "./Dashboard.css";
+import { Project } from "../../types";
+import {getAllProjects} from  "../../api/ProjectAPI";
+
+import { Client } from "../../types";
+import {getAllClients} from  "../../api/ClientAPI";
+
+import { useState, useEffect } from 'react';
 
 
 const ChartAccount: React.FC = () => {
+
+  const [projects, setProjects] = useState<Project[]>([])
+
+  useEffect(() => {
+    getAllProjects().then((data: unknown) => {
+      setProjects(data as Project[]);
+      console.log(data);
+    });
+  }, [setProjects]);  
+
+  const [clients, setClients] = useState<Client[]>([])
+  useEffect(() => {
+    getAllClients().then((data: unknown) => {
+      setClients(data as Client[]);
+      console.log(data);
+    });
+  }, [setClients]);
+
+  const projectClientIds = projects.map(project => project.client_id);
+  const uniqueClientIds = [...new Set(projectClientIds)];
+  const validClientsWithProjects = uniqueClientIds
+  .map(clientId => {
+    const matchingClient = clients.find(client => client.id === clientId);
+    return matchingClient ? matchingClient.client_name : ''; // Return client_name if found, otherwise empty string
+  })
+  .filter(clientName => clientName !== ''); // Filter out empty strings
+
+  const clientProjectCounts = validClientsWithProjects.map(clientName => {
+    return projects.filter(project => {
+      const matchingClient = clients.find(client => client.id === project.client_id);
+      return matchingClient ? matchingClient.client_name === clientName : false;
+    }).length;
+  });
+
   const chartType = 'pie';
   const chartType2 = 'bar';
-  
+    
   const legendposition = 'top';
 
   const labelcolor = '#ffffff';
@@ -29,13 +70,13 @@ const ChartAccount: React.FC = () => {
   const chartBdWidths2 = 1;
   const chartBdWidths3 = 1;
 
-  const chartData = [31, 65, 22, 7, 18];
+  const chartData = clientProjectCounts;
   const chartData2 = [1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 12];
   const chartData3 = [1, 1, 3, 3, 1, 1, 2, 2, 2, 1, 3, 1, 5, 7];
   const chartData4 = [2, 7, 3, 2, 3, 1, 2, 3, 3, 1, 3];
 
 
-  const chartLabels = ['Aceptado', 'Rechazado',	'Esperando Feedback', 'Agendado a Cita', 'Recién Postulado'];
+  const chartLabels = validClientsWithProjects;
   const chartLabels2 = ['Appian', 'Golang', 'iOS', 'JavaScript', 'Kotlin', 'PowerApps', 'UX', '.NET', 'Angular', 'Automation', 'Manual Tester', 'Python', 'React', 'Java'];
   const chartLabels3 = ['SOW Google 01.24', 'SOW Temu 01.24', 'SOW Allison 01.23', 'SOW Queen Data 01.24', 'SOW TCE 01.24', 'SOW UIAT 01.23', 'SOW Microsoft 01.24', 'SOW Microsoft 02.24', 'SOW Microsoft 03.24', 'SOW Apprentice 01.24', 'SOW Trolly 01.24'];
 

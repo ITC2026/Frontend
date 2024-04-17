@@ -7,6 +7,10 @@ import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper
 import ChartStaffer from "../pages/dashboards/ChartStaffer";
 import ChartAccount from "../pages/dashboards/ChartAccount";
 import ProjectPage from "../pages/accountManager/projects/Projects";
+//Staffer
+import StafferWrapper from "../pages/staffer/StafferWrapper";
+import ProjectsPage from "../pages/staffer/projects/ProjectsPage";
+import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
 
 const router = createBrowserRouter([
   {
@@ -81,9 +85,44 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
+    path: "staffer",
+    element: (
+      <>
+        <StafferWrapper route="/staffer" routes={["/", "/projects", "/people"]} />
+      </>
+    ),
+    children: [
+      {
+        path: "",
+        element: (
+          <>
+            <h1>Dashboards</h1>
+          </>
+        ),
+      },
+      {
+        path: "projects",
+        element: <ProjectsPage />,
+      },
+      {
+        path: "people",
+        element: <PostulatesPage />, 
+      },
+      {
+        path: "settings",
+        element: (
+          <>
+            <SettingsPage />
+          </>
+        ),
+      },
+    ],
+  },
+  {
     path: "*",
     element: <ErrorPage />,
   },
+  
 ]);
 
 export default router;

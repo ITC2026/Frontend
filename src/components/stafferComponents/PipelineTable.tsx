@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+// PipelineTable.tsx
+import React, { useState, useMemo } from 'react';
 import './BenchTable.css';
 import vectorIcon from '../../assets/Staffer/Vector.png';
 import vectorIcon1 from '../../assets/Staffer/Vector (1).png';
 import ChangeStatusModal from '../stafferComponents/ChangeStatusModal';
 import SearchBar from '../SearchBar/Search_bar.tsx';
+import Sort from '../Sort/sort'; 
 
 interface Postulate {
     name: string;
@@ -19,21 +21,32 @@ interface TableProps {
 const PipelineTable: React.FC<TableProps> = ({ postulates }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [sort, setSort] = useState(false);
 
     const handleImageClick = () => {
         setIsModalOpen(true);
     };
 
-    const filteredPostulates = postulates.filter(postulate =>
-        postulate.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        postulate.project.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        postulate.position.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const sortedPostulates = useMemo(() => {
+        let filteredPostulates = postulates;
+        if (searchTerm) {
+            filteredPostulates = postulates.filter(postulate =>
+                postulate.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                postulate.project.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                postulate.position.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
+        if (sort) {
+            return [...filteredPostulates].sort((a, b) => a.name.localeCompare(b.name));
+        }
+        return filteredPostulates;
+    }, [postulates, searchTerm, sort]);
 
     return (
         <div className="bench-table-container">
             <h2 className="bench-table-title">Lista de Postulados en Pipeline</h2>
             <SearchBar onSearchTermChange={setSearchTerm} />
+            <Sort onSort={setSort} />
             <table className="table">
                 <thead>
                     <tr>
@@ -45,7 +58,7 @@ const PipelineTable: React.FC<TableProps> = ({ postulates }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredPostulates.map((postulate, index) => (
+                    {sortedPostulates.map((postulate, index) => (
                         <tr key={index}>
                             <td>{postulate.name}</td>
                             <td>{postulate.project}</td>

@@ -1,6 +1,11 @@
 import "../../index.css"
+import { ModalType } from "../modal/modalType";
 
-const FinishButton = () => {
+interface Props {
+  typeOfModal: ModalType;
+}
+
+const FinishButton = ({ typeOfModal }: Props) => {
   return (
     <button 
       type="submit" 

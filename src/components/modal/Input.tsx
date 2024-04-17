@@ -54,8 +54,14 @@ const Input = ({ inputType, disableInput }: Props) => {
       );
     case "date":
       return (
-        <>
-        </>
+        <Col sm={6}>
+          <input 
+            type="date"
+            className="encora-purple-input form-control"
+            disabled={disableInput}
+          >
+          </input>
+        </Col>
       )
     default:
       break;

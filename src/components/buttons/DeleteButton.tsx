@@ -1,16 +1,18 @@
 import "../../index.css"
+import { ModalType } from "../modal/modalType";
 
 interface Props {
   entityName: string;
+  typeOfModal: ModalType;
 }
 
-const DeleteButton = (props: Props) => {
+const DeleteButton = ({ entityName, typeOfModal }: Props) => {
   return (
     <button 
       type="submit" 
       className="btn btn-primary red-encora-button"
     >
-      Eliminar {props.entityName}
+      Eliminar {entityName}
     </button>
   )
 }

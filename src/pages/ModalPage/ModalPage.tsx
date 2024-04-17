@@ -47,11 +47,6 @@ const clientForm: EntityFormType = {
   },
 };
 
-const buttonsModify: React.ReactNode[] = [
-  <FinishButton />,
-  <DeleteButton entityName={clientForm.entity} />,
-];
-
 const renderModal = (typeOfModal: ModalType, closeModal: () => void) => {
   switch (typeOfModal) {
     case "info":
@@ -67,7 +62,9 @@ const renderModal = (typeOfModal: ModalType, closeModal: () => void) => {
       return (
         <LargeModal
           titleModal="Registrar Cliente"
-          btnArray={[<FinishButton />]}
+          btnArray={[<FinishButton 
+            typeOfModal={typeOfModal}
+          />]}
           typeOfModal={typeOfModal}
           entityForm={clientForm}
           onClose={closeModal}
@@ -77,7 +74,7 @@ const renderModal = (typeOfModal: ModalType, closeModal: () => void) => {
       return (
         <LargeModal
           titleModal="Modificar Cliente"
-          btnArray={buttonsModify}
+          btnArray={[<FinishButton typeOfModal={typeOfModal}/>,<DeleteButton entityName={clientForm.entity} typeOfModal={typeOfModal} />]}
           typeOfModal={typeOfModal}
           entityForm={clientForm}
           onClose={closeModal}

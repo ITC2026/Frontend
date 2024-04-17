@@ -53,7 +53,7 @@ a:hover {
 }
 
 .purple-700 {
-  background: #2d1154;
+  background: #2d1154 !important;
   border-color: #2d1154;
 }
 

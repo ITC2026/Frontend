@@ -7,10 +7,8 @@ import { useState, useEffect } from "react";
 const project_structure = {
   project_title: "Nombre del Proyecto",
   client_name: "Cliente",
-  account_manager: "Account Manager",
-  percentage_complete: "% de Cobertura",
   start_date: "Fecha de Apertura",
-  expiration_date: "Fecha de Cierre",
+  expiration: "Fecha de Cierre",
 };
 
 interface PropTab {
@@ -18,7 +16,7 @@ interface PropTab {
   setSelected: (selected: string) => void;
 }
 
-const TabNav = (props: PropTab) => {
+const TabNav = (props: PropTab) => {  
   const projectTypeList = [
     "Proyectos en Preparación",
     "Proyectos Activos",
@@ -59,7 +57,10 @@ const ProjectPage = () => {
       <div className="project-header">
         <h1>Proyectos</h1>
         {selected === "Proyectos en Preparación" ? (
-          <button className="project-register encora-purple-button text-light"> Registrar Proyecto </button>
+          <button className="project-register encora-purple-button text-light">
+            {" "}
+            Registrar Proyecto{" "}
+          </button>
         ) : (
           ""
         )}

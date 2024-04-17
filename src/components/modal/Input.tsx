@@ -1,6 +1,6 @@
-import "./LargeModal.css";
+import "./Input.css"
 import "../../index.css";
-import { InputType } from "./LargeModal";
+import { InputType } from "./modalType";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import { Dropdown, DropdownButton } from "react-bootstrap";
@@ -8,7 +8,7 @@ import { Dropdown, DropdownButton } from "react-bootstrap";
 interface Props {
   inputType: InputType;
   disableInput?: boolean;
- }
+}
 
 const Input = ({ inputType, disableInput }: Props) => {
   switch (inputType) {

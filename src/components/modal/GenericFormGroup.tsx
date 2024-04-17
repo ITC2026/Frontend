@@ -1,21 +1,21 @@
-import "./LargeModal.css";
+import "./FormGroup.css";
 import "../../index.css";
-import { InputType } from "./LargeModal";
+import { InputType } from "./modalType";
 import Input from "./Input";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
 interface Props {
- nameAttribute: string;
+ nameLabel: string;
  inputType: InputType;
  disableInput?: boolean;
 }
 
-const GenericFormGroup = ({ nameAttribute, inputType, disableInput }: Props) => {
+const GenericFormGroup = ({ nameLabel, inputType, disableInput }: Props) => {
   return (
-    <Form.Group as={Row} className="mb-4 row-width">
+    <Form.Group as={Row} className="mb-4 row-width-form">
       <Form.Label column sm={6} bsPrefix="label-style text-start">
-        {nameAttribute}
+        {nameLabel}
       </Form.Label>
       <Input inputType={inputType} disableInput={disableInput}/>
     </Form.Group>

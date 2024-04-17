@@ -1,0 +1,10 @@
+.row-width-form {
+  width: 32rem;
+}
+
+.label-style {
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
+}

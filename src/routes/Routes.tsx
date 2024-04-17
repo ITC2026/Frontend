@@ -4,7 +4,7 @@ import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
-import TestModal from "../pages/TestModal/TestModal";
+import ModalPage from "../pages/ModalPage/ModalPage";
 
 
 const router = createBrowserRouter([
@@ -76,8 +76,8 @@ const router = createBrowserRouter([
     element: <ErrorPage />,
   },
   {
-    path: "/testModal",
-    element: <TestModal />,
+    path: "/modalPage",
+    element: <ModalPage />,
   },
 ]);
 export default router;

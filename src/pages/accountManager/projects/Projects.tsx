@@ -3,6 +3,7 @@ import TableView from "../../../components/table/Table";
 import { Project } from "../../../types/.";
 import { getAllProjects } from "../../../api/ProjectAPI";
 import { useState, useEffect } from "react";
+import { Outlet } from "react-router";
 
 const project_structure = {
   project_title: "Nombre del Proyecto",
@@ -47,15 +48,27 @@ const ProjectPage = () => {
   useEffect(() => {
     getAllProjects().then((data: unknown) => {
       setProjects(data as Project[]);
-      console.log(data);
+
     });
   }, [setProjects]);
+
+  const filteredProjects = projects.filter(project => {
+    if (selected === "Proyectos Activos") {
+      return project.general_status === "Active";
+    } else if (selected === "Proyectos en Preparación") {
+      return project.general_status === "In Preparation";
+    } else if (selected === "Proyectos Cerrados") {
+      return project.general_status === "Closed";
+    }
+    return true; 
+  });
 
   return (
     <div>
       <TabNav selected={selected} setSelected={setSelected} />
       <div className="project-header">
         <h1>Proyectos</h1>
+        <Outlet/>
         {selected === "Proyectos en Preparación" ? (
           <button className="project-register encora-purple-button text-light">
             {" "}
@@ -66,7 +79,7 @@ const ProjectPage = () => {
         )}
       </div>
 
-      <TableView entity={projects} types={project_structure} />
+      <TableView entity={filteredProjects} types={project_structure} />
     </div>
   );
 };

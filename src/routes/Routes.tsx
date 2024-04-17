@@ -5,6 +5,8 @@ import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import ProjectPage from "../pages/accountManager/projects/Projects";
+import ProjectDetail  from "../pages/accountManager/projects/ProjectID";
+
 
 const router = createBrowserRouter([
   {
@@ -50,6 +52,16 @@ const router = createBrowserRouter([
             <ProjectPage />
           </>
         ),
+        children: [
+          {
+            path: ":id/",
+            element: (
+              <>
+                <ProjectDetail/> 
+              </>
+            ),
+          }
+        ],
       },
       {
         path: "settings",
@@ -75,4 +87,7 @@ const router = createBrowserRouter([
     element: <ErrorPage />,
   },
 ]);
+
+
+
 export default router;

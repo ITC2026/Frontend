@@ -3,7 +3,6 @@ import "../../index.css";
 import { InputType } from "./modalType";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
-import { Dropdown, DropdownButton } from "react-bootstrap";
 
 interface Props {
   inputType: InputType;
@@ -12,11 +11,14 @@ interface Props {
 
 const Input = ({ inputType, disableInput }: Props) => {
   switch (inputType) {
-    case null:
     case "text":
       return (
         <Col sm={6}>
-          <Form.Control type="text" disabled={disableInput}/>
+          <Form.Control 
+            type="text" 
+            bsPrefix="encora-purple-input form-control"
+            disabled={disableInput}
+          />
         </Col>
       );
     case "file":
@@ -24,7 +26,7 @@ const Input = ({ inputType, disableInput }: Props) => {
         <Col sm={6}>
           <Form.Control
             type="file"
-            bsPrefix="encora-purple-file form-control"
+            bsPrefix="encora-purple-input form-control"
             disabled={disableInput}
           />
         </Col>
@@ -32,29 +34,29 @@ const Input = ({ inputType, disableInput }: Props) => {
     case "checkbox":
       return (
         <Form.Check.Input
+          type="checkbox"
           bsPrefix="encora-purple-check form-check-input"
-          type={"checkbox"}
           disabled={disableInput}
         />
       );
-    case "dropdown":
+    case "select":
       return (
         <Col sm={6}>
-          <DropdownButton
-            id="dropdown-basic-button"
-            title="Ninguno"
-            bsPrefix="encora-purple-button dropdown-style btn"
-            disabled={disableInput}
-          >
-            <Dropdown.Item
-              bsPrefix="encora-purple-dropitem dropitem-style dropdown-item"
-              href="#/action-1"
-            >
-              Placeholder
-            </Dropdown.Item>
-          </DropdownButton>
+          <Form.Select 
+            bsPrefix="encora-purple-input form-select"
+            disabled={disableInput}>
+            <option>Ninguno</option>
+            <option>PlaceHolder1</option> 
+            <option>PlaceHolder1</option>
+            <option>PlaceHolder1</option>
+          </Form.Select>
         </Col>
       );
+    case "date":
+      return (
+        <>
+        </>
+      )
     default:
       break;
   }

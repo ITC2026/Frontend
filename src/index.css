@@ -67,11 +67,12 @@ a:hover {
   border-color: #283343BF
 }
 
-/* Button Colors */
+/* Input Colors */
 
-.encora-purple-button {
+.encora-purple-button, .encora-purple-input::file-selector-button  {
   background: #44197e !important;
   border: 0;
+  color: white !important;
 }
 
 .encora-purple-button:hover {
@@ -84,34 +85,18 @@ a:hover {
   color: white !important;
 }
 
-.encora-purple-file::file-selector-button {
-  background: #44197e !important;
-  border: 0;
-  color: white !important;
-}
-
-.encora-purple-file:focus {
-  border-color: #DAD1E5 !important;
-  box-shadow: 0 0 0 0.2rem #F8F3FF
-}
-
 .encora-purple-check {
-  border-color: #44197e;
+  border-color: #44197e !important;
 }
 
 .encora-purple-check:checked {
-  background-color: #44197e;
-  border: 0;
+  background-color: #44197e !important;
+  border: 0 !important;
 }
 
-.encora-purple-check:focus {
-  border-color: #DAD1E5;
-  box-shadow: 0 0 0 0.2rem #F8F3FF;
-}
-
-.encora-purple-dropitem:active {
-  background: #44197e !important;
-  color: white;
+.encora-purple-check:focus, .encora-purple-input:focus {
+  border-color: #DAD1E5 !important;
+  box-shadow: 0 0 0 0.2rem #F8F3FF !important;
 }
 
 .gray-button {

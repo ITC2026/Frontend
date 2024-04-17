@@ -29,7 +29,7 @@ const clientForm: EntityFormType = {
       canBeModified: true,
     },
     Division: {
-      inputType: "dropdown",
+      inputType: "select",
       canBeModified: true,
     },
     "ID del Cliente":{
@@ -37,11 +37,11 @@ const clientForm: EntityFormType = {
       canBeModified: false,
     },
     "Creado en": {
-      inputType: "text",
+      inputType: "date",
       canBeModified: false,
     },
     "Última Actualización": {
-      inputType: "text",
+      inputType: "date",
       canBeModified: false,
     },
   },

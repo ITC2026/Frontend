@@ -64,11 +64,11 @@ const TableView = (prop: Props) => {
                 }
               })}
               <td>
-                <Link to={`/projects/${entity.id}`}>
+                <Link to={`${entity.id}`}>
                   <i className="table-button bi bi-info-circle-fill"></i>
                 </Link>
 
-                <Link to={`/projects/${entity.id}`}>
+                <Link to={`${entity.id}`}>
                   <i className="table-button bi bi-pencil-fill"></i>
                 </Link>
               </td>

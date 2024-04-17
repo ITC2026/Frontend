@@ -1,5 +1,5 @@
 import { TypesOfRoles, 
-  Action, 
+  ActionType, 
   Type, 
   ProjectStatus, 
   ClosedStatus, 
@@ -17,11 +17,14 @@ import { TypesOfRoles,
   EmployeeStatus,
   OpeningStatus} from "./types";
 
-export interface Person {
+// Todas las interfaces ya tienen los atributos que pueden estar vacíos implementados.
+// Todas las interfaces tienen su respectiva API, excepto las que consisten de una relación.
+
+export interface Person { 
   id: number;
   first_name: string;
   last_name: string;
-  profile_picture: string;
+  profile_picture?: string;
   gender: Gender; // Part of a type.
   phone: string;
   email: string;
@@ -30,7 +33,7 @@ export interface Person {
   division: Division; // Part of a type.
   region: Region; // Part of a type.
   status: PeopleStatus; // Part of a type.
-  movement_reason: string;
+  movement_reason?: string;
 }
 
 export interface Opening {
@@ -40,8 +43,8 @@ export interface Opening {
   start_date: Date;
   has_expiration_date: boolean;
   position_id: number;
-  person_id: number;
-  person: Person;
+  person_id?: number;
+  person?: Person;
 }
 
 export interface Position {
@@ -71,10 +74,10 @@ export interface Project {
 }
 
 // Roles interface.
-export interface Role {
+export interface Role { 
   id: number;
-  role_name: TypesOfRoles; // Part of an Enum.
-  users: User[];
+  role_name: TypesOfRoles; // Part of a type.
+  users?: User[];
 }
 
 // User Interface.
@@ -88,15 +91,15 @@ export interface User {
 }
 
 // RoleUserRelation interface.
-export interface RoleUserRelation {
+export interface RoleUserRelation { 
   role_id: number; // Foreign key.
   user_id: number; // Foreign key.
 }
 
 // Ticket Log interface.
-export interface TicketLog {
-  ticket_id: number;
-  action: Action; // Part of a type.
+export interface TicketLog { 
+  id: number;
+  action: ActionType; // Part of a type.
   user_id: number; // Foreign key.
   entity_id: number; // Foreign key.
 }
@@ -115,8 +118,8 @@ export interface Employee {
   job_title: string;
   salary: number;
   job_grade: JobGrade; // Part of a type.
-  proposed_action: ProposedAction; // Part of en Enum.
-  employee_status: EmployeeStatus; // Part of en Enum.
+  proposed_action: ProposedAction; // Part of a type.
+  employee_status: EmployeeStatus; // Part of a type.
   employee_reason: StatusReason;
   contract_start_date: Date; 
   last_movement_at: Date;
@@ -133,7 +136,7 @@ export interface Client {
   high_growth: boolean;
   division: Division; // Part of a type.
   projects: Project[];
-  employees: Employee[];
+  employees?: Employee[];
 }
 
 // ClientEmployeeRelation interface.
@@ -143,7 +146,7 @@ export interface ClientEmployeeRelation {
 }
 
 // ExpirationDateProject interface.
-export interface ExpirationDateProject {
+export interface ExpirationDateProject { // Falta. (ruta con minusculas)
   id: number;
   expiration_date: Date;
   project_id: number; // Foreign key. 
@@ -158,7 +161,7 @@ export interface ClosedProject {
 }
 
 // ExpirationDateOpening interface.
-export interface ExpirationDateOpening {
+export interface ExpirationDateOpening { 
   id: number;
   expiration_date: Date;
   opening_id: number; // Foreign key.
@@ -177,17 +180,4 @@ export interface Candidate {
   id: number;
   expected_salary: number;
   person_id: number; // Foreign key.
-}
-
-// Bench interface.
-export interface Bench {
-  id: number;
-  employee_id: number; // Foreign key.
-  candidate_id: number; // Foreign key.
-}
-
-// Billing interface.
-export interface Billing {
-  id: number;
-  employee_id: number; // Foreign key.
 }

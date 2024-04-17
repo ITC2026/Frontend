@@ -1,29 +1,29 @@
-// Sort.tsx
 import React, { useState } from 'react';
-import sortIcon from '../../assets/filter-sort/Vector (2).png';
 import './Sort.css';
 
 interface SortProps {
-    onSort: (sort: boolean) => void; // Asegúrate de que esta función acepte un booleano
+    onSort: (asc: boolean, field: string) => void;
+    field: string;
 }
 
-const Sort: React.FC<SortProps> = ({ onSort }) => {
+const Sort: React.FC<SortProps> = ({ onSort, field }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    const handleSortClick = () => {
+    const handleSortClick = (event: React.MouseEvent) => {
+        event.stopPropagation();
         setIsDropdownOpen(!isDropdownOpen);
     };
 
-    const handleSortOptionClick = (sort: boolean) => {
-        onSort(sort);
+    const handleSortOptionClick = (asc: boolean) => {
+        onSort(asc, field);
         setIsDropdownOpen(false);
     };
 
     return (
-        <div onClick={handleSortClick}>
-            <img src={sortIcon} alt="Sort" className="logo-border" />
+        <div className="sort-container" onClick={handleSortClick}>
+            <i className="bi bi-filter logo-border"></i>
             {isDropdownOpen && (
-                <div>
+                <div className="sort-dropdown">
                     <button onClick={() => handleSortOptionClick(true)}>Sort A - Z</button>
                     <button onClick={() => handleSortOptionClick(false)}>Sort Z - A</button>
                 </div>

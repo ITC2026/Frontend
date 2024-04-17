@@ -2,6 +2,7 @@
 .filter-container {
  position: relative;
  display: inline-block;
+ cursor: pointer;
 }
 
 .filter-dropdown {
@@ -11,6 +12,7 @@
  min-width: 160px;
  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
  z-index: 1;
+ padding: 10px;
 }
 
 .filter-dropdown input {
@@ -40,14 +42,9 @@
  display: block;
 }
 
-.logo {
- filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-}
-
 .logo-border {
-    width: 18px; /* Ancho especificado */
-    height: 10.5px; /* Altura especificada */
-    border: 2px solid black; /* Añade un borde negro de 2px alrededor del logotipo */
-    padding: 5px; /* Añade un poco de espacio entre el borde y el logotipo */
+    width: 18px;
+    height: 10.5px; 
+    border: 2px solid black;
+    padding: 5px; 
 }
-

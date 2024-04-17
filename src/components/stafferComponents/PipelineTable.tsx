@@ -5,13 +5,14 @@ import vectorIcon from '../../assets/Staffer/Vector.png';
 import vectorIcon1 from '../../assets/Staffer/Vector (1).png';
 import ChangeStatusModal from '../stafferComponents/ChangeStatusModal';
 import SearchBar from '../SearchBar/Search_bar.tsx';
-import Sort from '../Sort/sort'; 
+import Sort from '../Sort/sort';
 
 interface Postulate {
     name: string;
     project: string;
     position: string;
     status: string;
+    [key: string]: string; // Añade esta línea
 }
 
 interface TableProps {
@@ -21,10 +22,14 @@ interface TableProps {
 const PipelineTable: React.FC<TableProps> = ({ postulates }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    const [sort, setSort] = useState(false);
+    const [sort, setSort] = useState({ field: '', asc: false });
 
     const handleImageClick = () => {
         setIsModalOpen(true);
+    };
+
+    const handleSort = (asc: boolean, field: string) => {
+        setSort({ field, asc });
     };
 
     const sortedPostulates = useMemo(() => {
@@ -36,8 +41,10 @@ const PipelineTable: React.FC<TableProps> = ({ postulates }) => {
                 postulate.position.toLowerCase().includes(searchTerm.toLowerCase())
             );
         }
-        if (sort) {
-            return [...filteredPostulates].sort((a, b) => a.name.localeCompare(b.name));
+        if (sort.field) {
+            return [...filteredPostulates].sort((a, b) =>
+                sort.asc ? a[sort.field].localeCompare(b[sort.field]) : b[sort.field].localeCompare(a[sort.field])
+            );
         }
         return filteredPostulates;
     }, [postulates, searchTerm, sort]);
@@ -46,14 +53,13 @@ const PipelineTable: React.FC<TableProps> = ({ postulates }) => {
         <div className="bench-table-container">
             <h2 className="bench-table-title">Lista de Postulados en Pipeline</h2>
             <SearchBar onSearchTermChange={setSearchTerm} />
-            <Sort onSort={setSort} />
             <table className="table">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Proyecto al que fue postulado</th>
-                        <th>Posición de trabajo</th>
-                        <th>Estado</th>
+                        <th>Nombre<Sort onSort={handleSort} field="name" /></th>
+                        <th>Proyecto al que fue postulado<Sort onSort={handleSort} field="project" /></th>
+                        <th>Posición de trabajo<Sort onSort={handleSort} field="position" /></th>
+                        <th>Estado<Sort onSort={handleSort} field="status" /></th>
                         <th>Opciones</th>
                     </tr>
                 </thead>

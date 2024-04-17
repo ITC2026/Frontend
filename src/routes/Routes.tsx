@@ -4,7 +4,8 @@ import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
-
+import TestAndres from "../pages/testing-andres/TestAndres";
+import Clients from "../pages/accountManager/clients/Clients";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: "/settings",
     element: <SettingsPage />,
+  },
+  {
+    path:"/testAndres",
+    element: <TestAndres/>
   },
   {
     path: "",
@@ -39,7 +44,7 @@ const router = createBrowserRouter([
         path: "clients",
         element: (
           <>
-            <h1>clients</h1>
+            <Clients/>
           </>
         ),
       },

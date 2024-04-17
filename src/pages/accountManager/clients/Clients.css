@@ -1,0 +1,16 @@
+.container {
+    max-width: 1200px; /* Adjust the value as needed */
+    height: 500px;
+    margin: 0 auto; /* Center the container horizontally */
+}
+.pagination-container{
+    position: absolute;
+    bottom: 0px;
+    list-style: none;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex; 
+    justify-content: center;
+    color: white;
+}
+

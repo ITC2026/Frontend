@@ -11,43 +11,59 @@
     display: none;
 }
 
-.graph1-title {
+.boxxy {
+    padding: 2rem;
+}
+
+
+.graph1-staffer-title {
     color:#ffffff;
     text-align: center;
     font-size: 1.5rem;
 }
-.graph1 {
+
+.graph3-staffer-title {
+    color:#000000;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.graph1-staffer {
     background-color: #8FC745;
     color: #ffffff;
     border-radius: 10px;
     padding: 1rem;
 }
 
-.graph2 {
+.graph2-staffer {
     background-color: #FF564D;
     color: #ffffff;
     border-radius: 10px;
     padding: 1rem;
 }
 
-.graph3 {
+.graph3-staffer {
     background-color: #40C1EF;
-    color: #ffffff;
+    color: #000000;
     border-radius: 10px;
     padding: 1rem;
 }
 
-.graph4 {
+.graph4-staffer {
     background-color: #F5BC18;
     color: #ffffff;
     border-radius: 10px;
     padding: 1rem;
 }
-.graph4 h2 {
+
+.graph4-staffer h2 {
     font-size: 1.4rem;
 }
 
-.boxxy {
-    padding: 2rem;
-}
 
+.graph1-account {
+    background-color: #44197E;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 1rem;
+}

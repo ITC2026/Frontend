@@ -4,7 +4,8 @@ import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
-import Chart from "../pages/dashboards/Chart";
+import ChartStaffer from "../pages/dashboards/ChartStaffer";
+import ChartAccount from "../pages/dashboards/ChartAccount";
 import ProjectPage from "../pages/accountManager/projects/Projects";
 
 const router = createBrowserRouter([
@@ -29,10 +30,18 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "",
+        path: "chart_staffer",
         element: (
           <>
-          <Chart />,
+          <ChartStaffer />,
+          </>
+        ),
+      },
+      {
+        path: "chart_account",
+        element: (
+          <>
+          <ChartAccount />,
           </>
         ),
       },

@@ -1,5 +1,5 @@
-import "./FormGroup.css";
 import "../../index.css";
+import "./FormGroup.css";
 import { InputType } from "./modalType";
 import Input from "./Input";
 import Form from "react-bootstrap/Form";

@@ -1,5 +1,5 @@
-import "./Input.css"
 import "../../index.css";
+import "./Input.css"
 import { InputType } from "./modalType";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";

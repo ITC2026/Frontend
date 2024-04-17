@@ -21,12 +21,12 @@ const projectBlueprint = {
 const ProjectsPage: React.FC = () => {
     const [projects, setProjects] = useState<Project[]>([]);
       
-        useEffect(() => {
-          getAllProjects().then((data: unknown) => {
-            setProjects(data as Project[]);
-            console.log(data);
-          });
-        }, [setProjects]);
+    useEffect(() => {
+      getAllProjects().then((data: unknown) => {
+        setProjects(data as Project[]);
+        console.log(data);
+      });
+    }, [setProjects]);
         
     return (
         <div className="projects-page">

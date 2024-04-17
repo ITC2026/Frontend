@@ -49,12 +49,12 @@
       "icon": "bi-journal-code"
     },
     {
-      "route": "/postulates",
+      "route": "/people",
       "isSelected": true,
       "icon": "bi-person-workspace"
     },
     {
-      "route": "/postulates",
+      "route": "/people",
       "isSelected": false,
       "icon": "bi-person-workspace"
     },

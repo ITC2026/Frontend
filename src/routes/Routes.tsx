@@ -78,7 +78,7 @@ const router = createBrowserRouter([
     path: "staffer",
     element: (
       <>
-        <StafferWrapper route="/staffer" routes={["/", "/projects", "/postulates"]} />
+        <StafferWrapper route="/staffer" routes={["/", "/projects", "/people"]} />
       </>
     ),
     children: [
@@ -95,7 +95,7 @@ const router = createBrowserRouter([
         element: <ProjectsPage />,
       },
       {
-        path: "postulates",
+        path: "people",
         element: <PostulatesPage />, 
       },
       {

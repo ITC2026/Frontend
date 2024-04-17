@@ -6,6 +6,7 @@ import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import ProjectPage from "../pages/accountManager/projects/Projects";
 import ProjectDetail  from "../pages/accountManager/projects/ProjectID";
+import ModalPage from "../pages/ModalPage/ModalPage";
 
 
 const router = createBrowserRouter([
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <ErrorPage />,
+  },
+  {
+    path: "/modalPage",
+    element: <ModalPage />,
   },
 ]);
 

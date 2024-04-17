@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
-  types: { [key: string]: string };
+  elements: { [key: string]: string };
+  type?: string;
 }
 
 /**
@@ -34,7 +35,7 @@ const TableView = (prop: Props) => {
       <thead>
         <tr>
           <th className="purple-700 text-light">#</th>
-          {Object.values(prop.types).map((type: string, index: number) => (
+          {Object.values(prop.elements).map((type: string, index: number) => (
             <th key={index} className="purple-700 text-light">
               {type}
             </th>
@@ -47,13 +48,13 @@ const TableView = (prop: Props) => {
           (entity: Project | Position | Opening | Person, index: number) => (
             <tr key={index}>
               <td>{index + 1}</td>
-              {Object.keys(prop.types).map((key: string, index: number) => {
+              {Object.keys(prop.elements).map((key: string, index: number) => {
                 const value =
                   entity[key as keyof (Project | Position | Opening | Person)];
                 // Check if the column contains "Fecha"
                 if (
-                  prop.types[key] &&
-                  prop.types[key].includes("Fecha") &&
+                  prop.elements[key] &&
+                  prop.elements[key].includes("Fecha") &&
                   value
                 ) {
                   return (
@@ -71,6 +72,12 @@ const TableView = (prop: Props) => {
                 <Link to={`${entity.id}`}>
                   <i className="table-button bi bi-pencil-fill"></i>
                 </Link>
+
+                {prop.type === "Project" ? (
+                  <Link to={`${entity.id}`}>
+                    <i className="table-button bi bi-briefcase-fill"></i>
+                  </Link>
+                ) : null}
               </td>
             </tr>
           )

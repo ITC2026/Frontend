@@ -79,7 +79,7 @@ const ProjectPage = () => {
         )}
       </div>
 
-      <TableView entity={filteredProjects} types={project_structure} />
+      <TableView entity={filteredProjects} elements={project_structure} type = "Project"/>
     </div>
   );
 };

@@ -1,9 +1,11 @@
 import "../../index.css";
 import "./ShortModal.css";
-import { ShortModalType } from "./modalType";
+import { EntityFormType, ShortModalType } from "./modalType";
 
 interface Props {
+  btnArray?: React.ReactElement[];
   typeOfModal: ShortModalType;
+  entityForm: EntityFormType;
   onClose: () => void;
 }
 
@@ -35,20 +37,21 @@ const renderModalContent = (typeOfModal: ShortModalType) => {
   }
 }
 
-const ShortModal = ({ typeOfModal, onClose }: Props) => {
+const ShortModal = ({ btnArray, typeOfModal, onClose }: Props) => {
   return (
     <div className="overlay background-gray">
       <div className="short-modal white">
         {renderModalContent(typeOfModal)}
-        <button
-            type="submit"
-            className={
-              "btn btn-primary gray-button"
-            }
-            onClick={() => onClose()}
+        <div className="button-wrapper">
+          {btnArray && btnArray.map((btn => btn))}
+          <button
+              type="submit"
+              className="btn btn-primary gray-button"
+              onClick={() => onClose()}
           >
             Cancelar
           </button>
+        </div>
       </div>
     </div>
   );

@@ -3,6 +3,9 @@ import React, { useState, useEffect } from "react";
 import LargeModal from "../../components/modal/LargeModal";
 import { EntityFormType, LargeModalType, ShortModalType } from "../../components/modal/modalType";
 import ShowShortModalButton from "../../components/buttons/ShowShortModalButton";
+import RegisterButton from "../../components/buttons/RegisterButton";
+import ModifyButton from "../../components/buttons/ModifyButton";
+import DeleteButton from "../../components/buttons/DeleteButton";
 import ShortModal from "../../components/modal/ShortModal";
 
 const clientForm: EntityFormType = {
@@ -93,11 +96,32 @@ const renderLargeModal = (typeOfModal: LargeModalType, closeModal: () => void, s
 const renderShortModal = ( typeOfModal: ShortModalType, closeModal: () => void ) => {
   switch (typeOfModal) {
     case "register":
-      return <ShortModal typeOfModal={typeOfModal} onClose={closeModal} />;
+      return (
+        <ShortModal 
+          btnArray={[<RegisterButton entityName={clientForm.entity}/>]}
+          typeOfModal={typeOfModal} 
+          entityForm={clientForm} 
+          onClose={closeModal} 
+        />
+      );
     case "modify":
-      return <ShortModal typeOfModal={typeOfModal} onClose={closeModal} />;
+      return (
+        <ShortModal
+          btnArray={[<ModifyButton entityName={clientForm.entity}/>]}
+          typeOfModal={typeOfModal} 
+          entityForm={clientForm} 
+          onClose={closeModal} 
+        />
+      );
     case "delete":
-      return <ShortModal typeOfModal={typeOfModal} onClose={closeModal} />;
+      return (
+        <ShortModal
+          btnArray={[<DeleteButton entityName={clientForm.entity}/>]}
+          typeOfModal={typeOfModal} 
+          entityForm={clientForm} 
+          onClose={closeModal} 
+        />
+      );
     default:
       break;
   }

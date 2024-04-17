@@ -2,8 +2,7 @@ import "../login/LoginPage.css";
 import React, { useState, useEffect } from "react";
 import LargeModal from "../../components/modal/LargeModal";
 import { EntityFormType, ModalType } from "../../components/modal/modalType";
-import FinishButton from "../../components/buttons/FinishButton";
-import DeleteButton from "../../components/buttons/DeleteButton";
+import ShowModalButton from "../../components/buttons/ShowModalButton";
 
 const clientForm: EntityFormType = {
   entity: "Cliente",
@@ -47,7 +46,10 @@ const clientForm: EntityFormType = {
   },
 };
 
-const renderModal = (typeOfModal: ModalType, closeModal: () => void) => {
+const registerButtonArray = [<ShowModalButton typeOfModalButton={"register"}/>];
+const modifyButtonArray = [<ShowModalButton typeOfModalButton={"modify"}/>, <ShowModalButton typeOfModalButton={"delete"}/>];
+
+const renderLargeModal = (typeOfModal: ModalType, closeLargeModal: () => void) => {
   switch (typeOfModal) {
     case "info":
       return (
@@ -55,29 +57,27 @@ const renderModal = (typeOfModal: ModalType, closeModal: () => void) => {
           titleModal="Información de Cliente"
           typeOfModal={typeOfModal}
           entityForm={clientForm}
-          onClose={closeModal}
+          onClose={closeLargeModal}
         />
       );
     case "register":
       return (
         <LargeModal
           titleModal="Registrar Cliente"
-          btnArray={[<FinishButton 
-            typeOfModal={typeOfModal}
-          />]}
+          btnArray={registerButtonArray}
           typeOfModal={typeOfModal}
           entityForm={clientForm}
-          onClose={closeModal}
+          onClose={closeLargeModal}
         />
       );
     case "modify":
       return (
         <LargeModal
           titleModal="Modificar Cliente"
-          btnArray={[<FinishButton typeOfModal={typeOfModal}/>,<DeleteButton entityName={clientForm.entity} typeOfModal={typeOfModal} />]}
+          btnArray={modifyButtonArray}
           typeOfModal={typeOfModal}
           entityForm={clientForm}
-          onClose={closeModal}
+          onClose={closeLargeModal}
         />
       );
     default:
@@ -86,38 +86,38 @@ const renderModal = (typeOfModal: ModalType, closeModal: () => void) => {
 };
 
 const ModalPage = () => {
-  const [modalType, setModalType] = useState<ModalType>(null);
-  const [modalContent, setModalContent] = useState<React.ReactNode | null>(null);
-  const closeModal = () => setModalType(null);
+  const [typeOfModal, setTypeOfModal] = useState<ModalType>(null);
+  const [largeModalContent, setLargeModalContent] = useState<React.ReactNode | null>(null);
+  const closeLargeModal = () => setTypeOfModal(null);
 
   useEffect(() => {
-    setModalContent(renderModal(modalType, closeModal));
-  }, [modalType]);
+    setLargeModalContent(renderLargeModal(typeOfModal, closeLargeModal));
+  }, [typeOfModal]);
 
   return (
     <div>
       <button
         type="submit"
         className="btn btn-primary green"
-        onClick={() => setModalType("info")}
+        onClick={() => setTypeOfModal("info")}
       >
         Info
       </button>
       <button
         type="submit"
         className="btn btn-primary blue"
-        onClick={() => setModalType("register")}
+        onClick={() => setTypeOfModal("register")}
       >
         Registrar
       </button>
       <button
         type="submit"
         className="btn btn-primary gray"
-        onClick={() => setModalType("modify")}
+        onClick={() => setTypeOfModal("modify")}
       >
         Modificar
       </button>
-      {modalContent}
+      {largeModalContent}
     </div>
   );
 };

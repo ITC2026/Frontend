@@ -16,9 +16,9 @@ const clientProps: EntityAttributesType = {
     Logo: "file",
     "High-Growth Client": "checkbox",
     Division: "dropdown",
-    "ID del Cliente": "text",
-    "Creado en": "text",
-    "Última Actualización": "text",
+    "ID del Cliente": null,
+    "Creado en": null,
+    "Última Actualización": null,
   },
 };
 

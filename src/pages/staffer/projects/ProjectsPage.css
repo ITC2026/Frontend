@@ -1,0 +1,27 @@
+.project-table-container {
+    background-color: white;
+    color: white;
+    max-height: 400px;
+    padding: 20px;
+    width: 100%;
+}
+
+.table-title {
+    font-size: 48px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 70px;
+    margin-top: 30px;
+}
+
+.table-wrapper {
+    height: 600px;
+    overflow-y: auto;
+}
+
+.projects-page {
+
+    background-color: #ffffff; 
+    
+    padding: 20px;
+}

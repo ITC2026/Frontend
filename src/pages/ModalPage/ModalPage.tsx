@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import "../login/LoginPage.css";
 import React, { useState, useEffect } from "react";
 import LargeModal from "../../components/modal/LargeModal";
@@ -18,7 +19,6 @@ const clientForm: EntityFormType = {
     "Nombre de Cliente": {
       inputType: "file",
       canBeModified: true,
-
     },
     Descripción: {
       inputType: "text",
@@ -55,7 +55,11 @@ const clientForm: EntityFormType = {
   },
 };
 
-const renderLargeModal = (typeOfModal: LargeModalType, closeModal: () => void, setTypeOfShortModal: (value: React.SetStateAction<ShortModalType>) => void) => {
+const renderLargeModal = (
+  typeOfModal: LargeModalType,
+  closeModal: () => void,
+  setTypeOfShortModal: (value: React.SetStateAction<ShortModalType>) => void
+) => {
   switch (typeOfModal) {
     case "info":
       return (
@@ -107,7 +111,10 @@ const renderLargeModal = (typeOfModal: LargeModalType, closeModal: () => void, s
   }
 };
 
-const renderShortModal = (typeOfModal: ShortModalType, closeModal: () => void) => {
+const renderShortModal = (
+  typeOfModal: ShortModalType,
+  closeModal: () => void
+) => {
   switch (typeOfModal) {
     case "register":
       return (
@@ -142,16 +149,22 @@ const renderShortModal = (typeOfModal: ShortModalType, closeModal: () => void) =
 };
 
 const ModalPage = () => {
-  const [typeOfLargeModal, setTypeOfLargeModal] = useState<LargeModalType>(null);
-  const [typeOfShortModal, setTypeOfShortModal] = useState<ShortModalType>(null);
-  const [largeModalContent, setLargeModalContent] = useState<React.ReactNode | null>(null);
-  const [shortModalContent, setShortModalContent] = useState<React.ReactNode | null>(null);
+  const [typeOfLargeModal, setTypeOfLargeModal] =
+    useState<LargeModalType>(null);
+  const [typeOfShortModal, setTypeOfShortModal] =
+    useState<ShortModalType>(null);
+  const [largeModalContent, setLargeModalContent] =
+    useState<React.ReactNode | null>(null);
+  const [shortModalContent, setShortModalContent] =
+    useState<React.ReactNode | null>(null);
 
   const closeLargeModal = () => setTypeOfLargeModal(null);
   const closeShortModal = () => setTypeOfShortModal(null);
 
   useEffect(() => {
-    setLargeModalContent(renderLargeModal(typeOfLargeModal, closeLargeModal, setTypeOfShortModal));
+    setLargeModalContent(
+      renderLargeModal(typeOfLargeModal, closeLargeModal, setTypeOfShortModal)
+    );
   }, [typeOfLargeModal]);
 
   useEffect(() => {

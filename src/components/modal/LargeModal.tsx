@@ -20,30 +20,42 @@ const renderModalContent = (typeOfModal: LargeModalType, entityForm: EntityFormT
     case "info":
       return Object.keys(formStructure).map((nameLabel: string) => {
         if (formStructure[nameLabel].inputType === "checkbox") {
-          return <CheckboxFormGroup 
-            nameLabel={nameLabel} 
-            inputType={formStructure[nameLabel].inputType} 
+          return (
+            <CheckboxFormGroup
+              key={nameLabel}
+              nameLabel={nameLabel}
+              inputType={formStructure[nameLabel].inputType}
+              disableInput={true}
+            />
+          );
+        }
+        return (
+          <GenericFormGroup
+            key={nameLabel}
+            nameLabel={nameLabel}
+            inputType={formStructure[nameLabel].inputType}
             disableInput={true}
           />
-        }
-        return <GenericFormGroup 
-          nameLabel={nameLabel} 
-          inputType={formStructure[nameLabel].inputType} 
-          disableInput={true}
-        />
+        );
       });
     case "register":
       return Object.keys(formStructure).map((nameLabel: string) => {
         if (formStructure[nameLabel].inputType === "checkbox") {
-          return <CheckboxFormGroup 
-            nameLabel={nameLabel} 
-            inputType={formStructure[nameLabel].inputType}
-          />
+          return (
+            <CheckboxFormGroup
+              key={nameLabel}
+              nameLabel={nameLabel}
+              inputType={formStructure[nameLabel].inputType}
+            />
+          );
         } else if (formStructure[nameLabel].canBeModified) {
-          return <GenericFormGroup 
-            nameLabel={nameLabel} 
-            inputType={formStructure[nameLabel].inputType}
-          />
+          return (
+            <GenericFormGroup
+              key={nameLabel}
+              nameLabel={nameLabel}
+              inputType={formStructure[nameLabel].inputType}
+            />
+          );
         }
       });
     case "modify":

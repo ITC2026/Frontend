@@ -1,6 +1,6 @@
 export type InputType = "text" | "file" | "checkbox" | "select" | "date" | null;
-export type ModalType = "info" | "register" | "modify" | null;
-export type ActionsButtonType = "register" | "modify" | "delete" | null;
+export type LargeModalType = "info" | "register" | "modify" | null;
+export type ShortModalType = "register" | "modify" | "delete" | null;
 export interface EntityFormType {
   entity: string;
   formStructure: {

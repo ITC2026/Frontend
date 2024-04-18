@@ -1,20 +1,19 @@
-import "./LargeModal.css";
 import "../../index.css";
-import React, { useState, cloneElement } from "react";
-import { ModalType, EntityFormType } from "./modalType";
+import "./LargeModal.css";
+import React from "react";
+import { LargeModalType, EntityFormType } from "./modalType";
 import GenericFormGroup from "./GenericFormGroup";
 import CheckboxFormGroup from "./CheckboxFormGroup";
-import ShortModal from "./ShortModal";
 
 interface Props {
   titleModal: string;
   btnArray?: React.ReactElement[];
-  typeOfModal: ModalType;
+  typeOfModal: LargeModalType;
   entityForm: EntityFormType;
   onClose: () => void;
 }
 
-const renderForm = (typeOfModal: ModalType, entityForm: EntityFormType) => {
+const renderModalContent = (typeOfModal: LargeModalType, entityForm: EntityFormType) => {
   const { formStructure } = entityForm;
   
   switch (typeOfModal) {
@@ -67,17 +66,13 @@ const renderForm = (typeOfModal: ModalType, entityForm: EntityFormType) => {
 };
 
 const LargeModal = ({ titleModal, btnArray, typeOfModal, entityForm, onClose }: Props) => {
-  const [showShortModal, setShowShortModal] = useState<boolean>(false);
-  const closeShortModal = () => setShowShortModal(false);
   return (
     <div className="overlay background-gray">
       <div className="large-modal white">
         <h1 className="heading-form">{titleModal}</h1>
-        <div className="form-group">{renderForm(typeOfModal, entityForm)}</div>
+        <div className="form-group">{renderModalContent(typeOfModal, entityForm)}</div>
         <div className="button-wrapper">
-          {btnArray && btnArray.map((btn: React.ReactElement) => {
-            return typeof btn.type === 'function' && btn.type.name === "ShowModalButton" ? cloneElement(btn, { onClick: () => setShowShortModal(true) }) : btn;
-          })}
+          {btnArray && btnArray.map((btn => btn))}
           <button
             type="submit"
             className={
@@ -90,7 +85,6 @@ const LargeModal = ({ titleModal, btnArray, typeOfModal, entityForm, onClose }: 
           </button>
         </div>
       </div>
-      {showShortModal && <ShortModal typeOfModal={typeOfModal} onClose={closeShortModal}/>}
     </div>
   );
 };

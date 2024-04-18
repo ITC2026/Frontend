@@ -10,7 +10,7 @@ const DeleteButton = ({ entityName }: Props) => {
       type="submit" 
       className="btn btn-primary red-encora-button" 
     >
-      Eliminar
+      {`Eliminar ${entityName}`}
     </button>
   )
 }

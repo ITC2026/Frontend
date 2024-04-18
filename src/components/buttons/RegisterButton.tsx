@@ -10,7 +10,7 @@ const RegisterButton = ({ entityName }: Props) => {
       type="submit" 
       className="btn btn-primary encora-purple-button" 
     >
-      Registrar
+      {`Registrar ${entityName}`}
     </button>
   )
 }

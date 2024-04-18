@@ -1,7 +1,11 @@
 import "../login/LoginPage.css";
 import React, { useState, useEffect } from "react";
 import LargeModal from "../../components/modal/LargeModal";
-import { EntityFormType, LargeModalType, ShortModalType } from "../../components/modal/modalType";
+import {
+  EntityFormType,
+  LargeModalType,
+  ShortModalType,
+} from "../../components/modal/modalType";
 import ShowShortModalButton from "../../components/buttons/ShowShortModalButton";
 import RegisterButton from "../../components/buttons/RegisterButton";
 import ModifyButton from "../../components/buttons/ModifyButton";
@@ -12,8 +16,9 @@ const clientForm: EntityFormType = {
   entity: "Cliente",
   formStructure: {
     "Nombre de Cliente": {
-      inputType: "text",
+      inputType: "file",
       canBeModified: true,
+
     },
     Descripción: {
       inputType: "text",
@@ -63,7 +68,10 @@ const renderLargeModal = (typeOfModal: LargeModalType, closeModal: () => void, s
       );
     case "register":
       const registerButtonArray = [
-        <ShowShortModalButton typeOfModalButton={"register"} setTypeOfModal={setTypeOfShortModal}/>,
+        <ShowShortModalButton
+          typeOfModalButton={"register"}
+          setTypeOfModal={setTypeOfShortModal}
+        />,
       ];
       return (
         <LargeModal
@@ -76,8 +84,14 @@ const renderLargeModal = (typeOfModal: LargeModalType, closeModal: () => void, s
       );
     case "modify":
       const modifyButtonArray = [
-        <ShowShortModalButton typeOfModalButton={"modify"} setTypeOfModal={setTypeOfShortModal} />,
-        <ShowShortModalButton typeOfModalButton={"delete"} setTypeOfModal={setTypeOfShortModal} />,
+        <ShowShortModalButton
+          typeOfModalButton={"modify"}
+          setTypeOfModal={setTypeOfShortModal}
+        />,
+        <ShowShortModalButton
+          typeOfModalButton={"delete"}
+          setTypeOfModal={setTypeOfShortModal}
+        />,
       ];
       return (
         <LargeModal
@@ -93,33 +107,33 @@ const renderLargeModal = (typeOfModal: LargeModalType, closeModal: () => void, s
   }
 };
 
-const renderShortModal = ( typeOfModal: ShortModalType, closeModal: () => void ) => {
+const renderShortModal = (typeOfModal: ShortModalType, closeModal: () => void) => {
   switch (typeOfModal) {
     case "register":
       return (
-        <ShortModal 
-          btnArray={[<RegisterButton entityName={clientForm.entity}/>]}
-          typeOfModal={typeOfModal} 
-          entityForm={clientForm} 
-          onClose={closeModal} 
+        <ShortModal
+          btnArray={[<RegisterButton entityName={clientForm.entity} />]}
+          typeOfModal={typeOfModal}
+          entityForm={clientForm}
+          onClose={closeModal}
         />
       );
     case "modify":
       return (
         <ShortModal
-          btnArray={[<ModifyButton entityName={clientForm.entity}/>]}
-          typeOfModal={typeOfModal} 
-          entityForm={clientForm} 
-          onClose={closeModal} 
+          btnArray={[<ModifyButton entityName={clientForm.entity} />]}
+          typeOfModal={typeOfModal}
+          entityForm={clientForm}
+          onClose={closeModal}
         />
       );
     case "delete":
       return (
         <ShortModal
-          btnArray={[<DeleteButton entityName={clientForm.entity}/>]}
-          typeOfModal={typeOfModal} 
-          entityForm={clientForm} 
-          onClose={closeModal} 
+          btnArray={[<DeleteButton entityName={clientForm.entity} />]}
+          typeOfModal={typeOfModal}
+          entityForm={clientForm}
+          onClose={closeModal}
         />
       );
     default:

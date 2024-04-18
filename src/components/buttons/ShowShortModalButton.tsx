@@ -11,8 +11,7 @@ const ShowShortModalButton = ({ typeOfModalButton, setTypeOfModal }: Props) => {
     <button 
       type="submit" 
       className={
-        "btn btn-primary " +
-        (typeOfModalButton === "delete" ? "red-encora-button" : "encora-purple-button")
+        `btn btn-primary ${typeOfModalButton === "delete" ? "red-encora-button" : "encora-purple-button"}`
       }
       onClick={() => setTypeOfModal(typeOfModalButton)}
     >

@@ -16,9 +16,9 @@ const clientForm: EntityFormType = {
   entity: "Cliente",
   formStructure: {
     "Nombre de Cliente": {
-      inputType: "text",
+      inputType: "file",
       canBeModified: true,
-      
+
     },
     Descripción: {
       inputType: "text",

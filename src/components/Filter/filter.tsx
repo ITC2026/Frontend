@@ -1,37 +1,54 @@
-// Filter.tsx
+// filter.tsx
 import React, { useState } from 'react';
-import filterIcon from '../../assets/filter-sort/vector (2).png';
-import './Filter.css';
+import './filter.css';
 
 interface FilterProps {
-    onFilter: (filter: string) => void;
+    options: string[];
+    onFilter: (filter: string[]) => void;
 }
 
-const Filter: React.FC<FilterProps> = ({ onFilter }) => {
+const Filter: React.FC<FilterProps> = ({ options, onFilter }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [filterValue, setFilterValue] = useState('');
+    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
     const handleFilterClick = (event: React.MouseEvent) => {
         event.stopPropagation();
         setIsDropdownOpen(!isDropdownOpen);
     };
 
-    const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFilterValue(e.target.value);
+    const handleOptionChange = (option: string) => {
+        setSelectedOptions(prev => {
+            if (prev.includes(option)) {
+                return prev.filter(o => o !== option);
+            } else {
+                return [...prev, option];
+            }
+        });
     };
 
     const handleFilterSubmit = (event: React.MouseEvent) => {
         event.stopPropagation();
-        onFilter(filterValue);
+        onFilter(selectedOptions);
         setIsDropdownOpen(false);
     };
 
     return (
         <div className="filter-container" onClick={handleFilterClick}>
-            <img src={filterIcon} alt="Filter" className="logo-border" />
+            <i className="bi bi-filter logo-border"></i>
             {isDropdownOpen && (
                 <div className="filter-dropdown">
-                    <input type="text" value={filterValue} onChange={handleFilterChange} placeholder="Filter..." />
+                    {options.map((option, index) => (
+                        <div key={option}>
+                            <input
+                                type="checkbox"
+                                id={`project-${index}`}
+                                value={option}
+                                checked={selectedOptions.includes(option)}
+                                onChange={() => handleOptionChange(option)}
+                            />
+                            <label htmlFor={`project-${index}`}>{option}</label>
+                        </div>
+                    ))}
                     <button onClick={handleFilterSubmit}>Apply</button>
                 </div>
             )}

@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+// ProjectTable.tsx
+import React, { useState, useEffect } from 'react';
 import './ProjectTable.css';
 import SearchBar from '../SearchBar/Search_bar';
+import Filter from '../Filter/filter'; // Asegúrate de ajustar la ruta según sea necesario
 
 interface Project {
     name: string;
@@ -13,6 +15,7 @@ interface Project {
 
 const ProjectTable: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
+    const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
 
     const projects: Project[] = [
         { name: 'Proyecto 1', client: 'Cliente 1', completionPercentage: 50, dueDate: '2024-12-31', positions: 5, vacancies: 2 },
@@ -24,10 +27,30 @@ const ProjectTable: React.FC = () => {
         { name: 'Proyecto 7', client: 'Cliente 7', completionPercentage: 100, dueDate: '2024-06-30', positions: 3, vacancies: 0 },
     ];
 
-    const filteredProjects = projects.filter(project =>
-        project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.client.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    // Filtrado inicial
+    useEffect(() => {
+        setFilteredProjects(projects);
+    }, [projects]);
+
+    // Función para aplicar el filtro
+    const applyFilter = (filter: string[]) => {
+        const filtered = projects.filter(project => filter.includes(project.name));
+        setFilteredProjects(filtered);
+    };
+
+    // Función para aplicar la búsqueda
+    const applySearch = (term: string) => {
+        const filtered = projects.filter(project =>
+            project.name.toLowerCase().includes(term.toLowerCase()) ||
+            project.client.toLowerCase().includes(term.toLowerCase())
+        );
+        setFilteredProjects(filtered);
+    };
+
+    // Aplicar la búsqueda cada vez que searchTerm cambie
+    useEffect(() => {
+        applySearch(searchTerm);
+    }, [searchTerm]);
 
     return (
         <div className="project-table-container">
@@ -36,7 +59,10 @@ const ProjectTable: React.FC = () => {
             <table className="table">
                 <thead>
                     <tr>
-                        <th>Nombre de proyecto</th>
+                        <th>
+                            Nombre de proyecto
+                            <Filter options={projects.map(p => p.name)} onFilter={applyFilter} />
+                        </th>
                         <th>Cliente</th>
                         <th>% Completado</th>
                         <th>Fecha establecida</th>

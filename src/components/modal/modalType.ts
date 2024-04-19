@@ -11,3 +11,11 @@ export interface EntityFormType {
     }
   };
 }
+
+export interface LargeModalProps {
+  titleModal: string;
+  btnArray?: React.ReactElement[];
+  typeOfModal: LargeModalType;
+  entityForm: EntityFormType;
+  onClose: () => void;
+}

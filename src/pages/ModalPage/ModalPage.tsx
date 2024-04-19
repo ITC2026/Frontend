@@ -1,5 +1,7 @@
 import "../login/LoginPage.css";
-import { EntityFormType } from "../../components/modal/modalType";
+import { EntityFormType, LargeModalType, ShortModalType } from "../../components/modal/modalType";
+import LargeModal from "../../components/modal/LargeModal";
+import ShowShortModalButton from "../../components/buttons/ShowShortModalButton";
 import { useLargeModal } from "../../hooks/useLargeModal";
 import { useShortModal } from "../../hooks/useShortModal";
 
@@ -43,12 +45,38 @@ const clientForm: EntityFormType = {
       inputType: "date",
       canBeModified: false,
     },
-  },
+  }
+};
+
+const getButtonArray = (typeOfLargeModal: LargeModalType, setTypeOfShortModal: React.Dispatch<React.SetStateAction<ShortModalType>>) => {
+  switch (typeOfLargeModal) {
+    case "register":
+      return [
+        <ShowShortModalButton
+          typeOfModalButton={"register"}
+          setTypeOfModal={setTypeOfShortModal}
+        />,
+      ];
+    case "modify":
+      return [
+        <ShowShortModalButton
+          typeOfModalButton={"modify"}
+          setTypeOfModal={setTypeOfShortModal}
+        />,
+        <ShowShortModalButton
+          typeOfModalButton={"delete"}
+          setTypeOfModal={setTypeOfShortModal}
+        />,
+      ];
+    case "info":
+    default:
+      return [];
+  }
 };
 
 const ModalPage = () => {
   const { shortModalContent, setTypeOfShortModal } = useShortModal(clientForm);
-  const { largeModalContent, setTypeOfLargeModal } = useLargeModal(clientForm, setTypeOfShortModal);
+  const { largeModalProps, typeOfLargeModal, setTypeOfLargeModal } = useLargeModal(clientForm);
 
   return (
     <div>
@@ -73,7 +101,7 @@ const ModalPage = () => {
       >
         Modificar
       </button>
-      {largeModalContent}
+      {typeOfLargeModal && largeModalProps && <LargeModal {...largeModalProps} btnArray={getButtonArray(typeOfLargeModal, setTypeOfShortModal)}/>}
       {shortModalContent}
     </div>
   );

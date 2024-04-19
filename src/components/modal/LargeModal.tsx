@@ -1,18 +1,9 @@
 import "../../index.css";
 import "./style/LargeModal.css";
-import React from "react";
-import { LargeModalType, EntityFormType } from "./modalType";
+import { LargeModalProps } from "./modalType.ts";
 import { useContentFromLargeModal } from "../../hooks/useContentFromLargeModal.tsx"
 
-interface Props {
-  titleModal: string;
-  btnArray?: React.ReactElement[];
-  typeOfModal: LargeModalType;
-  entityForm: EntityFormType;
-  onClose: () => void;
-}
-
-const LargeModal = ({ titleModal, btnArray, typeOfModal, entityForm, onClose }: Props) => {
+const LargeModal = ({ titleModal, btnArray, typeOfModal, entityForm, onClose }: LargeModalProps) => {
   const modalContent = useContentFromLargeModal(typeOfModal, entityForm);
 
   return (

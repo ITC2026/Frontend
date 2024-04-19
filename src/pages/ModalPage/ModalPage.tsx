@@ -1,11 +1,8 @@
 import "../login/LoginPage.css";
-import { EntityFormType, LargeModalType, ShortModalType } from "../../components/modal/modalType";
+import { EntityFormType } from "../../components/modal/modalType";
+import { getBtnArrLargeModal, getBtnArrShortModal } from "../../components/modal/getArrayButtons";
 import LargeModal from "../../components/modal/LargeModal";
 import ShortModal from "../../components/modal/ShortModal";
-import ShowShortModalButton from "../../components/buttons/ShowShortModalButton";
-import RegisterButton from "../../components/buttons/RegisterButton";
-import ModifyButton from "../../components/buttons/ModifyButton";
-import DeleteButton from "../../components/buttons/DeleteButton";
 import { useLargeModal } from "../../hooks/useLargeModal";
 import { useShortModal } from "../../hooks/useShortModal";
 
@@ -89,45 +86,6 @@ const clientForm: EntityFormType = {
       inputType: "date",
       canBeModified: false,
     },
-  }
-};
-
-const getBtnArrLargeModal = (typeOfLargeModal: LargeModalType, setTypeOfShortModal: React.Dispatch<React.SetStateAction<ShortModalType>>) => {
-  switch (typeOfLargeModal) {
-    case "register":
-      return [
-        <ShowShortModalButton
-          typeOfModalButton={"register"}
-          setTypeOfModal={setTypeOfShortModal}
-        />,
-      ];
-    case "modify":
-      return [
-        <ShowShortModalButton
-          typeOfModalButton={"modify"}
-          setTypeOfModal={setTypeOfShortModal}
-        />,
-        <ShowShortModalButton
-          typeOfModalButton={"delete"}
-          setTypeOfModal={setTypeOfShortModal}
-        />,
-      ];
-    case "info":
-    default:
-      return [];
-  }
-};
-
-const getBtnArrShortModal = (entityName: string, typeOfLargeModal: ShortModalType) => {
-  switch (typeOfLargeModal) {
-    case "register":
-      return [<RegisterButton entityName={entityName} />];
-    case "modify":
-      return [<ModifyButton entityName={entityName} />];
-    case "delete":
-      return [<DeleteButton entityName={entityName} />];
-    default:
-      return [];
   }
 };
 

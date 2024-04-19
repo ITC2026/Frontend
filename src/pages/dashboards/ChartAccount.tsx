@@ -48,6 +48,7 @@ const ChartAccount: React.FC = () => {
     return projects.filter((project) => project.client_id === client_id);
   }
 
+
   const getAllProjectNames = (): string[] => {
     return projects.map((project) => project.project_title);
   }
@@ -61,6 +62,11 @@ const ChartAccount: React.FC = () => {
   }
 
   // Functions to count 
+  
+  const countAllClientsActiveProjects = (): number[] => {
+    return clients.map((client) => getClientProjects(client.id).length);
+  }
+
 
   const countAllPositionsTechStack = (): number[] => {
     const nonRepeatingTechStacks = nonRepeatingTechStack();
@@ -104,7 +110,7 @@ const ChartAccount: React.FC = () => {
 
   const chartData = countAllClientProjects();
   const chartData2 = countAllPositionsTechStack();
-  const chartData3 = [1, 1, 3, 3, 1, 1, 2, 2, 2, 1, 3, 1, 5, 7];
+  const chartData3 = countAllClientsActiveProjects();
   const chartData4 = [2, 7, 3, 2, 3, 1, 2, 3, 3, 1, 3];
 
 
@@ -126,8 +132,8 @@ const ChartAccount: React.FC = () => {
           <div><br></br></div>
 
           <div className='graph3-staffer'>
-            <h2 className='graph3-staffer-title'>Tech Stacks en Empleados</h2>
-            <ChartComponent type={chartType2} data={chartData3} labels={chartLabels2}  legendDisplay={legendDisplay2} legendposition={legendposition} labelcolor={labelcolor2} axiscolor={axiscolor2} bgcolor={chartBgColor2} bdcolor={chartBdColor2} bdwidth={chartBdWidths3} />
+            <h2 className='graph3-staffer-title'>Proyectos Activos por Cliente</h2>
+            <ChartComponent type={chartType2} data={chartData3} labels={chartLabels}  legendDisplay={legendDisplay2} legendposition={legendposition} labelcolor={labelcolor2} axiscolor={axiscolor2} bgcolor={chartBgColor2} bdcolor={chartBdColor2} bdwidth={chartBdWidths3} />
           </div>
 
         </div>

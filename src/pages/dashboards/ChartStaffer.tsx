@@ -1,12 +1,85 @@
 import React from 'react';
 import ChartComponent from './ChartComponent';
 import "./Dashboard.css";
+import { Project } from "../../types";
+import {getAllProjects} from  "../../api/ProjectAPI";
+
+import { Client } from "../../types";
+import {getAllClients} from  "../../api/ClientAPI";
+
+import { Position } from '../../types';
+import { getAllPositions } from '../../api/PositionAPI';
+
+import { useState, useEffect } from 'react';
 
 
 const ChartStaffer: React.FC = () => {
+
+  const [projects, setProjects] = useState<Project[]>([])
+
+  useEffect(() => {
+    getAllProjects().then((data: unknown) => {
+      setProjects(data as Project[]);
+    });
+  }, [setProjects]);  
+
+  const [clients, setClients] = useState<Client[]>([])
+
+  useEffect(() => {
+    getAllClients().then((data: unknown) => {
+      setClients(data as Client[]);
+    });
+  }, [setClients]);
+
+  const [positions, setPositions] = useState<Position[]>([])
+
+  useEffect(() => {
+    getAllPositions().then((data: unknown) => {
+      setPositions(data as Position[]);
+    });
+  }, [setPositions]);
+
+  // Function to extract names into an array of strings
+  const getClientNames = (): string[] => {
+    return clients.map((client) => client.client_name);
+  };
+
+  const getClientProjects = (client_id: number): Project[] => {
+    return projects.filter((project) => project.client_id === client_id);
+  }
+
+  const getAllProjectNames = (): string[] => {
+    return projects.map((project) => project.project_title);
+  }
+
+  const getAllPositionsTechStack = (): string[] => {
+    return positions.map((position) => position.tech_stack.split(', ')).flat();
+  }
+
+  const nonRepeatingTechStack = (): string[] => {
+    return Array.from(new Set(getAllPositionsTechStack()));
+  }
+
+  // Functions to count 
+
+  const countAllPositionsTechStack = (): number[] => {
+    const nonRepeatingTechStacks = nonRepeatingTechStack();
+    return nonRepeatingTechStacks.map((techStack) => getAllPositionsTechStack().filter((tech) => tech === techStack).length);
+  }
+
+  const countClientProjects = (client_id: number): number => {
+    return getClientProjects(client_id).length;
+  }
+
+  const countAllClientProjects = (): number[] => {
+    return clients.map((client) => countClientProjects(client.id));
+  }
+
+
+
   const chartType = 'pie';
   const chartType2 = 'bar';
-  
+    
   const legendposition = 'top';
 
   const labelcolor = '#ffffff';
@@ -15,7 +88,7 @@ const ChartStaffer: React.FC = () => {
   const legendDisplay = true;
   const legendDisplay2 = false;
 
-  const chartBgColor = ['#275317', '#3B7D23', '#8ED973', '#92C089', '#BCD5B7'];
+  const chartBgColor = ['#44197E', '#531e98','#7f3fc7', '#9a4fcf', '#b85fd6'];
   const chartBgColor2 = ['#ffffff'];  
   const chartBgColor3 = ['#fffee0', '#fffdc1', '#fffb82', '#fff941', '#fff600', '#ffeb00', '#ffdd00', '#ffcf00', '#ffbf00', '#ffae00', '#ff9b00', '#ff8700', '#ff7200', '#ff5b00', '#ff4300', '#ff2a00'];
 
@@ -29,15 +102,15 @@ const ChartStaffer: React.FC = () => {
   const chartBdWidths2 = 1;
   const chartBdWidths3 = 1;
 
-  const chartData = [31, 65, 22, 7, 18];
-  const chartData2 = [1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 12];
+  const chartData = countAllClientProjects();
+  const chartData2 = countAllPositionsTechStack();
   const chartData3 = [1, 1, 3, 3, 1, 1, 2, 2, 2, 1, 3, 1, 5, 7];
   const chartData4 = [2, 7, 3, 2, 3, 1, 2, 3, 3, 1, 3];
 
 
-  const chartLabels = ['Aceptado', 'Rechazado',	'Esperando Feedback', 'Agendado a Cita', 'Recién Postulado'];
-  const chartLabels2 = ['Appian', 'Golang', 'iOS', 'JavaScript', 'Kotlin', 'PowerApps', 'UX', '.NET', 'Angular', 'Automation', 'Manual Tester', 'Python', 'React', 'Java'];
-  const chartLabels3 = ['SOW Google 01.24', 'SOW Temu 01.24', 'SOW Allison 01.23', 'SOW Queen Data 01.24', 'SOW TCE 01.24', 'SOW UIAT 01.23', 'SOW Microsoft 01.24', 'SOW Microsoft 02.24', 'SOW Microsoft 03.24', 'SOW Apprentice 01.24', 'SOW Trolly 01.24'];
+  const chartLabels = getClientNames();
+  const chartLabels2 = nonRepeatingTechStack();
+  const chartLabels3 = getAllProjectNames();
 
   return (
     <div className='row r1'>

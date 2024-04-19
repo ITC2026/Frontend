@@ -43,7 +43,7 @@ export const getProjectById = async (id: number) => {
   }
 };
 
-export const modifyProduct = async (id: number, tproject: Project) => {
+export const modifyProject = async (id: number, tproject: Project) => {
   try {
     const res = await api.patch(`${projectRoute}/${id}`, { data: tproject });
     const project: Project = await res.data.payload;

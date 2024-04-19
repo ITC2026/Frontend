@@ -1,5 +1,5 @@
 import "../../index.css";
-import "./Input.css"
+import "./Input.css";
 import { InputType } from "./modalType";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
@@ -7,18 +7,21 @@ import Col from "react-bootstrap/Col";
 interface Props {
   inputType: InputType;
   disableInput?: boolean;
+  text?: string;
+  selectOptions?: string[];
 }
-
-const Input = ({ inputType, disableInput }: Props) => {
+const Input = ({ inputType, disableInput, text, selectOptions }: Props) => {
   switch (inputType) {
     case "text":
       return (
         <Col sm={6}>
-          <Form.Control 
-            type="text" 
+          <Form.Control
+            type="text"
             bsPrefix="encora-purple-input form-control"
             disabled={disableInput}
+            value={text}
           />
+
         </Col>
       );
     case "file":
@@ -33,36 +36,42 @@ const Input = ({ inputType, disableInput }: Props) => {
       );
     case "checkbox":
       return (
-        <Form.Check.Input
-          type="checkbox"
-          bsPrefix="encora-purple-check form-check-input"
-          disabled={disableInput}
-        />
+        <Col sm={6}>
+          <Form.Check.Input
+            type="checkbox"
+            bsPrefix="encora-purple-check form-check-input"
+            disabled={disableInput}
+          />
+          {text}
+        </Col>
       );
     case "select":
       return (
         <Col sm={6}>
-          <Form.Select 
+          <Form.Select
             bsPrefix="encora-purple-input form-select"
-            disabled={disableInput}>
-            <option>Ninguno</option>
-            <option>PlaceHolder1</option> 
-            <option>PlaceHolder1</option>
-            <option>PlaceHolder1</option>
+            disabled={disableInput}
+          >
+            {selectOptions?.map((option: string, index: number) => (
+              <option key={index} value={option}>
+                {option}
+              </option>
+            ))}
           </Form.Select>
         </Col>
       );
     case "date":
+      text = text?.substring(0,10) 
       return (
         <Col sm={6}>
-          <input 
+          <input
             type="date"
             className="encora-purple-input form-control"
             disabled={disableInput}
-          >
-          </input>
+            value={text} 
+          />
         </Col>
-      )
+      );
     default:
       break;
   }

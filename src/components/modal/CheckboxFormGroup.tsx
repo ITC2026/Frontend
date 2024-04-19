@@ -10,9 +10,15 @@ interface Props {
   nameLabel: string;
   inputType: InputType;
   disableInput?: boolean;
- }
+  content?: string;
+  selectOptions?: string[];
+}
 
-const CheckboxFormGroup = ({ nameLabel, inputType, disableInput }: Props) => {
+const CheckboxFormGroup = ({
+  nameLabel,
+  inputType,
+  disableInput,
+}: Props) => {
   return (
     <Form.Group as={Row} className="mb-4 row-width-form">
       <Col sm={6}>
@@ -20,7 +26,10 @@ const CheckboxFormGroup = ({ nameLabel, inputType, disableInput }: Props) => {
           type={"checkbox"}
           bsPrefix="label-style text-start form-check"
         >
-          <Input inputType={inputType} disableInput={disableInput}/>
+          <Input
+            inputType={inputType}
+            disableInput={disableInput}
+          />
           <Form.Check.Label>{nameLabel}</Form.Check.Label>
         </Form.Check>
       </Col>

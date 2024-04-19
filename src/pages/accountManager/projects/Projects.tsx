@@ -47,6 +47,8 @@ const ProjectPage = () => {
 
   useEffect(() => {
     getAllProjects().then((data: unknown) => {
+      console.log(data);
+      
       setProjects(data as Project[]);
 
     });

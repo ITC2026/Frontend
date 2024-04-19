@@ -5,9 +5,8 @@ import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import ProjectPage from "../pages/accountManager/projects/Projects";
-import ProjectDetail  from "../pages/accountManager/projects/ProjectID";
+import ProjectInfoID from "../pages/accountManager/projects/ProjectInfoID";
 import ModalPage from "../pages/ModalPage/ModalPage";
-
 
 const router = createBrowserRouter([
   {
@@ -56,12 +55,8 @@ const router = createBrowserRouter([
         children: [
           {
             path: ":id/",
-            element: (
-              <>
-                <ProjectDetail/> 
-              </>
-            ),
-          }
+            element: <ProjectInfoID />,
+          },
         ],
       },
       {
@@ -92,7 +87,5 @@ const router = createBrowserRouter([
     element: <ModalPage />,
   },
 ]);
-
-
 
 export default router;

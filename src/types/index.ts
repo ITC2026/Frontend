@@ -66,7 +66,7 @@ export interface Project {
   start_date: Date;
   has_expiration_date: boolean;
   general_status: ProjectStatus; // Part of a type.
-  positions: Position[];
+  //positions: Position[];
   client_id: number;
 }
 
@@ -132,8 +132,8 @@ export interface Client {
   client_desc: string;
   high_growth: boolean;
   division: Division; // Part of a type.
-  projects: Project[];
-  employees: Employee[];
+//  projects: Project[];
+//  employees: Employee[];
 }
 
 // ClientEmployeeRelation interface.

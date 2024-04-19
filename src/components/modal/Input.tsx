@@ -1,12 +1,12 @@
 import "../../index.css";
-import "./Input.css"
+import "./style/Input.css"
 import { InputType } from "./modalType";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 
 interface Props {
   inputType: InputType;
-  disableInput?: boolean;
+  disableInput: boolean;
 }
 
 const Input = ({ inputType, disableInput }: Props) => {
@@ -30,14 +30,6 @@ const Input = ({ inputType, disableInput }: Props) => {
             disabled={disableInput}
           />
         </Col>
-      );
-    case "checkbox":
-      return (
-        <Form.Check.Input
-          type="checkbox"
-          bsPrefix="encora-purple-check form-check-input"
-          disabled={disableInput}
-        />
       );
     case "select":
       return (

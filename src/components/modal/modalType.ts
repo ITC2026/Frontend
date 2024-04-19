@@ -6,7 +6,8 @@ export interface EntityFormType {
   formStructure: {
     [key: string]: {
       inputType: InputType;
-      canBeModified: boolean
+      canBeModified: boolean;
+      whichInputCanDisabled?: Number[];
     }
   };
 }

@@ -1,5 +1,5 @@
 import "../../index.css";
-import "./ShortModal.css";
+import "./style/ShortModal.css";
 import { EntityFormType, ShortModalType } from "./modalType";
 
 interface Props {

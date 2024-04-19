@@ -16,9 +16,8 @@ const clientForm: EntityFormType = {
   entity: "Cliente",
   formStructure: {
     "Nombre de Cliente": {
-      inputType: "file",
+      inputType: "text",
       canBeModified: true,
-
     },
     Descripción: {
       inputType: "text",
@@ -35,6 +34,7 @@ const clientForm: EntityFormType = {
     "High-Growth Client": {
       inputType: "checkbox",
       canBeModified: true,
+      whichInputCanDisabled: [1, 3],
     },
     Division: {
       inputType: "select",

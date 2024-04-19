@@ -1,18 +1,17 @@
 import "../../index.css";
-import "./FormGroup.css";
-import { InputType } from "./modalType";
-import Input from "./Input";
+import "./style/FormGroup.css";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 interface Props {
   nameLabel: string;
-  inputType: InputType;
-  disableInput?: boolean;
- }
+  disableInput: boolean;
+  indexFromDisabledInput?: Number[];
+  setDisableInput?: React.Dispatch<React.SetStateAction<Number[]>>
+}
 
-const CheckboxFormGroup = ({ nameLabel, inputType, disableInput }: Props) => {
+const CheckboxFormGroup = ({ nameLabel, disableInput, indexFromDisabledInput, setDisableInput }: Props) => {
   return (
     <Form.Group as={Row} className="mb-4 row-width-form">
       <Col sm={6}>
@@ -20,7 +19,19 @@ const CheckboxFormGroup = ({ nameLabel, inputType, disableInput }: Props) => {
           type={"checkbox"}
           bsPrefix="label-style text-start form-check"
         >
-          <Input inputType={inputType} disableInput={disableInput}/>
+          <Form.Check.Input
+            type="checkbox"
+            bsPrefix="encora-purple-check form-check-input"
+            disabled={disableInput}
+            onChange={(event) => {
+              const isChecked = event.target.checked;
+              if (isChecked) {
+                setDisableInput && indexFromDisabledInput && setDisableInput(indexFromDisabledInput);
+              } else {
+                setDisableInput && setDisableInput([-1]);
+              }
+            }}
+          />
           <Form.Check.Label>{nameLabel}</Form.Check.Label>
         </Form.Check>
       </Col>

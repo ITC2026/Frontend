@@ -92,7 +92,7 @@ const getBtnArrShortModal = (entityName: string, typeOfLargeModal: ShortModalTyp
 };
 
 const ModalPage = () => {
-  const { shortModalProps, typeOfShortModal, setTypeOfShortModal } = useShortModal(clientForm);
+  const { shortModalProps, typeOfShortModal, setTypeOfShortModal }  = useShortModal(clientForm);
   const { largeModalProps, typeOfLargeModal, setTypeOfLargeModal } = useLargeModal(clientForm);
 
   return (

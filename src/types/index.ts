@@ -21,7 +21,7 @@ import { TypesOfRoles,
 // Todas las interfaces tienen su respectiva API, excepto las que consisten de una relación.
 
 export interface Person { 
-  id: number;
+  id?: number;
   first_name: string;
   last_name: string;
   profile_picture?: string;
@@ -48,7 +48,7 @@ export interface Opening {
 }
 
 export interface Position {
-  id: number;
+  id?: number;
   position_title: string;
   division: Division; // Part of a type.
   region: Region; // Part of a type.
@@ -63,7 +63,7 @@ export interface Position {
 }
 
 export interface Project {
-  id: number;
+  id?: number;
   project_title: string;
   project_description: string;
   start_date: Date;
@@ -82,7 +82,7 @@ export interface Role {
 
 // User Interface.
 export interface User {
-  id: number;
+  id?: number;
   username: string;
   password: string;
   email: string;
@@ -114,7 +114,7 @@ export interface Entity {
 
 // Employee interface.
 export interface Employee {
-  id: number;
+  id?: number;
   job_title: string;
   salary: number;
   job_grade: JobGrade; // Part of a type.
@@ -177,7 +177,7 @@ export interface Application {
 
 // Candidate interface.
 export interface Candidate {
-  id: number;
+  id?: number;
   expected_salary: number;
   person_id: number; // Foreign key.
 }

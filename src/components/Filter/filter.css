@@ -16,6 +16,10 @@
     right: 0;
 }
 
+.filter-dropdown.open {
+    display: block;
+}
+
 .filter-dropdown input[type="checkbox"] {
     margin-right: 5px;
 }
@@ -38,9 +42,3 @@
 }
 
 .filter-dropdown button:hover {background-color: #f1f1f1}
-
-.filter-container:hover .filter-dropdown,
-.filter-container:focus-within .filter-dropdown {
-    display: block;
-}
-

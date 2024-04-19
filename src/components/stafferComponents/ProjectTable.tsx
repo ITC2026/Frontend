@@ -1,8 +1,8 @@
-// ProjectTable.tsx
+
 import React, { useState, useEffect } from 'react';
 import './ProjectTable.css';
 import SearchBar from '../SearchBar/Search_bar';
-import Filter from '../Filter/filter'; // Asegúrate de ajustar la ruta según sea necesario
+import Filter from '../Filter/filter'; 
 
 interface Project {
     name: string;
@@ -27,18 +27,15 @@ const ProjectTable: React.FC = () => {
         { name: 'Proyecto 7', client: 'Cliente 7', completionPercentage: 100, dueDate: '2024-06-30', positions: 3, vacancies: 0 },
     ];
 
-    // Filtrado inicial
     useEffect(() => {
         setFilteredProjects(projects);
     }, [projects]);
 
-    // Función para aplicar el filtro
     const applyFilter = (filter: string[]) => {
         const filtered = projects.filter(project => filter.includes(project.name));
         setFilteredProjects(filtered);
     };
 
-    // Función para aplicar la búsqueda
     const applySearch = (term: string) => {
         const filtered = projects.filter(project =>
             project.name.toLowerCase().includes(term.toLowerCase()) ||
@@ -47,7 +44,6 @@ const ProjectTable: React.FC = () => {
         setFilteredProjects(filtered);
     };
 
-    // Aplicar la búsqueda cada vez que searchTerm cambie
     useEffect(() => {
         applySearch(searchTerm);
     }, [searchTerm]);
@@ -61,7 +57,7 @@ const ProjectTable: React.FC = () => {
                     <tr>
                         <th>
                             Nombre de proyecto
-                            <Filter options={projects.map(p => p.name)} onFilter={applyFilter} />
+                            <Filter projects={projects} onFilter={applyFilter} />
                         </th>
                         <th>Cliente</th>
                         <th>% Completado</th>

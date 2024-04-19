@@ -19,3 +19,10 @@ export interface LargeModalProps {
   entityForm: EntityFormType;
   onClose: () => void;
 }
+
+export interface ShortModalProps {
+  btnArray?: React.ReactElement[];
+  typeOfModal: ShortModalType;
+  entityForm: EntityFormType;
+  onClose: () => void;
+}

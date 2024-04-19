@@ -1,7 +1,11 @@
 import "../login/LoginPage.css";
 import { EntityFormType, LargeModalType, ShortModalType } from "../../components/modal/modalType";
 import LargeModal from "../../components/modal/LargeModal";
+import ShortModal from "../../components/modal/ShortModal";
 import ShowShortModalButton from "../../components/buttons/ShowShortModalButton";
+import RegisterButton from "../../components/buttons/RegisterButton";
+import ModifyButton from "../../components/buttons/ModifyButton";
+import DeleteButton from "../../components/buttons/DeleteButton";
 import { useLargeModal } from "../../hooks/useLargeModal";
 import { useShortModal } from "../../hooks/useShortModal";
 
@@ -48,7 +52,7 @@ const clientForm: EntityFormType = {
   }
 };
 
-const getButtonArray = (typeOfLargeModal: LargeModalType, setTypeOfShortModal: React.Dispatch<React.SetStateAction<ShortModalType>>) => {
+const getBtnArrLargeModal = (typeOfLargeModal: LargeModalType, setTypeOfShortModal: React.Dispatch<React.SetStateAction<ShortModalType>>) => {
   switch (typeOfLargeModal) {
     case "register":
       return [
@@ -74,8 +78,21 @@ const getButtonArray = (typeOfLargeModal: LargeModalType, setTypeOfShortModal: R
   }
 };
 
+const getBtnArrShortModal = (entityName: string, typeOfLargeModal: ShortModalType) => {
+  switch (typeOfLargeModal) {
+    case "register":
+      return [<RegisterButton entityName={entityName} />];
+    case "modify":
+      return [<ModifyButton entityName={entityName} />];
+    case "delete":
+      return [<DeleteButton entityName={entityName} />];
+    default:
+      return [];
+  }
+};
+
 const ModalPage = () => {
-  const { shortModalContent, setTypeOfShortModal } = useShortModal(clientForm);
+  const { shortModalProps, typeOfShortModal, setTypeOfShortModal } = useShortModal(clientForm);
   const { largeModalProps, typeOfLargeModal, setTypeOfLargeModal } = useLargeModal(clientForm);
 
   return (
@@ -101,8 +118,8 @@ const ModalPage = () => {
       >
         Modificar
       </button>
-      {typeOfLargeModal && largeModalProps && <LargeModal {...largeModalProps} btnArray={getButtonArray(typeOfLargeModal, setTypeOfShortModal)}/>}
-      {shortModalContent}
+      {typeOfLargeModal && largeModalProps && <LargeModal {...largeModalProps} btnArray={getBtnArrLargeModal(typeOfLargeModal, setTypeOfShortModal)}/>}
+      {typeOfShortModal && shortModalProps && <ShortModal {...shortModalProps} btnArray={getBtnArrShortModal(clientForm.entity, typeOfShortModal)}/>}
     </div>
   );
 };

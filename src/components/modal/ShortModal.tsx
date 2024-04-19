@@ -1,13 +1,6 @@
 import "../../index.css";
 import "./style/ShortModal.css";
-import { EntityFormType, ShortModalType } from "./modalType";
-
-interface Props {
-  btnArray?: React.ReactElement[];
-  typeOfModal: ShortModalType;
-  entityForm: EntityFormType;
-  onClose: () => void;
-}
+import { ShortModalProps, ShortModalType } from "./modalType";
 
 const renderModalContent = (typeOfModal: ShortModalType) => {
   switch (typeOfModal) {
@@ -37,7 +30,7 @@ const renderModalContent = (typeOfModal: ShortModalType) => {
   }
 }
 
-const ShortModal = ({ btnArray, typeOfModal, onClose }: Props) => {
+const ShortModal = ({ btnArray, typeOfModal, onClose }: ShortModalProps) => {
   return (
     <div className="overlay background-gray">
       <div className="short-modal white">

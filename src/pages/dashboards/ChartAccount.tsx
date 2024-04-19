@@ -7,6 +7,9 @@ import {getAllProjects} from  "../../api/ProjectAPI";
 import { Client } from "../../types";
 import {getAllClients} from  "../../api/ClientAPI";
 
+import { Position } from '../../types';
+import { getAllPositions } from '../../api/PositionAPI';
+
 import { useState, useEffect } from 'react';
 
 
@@ -21,19 +24,47 @@ const ChartAccount: React.FC = () => {
   }, [setProjects]);  
 
   const [clients, setClients] = useState<Client[]>([])
+
   useEffect(() => {
     getAllClients().then((data: unknown) => {
       setClients(data as Client[]);
     });
   }, [setClients]);
 
-  // Function to extract client names into an array of strings
+  const [positions, setPositions] = useState<Position[]>([])
+
+  useEffect(() => {
+    getAllPositions().then((data: unknown) => {
+      setPositions(data as Position[]);
+    });
+  }, [setPositions]);
+
+  // Function to extract names into an array of strings
   const getClientNames = (): string[] => {
     return clients.map((client) => client.client_name);
   };
 
   const getClientProjects = (client_id: number): Project[] => {
     return projects.filter((project) => project.client_id === client_id);
+  }
+
+  const getAllProjectNames = (): string[] => {
+    return projects.map((project) => project.project_title);
+  }
+
+  const getAllPositionsTechStack = (): string[] => {
+    return positions.map((position) => position.tech_stack.split(', ')).flat();
+  }
+
+  const nonRepeatingTechStack = (): string[] => {
+    return Array.from(new Set(getAllPositionsTechStack()));
+  }
+
+  // Functions to count 
+
+  const countAllPositionsTechStack = (): number[] => {
+    const nonRepeatingTechStacks = nonRepeatingTechStack();
+    return nonRepeatingTechStacks.map((techStack) => getAllPositionsTechStack().filter((tech) => tech === techStack).length);
   }
 
   const countClientProjects = (client_id: number): number => {
@@ -72,14 +103,14 @@ const ChartAccount: React.FC = () => {
   const chartBdWidths3 = 1;
 
   const chartData = countAllClientProjects();
-  const chartData2 = [1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 12];
+  const chartData2 = countAllPositionsTechStack();
   const chartData3 = [1, 1, 3, 3, 1, 1, 2, 2, 2, 1, 3, 1, 5, 7];
   const chartData4 = [2, 7, 3, 2, 3, 1, 2, 3, 3, 1, 3];
 
 
   const chartLabels = getClientNames();
-  const chartLabels2 = ['Appian', 'Golang', 'iOS', 'JavaScript', 'Kotlin', 'PowerApps', 'UX', '.NET', 'Angular', 'Automation', 'Manual Tester', 'Python', 'React', 'Java'];
-  const chartLabels3 = ['SOW Google 01.24', 'SOW Temu 01.24', 'SOW Allison 01.23', 'SOW Queen Data 01.24', 'SOW TCE 01.24', 'SOW UIAT 01.23', 'SOW Microsoft 01.24', 'SOW Microsoft 02.24', 'SOW Microsoft 03.24', 'SOW Apprentice 01.24', 'SOW Trolly 01.24'];
+  const chartLabels2 = nonRepeatingTechStack();
+  const chartLabels3 = getAllProjectNames();
 
   return (
     <div className='row r1'>

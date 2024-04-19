@@ -9,7 +9,8 @@ export interface EntityFormType {
       canBeModified: boolean;
       info?: string;
       attributeName?: string; 
-      checkbox_id?: number; 
+      selectOptions?: string[];
+      whichInputCanDisabled?: number[];
     }
   };
 }

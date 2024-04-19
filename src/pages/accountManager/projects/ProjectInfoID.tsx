@@ -6,14 +6,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getProjectById } from "../../../api/ProjectAPI";
 import { Project } from "../../../types";
 
-/*
- *  "project_title": "Youtube",
- * "project_description": "Broadcast Channel",
- * "start_date": "2023-03-25T22:42:40.000Z",
- * "general_status": "Active",
- * "has_expiration_date": false,
- * "client_id": 2
- */
 
 const projectForm: EntityFormType = {
   entity: "Proyecto",
@@ -22,6 +14,7 @@ const projectForm: EntityFormType = {
       inputType: "text",
       canBeModified: true,
       attributeName: "project_title",
+
     },
     Descripción: {
       inputType: "text",
@@ -42,21 +35,21 @@ const projectForm: EntityFormType = {
       inputType: "checkbox",
       canBeModified: true,
       attributeName: "has_expiration_date",
-      checkbox_id: 1,
+      whichInputCanDisabled: [5],
     },
     "Fecha de Cierre": {
       inputType: "date",
       canBeModified: true,
-      attributeName: "expiration_date",
-      checkbox_id: 1,
+      attributeName: "expiration",
     },
   },
 };
 
 const ProjectDetail = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [project, setProject] = useState<Project>();
-  const [infoArray] = useState<string[]>([]);
+  const [projectFormState, setProjectFormState] = useState(projectForm);
+  const [isDataFetched, setIsDataFetched] = useState(false);
+  const [, setProject] = useState<Project>();
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -66,34 +59,35 @@ const ProjectDetail = () => {
     navigate("/account_manager/projects");
   };
 
-  useEffect(() => {
-    getProjectById(Number(id)).then((data: unknown) => {
-      setProject(data as Project);
-    });
-  }, [id]);
 
-  useEffect(() => {
-    if (!project) return;
-
-    Object.keys(projectForm.formStructure).forEach((key) => {
-      const attributeName = projectForm.formStructure[key].attributeName;
+useEffect(() => {
+  getProjectById(Number(id)).then((data: unknown) => {
+    const projectData = data as Project;
+    setProject(projectData);
+    if (!projectData) return;
+    const newProjectForm = { ...projectFormState };
+    Object.keys(newProjectForm.formStructure).forEach((key) => {
+      const attributeName = newProjectForm.formStructure[key].attributeName;
       if (!attributeName) return;
-      const attributeValue = project[attributeName as keyof Project];
-      projectForm.formStructure[key].info = attributeValue
+      const attributeValue = projectData[attributeName as keyof Project];
+      newProjectForm.formStructure[key].info = attributeValue
         ? attributeValue.toString()
         : "";
     });
-  }, [project, projectForm.formStructure]);
+    
+    setProjectFormState(newProjectForm);
+    setIsDataFetched(true); // Set isDataFetched to true after updating the state
+  });
+}, [id, projectFormState]);
 
   return (
     <>
-      {isModalOpen && (
+      {isModalOpen && isDataFetched && (
         <LargeModal
           titleModal="Project Details"
           typeOfModal="modify"
-          entityForm={projectForm}
+          entityForm={projectFormState}
           onClose={closeModal}
-          stringArray={infoArray}
         />
       )}
     </>

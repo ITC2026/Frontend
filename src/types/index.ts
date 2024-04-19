@@ -60,14 +60,16 @@ export interface Position {
 }
 
 export interface Project {
-  id: number;
+  id?: number;
   project_title: string;
   project_description: string;
   start_date: Date;
   has_expiration_date: boolean;
   general_status: ProjectStatus; // Part of a type.
-  positions: Position[];
+  positions?: Position[];
   client_id: number;
+  expiration?: Date; 
+  client_name?: string;
 }
 
 // Roles interface.

@@ -31,6 +31,7 @@ function formatTimestamp(timestamp: string): string {
 
 const TableView = (prop: Props) => {
   return (
+    
     <Table striped bordered hover className="custom-table">
       <thead>
         <tr>

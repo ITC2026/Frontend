@@ -4,6 +4,7 @@ import { Project } from "../../../types/.";
 import { getAllProjects } from "../../../api/ProjectAPI";
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router";
+import { useNavigate } from "react-router";
 
 const project_structure = {
   project_title: "Nombre del Proyecto",
@@ -17,7 +18,7 @@ interface PropTab {
   setSelected: (selected: string) => void;
 }
 
-const TabNav = (props: PropTab) => {  
+const TabNav = (props: PropTab) => {
   const projectTypeList = [
     "Proyectos en Preparación",
     "Proyectos Activos",
@@ -44,17 +45,15 @@ const TabNav = (props: PropTab) => {
 const ProjectPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selected, setSelected] = useState<string>("Proyectos en Preparación");
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAllProjects().then((data: unknown) => {
-      console.log(data);
-      
       setProjects(data as Project[]);
-
     });
   }, [setProjects]);
 
-  const filteredProjects = projects.filter(project => {
+  const filteredProjects = projects.filter((project) => {
     if (selected === "Proyectos Activos") {
       return project.general_status === "Active";
     } else if (selected === "Proyectos en Preparación") {
@@ -62,7 +61,7 @@ const ProjectPage = () => {
     } else if (selected === "Proyectos Cerrados") {
       return project.general_status === "Closed";
     }
-    return true; 
+    return true;
   });
 
   return (
@@ -70,9 +69,12 @@ const ProjectPage = () => {
       <TabNav selected={selected} setSelected={setSelected} />
       <div className="project-header">
         <h1>Proyectos</h1>
-        <Outlet/>
+        <Outlet />
         {selected === "Proyectos en Preparación" ? (
-          <button className="project-register encora-purple-button text-light">
+          <button
+            className="project-register encora-purple-button text-light"
+            onClick={() => navigate("/account_manager/projects/register")}
+          >
             {" "}
             Registrar Proyecto{" "}
           </button>
@@ -81,7 +83,13 @@ const ProjectPage = () => {
         )}
       </div>
 
-      <TableView entity={filteredProjects} elements={project_structure} type = "Project"/>
+      {projects && (
+        <TableView
+          entity={filteredProjects}
+          elements={project_structure}
+          type="Project"
+        />
+      )}
     </div>
   );
 };

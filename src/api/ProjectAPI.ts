@@ -19,6 +19,9 @@ export const createProject = async (project: Project) => {
     const action = await res.data.payload;
     return action;
   } catch (err) {
+    if ((err as any).response && (err as any).response.status === 500) {
+      return "Internal Server Error";
+    }
     console.log(err);
   }
 };

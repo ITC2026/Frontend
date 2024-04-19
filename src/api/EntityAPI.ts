@@ -1,7 +1,7 @@
 import api from ".";
 import { Entity } from "../types";
 
-const entityRoute = '/entity';
+const entityRoute = '/entities';
 
 // Get all entities.
 export const getAllEntities = async () => {

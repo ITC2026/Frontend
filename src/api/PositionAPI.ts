@@ -1,7 +1,7 @@
 import api from ".";
 import { Position } from "../types";
 
-const positionRoute = '/position';
+const positionRoute = '/positions';
 
 // Get all positions.
 export const getAllPositions = async () => {

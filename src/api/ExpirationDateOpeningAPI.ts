@@ -1,7 +1,7 @@
 import api from ".";
 import { ExpirationDateOpening } from "../types";
 
-const expirationDateOpeningRoute = '/expirationdateopening';
+const expirationDateOpeningRoute = '/expirationdateopenings';
 
 // Get all opening expiration dates.
 export const getAllExpirationDateOpenings = async () => {

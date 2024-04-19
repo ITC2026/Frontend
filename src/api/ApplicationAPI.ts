@@ -1,7 +1,7 @@
 import api from ".";
 import { Application } from "../types";
 
-const applicationRoute ='/application';
+const applicationRoute ='/applications';
 
 // Get all applications.
 export const getAllApplications = async () => {

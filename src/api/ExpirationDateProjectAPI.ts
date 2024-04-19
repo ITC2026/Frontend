@@ -1,7 +1,7 @@
 import api from ".";
 import { ExpirationDateProject } from "../types";
 
-const expirationDateProjectRoute = '/expirationdateproject';
+const expirationDateProjectRoute = '/expirationdateprojects';
 
 // Get all project expiration dates.
 export const getAllExpirationDateProjects = async () => {

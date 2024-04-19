@@ -1,7 +1,7 @@
 import api from ".";
 import { Role } from "../types";
 
-const roleRoute = '/role';
+const roleRoute = '/roles';
 
 // Se determinó que no es necesario modificar ni eliminar un Rol.
 

@@ -1,7 +1,7 @@
 import api from ".";
 import { ClosedProject } from "../types";
 
-const closedProjectRoute = '/closedproject';
+const closedProjectRoute = '/closedprojects';
 
 // Get all closed projects.
 export const getAllClosedProjects = async () => {

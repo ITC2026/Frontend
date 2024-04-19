@@ -1,7 +1,7 @@
 import api from ".";
 import { Opening } from "../types";
 
-const openingRoute = '/opening';
+const openingRoute = '/openings';
 
 // Get all Openings.
 export const getAllOpenings = async () => {

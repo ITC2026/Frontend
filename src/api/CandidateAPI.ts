@@ -1,7 +1,7 @@
 import api from ".";
 import { Candidate } from "../types";
 
-const candidateRoute = '/candidate';
+const candidateRoute = '/candidates';
 
 // Get all candidates.
 export const getAllCandidates = async () => {

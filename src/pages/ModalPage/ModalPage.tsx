@@ -9,6 +9,46 @@ import DeleteButton from "../../components/buttons/DeleteButton";
 import { useLargeModal } from "../../hooks/useLargeModal";
 import { useShortModal } from "../../hooks/useShortModal";
 
+/**
+ * EntityForm
+ * Esta es la forma general para implementar un modal dentro de tu página.
+ * 
+ * @remarks
+ * Este objeto será pasado como argumento a un custom hook que establecerá el tipo de modal.
+ * Para alguien que solo quiere implementar un modal, favor de abstenerse solo en este nivel de abstracción.
+ * Abajo de la documentación hay una implementación de una entidad Cliente llamada ClientForm.
+ * 
+ * @param entity - El nombre de la entidad
+ * @param formStructure - El contenido del formulario. Está compuesto por una lista de objetos (grupos del formulario)
+ *    @param inputType - El tipo de input que el formulario está compuesto (text, file, checkbox, select, date)
+ *    @param canBeModified - Implica si el input puede modificarse y/o registrarse. En caso de ser true, el input se deshabilita.
+ *    @param whichInputCanDisabled - Representa los inputs que pueden deshabilitarse cuando el checkbox se activa. Se puede 
+ *           interpretar como  una lista de indíces (index) de los grupos del formulario.
+ * 
+ * @example
+ * Si quieres crear un formulario de un que tenga tanto su nombre, como su fecha de registro y una opción para deshabilitarlo, puedes hacer lo siguiente:
+ * 
+ * {
+ *  entity: "Cliente"
+ *  formStructure: {
+ *    Nombre: {
+ *      inputType: "text",
+ *      canBeModified: true,
+ *   }, 
+ *   "Fecha de Registro": {
+ *      inputType: "date",
+ *      canBeModified: false,
+ *   },
+ *   "Deshabilitar Cliente": {
+ *      inputType: "checkbox",
+ *      canBeModified: true,
+ *      whichInputCanDisabled: [0, 1]
+ *   },
+ *  }
+ * }
+ * 
+ */
+
 const clientForm: EntityFormType = {
   entity: "Cliente",
   formStructure: {

@@ -5,19 +5,31 @@ import Input from "./Input";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-interface Props {
- nameLabel: string;
- disableInput: boolean;
- inputType: InputType;
- content?: string; 
- selectOptions?: string[];
- onChange?: (value: string | number) => void;
+interface Option {
+  id: string;
+  name: string;
 }
 
-const GenericFormGroup = ({ nameLabel, inputType, disableInput, content, selectOptions, onChange}: Props) => {
+interface Props {
+  nameLabel: string;
+  disableInput: boolean;
+  inputType: InputType;
+  content?: string;
+  selectOptions?: Option[];
+  onChange?: (value: string | number) => void;
+}
+
+const GenericFormGroup = ({
+  nameLabel,
+  inputType,
+  disableInput,
+  content,
+  selectOptions,
+  onChange,
+}: Props) => {
   const handleChange = (value: string | number) => {
     if (onChange) {
-      onChange(value); 
+      onChange(value);
     }
   };
 
@@ -26,7 +38,13 @@ const GenericFormGroup = ({ nameLabel, inputType, disableInput, content, selectO
       <Form.Label column sm={6} bsPrefix="label-style text-start">
         {nameLabel}
       </Form.Label>
-      <Input inputType={inputType} disableInput={disableInput} text= {content} selectOptions={selectOptions} onChange = {handleChange} />
+      <Input
+        inputType={inputType}
+        disableInput={disableInput}
+        text={content}
+        selectOptions={selectOptions}
+        onChange={handleChange}
+      />
     </Form.Group>
   );
 };

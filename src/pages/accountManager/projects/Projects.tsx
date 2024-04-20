@@ -4,7 +4,7 @@ import { Project } from "../../../types/.";
 import { getAllProjects } from "../../../api/ProjectAPI";
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router";
-import { useNavigate } from "react-router";
+import RegisterModal from "../../../pages/accountManager/projects/RegisterProject";
 
 const project_structure = {
   project_title: "Nombre del Proyecto",
@@ -45,13 +45,16 @@ const TabNav = (props: PropTab) => {
 const ProjectPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selected, setSelected] = useState<string>("Proyectos en Preparación");
-  const navigate = useNavigate();
+  const [registerProject, setRegisterProject] = useState<boolean>(false);
+
+
+  const toggleRegisterProject = () => {
+    setRegisterProject((prev) => !prev);
+  };
 
   useEffect(() => {
-    getAllProjects().then((data: unknown) => {
-      setProjects(data as Project[]);
-    });
-  }, [setProjects]);
+    !registerProject && getAllProjects().then((data) => setProjects(data as Project[]));
+  }, [registerProject]);
 
   const filteredProjects = projects.filter((project) => {
     if (selected === "Proyectos Activos") {
@@ -73,7 +76,7 @@ const ProjectPage = () => {
         {selected === "Proyectos en Preparación" ? (
           <button
             className="project-register encora-purple-button text-light"
-            onClick={() => navigate("/account_manager/projects/register")}
+            onClick={toggleRegisterProject}
           >
             {" "}
             Registrar Proyecto{" "}
@@ -90,6 +93,13 @@ const ProjectPage = () => {
           type="Project"
         />
       )}
+
+      
+        <RegisterModal
+          onClose={toggleRegisterProject}
+          isOpen = {registerProject}
+        />
+      
     </div>
   );
 };

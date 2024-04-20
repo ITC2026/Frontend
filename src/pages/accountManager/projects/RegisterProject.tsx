@@ -1,10 +1,21 @@
 import LargeModal from "../../../components/modal/LargeModal";
 import { useState, useEffect } from "react";
 import { EntityFormType } from "../../../components/modal/modalType";
-import { useNavigate } from "react-router";
-import useClientNames from "../../../utils/Clients/GetClientNames";
+import getClientNamesAndIds from "../../../utils/Clients/GetClientNamesID";
+import modelProject from "../../../utils/Project/ModelProject_Func";
+import { toast } from 'react-toastify';
 
-const projectForm: EntityFormType = {
+interface Props {
+  onClose: () => void;
+  isOpen: boolean;
+}
+
+interface Options {
+  id: string;
+  name: string;
+}
+
+const initialFormStructure: EntityFormType = {
   entity: "Proyecto",
   formStructure: {
     "Nombre del Proyecto": {
@@ -36,28 +47,56 @@ const projectForm: EntityFormType = {
   },
 };
 
-const RegisterProject = () => {
-  const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(true);
-  const clientNames = useClientNames();
+const RegisterProject = (prop: Props) => {
+  const [clientNames, setClientNames] = useState<Options[]>([]);
+  const [entityForm, setEntityForm] =
+    useState<EntityFormType>(initialFormStructure);
 
   useEffect(() => {
-    projectForm.formStructure.Cliente.selectOptions = clientNames;
+    const fetchClientNames = async () => {
+      const names = await getClientNamesAndIds();
+      setClientNames(names);
+    };
+    fetchClientNames();
+  }, []);
+
+  useEffect(() => {
+    setEntityForm((prevForm) => ({
+      ...prevForm,
+      formStructure: {
+        ...prevForm.formStructure,
+        Cliente: {
+            ...prevForm.formStructure.Cliente,
+          selectOptions: clientNames,
+        },
+      },
+    })
+    );
   }, [clientNames]);
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    navigate("/account_manager/projects");
+  const handleProjectSubmit = async (formValues: {
+    [key: string]: string;
+  }): Promise<void> => {
+    try {
+      await modelProject(formValues);
+      toast.success("Project registered successfully!");
+    } catch (error) {
+      console.error("Error submitting project:", error);
+      toast.error("Error Registering Project!");
+    }
   };
+
+
 
   return (
     <div>
-      {isModalOpen && clientNames && (
+      {prop.isOpen && clientNames && (
         <LargeModal
           typeOfModal="register"
           titleModal="Registrar Proyecto"
-          entityForm={projectForm}
-          onClose={closeModal}
+          entityForm={entityForm}
+          onClose={prop.onClose}
+          updateFunction={handleProjectSubmit}
         />
       )}
     </div>

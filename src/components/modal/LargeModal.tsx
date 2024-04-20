@@ -5,32 +5,21 @@ import React, { useState } from "react";
 import { LargeModalType, EntityFormType } from "./modalType";
 import GenericFormGroup from "./GenericFormGroup";
 import CheckboxFormGroup from "./CheckboxFormGroup";
-import modelProject from "../../utils/Project/ModelProject_Func";
+
+interface Options {
+  id: string;
+  name: string;
+}
 
 interface Props {
   titleModal: string;
   btnArray?: React.ReactElement[];
   typeOfModal: LargeModalType;
   entityForm: EntityFormType;
-  selectOptions?: string[];
+  selectOptions?: Options[];
   onClose: () => void;
+  updateFunction?: (formValues: { [key: string]: string }) => Promise<void>;
 }
-
-
-
-const createEntity = (formValues: { [key: string]: string }, entityForm: EntityFormType) => {
-  const entityType = entityForm.entity;
-
-  switch (entityType) {
-    case "Proyecto":
-      modelProject(formValues);
-      break;
-    default:
-      break;
-  }
-};
-
-
 
 const renderModalContent = (
   typeOfModal: LargeModalType,
@@ -149,17 +138,30 @@ const LargeModal = ({
   typeOfModal,
   entityForm,
   onClose,
+  updateFunction,
 }: Props) => {
   const [disableInput, setDisableInput] = useState<number[]>([-1]);
   const [formValues, setFormValues] = useState<{ [key: string]: string }>({});
 
-  const handleInputChange = (name: string, value: string | number) => {    
-    setFormValues(prevState => ({ ...prevState, [name]: String(value) }));
+  const handleInputChange = (name: string, value: string | number) => {
+    setFormValues((prevState) => ({ ...prevState, [name]: String(value) }));
+  };
+
+  const handleFormSubmit = async () => {
+    if (typeof updateFunction === 'function') {
+      try {
+        await updateFunction(formValues);
+        console.log("Update successful");
+        onClose(); 
+      } catch (error) {
+        console.error("Error updating project:", error);
+      }
+    } else {
+      console.error("Provided updateFunction is not a function", updateFunction);
+    }
   };
   
 
-
- 
 
   const modalContent = renderModalContent(
     typeOfModal,
@@ -189,10 +191,7 @@ const LargeModal = ({
           {typeOfModal === "register" ? (
             <button
               type="submit"
-              onClick={() => {
-                createEntity(formValues, entityForm);
-                onClose();
-              }}
+              onClick={handleFormSubmit}
               className="btn btn-primary encora-purple-button"
             >
               Registrar

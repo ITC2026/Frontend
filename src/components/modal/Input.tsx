@@ -4,10 +4,16 @@ import { InputType } from "./modalType";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import React from "react";
+
+interface Option {
+  id: string;
+  name: string;
+}
+
 interface Props {
   inputType: InputType;
   text?: string;
-  selectOptions?: string[];
+  selectOptions?: Option[];
   disableInput: boolean;
   onChange?: (value: string | number) => void;
 }
@@ -20,16 +26,13 @@ const Input = ({
 }: Props) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange) {
-      onChange(e.target.value); // Call the onChange function with the new value
+      onChange(e.target.value);
     }
   };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (onChange) {
-      const selectedIndex = e.target.selectedIndex;
-      const selectedKey = e.target.options[selectedIndex].getAttribute('key');
-      if (!selectedKey) { return; } 
-      onChange(selectedKey); // Call the onChange function with the selected key
+      onChange(e.target.value);
     }
   };
 
@@ -75,11 +78,14 @@ const Input = ({
             disabled={disableInput}
             onChange={handleSelectChange}
           >
-            {selectOptions?.map((option: string, index: number) => (
-              <option key={index} value={option}>
-                {option}
+
+              <option>Selecciona un cliente.</option> 
+            {selectOptions?.map((option, index) => (
+              <option key={index} value={option.id}>
+                {option.name}
               </option>
             ))}
+            
           </Form.Select>
         </Col>
       );

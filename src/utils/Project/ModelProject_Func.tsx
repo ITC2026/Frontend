@@ -1,11 +1,14 @@
 import { createProject } from "../../api/ProjectAPI";
 import { Project } from "../../types";
 
-const modelProject = (formValues: { [key: string]: string }) => {
+const modelProject = async (formValues: { [key: string]: string }) => {
   if (!formValues) {
     return;
   }
 
+  console.log(`formValues: ${JSON.stringify(formValues)}`);
+
+  console.log(`formValues: ${JSON.stringify(formValues)}`);
   const has_expiration_date = Boolean(
     formValues["¿El Proyecto es durante un tiempo indeterminado?"]
   );
@@ -16,7 +19,7 @@ const modelProject = (formValues: { [key: string]: string }) => {
     formValues["Fecha de Apertura"] || ""
   );
 
-  const client_id = parseInt(formValues[" v"] || "", 10);
+  const client_id = parseInt(formValues["Cliente"] || "", 10);
 
   const project_to_upload: Project = {
     project_title: formValues["Nombre del Proyecto"] || "",
@@ -27,8 +30,8 @@ const modelProject = (formValues: { [key: string]: string }) => {
     expiration: expirationDate,
     general_status: "In Preparation",
   };
-  console.log(`Client ID: ${client_id}`); 
   createProject(project_to_upload);
 }; 
 
-export default modelProject;
+  export default modelProject;
+

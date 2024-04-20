@@ -1,7 +1,10 @@
 import api from ".";
 import { Project } from "../types";
+import 'react-toastify/dist/ReactToastify.css';
 
 const projectRoute = "/projects"
+
+
 
 export const getAllProjects = async () => {
   try {
@@ -17,6 +20,7 @@ export const createProject = async (project: Project) => {
   try {
     const res = await api.post(projectRoute, project);
     const action = await res.data.payload;
+    
     return action;
   } catch (err) {
     if ((err as any).response && (err as any).response.status === 500) {

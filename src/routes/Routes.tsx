@@ -6,7 +6,6 @@ import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import ProjectPage from "../pages/accountManager/projects/Projects";
 import ProjectInfoID from "../pages/accountManager/projects/ProjectInfoID";
-import RegisterProject from "../pages/accountManager/projects/RegisterProject";
 import ModalPage from "../pages/ModalPage/ModalPage";
 
 const router = createBrowserRouter([
@@ -57,10 +56,6 @@ const router = createBrowserRouter([
           {
             path: ":id/",
             element: <ProjectInfoID />,
-          },
-          {
-            path: "register",
-            element: <RegisterProject />,
           },
         ],
       },

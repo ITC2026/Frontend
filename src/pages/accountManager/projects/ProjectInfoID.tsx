@@ -6,7 +6,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getProjectById } from "../../../api/ProjectAPI";
 import { Project } from "../../../types";
 
-
 const projectForm: EntityFormType = {
   entity: "Proyecto",
   formStructure: {
@@ -76,7 +75,7 @@ useEffect(() => {
     });
     
     setProjectFormState(newProjectForm);
-    setIsDataFetched(true); // Set isDataFetched to true after updating the state
+    setIsDataFetched(true);
   });
 }, [id, projectFormState]);
 

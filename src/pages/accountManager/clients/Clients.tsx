@@ -13,16 +13,16 @@ const Clients = () => {
             // Fetch client data from your database API
             // For demonstration purposes, I'm simulating the data
             const dataFromDatabase = [
-                { id: 1, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
-                { id: 2, name: "Client 2", imgURL: "https://example.com/image2.png", description: "Description 2" },
-                { id: 3, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
-                { id: 4, name: "Client 2", imgURL: "https://example.com/image2.png", description: "Description 2" },
-                { id: 5, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
-                { id: 6, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
-                { id: 7, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
-                { id: 8, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
-                { id: 9, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
-                { id: 10, name: "Client 2", imgURL: "https://example.com/image2.png", description: "Description 2" },
+                { id: 1, name: "Google", imgURL: "https://i.postimg.cc/63bnfQj0/1.png", description: "Hola mucho gusto me llamo google, nos vemos" },
+                { id: 2, name: "Client 2", imgURL: "https://i.postimg.cc/Kzjgj2Gg/10.png", description: "Description 2" },
+                { id: 3, name: "Google", imgURL: "https://i.postimg.cc/Bn5Fwp7t/2.png", description: "Hola mucho gusto me llamo google, nos vemos" },
+                { id: 4, name: "Client 2", imgURL: "https://i.postimg.cc/7Lxzvzj9/3.png", description: "Description 2" },
+                { id: 5, name: "Google", imgURL: "https://i.postimg.cc/yYZc0sFm/4.png", description: "Hola mucho gusto me llamo google, nos vemos" },
+                { id: 6, name: "Google", imgURL: "https://i.postimg.cc/5tnCf0VV/5.png", description: "Hola mucho gusto me llamo google, nos vemos" },
+                { id: 7, name: "Google", imgURL: "https://i.postimg.cc/cHzt8bCk/6.png", description: "Hola mucho gusto me llamo google, nos vemos" },
+                { id: 8, name: "Google", imgURL: "https://i.postimg.cc/MpJRDNDh/7.png", description: "Hola mucho gusto me llamo google, nos vemos" },
+                { id: 9, name: "Google", imgURL: "https://i.postimg.cc/pr98Gt3t/8.png", description: "Hola mucho gusto me llamo google, nos vemos" },
+                { id: 10, name: "Client 2", imgURL: "https://i.postimg.cc/J7gjyGB7/9.png", description: "Description 2" },
                 { id: 11, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
                 { id: 12, name: "Client 2", imgURL: "https://example.com/image2.png", description: "Description 2" },
                 { id: 13, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
@@ -60,7 +60,7 @@ const Clients = () => {
 
     return (
         <div className="container">
-            <h1>Lista de Clientes</h1>
+            <h1>Clientes</h1>
             <div className="row">
                 {currentClients.map(client => (
                     <div className={columnSize} key={client.id}>

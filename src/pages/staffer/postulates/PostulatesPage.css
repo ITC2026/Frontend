@@ -25,3 +25,14 @@
     
     padding: 20px;
 }
+
+.button {
+    display: inline-flex;
+    padding: 6px 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4.8px;
+    border: 1px solid #2D1154;
+    background: #2D1154;
+    color:#ffffff;
+}

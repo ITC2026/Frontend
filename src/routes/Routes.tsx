@@ -3,12 +3,15 @@ import ErrorPage from "../pages/error/ErrorPage";
 import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
+import ModalPage from "../pages/ModalPage/ModalPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import ProjectPage from "../pages/accountManager/projects/Projects";
 //Staffer
 import StafferWrapper from "../pages/staffer/StafferWrapper";
 import ProjectsPage from "../pages/staffer/projects/ProjectsPage";
 import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
+
+
 
 const router = createBrowserRouter([
   {
@@ -111,6 +114,10 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <ErrorPage />,
+  },
+  {
+    path: "/modalPage",
+    element: <ModalPage />,
   },
   
 ]);

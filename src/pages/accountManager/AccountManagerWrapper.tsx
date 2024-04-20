@@ -6,7 +6,7 @@ interface Props {
   route: string;
 }
 
-const accountManagerRoutes = ["/", "/clients", "/projects", "/positions"];
+const accountManagerRoutes: string[] = ["/", "/clients", "/projects", "/positions"];
 
 const AccountManagerWrapper = (props: Props) => {
   return (

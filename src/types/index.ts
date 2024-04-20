@@ -18,7 +18,7 @@ import { TypesOfRoles,
   OpeningStatus} from "./types";
 
 export interface Person {
-  id: number;
+  id?: number;
   first_name: string;
   last_name: string;
   profile_picture: string;
@@ -31,6 +31,7 @@ export interface Person {
   region: Region; // Part of a type.
   status: PeopleStatus; // Part of a type.
   movement_reason: string;
+  expected_salary: number;
 }
 
 export interface Opening {

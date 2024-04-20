@@ -2,6 +2,7 @@ import "./LoginPage.css";
 import LoginCard from "./LoginCard";
 import Background from "../../assets/login/encora_team.jpg";
 
+
 const LoginPage = () => {
   return (
     <div className="login-container">

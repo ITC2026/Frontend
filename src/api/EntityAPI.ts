@@ -1,5 +1,4 @@
 import api from ".";
-import { Entity } from "../types";
 
 const entityRoute = '/entities';
 

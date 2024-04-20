@@ -1,5 +1,4 @@
-import api from ".";
-import { TicketLog } from "../types";
+import api from "."
 
 const ticketLogRoute = '/ticketlogs';
 

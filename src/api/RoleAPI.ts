@@ -1,5 +1,4 @@
 import api from ".";
-import { Role } from "../types";
 
 const roleRoute = '/roles';
 

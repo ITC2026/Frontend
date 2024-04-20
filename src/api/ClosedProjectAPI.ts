@@ -1,5 +1,4 @@
 import api from ".";
-import { ClosedProject } from "../types";
 
 const closedProjectRoute = '/closedprojects';
 

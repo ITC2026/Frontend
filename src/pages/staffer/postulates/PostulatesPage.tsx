@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ViewTable from '../../../components/table/Table';
 import { Person } from "../../../types/.";
 import { createPerson, getAllPeople } from "../../../api/PeopleAPI";
+import  InfoPostulatePipeline from "./modalsPostulates/InfoPostulatePipeline"
 import './PostulatesPage.css';
 
 const PostulatesPage: React.FC = () => {
@@ -65,6 +66,7 @@ const PostulatesPage: React.FC = () => {
             <div className="buttons-container">
                 <button className='button' onClick={() => setView('Bench')}>Bench</button>
                 <button className='button' onClick={() => setView('Pipeline')}>Pipeline</button>
+                <InfoPostulatePipeline />
             </div>
             <div className="project-table-container">
                 <h1 className="table-title">Lista de Postudalos</h1>

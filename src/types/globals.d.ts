@@ -44,10 +44,10 @@ type PeopleStatus = "Pipeline" | "Bench" | "Billing";
 type EmployeeStatus = "On Hired" | "Layoff" | "Resigned";
   
 interface Person { 
-id?: number;
+id: number;
 first_name: string;
 last_name: string;
-profile_picture?: string;
+profile_picture: string;
 gender: Gender; // Part of a type.
 phone: string;
 email: string;
@@ -56,7 +56,7 @@ tech_stack: TechStack; // Part of a type.
 division: Division; // Part of a type.
 region: Region; // Part of a type.
 status: PeopleStatus; // Part of a type.
-movement_reason?: string;
+movement_reason: string;
 }
 
 interface Opening {
@@ -66,12 +66,12 @@ opening_reason: OpeningReason; // Part of a type.
 start_date: Date;
 has_expiration_date: boolean;
 position_id: number;
-person_id?: number;
-person?: Person;
+person_id: number;
+person: Person;
 }
 
 interface Position {
-id?: number;
+id: number;
 position_title: string;
 division: Division; // Part of a type.
 region: Region; // Part of a type.
@@ -86,7 +86,7 @@ project_id: number;
 }
 
 interface Project {
-id?: number;
+id: number;
 project_title: string;
 project_description: string;
 start_date: Date;
@@ -100,12 +100,12 @@ client_id: number;
 interface Role { 
 id: number;
 role_name: TypesOfRoles; // Part of a type.
-users?: User[];
+users: User[];
 }
 
 // User Interface.
 interface User {
-id?: number;
+id: number;
 username: string;
 password: string;
 email: string;
@@ -137,7 +137,7 @@ belongs_to_id: number; // Foreign key.
 
 // Employee interface.
 interface Employee {
-id?: number;
+id: number;
 job_title: string;
 salary: number;
 job_grade: JobGrade; // Part of a type.
@@ -159,7 +159,7 @@ client_desc: string;
 high_growth: boolean;
 division: Division; // Part of a type.
 projects: Project[];
-employees?: Employee[];
+employees: Employee[];
 }
 
 // ClientEmployeeRelation interface.
@@ -200,7 +200,7 @@ person_id: number; // Foreign key.
 
 // Candidate interface.
 interface Candidate {
-id?: number;
+id: number;
 expected_salary: number;
 person_id: number; // Foreign key.
 }

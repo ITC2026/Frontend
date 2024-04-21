@@ -1,13 +1,10 @@
 import React from 'react';
 import ChartComponent from './ChartComponent';
 import "./Dashboard.css";
-import { Project } from "../../types";
 import {getAllProjects} from  "../../api/ProjectAPI";
 
-import { Client } from "../../types";
 import {getAllClients} from  "../../api/ClientAPI";
 
-import { Position } from '../../types';
 import { getAllPositions } from '../../api/PositionAPI';
 
 import { useState, useEffect } from 'react';
@@ -48,6 +45,7 @@ const ChartStaffer: React.FC = () => {
     return projects.filter((project) => project.client_id === client_id);
   }
 
+
   const getAllProjectNames = (): string[] => {
     return projects.map((project) => project.project_title);
   }
@@ -60,7 +58,16 @@ const ChartStaffer: React.FC = () => {
     return Array.from(new Set(getAllPositionsTechStack()));
   }
 
+  const getAllProjectPositions = (project_id: number): Position[] => {
+    return positions.filter((position) => position.project_id === project_id);
+  }
+
   // Functions to count 
+  
+  const countAllClientsActiveProjects = (): number[] => {
+    return clients.map((client) => getClientProjects(client.id).length);
+  }
+
 
   const countAllPositionsTechStack = (): number[] => {
     const nonRepeatingTechStacks = nonRepeatingTechStack();
@@ -75,6 +82,9 @@ const ChartStaffer: React.FC = () => {
     return clients.map((client) => countClientProjects(client.id));
   }
 
+  const countAllProjectPositions = (): number[] => {
+    return projects.map((project) => getAllProjectPositions(project.id).length);
+  }
 
 
   const chartType = 'pie';
@@ -104,8 +114,8 @@ const ChartStaffer: React.FC = () => {
 
   const chartData = countAllClientProjects();
   const chartData2 = countAllPositionsTechStack();
-  const chartData3 = [1, 1, 3, 3, 1, 1, 2, 2, 2, 1, 3, 1, 5, 7];
-  const chartData4 = [2, 7, 3, 2, 3, 1, 2, 3, 3, 1, 3];
+  const chartData3 = countAllClientsActiveProjects();
+  const chartData4 = countAllProjectPositions();
 
 
   const chartLabels = getClientNames();

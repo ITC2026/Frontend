@@ -4,8 +4,11 @@ import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
+
 import ChartStaffer from "../pages/dashboards/ChartStaffer";
 import ChartAccount from "../pages/dashboards/ChartAccount";
+import ChartResource from "../pages/dashboards/ChartResource";
+
 import ProjectPage from "../pages/accountManager/projects/Projects";
 //Staffer
 import StafferWrapper from "../pages/staffer/StafferWrapper";
@@ -46,6 +49,14 @@ const router = createBrowserRouter([
         element: (
           <>
           <ChartAccount />,
+          </>
+        ),
+      },
+      {
+        path: "chart_resource",
+        element: (
+          <>
+          <ChartResource />,
           </>
         ),
       },

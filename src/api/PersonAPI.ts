@@ -1,7 +1,6 @@
 import api from ".";
-import { Person } from "../types";
 
-const personRoute = '/persons';
+const personRoute = '/people';
 
 // Get all persons.
 export const getAllPersons = async () => {

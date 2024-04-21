@@ -1,5 +1,4 @@
 import api from ".";
-import { Position } from "../types";
 
 const positionRoute = '/positions';
 

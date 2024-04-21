@@ -7,12 +7,18 @@ import {getAllClients} from  "../../api/ClientAPI";
 
 import { getAllPositions } from '../../api/PositionAPI';
 
+import { getAllApplications } from '../../api/ApplicationAPI';
+
 import { useState, useEffect } from 'react';
 
 
 const ChartStaffer: React.FC = () => {
 
   const [projects, setProjects] = useState<Project[]>([])
+  const [clients, setClients] = useState<Client[]>([])
+  const [positions, setPositions] = useState<Position[]>([])
+  const [applications, setApplications] = useState<Application[]>([])
+
 
   useEffect(() => {
     getAllProjects().then((data: unknown) => {
@@ -20,15 +26,11 @@ const ChartStaffer: React.FC = () => {
     });
   }, [setProjects]);  
 
-  const [clients, setClients] = useState<Client[]>([])
-
   useEffect(() => {
     getAllClients().then((data: unknown) => {
       setClients(data as Client[]);
     });
   }, [setClients]);
-
-  const [positions, setPositions] = useState<Position[]>([])
 
   useEffect(() => {
     getAllPositions().then((data: unknown) => {
@@ -36,10 +38,20 @@ const ChartStaffer: React.FC = () => {
     });
   }, [setPositions]);
 
+  useEffect(() => {
+    getAllApplications().then((data: unknown) => {
+      setApplications(data as Application[]);
+    });
+  }, [setApplications]);
+
+
+
   // Function to extract names into an array of strings
-  const getClientNames = (): string[] => {
-    return clients.map((client) => client.client_name);
-  };
+
+  const getApplicationsStatus = (): string[] => {
+    return Array.from(new Set(applications.map((application) => application.application_status)));
+  }
+
 
   const getClientProjects = (client_id: number): Project[] => {
     return projects.filter((project) => project.client_id === client_id);
@@ -74,17 +86,16 @@ const ChartStaffer: React.FC = () => {
     return nonRepeatingTechStacks.map((techStack) => getAllPositionsTechStack().filter((tech) => tech === techStack).length);
   }
 
-  const countClientProjects = (client_id: number): number => {
-    return getClientProjects(client_id).length;
-  }
-
-  const countAllClientProjects = (): number[] => {
-    return clients.map((client) => countClientProjects(client.id));
-  }
 
   const countAllProjectPositions = (): number[] => {
     return projects.map((project) => getAllProjectPositions(project.id).length);
   }
+
+
+  const countApplicationsStatus = (): number[] => {
+    return getApplicationsStatus().map((status) => applications.filter((application) => application.application_status === status).length);
+  }
+
 
 
   const chartType = 'pie';
@@ -98,7 +109,7 @@ const ChartStaffer: React.FC = () => {
   const legendDisplay = true;
   const legendDisplay2 = false;
 
-  const chartBgColor = ['#44197E', '#531e98','#7f3fc7', '#9a4fcf', '#b85fd6'];
+  const chartBgColor = ['#BCD5B7', '#92C089','#8ED973', '#3B7D23', '#275317'];
   const chartBgColor2 = ['#ffffff'];  
   const chartBgColor3 = ['#fffee0', '#fffdc1', '#fffb82', '#fff941', '#fff600', '#ffeb00', '#ffdd00', '#ffcf00', '#ffbf00', '#ffae00', '#ff9b00', '#ff8700', '#ff7200', '#ff5b00', '#ff4300', '#ff2a00'];
 
@@ -112,13 +123,13 @@ const ChartStaffer: React.FC = () => {
   const chartBdWidths2 = 1;
   const chartBdWidths3 = 1;
 
-  const chartData = countAllClientProjects();
+  const chartData = countApplicationsStatus();
   const chartData2 = countAllPositionsTechStack();
   const chartData3 = countAllClientsActiveProjects();
   const chartData4 = countAllProjectPositions();
 
 
-  const chartLabels = getClientNames();
+  const chartLabels = getApplicationsStatus();
   const chartLabels2 = nonRepeatingTechStack();
   const chartLabels3 = getAllProjectNames();
 

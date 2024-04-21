@@ -1,10 +1,15 @@
 import "../style/LargeModal.css"
 import GenericFormGroup from "../GenericFormGroup";
 import CheckboxFormGroup from "../CheckboxFormGroup";
+import Form from "react-bootstrap/Form";
 
-const InfoClienteForm = () => {
+interface Props {
+  onClose: () => void;
+}
+
+const InfoClienteForm = ({ onClose }: Props) => {
   return (
-    <div className="form-group">
+    <Form className="form-group">
       <GenericFormGroup
         nameLabel="Nombre de Cliente"
         disableInput={true}
@@ -49,7 +54,15 @@ const InfoClienteForm = () => {
         disableInput={true}
         inputType="date"
       />
-    </div>
+      <div className="button-wrapper">
+        <button
+          className="btn btn-primary gray-button"
+          onClick={() => onClose()}
+        >
+          Cancelar
+        </button>
+      </div>
+    </Form>
   );
 }
 

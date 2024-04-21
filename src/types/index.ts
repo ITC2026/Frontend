@@ -112,7 +112,6 @@ export interface Entity {
 // Employee interface.
 export interface Employee {
   id: number;
-  job_title: string;
   salary: number;
   job_grade: JobGrade; // Part of a type.
   proposed_action: ProposedAction; // Part of en Enum.

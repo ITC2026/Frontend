@@ -16,9 +16,9 @@ export type OpeningStatus = "New" | "Filled" | "Closed" | "In Progress" | "On St
 export type OpeningReason = "In Progress" | "On Standby" | "Hired" | "Replacement" | "Budget Problem" | "Filled By Itself" |
 "Filled By Another" | "No replied";
 
-export type ApplicationStatus = "Accepted" | "Schedule For Interview" | "Rejected";
+export type ApplicationStatus = "Accepted" | "Schedule For Interview" | "Rejected" | "Waiting on Client Response" | "On Hold";
 
-export type Gender = "Male" | "Female" | "Nonbinary" | "Not Wanted To Say";
+export type Gender = "Male" | "Female" | "Nonbinary" | "Did Not Want to Say";
 
 export type JobGrade = "C3"| "C4" | "C5" | "C6";
 

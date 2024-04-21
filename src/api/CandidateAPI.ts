@@ -1,5 +1,4 @@
 import api from ".";
-import { Candidate } from "../types";
 
 const candidateRoute = '/candidates';
 

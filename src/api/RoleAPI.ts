@@ -1,9 +1,6 @@
 import api from ".";
-import { Role } from "../types";
 
 const roleRoute = '/roles';
-
-// Se determinó que no es necesario modificar ni eliminar un Rol.
 
 // Get all roles.
 export const getAllRoles = async () => {
@@ -32,6 +29,28 @@ export const createRole = async (role: Role) => {
     try {
         const res = await api.post(roleRoute, role);
         const action = await res.data.payload;
+        return action;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+// Modify a Role.
+export const modifyRole = async (id: number, tRole: Role) => {
+    try {
+        const res = await api.patch(`${roleRoute}/${id}`, {data: tRole});
+        const role: Role = await res.data.payload;
+        return role;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+// Delete a Role.
+export const deleteRole = async (id: number) => {
+    try {
+        const res = await api.delete(roleRoute, {data: {id}});
+        const action = await res.data.payload
         return action;
     } catch (err) {
         console.log(err);

@@ -1,5 +1,4 @@
 import api from ".";
-import { Application } from "../types";
 
 const applicationRoute ='/applications';
 

@@ -1,5 +1,4 @@
 import api from ".";
-import { Opening } from "../types";
 
 const openingRoute = '/openings';
 

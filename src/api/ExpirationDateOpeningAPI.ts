@@ -1,5 +1,4 @@
 import api from ".";
-import { ExpirationDateOpening } from "../types";
 
 const expirationDateOpeningRoute = '/expirationdateopenings';
 

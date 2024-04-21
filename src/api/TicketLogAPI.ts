@@ -1,7 +1,6 @@
-import api from ".";
-import { TicketLog } from "../types";
+import api from "."
 
-const ticketLogRoute = '/ticketlog';
+const ticketLogRoute = '/ticketlogs';
 
 // Se determinó que no es necesario modificar ni eliminar un TicketLog.
 
@@ -32,6 +31,28 @@ export const createTicketLog = async (ticketLog: TicketLog) => {
     try {
         const res = await api.post(ticketLogRoute, ticketLog);
         const action = await res.data.payload;
+        return action;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+// Modify a ticketlog.
+export const modifyTicketLog = async (id: number, tTicketLog: TicketLog) => {
+    try {
+        const res = await api.patch(`${ticketLogRoute}/${id}`, {data: tTicketLog});
+        const ticketlog: TicketLog = await res.data.payload;
+        return ticketlog;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+// Delete a ticketlog.
+export const deleteTicketLog = async (id: number) => {
+    try {
+        const res = await api.delete(ticketLogRoute, {data: {id}});
+        const action = await res.data.payload
         return action;
     } catch (err) {
         console.log(err);

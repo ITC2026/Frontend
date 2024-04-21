@@ -1,11 +1,10 @@
 import "../../index.css";
-import "./style/ShortModal.css";
-import { EntityFormType, ShortModalType } from "./modalType";
+import "./style/ShortModal.css"
+import { ShortModalType } from "./modalType";
 
-interface Props {
+interface ShortModalProps {
+  typeOfModal: ShortModalType
   btnArray?: React.ReactElement[];
-  typeOfModal: ShortModalType;
-  entityForm: EntityFormType;
   onClose: () => void;
 }
 
@@ -29,7 +28,7 @@ const renderModalContent = (typeOfModal: ShortModalType) => {
       return (
         <>
           <h1 className="heading-form">Advertencia</h1>
-          <div className="form-group"></div>
+          <div className="form-group">aaaaa</div>
         </>
       );
     default:
@@ -37,7 +36,7 @@ const renderModalContent = (typeOfModal: ShortModalType) => {
   }
 }
 
-const ShortModal = ({ btnArray, typeOfModal, onClose }: Props) => {
+const ShortModal = ({ typeOfModal, btnArray, onClose }: ShortModalProps) => {
   return (
     <div className="overlay background-gray">
       <div className="short-modal white">

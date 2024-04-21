@@ -1,176 +1,16 @@
-/* eslint-disable no-case-declarations */
-import "../login/LoginPage.css";
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import LargeModal from "../../components/modal/LargeModal";
-import {
-  EntityFormType,
-  LargeModalType,
-  ShortModalType,
-} from "../../components/modal/modalType";
-import ShowShortModalButton from "../../components/buttons/ShowShortModalButton";
-import RegisterButton from "../../components/buttons/RegisterButton";
-import ModifyButton from "../../components/buttons/ModifyButton";
-import DeleteButton from "../../components/buttons/DeleteButton";
 import ShortModal from "../../components/modal/ShortModal";
-
-const clientForm: EntityFormType = {
-  entity: "Cliente",
-  formStructure: {
-    "Nombre de Cliente": {
-      inputType: "text",
-      canBeModified: true,
-    },
-    Descripción: {
-      inputType: "text",
-      canBeModified: true,
-    },
-    Contrato: {
-      inputType: "file",
-      canBeModified: true,
-    },
-    Logo: {
-      inputType: "file",
-      canBeModified: true,
-    },
-    "High-Growth Client": {
-      inputType: "checkbox",
-      canBeModified: true,
-      whichInputCanDisabled: [1, 3],
-    },
-    Division: {
-      inputType: "select",
-      canBeModified: true,
-    },
-    "ID del Cliente": {
-      inputType: "text",
-      canBeModified: false,
-    },
-    "Creado en": {
-      inputType: "date",
-      canBeModified: false,
-    },
-    "Última Actualización": {
-      inputType: "date",
-      canBeModified: false,
-    },
-  },
-};
-
-const renderLargeModal = (
-  typeOfModal: LargeModalType,
-  closeModal: () => void,
-  setTypeOfShortModal: (value: React.SetStateAction<ShortModalType>) => void
-) => {
-  switch (typeOfModal) {
-    case "info":
-      return (
-        <LargeModal
-          titleModal="Información de Cliente"
-          typeOfModal={typeOfModal}
-          entityForm={clientForm}
-          onClose={closeModal}
-        />
-      );
-    case "register":
-      const registerButtonArray = [
-        <ShowShortModalButton
-          typeOfModalButton={"register"}
-          setTypeOfModal={setTypeOfShortModal}
-        />,
-      ];
-      return (
-        <LargeModal
-          titleModal="Registrar Cliente"
-          btnArray={registerButtonArray}
-          typeOfModal={typeOfModal}
-          entityForm={clientForm}
-          onClose={closeModal}
-        />
-      );
-    case "modify":
-      const modifyButtonArray = [
-        <ShowShortModalButton
-          typeOfModalButton={"modify"}
-          setTypeOfModal={setTypeOfShortModal}
-        />,
-        <ShowShortModalButton
-          typeOfModalButton={"delete"}
-          setTypeOfModal={setTypeOfShortModal}
-        />,
-      ];
-      return (
-        <LargeModal
-          titleModal="Modificar Cliente"
-          btnArray={modifyButtonArray}
-          typeOfModal={typeOfModal}
-          entityForm={clientForm}
-          onClose={closeModal}
-        />
-      );
-    default:
-      break;
-  }
-};
-
-const renderShortModal = (
-  typeOfModal: ShortModalType,
-  closeModal: () => void
-) => {
-  switch (typeOfModal) {
-    case "register":
-      return (
-        <ShortModal
-          btnArray={[<RegisterButton entityName={clientForm.entity} />]}
-          typeOfModal={typeOfModal}
-          entityForm={clientForm}
-          onClose={closeModal}
-        />
-      );
-    case "modify":
-      return (
-        <ShortModal
-          btnArray={[<ModifyButton entityName={clientForm.entity} />]}
-          typeOfModal={typeOfModal}
-          entityForm={clientForm}
-          onClose={closeModal}
-        />
-      );
-    case "delete":
-      return (
-        <ShortModal
-          btnArray={[<DeleteButton entityName={clientForm.entity} />]}
-          typeOfModal={typeOfModal}
-          entityForm={clientForm}
-          onClose={closeModal}
-        />
-      );
-    default:
-      break;
-  }
-};
+import RegistrarClienteForm from "../../components/modal/forms/RegistrarCliente";
+import ModificarClienteForm from "../../components/modal/forms/ModificarCliente";
+import InfoClienteForm from "../../components/modal/forms/InfoCliente";
+import { getBtnArrShortModal } from "../../components/modal/getButtonArray";
+import { LargeModalType } from "../../components/modal/modalType";
+import { ShortModalType } from "../../components/modal/modalType";
 
 const ModalPage = () => {
-  const [typeOfLargeModal, setTypeOfLargeModal] =
-    useState<LargeModalType>(null);
-  const [typeOfShortModal, setTypeOfShortModal] =
-    useState<ShortModalType>(null);
-  const [largeModalContent, setLargeModalContent] =
-    useState<React.ReactNode | null>(null);
-  const [shortModalContent, setShortModalContent] =
-    useState<React.ReactNode | null>(null);
-
-  const closeLargeModal = () => setTypeOfLargeModal(null);
-  const closeShortModal = () => setTypeOfShortModal(null);
-
-  useEffect(() => {
-    setLargeModalContent(
-      renderLargeModal(typeOfLargeModal, closeLargeModal, setTypeOfShortModal)
-    );
-  }, [typeOfLargeModal]);
-
-  useEffect(() => {
-    setShortModalContent(renderShortModal(typeOfShortModal, closeShortModal));
-  }, [typeOfShortModal]);
+  const [typeOfLargeModal, setTypeOfLargeModal] = useState<LargeModalType>("close")
+  //const [typeOfShortModal, setTypeOfShortModal] = useState<ShortModalType>("close")
 
   return (
     <div>
@@ -195,8 +35,32 @@ const ModalPage = () => {
       >
         Modificar
       </button>
-      {largeModalContent}
-      {shortModalContent}
+
+      {typeOfLargeModal === "register" && (
+        <LargeModal
+          titleModal="Registrar Cliente"
+          formContent={<RegistrarClienteForm onClose={() => setTypeOfLargeModal("close")}/>}
+        />
+      )}
+      {typeOfLargeModal === "modify" && (
+        <LargeModal
+          titleModal="Modificar Cliente"
+          formContent={<ModificarClienteForm onClose={() => setTypeOfLargeModal("close")}/>}
+        />
+      )}
+      {typeOfLargeModal === "info" && (
+        <LargeModal
+          titleModal="Información de Cliente"
+          formContent={<InfoClienteForm onClose={() => setTypeOfLargeModal("close")}/>}
+        />
+      )}
+      {/* {typeOfShortModal !== "close" && (
+        <ShortModal
+          typeOfModal={typeOfShortModal}
+          btnArray={getBtnArrShortModal(typeOfShortModal)}
+          onClose={() => setTypeOfShortModal("close")}
+        />
+      )} */}
     </div>
   );
 };

@@ -29,7 +29,7 @@ const ProjectForm = (prop: Props) => {
       client_id: parseInt(selectedClientId),
       start_date: new Date(startingDate),
       has_expiration_date: hasExpirationDate,
-      expiration_date: hasExpirationDate ? new Date(expirationDate) : undefined,
+      // expiration_date: hasExpirationDate ? new Date(expirationDate) : undefined,
       general_status: "In Preparation",
     };
     console.log(`Submitting project: ${JSON.stringify(projectToSubmit)}`);

@@ -1,37 +1,23 @@
 import "../../index.css";
 import "./style/FormGroup.css";
-import { InputType } from "./modalType";
 import Input from "./Input";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-interface Option {
-  id: string;
-  name: string;
-}
+type InputType = "text" | "file" | "checkbox" | "select" | "date"
 
 interface Props {
-  nameLabel: string;
-  disableInput: boolean;
-  inputType: InputType;
-  content?: string;
-  selectOptions?: Option[];
-  onChange?: (value: string | number) => void;
+ nameLabel: string;
+ disableInput: boolean;
+ inputType: InputType;
 }
+
 
 const GenericFormGroup = ({
   nameLabel,
-  inputType,
   disableInput,
-  content,
-  selectOptions,
-  onChange,
-}: Props) => {
-  const handleChange = (value: string | number) => {
-    if (onChange) {
-      onChange(value);
-    }
-  };
+  inputType,
+: Props) => {
 
   return (
     <Form.Group as={Row} className="mb-4 row-width-form">

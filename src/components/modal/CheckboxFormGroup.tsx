@@ -7,11 +7,9 @@ import Row from "react-bootstrap/Row";
 interface Props {
   nameLabel: string;
   disableInput: boolean;
-  indexFromDisabledInput?: number[];
-  setDisableInput?: React.Dispatch<React.SetStateAction<number[]>>
 }
 
-const CheckboxFormGroup = ({ nameLabel, disableInput, indexFromDisabledInput, setDisableInput }: Props) => {
+const CheckboxFormGroup = ({ nameLabel, disableInput }: Props) => {
   return (
     <Form.Group as={Row} className="mb-4 row-width-form">
       <Col sm={6}>
@@ -24,14 +22,6 @@ const CheckboxFormGroup = ({ nameLabel, disableInput, indexFromDisabledInput, se
             type="checkbox"
             bsPrefix="encora-purple-check form-check-input"
             disabled={disableInput}
-            onChange={(event) => {
-              const isChecked = event.target.checked;
-              if (isChecked) {
-                setDisableInput && indexFromDisabledInput && setDisableInput(indexFromDisabledInput);
-              } else {
-                setDisableInput && setDisableInput([-1]);
-              }
-            }}
           />
           <Form.Check.Label>{nameLabel}</Form.Check.Label>
         </Form.Check>

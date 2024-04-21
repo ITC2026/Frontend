@@ -1,55 +1,88 @@
 .overlay {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 2;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
 }
 
 .large-modal {
-  width: 82.125rem;
-  height: 55.5rem;
-  border-radius: 0.9375rem;
-  padding: 5rem;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.large-modal {
-  width: 82.125rem;
-  height: 55.5rem;
-  border-radius: 0.9375rem;
-  padding: 5rem;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    width: 82.125rem;
+    height: 55.5rem;
+    border-radius: 0.9375rem;
+    padding: 5rem;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .heading-form {
-  margin-bottom: 7.25rem;
+    margin-bottom: 7.25rem;
 }
 
 .form-group {
-  height: 32rem;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+    height: 32rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .button-wrapper {
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: row-reverse;
-  column-gap: 2.19rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+    column-gap: 2.19rem;
 }
 
+.large-modal .form-group {
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+.scrollable-section {
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.large-modal input, .large-modal select {
+    width: 60%;
+    max-width: 300px;
+}
+
+.modal-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.modal-content .column {
+    flex: 1;
+    padding: 10px;
+    width: 50%;
+}
+
+.modal-content .column div {
+    margin-bottom: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.column {
+    flex: 1;
+    padding: 10px;
+    width: 50%;
+}
+
+
+.column {
+    flex: 1 0 50%;
+    max-width: 50%;
+    padding: 10px;
+}

@@ -1,9 +1,10 @@
 import "../../index.css";
 import "./style/FormGroup.css";
-import { InputType } from "./modalType";
 import Input from "./Input";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
+
+type InputType = "text" | "file" | "checkbox" | "select" | "date"
 
 interface Props {
  nameLabel: string;

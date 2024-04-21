@@ -1,16 +1,12 @@
 import "../../index.css"
 
-interface Props {
-  entityName: string
-}
-
-const ModifyButton = ({ entityName }: Props) => {
+const ModifyButton = () => {
   return (
     <button 
       type="submit" 
       className="btn btn-primary encora-purple-button" 
     >
-      {`Modificar ${entityName}`}
+      Modificar
     </button>
   )
 }

@@ -4,7 +4,7 @@ import { Project } from "../../../types/.";
 import { getAllProjects } from "../../../api/ProjectAPI";
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router";
-import RegisterModal from "../../../pages/accountManager/projects/RegisterProject";
+import ProjectModal from "./ProjectModalExample";
 
 const project_structure = {
   project_title: "Nombre del Proyecto",
@@ -47,13 +47,12 @@ const ProjectPage = () => {
   const [selected, setSelected] = useState<string>("Proyectos en Preparación");
   const [registerProject, setRegisterProject] = useState<boolean>(false);
 
-
   const toggleRegisterProject = () => {
     setRegisterProject((prev) => !prev);
   };
 
   useEffect(() => {
-    !registerProject && getAllProjects().then((data) => setProjects(data as Project[]));
+    !registerProject && getAllProjects().then((data: any) => setProjects(data));
   }, [registerProject]);
 
   const filteredProjects = projects.filter((project) => {
@@ -94,12 +93,12 @@ const ProjectPage = () => {
         />
       )}
 
-      
-        <RegisterModal
-          onClose={toggleRegisterProject}
-          isOpen = {registerProject}
+      {registerProject && (
+        <ProjectModal
+          isActive={registerProject}
+          setActiveModal={toggleRegisterProject}
         />
-      
+      )}
     </div>
   );
 };

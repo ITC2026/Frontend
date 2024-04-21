@@ -1,7 +1,7 @@
 import { createProject } from "../../api/ProjectAPI";
 import { Project } from "../../types";
 
-const modelProject = async (formValues: { [key: string]: string }) => {
+const modelProject = async (formValues: { [key: string]: string }, onClose: () => void) => {
   if (!formValues) {
     return;
   }
@@ -31,6 +31,7 @@ const modelProject = async (formValues: { [key: string]: string }) => {
     general_status: "In Preparation",
   };
   createProject(project_to_upload);
+  onClose(); 
 }; 
 
   export default modelProject;

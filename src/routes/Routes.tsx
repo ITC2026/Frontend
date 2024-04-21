@@ -5,8 +5,8 @@ import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import ProjectPage from "../pages/accountManager/projects/Projects";
-import ProjectInfoID from "../pages/accountManager/projects/ProjectInfoID";
 import ModalPage from "../pages/ModalPage/ModalPage";
+import ProjectInfo from "../pages/accountManager/projects/ProjectInfo";
 
 const router = createBrowserRouter([
   {
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: ":id/",
-            element: <ProjectInfoID />,
+            element: <ProjectInfo />,
           },
         ],
       },

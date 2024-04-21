@@ -78,7 +78,7 @@ const RegisterProject = (prop: Props) => {
     [key: string]: string;
   }): Promise<void> => {
     try {
-      await modelProject(formValues);
+      await modelProject(formValues, prop.onClose);
       toast.success("Project registered successfully!");
     } catch (error) {
       console.error("Error submitting project:", error);

@@ -18,7 +18,7 @@ interface Props {
   entityForm: EntityFormType;
   selectOptions?: Options[];
   onClose: () => void;
-  updateFunction?: (formValues: { [key: string]: string }) => Promise<void>;
+  updateFunction?: (formValues: { [key: string]: string }, onClose: () => void) => Promise<void>;
 }
 
 const renderModalContent = (
@@ -150,9 +150,8 @@ const LargeModal = ({
   const handleFormSubmit = async () => {
     if (typeof updateFunction === 'function') {
       try {
-        await updateFunction(formValues);
-        console.log("Update successful");
-        onClose(); 
+        await updateFunction(formValues, onClose);
+        console.log("Update successful"); 
       } catch (error) {
         console.error("Error updating project:", error);
       }
@@ -161,8 +160,6 @@ const LargeModal = ({
     }
   };
   
-
-
   const modalContent = renderModalContent(
     typeOfModal,
     entityForm,

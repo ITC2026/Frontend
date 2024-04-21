@@ -1,21 +1,23 @@
-import { TypesOfRoles, 
-  Action, 
-  Type, 
-  ProjectStatus, 
-  ClosedStatus, 
-  PostingType, 
-  OpeningReason, 
-  ApplicationStatus, 
-  Gender, 
-  JobGrade, 
-  TechStack, 
-  ProposedAction, 
-  StatusReason, 
-  Division, 
-  Region, 
-  PeopleStatus, 
+import {
+  TypesOfRoles,
+  Action,
+  Type,
+  ProjectStatus,
+  ClosedStatus,
+  PostingType,
+  OpeningReason,
+  ApplicationStatus,
+  Gender,
+  JobGrade,
+  TechStack,
+  ProposedAction,
+  StatusReason,
+  Division,
+  Region,
+  PeopleStatus,
   EmployeeStatus,
-  OpeningStatus} from "./types";
+  OpeningStatus,
+} from "./types";
 
 export interface Person {
   id: number;
@@ -68,7 +70,7 @@ export interface Project {
   general_status: ProjectStatus; // Part of a type.
   positions?: Position[];
   client_id: number;
-  expiration?: Date; 
+  has_expiration?: Date;
   client_name?: string;
 }
 
@@ -120,7 +122,7 @@ export interface Employee {
   proposed_action: ProposedAction; // Part of en Enum.
   employee_status: EmployeeStatus; // Part of en Enum.
   employee_reason: StatusReason;
-  contract_start_date: Date; 
+  contract_start_date: Date;
   last_movement_at: Date;
   person_id: number; // Foreign Key.
 }
@@ -148,7 +150,7 @@ export interface ClientEmployeeRelation {
 export interface ExpirationDateProject {
   id: number;
   expiration_date: Date;
-  project_id: number; // Foreign key. 
+  project_id: number; // Foreign key.
 }
 
 // ClosedProject interface.

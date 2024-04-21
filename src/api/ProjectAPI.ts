@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import api from ".";
 import { Project } from "../types";
 import 'react-toastify/dist/ReactToastify.css';

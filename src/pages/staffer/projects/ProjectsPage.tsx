@@ -1,7 +1,5 @@
 import "./ProjectsPage.css";
 import TableView from "../../../components/table/Table";
-// import OptionsIcons from "../../../components/options/OptionsIcons";
-import { Project } from "../../../types/.";
 import { getAllProjects } from "../../../api/ProjectAPI";
 import { useState, useEffect } from "react";
 
@@ -13,12 +11,8 @@ const projectBlueprint = {
     "start_date": "Fecha de Apertura",
     "expiration_date": "Fecha de Cierre",
   }
-  
-// const iconList = [{
-//   IconName: 'bi bi-person-plus-fill'
-// }];
 
-const ProjectsPage: React.FC = () => {
+const ProjectsPage = () => {
     const [projects, setProjects] = useState<Project[]>([]);
       
     useEffect(() => {
@@ -33,7 +27,7 @@ const ProjectsPage: React.FC = () => {
           <div className="project-table-container">
             <h1 className="table-title">Lista de Proyectos</h1>
             <div className="table-wrapper">
-              <TableView entity = {projects} types={projectBlueprint}/>
+              <TableView entity = {projects} types={projectBlueprint} type="StafferProject" />
             </div>
           </div>
         </div>

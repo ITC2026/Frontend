@@ -6,8 +6,9 @@ import "./Table.css";
 
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
-  types: { [key: string]: string }; //Andres Has this as elements
+  types: { [key: string]: string };
   type?: string;
+  buttonArr?: React.ReactElement | React.ReactElement[] | JSX.Element[];
 }
 
 const TableView = (prop: Props) => {
@@ -19,12 +20,16 @@ const TableView = (prop: Props) => {
 
   // Filtering the entity array based on the search term
   // Ensure prop.entity is defined before filtering
-  const filteredEntity = prop.entity ? prop.entity.filter((entity: any) => {
-    const searchableFields = Object.values(entity)
-      .map((value: any) => (value ? value.toString().toLowerCase() : ""))
-      .join(" ");
-    return searchableFields.toLowerCase().includes(searchTerm.toLowerCase());
-  }) : [];
+  const filteredEntity = prop.entity
+    ? prop.entity.filter((entity: any) => {
+        const searchableFields = Object.values(entity)
+          .map((value: any) => (value ? value.toString().toLowerCase() : ""))
+          .join(" ");
+        return searchableFields
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+      })
+    : [];
 
   return (
     <div>
@@ -48,23 +53,23 @@ const TableView = (prop: Props) => {
                 <td>{index + 1}</td>
                 {Object.keys(prop.types).map((key: string, index: number) => (
                   <td key={index}>
-                    {entity[key as keyof (Project | Position | Opening | Person)]?.toString()}
+                    {entity[
+                      key as keyof (Project | Position | Opening | Person)
+                    ]?.toString()}
                   </td>
                 ))}
                 <td>
-                  <Link to={`${entity.id}`}>
-                    <i className="table-button bi bi-info-circle-fill"></i>
-                  </Link>
+                  {prop.buttonArr ? prop.buttonArr : null}
 
-                  {prop.type === 'Project' ? (
+                  {prop.type === "Project" ? (
                     <Link to={`${entity.id}`}>
-                      <i className="table-button bi bi-pencil-fill"></i>
+                      <i className="table-button bi bi-briefcase-fill"></i>
                     </Link>
                   ) : null}
 
-                  {prop.type === 'Project' ? (
-                    <Link to={`${entity.id}`}>
-                      <i className="table-button bi bi-briefcase-fill"></i>
+                  {prop.type === "StafferProject" ? (
+                    <Link to={"positions"}>
+                      <i className="bi bi-person-plus-fill"></i>
                     </Link>
                   ) : null}
                 </td>

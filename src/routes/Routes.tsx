@@ -10,7 +10,8 @@ import ProjectPage from "../pages/accountManager/projects/Projects";
 import StafferWrapper from "../pages/staffer/StafferWrapper";
 import ProjectsPage from "../pages/staffer/projects/ProjectsPage";
 import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
-
+import InfoPostulate from "../pages/staffer/postulates/modalsPostulates/InfoPostulate";
+import InfoPostulateBench from "../pages/staffer/postulates/modalsPostulates/InfoPostulateBench";
 
 
 const router = createBrowserRouter([
@@ -81,7 +82,7 @@ const router = createBrowserRouter([
     path: "staffer",
     element: (
       <>
-        <StafferWrapper route="/staffer" routes={["/", "/projects", "/people"]} />
+        <StafferWrapper route="/staffer" routes={["/", "/projects", "/people", "/people/"]} />
       </>
     ),
     children: [
@@ -96,10 +97,21 @@ const router = createBrowserRouter([
       {
         path: "projects",
         element: <ProjectsPage />,
+        children: [
+          {
+            path: "positions",
+            //Pending
+          },
+        ],
       },
       {
         path: "people",
-        element: <PostulatesPage />, 
+        element: <PostulatesPage />,
+        children: [
+          {
+            path: ":id",
+          },
+        ] 
       },
       {
         path: "settings",

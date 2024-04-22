@@ -67,12 +67,11 @@ const PostulatesPage: React.FC = () => {
                 <button className= {view === 'Bench' ? 'button-is-selected' : 'button-not-selected'} onClick={() => setView('Bench')}>Bench</button>
                 <button className= {view === 'Pipeline' ? 'button-is-selected' : 'button-not-selected'} onClick={() => setView('Pipeline')}>Pipeline</button>
             </div>
-            {view === 'Bench' ? <InfoPostulateBench /> : <InfoPostulatePipeline />}
             <div className="project-table-container">
                 <h1 className="table-title">Lista de Postudalos</h1>
                 <div className="table-wrapper">
                     <button className='button' onClick={() => setPerson(personInject)}>Agrega Un Tilin</button>
-                    <ViewTable entity={filterPeopleByStatus(people, view)} types={personBlueprint} />
+                    <ViewTable entity={filterPeopleByStatus(people, view)} types={personBlueprint} type='Person' buttonArr={view === 'Bench' ? <InfoPostulateBench /> : <InfoPostulatePipeline />}/>
                 </div>
             </div>
         </div>

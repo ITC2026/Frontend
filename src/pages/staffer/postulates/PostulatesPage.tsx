@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ViewTable from '../../../components/table/Table';
-import { Person } from "../../../types/.";
-import { getAllPeople } from "../../../api/PeopleAPI";
+import { getAllPersons } from "../../../api/PersonAPI";
 import './PostulatesPage.css';
 
 const PostulatesPage: React.FC = () => {
@@ -23,7 +22,7 @@ const PostulatesPage: React.FC = () => {
     });
 
     useEffect(() => {
-        getAllPeople().then((data: unknown) => {
+        getAllPersons().then((data: unknown) => {
           setPeople(data as Person[]);
           console.log(data);
         });

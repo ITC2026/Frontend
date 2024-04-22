@@ -1,5 +1,4 @@
 import api from ".";
-import { Project } from "../types";
 
 const projectRoute = "/projects"
 

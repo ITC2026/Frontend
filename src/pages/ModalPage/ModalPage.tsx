@@ -1,12 +1,9 @@
 import { useState } from "react";
 import LargeModal from "../../components/modal/LargeModal";
-import ShortModal from "../../components/modal/ShortModal";
 import RegistrarClienteForm from "../../components/modal/forms/RegistrarCliente";
 import ModificarClienteForm from "../../components/modal/forms/ModificarCliente";
 import InfoClienteForm from "../../components/modal/forms/InfoCliente";
-import { getBtnArrShortModal } from "../../components/modal/getButtonArray";
 import { LargeModalType } from "../../components/modal/modalType";
-import { ShortModalType } from "../../components/modal/modalType";
 
 const ModalPage = () => {
   const [typeOfLargeModal, setTypeOfLargeModal] = useState<LargeModalType>("close")

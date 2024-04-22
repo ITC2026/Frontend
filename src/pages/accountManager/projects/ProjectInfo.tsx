@@ -26,6 +26,7 @@ const ProjectInfo = () => {
   };
 
   const { id } = useParams<{ id: string }>();
+
   useEffect(() => {
     if (id) {
       fetch(`http://localhost:3000/projects/${id}`)

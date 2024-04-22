@@ -12,13 +12,11 @@ interface Props {
  inputType: InputType;
 }
 
-
 const GenericFormGroup = ({
   nameLabel,
-  disableInput,
   inputType,
-: Props) => {
-
+  disableInput
+}: Props) => {
   return (
     <Form.Group as={Row} className="mb-4 row-width-form">
       <Form.Label column sm={6} bsPrefix="label-style text-start">
@@ -27,9 +25,6 @@ const GenericFormGroup = ({
       <Input
         inputType={inputType}
         disableInput={disableInput}
-        text={content}
-        selectOptions={selectOptions}
-        onChange={handleChange}
       />
     </Form.Group>
   );

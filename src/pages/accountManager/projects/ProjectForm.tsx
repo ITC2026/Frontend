@@ -21,7 +21,7 @@ const ProjectForm = (prop: Props) => {
   }, []);
 
   const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault();
 
     const projectToSubmit: Project = {
       project_title: projectName,
@@ -29,6 +29,7 @@ const ProjectForm = (prop: Props) => {
       client_id: parseInt(selectedClientId),
       start_date: new Date(startingDate),
       has_expiration_date: hasExpirationDate,
+      // To fix the has_expiration based on backend capabilities.
       // expiration_date: hasExpirationDate ? new Date(expirationDate) : undefined,
       general_status: "In Preparation",
     };

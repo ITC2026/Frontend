@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import SearchBar from "../searchbar/SearchBar";
-import { Project, Position, Opening, Person } from "../../types/.";
 import { Link } from "react-router-dom";
 import "./Table.css";
 
@@ -62,7 +61,7 @@ const TableView = (prop: Props) => {
                       <i className="table-button bi bi-pencil-fill"></i>
                     </Link>
                   ) : null}
-                  
+
                   {prop.type === 'Project' ? (
                     <Link to={`${entity.id}`}>
                       <i className="table-button bi bi-briefcase-fill"></i>

@@ -1,5 +1,4 @@
 import api from ".";
-import { Client } from "../types";
 
 const clientRoute = '/clients'
 

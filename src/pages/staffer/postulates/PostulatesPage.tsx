@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ViewTable from '../../../components/table/Table';
-import { Person } from "../../../types/.";
-import { createPerson, getAllPeople } from "../../../api/PeopleAPI";
+import { createPerson, getAllPeople } from "../../../api/PersonAPI";
 import InfoPostulatePipeline from "./modalsPostulates/InfoPostulatePipeline";
 import InfoPostulateBench from "./modalsPostulates/InfoPostulateBench"; // Asegúrate de importar InfoPostulateBench
 import './PostulatesPage.css';
@@ -9,11 +8,11 @@ import './PostulatesPage.css';
 const PostulatesPage: React.FC = () => {
     const [view, setView] = useState<'Bench' | 'Pipeline'>('Bench');
     const [people, setPeople] = useState<Person[]>([]);
-    const [person, setPerson] = useState<Person>();
+    const [person, setPerson] = useState<CreatePersonAttributes>();
 
-    const personInject: Person = {
-        "first_name": "Vinti",
-        "last_name": "Vinesauce",
+    const personInject: CreatePersonAttributes = {
+        "first_name": "Andres",
+        "last_name": "Sandotinez",
         "profile_picture": "https://example.com/profiles/johndoe.jpg",
         "gender": "Male",
         "phone": "123-456-7890",
@@ -24,7 +23,7 @@ const PostulatesPage: React.FC = () => {
         "region": "CUU",
         "movement_reason": "Porque sí",
         "expected_salary": 10,
-        "status": "Pipeline"
+        "status": "Bench"
     }
 
     const personBlueprint = {
@@ -52,7 +51,7 @@ const PostulatesPage: React.FC = () => {
         if (person) {
             createPerson(person).then(() => {
                 setPerson(undefined);
-            }).catch(err => {
+            }).catch((err: Error )=> {
                 console.error("Error creating person:", err);
             });
         }
@@ -66,7 +65,7 @@ const PostulatesPage: React.FC = () => {
         <div className='postulates-page'>
             <div className="top-status-wrapper">
                 <button className= {view === 'Bench' ? 'button-is-selected' : 'button-not-selected'} onClick={() => setView('Bench')}>Bench</button>
-                <button className={view === 'Pipeline' ? 'button-is-selected' : 'button-not-selected'} onClick={() => setView('Pipeline')}>Pipeline</button>
+                <button className= {view === 'Pipeline' ? 'button-is-selected' : 'button-not-selected'} onClick={() => setView('Pipeline')}>Pipeline</button>
             </div>
             {view === 'Bench' ? <InfoPostulateBench /> : <InfoPostulatePipeline />}
             <div className="project-table-container">

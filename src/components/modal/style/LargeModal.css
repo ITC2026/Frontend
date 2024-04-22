@@ -33,10 +33,7 @@
 }
 
 .button-wrapper {
-  position: relative;
-  top: 15%;
   display: flex;
-  justify-content: flex-start;
-  flex-direction: row-reverse;
+  justify-content: flex-end;
   column-gap: 2.19rem;
 }

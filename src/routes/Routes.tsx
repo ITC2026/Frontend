@@ -5,7 +5,7 @@ import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import ModalPage from "../pages/ModalPage/ModalPage";
-
+import ClientPage from "../pages/accountManager/Clientes/ClientPage";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     path: "account_manager",
     element: (
       <>
-        <AccountManagerWrapper route="/account_manager"/>
+        <AccountManagerWrapper route="/account_manager" />
       </>
     ),
     children: [
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
         path: "clients",
         element: (
           <>
-            <h1>clients</h1>
+            <ClientPage />
           </>
         ),
       },

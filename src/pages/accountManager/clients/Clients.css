@@ -15,18 +15,19 @@
 }
 
 .pagination .page-link {
-    color: purple; /* Set the text color to purple */
+    color: #2D1154; /* Set the text color to purple */
 }
 
 /* Change the background color of the active page link */
 .pagination .page-item.active .page-link {
-    background-color: purple; /* Set the background color to purple */
-    border-color: purple; /* Set the border color to purple */
+    background-color: #2D1154; /* Set the background color to purple */
+    border-color: #2D1154; /* Set the border color to purple */
+    color: white;
 }
 
 /* Change the hover color of the pagination links */
 .pagination .page-link:hover {
     color: white; /* Set the text color to white on hover */
-    background-color: darkpurple; /* Set the background color to dark purple on hover */
-    border-color: darkpurple; /* Set the border color to dark purple on hover */
+    background-color: #2D1154; /* Set the background color to dark purple on hover */
+    border-color: #2D1154; /* Set the border color to dark purple on hover */
 }

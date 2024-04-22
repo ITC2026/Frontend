@@ -32,7 +32,13 @@ const Clients = () => {
                 { id: 17, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
                 { id: 18, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
                 { id: 19, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
-                { id: 20, name: "Client 2", imgURL: "https://example.com/image2.png", description: "Description 2" }
+                { id: 20, name: "Client 2", imgURL: "https://example.com/image2.png", description: "Description 2" },
+                { id: 21, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
+                { id: 22, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
+                { id: 23, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
+                { id: 24, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
+                { id: 25, name: "Google", imgURL: "https://i.imgur.com/6pzmgPW.png", description: "Hola mucho gusto me llamo google, nos vemos" },
+                { id: 26, name: "Client 2", imgURL: "https://example.com/image2.png", description: "Description 2" }
 
                 // Add more client objects as needed
             ];
@@ -42,20 +48,30 @@ const Clients = () => {
         fetchClients();
     }, []);
 
-    // Calculate total number of pages
     const totalPages = Math.ceil(clients.length / pageSize);
 
-    // Function to handle page change
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
 
-    // Filter clients for the current page
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     const currentClients = clients.slice(startIndex, endIndex);
 
-    // Calculate column size based on the number of clients
+    // Calculate the range of page numbers to display
+    const range = 3; 
+    let startPage = Math.max(1, currentPage - Math.floor(range / 2));
+    let endPage = Math.min(totalPages, currentPage + Math.floor(range / 2));
+
+    // Adjust the start and end pages if they are out of bounds
+    if (endPage - startPage < range) {
+        if (startPage === 1) {
+            endPage = Math.min(range, totalPages);
+        } else if (endPage === totalPages) {
+            startPage = Math.max(totalPages - range + 1, 1);
+        }
+    }
+    //adjust the grid so the cards dont overlap depending on the amount of cards
     const columnSize = currentClients.length > 2 ? "col-md-3" : `col-md-${12 / Math.max(currentClients.length, 1)}`;
 
     return (
@@ -72,13 +88,27 @@ const Clients = () => {
                 {totalPages > 1 && (
                     <nav aria-label="Page navigation">
                         <ul className="pagination justify-content-center">
-                            {Array.from({ length: totalPages }, (_, index) => (
-                                <li className={`page-item ${currentPage === index + 1 ? 'active' : ''}`} key={index + 1}>
-                                    <button className="page-link" onClick={() => handlePageChange(index + 1)}>
-                                        {index + 1}
+                            {currentPage > 1 && (
+                                <li className="page-item">
+                                    <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>
+                                        Anterior
+                                    </button>
+                                </li>
+                            )}
+                            {Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i).map(pageNumber => (
+                                <li className={`page-item ${currentPage === pageNumber ? 'active' : ''}`} key={pageNumber}>
+                                    <button className="page-link" onClick={() => handlePageChange(pageNumber)}>
+                                        {pageNumber}
                                     </button>
                                 </li>
                             ))}
+                            {currentPage < totalPages && (
+                                <li className="page-item">
+                                    <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>
+                                        Siguiente
+                                    </button>
+                                </li>
+                            )}
                         </ul>
                     </nav>
                 )}

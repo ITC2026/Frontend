@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import SearchBar from "../searchbar/SearchBar";
+import { Project, Position, Opening, Person } from "../../types/.";
+import { Link } from "react-router-dom";
 import "./Table.css";
-import { Project, Position, Opening, Person } from "../../types/";
 
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
-  types: { [key: string]: string };
+  types: { [key: string]: string }; //Andres Has this as elements
+  type?: string;
 }
 
 const TableView = (prop: Props) => {
@@ -51,8 +53,21 @@ const TableView = (prop: Props) => {
                   </td>
                 ))}
                 <td>
-                  <button className="btn btn-primary">Edit</button>
-                  <button className="btn btn-danger">Delete</button>
+                  <Link to={`${entity.id}`}>
+                    <i className="table-button bi bi-info-circle-fill"></i>
+                  </Link>
+
+                  {prop.type === 'Project' ? (
+                    <Link to={`${entity.id}`}>
+                      <i className="table-button bi bi-pencil-fill"></i>
+                    </Link>
+                  ) : null}
+                  
+                  {prop.type === 'Project' ? (
+                    <Link to={`${entity.id}`}>
+                      <i className="table-button bi bi-briefcase-fill"></i>
+                    </Link>
+                  ) : null}
                 </td>
               </tr>
             )

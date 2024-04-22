@@ -64,11 +64,11 @@ const PostulatesPage: React.FC = () => {
 
     return (
         <div className='postulates-page'>
-            <div className="buttons-container">
-                <button className='button' onClick={() => setView('Bench')}>Bench</button>
-                <button className='button' onClick={() => setView('Pipeline')}>Pipeline</button>
-                {view === 'Bench' ? <InfoPostulateBench /> : <InfoPostulatePipeline />}
+            <div className="top-status-wrapper">
+                <button className= {view === 'Bench' ? 'button-is-selected' : 'button-not-selected'} onClick={() => setView('Bench')}>Bench</button>
+                <button className={view === 'Pipeline' ? 'button-is-selected' : 'button-not-selected'} onClick={() => setView('Pipeline')}>Pipeline</button>
             </div>
+            {view === 'Bench' ? <InfoPostulateBench /> : <InfoPostulatePipeline />}
             <div className="project-table-container">
                 <h1 className="table-title">Lista de Postudalos</h1>
                 <div className="table-wrapper">

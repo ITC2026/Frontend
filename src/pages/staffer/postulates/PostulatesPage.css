@@ -26,7 +26,7 @@
     padding: 20px;
 }
 
-.button {
+.top-status-wrapper button {
     display: inline-flex;
     padding: 6px 10px;
     justify-content: center;
@@ -35,4 +35,27 @@
     border: 1px solid #2D1154;
     background: #2D1154;
     color:#ffffff;
+}
+.button-is-selected {
+    background: #2D1154;
+}
+
+.button-not-selected{
+    background: #f8f7f9;
+    color:#2D1154;
+}
+
+
+.top-status-wrapper button:hover {
+    background: #8b7f9b;
+    color:#ffffff;
+}   
+
+.top-status-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 20rem;
+    justify-self: left;
 }

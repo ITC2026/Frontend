@@ -4,12 +4,12 @@ import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
+import ProjectPage from "../pages/accountManager/projects/Projects";
 
 import ChartStaffer from "../pages/dashboards/ChartStaffer";
 import ChartAccount from "../pages/dashboards/ChartAccount";
 import ChartResource from "../pages/dashboards/ChartResource";
 
-import ProjectPage from "../pages/accountManager/projects/Projects";
 //Staffer
 import StafferWrapper from "../pages/staffer/StafferWrapper";
 import ProjectsPage from "../pages/staffer/projects/ProjectsPage";
@@ -37,26 +37,10 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "chart_staffer",
-        element: (
-          <>
-          <ChartStaffer />,
-          </>
-        ),
-      },
-      {
-        path: "chart_account",
+        path: "",
         element: (
           <>
           <ChartAccount />,
-          </>
-        ),
-      },
-      {
-        path: "chart_resource",
-        element: (
-          <>
-          <ChartResource />,
           </>
         ),
       },
@@ -107,10 +91,11 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <>
-            <h1>Dashboards</h1>
+          <ChartStaffer />,
           </>
         ),
       },
+
       {
         path: "projects",
         element: <ProjectsPage />,
@@ -133,7 +118,14 @@ const router = createBrowserRouter([
     path: "*",
     element: <ErrorPage />,
   },
-  
+  {
+    path: "resource",
+    element: (
+      <>
+        <ChartResource />
+      </>
+    ),
+  }
 ]);
 
 export default router;

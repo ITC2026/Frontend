@@ -157,7 +157,7 @@ const ChartAccount: React.FC = () => {
 
   const chartBgColor = ['#44197E', '#531e98','#7f3fc7', '#9a4fcf', '#b85fd6'];
   const chartBgColor2 = ['#ffffff'];  
-  const chartBgColor3 = ['#E7EDEF  ', '#B8E0EF ', '#94D7EF', '#64CAEF', '#04B1EF', '#0096D6', '#007FA3', '#005C6B', '#003D3F', '#001F1F'];
+  const chartBgColor3 = ['#94D7EF', '#04B1EF', '#0096D6', '#005C6B', '#003D3F', '#001F1F', '#B8E0EF ', '#64CAEF', '#007FA3'];
 
   const axiscolor = '#ffffff';
   const axiscolor2 = '#000000';
@@ -188,10 +188,11 @@ const ChartAccount: React.FC = () => {
 
         <div className='col-sm-6 c1'>
 
-          <div className='graph1-account'>
-            <h2 className='graph1-staffer-title'>Proyectos Activos por Cliente</h2>
-            <ChartComponent type={chartType} data={chartData} labels={chartLabels} legendDisplay={legendDisplay2} legendposition={legendposition} labelcolor={labelcolor} axiscolor={axiscolor} bgcolor={chartBgColor} bdcolor={chartBdColor} bdwidth={chartBdWidths} />
+          <div className='graph4-staffer'>
+            <h2 className='graph1-staffer-title'>Openings Cerradas en los Últimos 2 Meses</h2>
+            <ChartComponent type={chartType3} data={chartData2} labels={chartLabels2}  legendDisplay={legendDisplay2} legendposition={legendposition} labelcolor={labelcolor} axiscolor={axiscolor} bgcolor={chartBgColor2} bdcolor={chartBdColor2} bdwidth={chartBdWidths2} />
           </div>
+
 
           <div><br></br></div>
 
@@ -203,22 +204,21 @@ const ChartAccount: React.FC = () => {
         </div>
 
         <div className='col-sm-6'>
-
-          <div className='graph2-staffer'>
-            <h2 className='graph1-staffer-title'>Openings Cerradas en los Últimos 2 Meses</h2>
-            <ChartComponent type={chartType3} data={chartData2} labels={chartLabels2}  legendDisplay={legendDisplay2} legendposition={legendposition} labelcolor={labelcolor} axiscolor={axiscolor} bgcolor={chartBgColor2} bdcolor={chartBdColor2} bdwidth={chartBdWidths2} />
+          
+          <div className='graph1-account'>
+            <h2 className='graph1-staffer-title'>Proyectos Activos por Cliente</h2>
+            <ChartComponent type={chartType2} data={chartData} labels={chartLabels} legendDisplay={legendDisplay} legendposition={legendposition} labelcolor={labelcolor} axiscolor={axiscolor} bgcolor={chartBgColor} bdcolor={chartBdColor} bdwidth={chartBdWidths} />
           </div>
 
           <div><br></br></div>
 
-          <div className='graph4-staffer'>
+          <div className='graph2-staffer'>
             <h2 className='graph1-staffer-title'>Ingreso Total de Clientes</h2>
             <ChartComponent type={chartType} data={chartData4} labels={chartLabels4} legendDisplay={legendDisplay2} legendposition={legendposition} labelcolor={labelcolor2} axiscolor={axiscolor} bgcolor={chartBgColor2} bdcolor={chartBdColor2} bdwidth={chartBdWidths2} />
           </div>
 
         </div>
       </div>
-
   );
 };
 

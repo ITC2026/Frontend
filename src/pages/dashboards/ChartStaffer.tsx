@@ -100,6 +100,7 @@ const ChartStaffer: React.FC = () => {
 
   const chartType = 'pie';
   const chartType2 = 'bar';
+  const chartType3 = 'doughnut';
     
   const legendposition = 'top';
 
@@ -141,7 +142,7 @@ const ChartStaffer: React.FC = () => {
 
           <div className='graph1-staffer'>
             <h2 className='graph1-staffer-title'>Estado Actual de Postulados</h2>
-            <ChartComponent type={chartType} data={chartData} labels={chartLabels} legendDisplay={legendDisplay} legendposition={legendposition} labelcolor={labelcolor} axiscolor={axiscolor} bgcolor={chartBgColor} bdcolor={chartBdColor} bdwidth={chartBdWidths} />
+            <ChartComponent type={chartType3} data={chartData} labels={chartLabels} legendDisplay={legendDisplay} legendposition={legendposition} labelcolor={labelcolor} axiscolor={axiscolor} bgcolor={chartBgColor} bdcolor={chartBdColor} bdwidth={chartBdWidths} />
           </div>
 
           <div><br></br></div>

@@ -142,6 +142,9 @@ const ChartAccount: React.FC = () => {
         }
 
 
+    const determineColorIfPositive = (value: number): string => {
+    return value >= 0 ? '#40C1EF' : '#FF564D';
+    }
 
     // Functions to count 
 
@@ -172,9 +175,10 @@ const ChartAccount: React.FC = () => {
 
     // Chart properties
     const chartType = 'bar';
+    const chartType2 = 'pie';
+    const chartType3 = 'doughnut';
 
     const legendposition = 'top';
-    const legendposition2 = 'right';
 
     const labelcolor = '#ffffff';
     const labelcolor2 = '#000000';
@@ -182,9 +186,10 @@ const ChartAccount: React.FC = () => {
     const legendDisplay = true;
     const legendDisplay2 = false;
 
-    const chartBgColor = ['#40C1EF', '#FF564D','#FF564D', '#FF564D', '#8FC745'];
+    const chartBgColor = ['#40C1EF', '#FF564D','#FF564D', '#FF564D', determineColorIfPositive(getPositionsBillRateSum() - getTotalBenchSalary() - getTotalHiredSalary())];
     const chartBgColor2 = ['#ffffff'];  
     const chartBgColor3 = ['#fffee0', '#fffdc1', '#fffb82', '#fff941', '#fff600', '#ffeb00', '#ffdd00', '#ffcf00', '#ffbf00', '#ffae00', '#ff9b00', '#ff8700', '#ff7200', '#ff5b00', '#ff4300', '#ff2a00'];
+    const chartBgColor4 = ['#92C089','#8ED973', '#3B7D23'];
 
     const axiscolor = '#ffffff';
     const axiscolor2 = '#000000';
@@ -219,7 +224,23 @@ const ChartAccount: React.FC = () => {
 
             <div className='graph1-account'>
             <h2 className='graph1-staffer-title'>Distribución de ingresos y gastos</h2>
-            <ChartComponent type={chartType} data={chartData} labels={chartLabels} legendDisplay={legendDisplay2} legendposition={legendposition} labelcolor={labelcolor} axiscolor={axiscolor} bgcolor={chartBgColor} bdcolor={chartBdColor} bdwidth={chartBdWidths} />
+            <ChartComponent type={chartType} data={chartData} labels={chartLabels} legendDisplay={legendDisplay2} legendposition={legendposition} labelcolor={labelcolor} axiscolor={axiscolor} bgcolor={chartBgColor} bdcolor={chartBdColor} bdwidth={chartBdWidths}  indexAxis={indexAxis}  />
+            </div>
+
+            <div><br></br></div>
+
+            <div className='graph4-staffer'>
+            <h2 className='graph1-staffer-title'>Distribución de Acción Propuesta para Empleados</h2>
+            <ChartComponent type={chartType3} data={chartData4} labels={chartLabels4} legendDisplay={legendDisplay} legendposition={legendposition} labelcolor={labelcolor2} axiscolor={axiscolor} bgcolor={chartBgColor3} bdcolor={chartBdColor2} bdwidth={chartBdWidths2} />
+            </div>
+            
+        </div>
+
+        <div className='col-sm-6'>
+
+            <div className='graph2-resource'>
+            <h2 className='graph1-staffer-title'>Distribución de Personas</h2>
+            <ChartComponent type={chartType2} data={chartData2} labels={chartLabels2}  legendDisplay={legendDisplay} legendposition={legendposition} labelcolor={labelcolor} axiscolor={axiscolor} bgcolor={chartBgColor4} bdcolor={chartBdColor} bdwidth={chartBdWidths2}/>
             </div>
 
             <div><br></br></div>
@@ -227,22 +248,6 @@ const ChartAccount: React.FC = () => {
             <div className='graph3-staffer'>
             <h2 className='graph3-staffer-title'>Salarios en Billing</h2>
             <ChartComponent type={chartType} data={chartData3} labels={chartLabels3}  legendDisplay={legendDisplay2} legendposition={legendposition} labelcolor={labelcolor2} axiscolor={axiscolor2} bgcolor={chartBgColor2} bdcolor={chartBdColor2} bdwidth={chartBdWidths3} />
-            </div>
-
-        </div>
-
-        <div className='col-sm-6'>
-
-            <div className='graph2-resource'>
-            <h2 className='graph1-staffer-title'>Distribución de Personas</h2>
-            <ChartComponent type={chartType} data={chartData2} labels={chartLabels2}  legendDisplay={legendDisplay2} legendposition={legendposition2} labelcolor={labelcolor} axiscolor={axiscolor} bgcolor={chartBgColor2} bdcolor={chartBdColor2} bdwidth={chartBdWidths2} indexAxis={indexAxis} />
-            </div>
-
-            <div><br></br></div>
-
-            <div className='graph4-staffer'>
-            <h2 className='graph1-staffer-title'>Distribución de Acción Propuesta para Empleados</h2>
-            <ChartComponent type={chartType} data={chartData4} labels={chartLabels4} legendDisplay={legendDisplay} legendposition={legendposition} labelcolor={labelcolor2} axiscolor={axiscolor} bgcolor={chartBgColor3} bdcolor={chartBdColor2} bdwidth={chartBdWidths2} />
             </div>
 
         </div>

@@ -58,6 +58,7 @@ division: Division; // Part of a type.
 region: Region; // Part of a type.
 status: PeopleStatus; // Part of a type.
 movement_reason: string;
+expected_salaty: number;
 }
 
 interface Opening {

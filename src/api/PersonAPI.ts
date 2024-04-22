@@ -3,7 +3,7 @@ import api from ".";
 const personRoute = '/people';
 
 // Get all persons.
-export const getAllPersons = async () => {
+export const getAllPeople = async () => {
     try {
         const res = await api.get(personRoute);
         const persons: Person[] = await res.data.payload;

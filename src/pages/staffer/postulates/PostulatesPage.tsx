@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ViewTable from '../../../components/table/Table';
+import { getAllPeople } from "../../../api/PersonAPI";
 import './PostulatesPage.css';
-import { getAllPeople } from '../../../api/PersonAPI';
 
 const PostulatesPage: React.FC = () => {
     const [view, setView] = useState<'Bench' | 'Pipeline'>('Bench');

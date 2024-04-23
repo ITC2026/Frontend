@@ -7,6 +7,11 @@ import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper
 import ProjectPage from "../pages/accountManager/projects/Projects";
 import ModalPage from "../pages/ModalPage/ModalPage";
 import ProjectInfo from "../pages/accountManager/projects/ProjectInfo";
+
+import ChartStaffer from "../pages/dashboards/ChartStaffer";
+import ChartAccount from "../pages/dashboards/ChartAccount";
+import ChartResource from "../pages/dashboards/ChartResource";
+
 //Staffer
 import StafferWrapper from "../pages/staffer/StafferWrapper";
 import ProjectsPage from "../pages/staffer/projects/ProjectsPage";
@@ -37,7 +42,7 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <>
-            <h1>home</h1>
+            <ChartAccount />,
           </>
         ),
       },
@@ -86,7 +91,10 @@ const router = createBrowserRouter([
     path: "staffer",
     element: (
       <>
-        <StafferWrapper route="/staffer" routes={["/", "/projects", "/people"]} />
+        <StafferWrapper
+          route="/staffer"
+          routes={["/", "/projects", "/people"]}
+        />
       </>
     ),
     children: [
@@ -94,17 +102,18 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <>
-            <h1>Dashboards</h1>
+            <ChartStaffer />,
           </>
         ),
       },
+
       {
         path: "projects",
         element: <ProjectsPage />,
       },
       {
         path: "people",
-        element: <PostulatesPage />, 
+        element: <PostulatesPage />,
       },
       {
         path: "settings",
@@ -124,7 +133,14 @@ const router = createBrowserRouter([
     path: "/modalPage",
     element: <ModalPage />,
   },
-  
+  {
+    path: "resource",
+    element: (
+      <>
+        <ChartResource />
+      </>
+    ),
+  },
 ]);
 
 export default router;

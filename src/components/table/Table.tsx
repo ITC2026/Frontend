@@ -1,90 +1,77 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from "react";
 import Table from "react-bootstrap/Table";
-import "./Table.css";
-import { Project, Position, Opening, Person } from "../../types/.";
 import { Link } from "react-router-dom";
+import SearchBar from "../searchbar/SearchBar";
+import "./Table.css";
+import { Project, Position, Opening, Person } from "../../types/";
 
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
-  elements: { [key: string]: string };
-  type?: string;
+  types: { [key: string]: string };
 }
 
-/**
- * TableView component
- *
- * @param prop entity: Project[] | Position[] | Opening[] | Person[]
- * @param prop types: { [key: string]: string }
- * @returns Table
- *
- * This component receives an entity and a types object as props.
- * It currently supports Projects, Positions, Openings and People.
- */
+const TableView = (props: Props) => {
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
-function formatTimestamp(timestamp: string): string {
-  const date = new Date(timestamp);
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const year = date.getFullYear();
+  const handleSearchTermChange = (term: string) => {
+    setSearchTerm(term);
+  };
 
-  return `${month}/${day}/${year}`;
-}
+  // Utility function to format timestamps
+  const formatTimestamp = (timestamp: string): string => {
+    const date = new Date(timestamp);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
+  };
 
-const TableView = (prop: Props) => {
+  // Filtering the entity array based on the search term
+  const filteredEntity = props.entity.filter((entity: any) => {
+    const searchableFields = Object.values(entity)
+      .map((value: any) => (value ? value.toString().toLowerCase() : ""))
+      .join(" ");
+    return searchableFields.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
   return (
-    
-    <Table striped bordered hover className="custom-table">
-      <thead>
-        <tr>
-          <th className="purple-700 text-light">#</th>
-          {Object.values(prop.elements).map((type: string, index: number) => (
-            <th key={index} className="purple-700 text-light">
-              {type}
-            </th>
-          ))}
-          <th className="purple-700 text-light">Options</th>
-        </tr>
-      </thead>
-      <tbody>
-        {prop.entity.map(
-          (entity: Project | Position | Opening | Person, index: number) => (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              {Object.keys(prop.elements).map((key: string, index: number) => {
-                const value =
-                  entity[key as keyof (Project | Position | Opening | Person)];
-                // Check if the column contains "Fecha"
-                if (
-                  prop.elements[key] &&
-                  prop.elements[key].includes("Fecha") &&
-                  value
-                ) {
-                  return (
-                    <td key={index}>{formatTimestamp(value.toString())}</td>
-                  );
-                } else {
-                  return <td key={index}>{value?.toString()}</td>;
-                }
-              })}
-              <td>
-                <Link to={`${entity.id}`}>
-                  <i className="table-button bi bi-info-circle-fill"></i>
-                </Link>
-
-                <Link to={`${entity.id}`}>
-                  <i className="table-button bi bi-pencil-fill"></i>
-                </Link>
-
-                {prop.type === "Project" ? (
-                  <Link to={`${entity.id}`}>
-                    <i className="table-button bi bi-briefcase-fill"></i>
-                  </Link>
-                ) : null}
-              </td>
-            </tr>
-          )
-        )}
-      </tbody>
-    </Table>
+    <div>
+      <SearchBar onSearchTermChange={handleSearchTermChange} />
+      <Table striped bordered hover className="custom-table">
+        <thead>
+          <tr>
+            <th className="encora-purple text-light">#</th>
+            {Object.values(props.types).map((type: string, index: number) => (
+              <th key={index} className="encora-purple text-light">{type}</th>
+            ))}
+            <th className="encora-purple text-light">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredEntity.map(
+            (entity: Project | Position | Opening | Person, index: number) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                {Object.keys(props.types).map((key: string, index: number) => {
+                  const value = entity[key as keyof (Project | Position | Opening | Person)];
+                  // Check if the column is intended to display dates
+                  if (props.types[key] && props.types[key].includes("Fecha") && value) {
+                    return <td key={index}>{formatTimestamp(value.toString())}</td>;
+                  } else {
+                    return <td key={index}>{value?.toString()}</td>;
+                  }
+                })}
+                <td>
+                  <Link to={`/edit/${entity.id}`}><i className="bi bi-pencil-fill"></i></Link>
+                  <Link to={`/delete/${entity.id}`}><i className="bi bi-trash-fill"></i></Link>
+                </td>
+              </tr>
+            )
+          )}
+        </tbody>
+      </Table>
+    </div>
   );
 };
 

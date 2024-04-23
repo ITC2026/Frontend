@@ -52,7 +52,7 @@ const ProjectPage = () => {
   };
 
   useEffect(() => {
-    !registerProject && getAllProjects().then((data: any) => setProjects(data));
+    !registerProject && getAllProjects().then((data: Project[] | undefined) => setProjects(data || []));
   }, [registerProject]);
 
   const filteredProjects = projects.filter((project) => {
@@ -88,8 +88,7 @@ const ProjectPage = () => {
       {projects && (
         <TableView
           entity={filteredProjects}
-          elements={project_structure}
-          type="Project"
+          types={project_structure}
         />
       )}
 

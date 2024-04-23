@@ -58,6 +58,7 @@ division: Division; // Part of a type.
 region: Region; // Part of a type.
 status: PeopleStatus; // Part of a type.
 movement_reason: string;
+expected_salary: number;
 }
 
 interface Opening {
@@ -165,8 +166,8 @@ client_name: string;
 client_desc: string;
 high_growth: boolean;
 division: Division; // Part of a type.
-projects?: Project[];
-employees?: Employee[];
+projects: Project[];
+employees: Employee[];
 }
 
 // ClientEmployeeRelation interface.

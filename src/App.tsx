@@ -13,7 +13,13 @@ function App() {
       >
         Account Manager
       </button>
-
+      <button 
+        type="button"
+        className="btn btn-outline-primary"
+        onClick={() => navigate("/staffer/")}
+      >
+        Staffer
+      </button>
       <button
         type="button"
         className="btn btn-outline-primary"

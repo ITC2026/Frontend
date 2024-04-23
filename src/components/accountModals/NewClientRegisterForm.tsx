@@ -9,30 +9,44 @@ interface Props {
 }
 
 const ClientRegisterForm = (prop: Props) => {
-  const [clientName, setClientName] = useState<string>("");
-  const [clientDescription, setClientDescription] = useState<string>("");
   const [contractPdfUrl, setContractPdfUrl] = useState<string>("");
   const [logoUrl, setLogoUrl] = useState<string>("");
+  const [clientName, setClientName] = useState<string>("");
+  const [clientDescription, setClientDescription] = useState<string>("");
   const [hasHighGrowth, setHasHighGrowth] = useState<boolean>(false);
   const [selectedDivision, setSelectedDivision] = useState<Division>();
+  const [validated, setValidated] = useState(false);
 
   const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent the default form submission behavior
 
+    const form = event.currentTarget;
+    if (form.checkValidity()===false) {
+      event.preventDefault();
+
+      event.stopPropagation();
+      console.log("Form is invalid"); 
+      setValidated(true);
+      return;
+    }
+
+    setValidated(true);
+
     const clientToSubmit: CreateClientAttributes = {
-      client_name: clientName,
-      client_desc: clientDescription,
       contract_pdf_url: contractPdfUrl,
       logo_url: logoUrl,
+      client_name: clientName,
+      client_desc: clientDescription,
       high_growth: hasHighGrowth,
-      division: "USA",
+      division: "USA"
     };
 
     console.log(`Submitting project: ${JSON.stringify(clientToSubmit)}`);
     createClient(clientToSubmit)
       .then(() => {
-        console.log("Project submitted successfully");
-        prop.setActiveModal(false);
+        console.log("Client submitted successfully");
+       prop.setActiveModal(false);
+        
       })
       .catch((error) => {
         console.error("Error submitting project:", error);
@@ -40,16 +54,22 @@ const ClientRegisterForm = (prop: Props) => {
   };
 
   return (
-    <Form onSubmit={submitForm}>
+    <Form onSubmit={submitForm} noValidate validated={validated}>
       <Form.Group as={Row} className="mb-4 row-width-form">
         <Form.Label column sm={6} bsPrefix="label-style text-start">
           Nombre De Cliente
         </Form.Label>
         <Col sm={6}>
           <Form.Control
+            required
+            value={clientName}
+            onChange={(e) => setClientName(e.target.value)}
             type="text"
             bsPrefix="encora-purple-input form-control"
-          />
+
+          /><Form.Control.Feedback type="invalid">
+            Please provide a valid zip.
+          </Form.Control.Feedback>
         </Col>
       </Form.Group>
       <Form.Group as={Row} className="mb-4 row-width-form">
@@ -58,6 +78,8 @@ const ClientRegisterForm = (prop: Props) => {
         </Form.Label>
         <Col sm={6}>
           <Form.Control
+            value={clientDescription}
+            onChange={(e) => setClientDescription(e.target.value)}
             type="text"
             bsPrefix="encora-purple-input form-control"
           />
@@ -69,7 +91,9 @@ const ClientRegisterForm = (prop: Props) => {
         </Form.Label>
         <Col sm={6}>
           <Form.Control
-            type="file"
+            value={contractPdfUrl}
+            onChange={(e) => setContractPdfUrl(e.target.value)}
+            type="text"
             bsPrefix="encora-purple-input form-control"
           />
         </Col>
@@ -80,11 +104,14 @@ const ClientRegisterForm = (prop: Props) => {
         </Form.Label>
         <Col sm={6}>
           <Form.Control
-            type="file"
+            value={logoUrl}
+            onChange={(e) => setLogoUrl(e.target.value)}
+            type="text"
             bsPrefix="encora-purple-input form-control"
           />
         </Col>
       </Form.Group>
+
       <Form.Group as={Row} className="mb-4 row-width-form">
         <Col sm={6}>
           <Form.Check
@@ -94,37 +121,39 @@ const ClientRegisterForm = (prop: Props) => {
             <Form.Check.Input
               type="checkbox"
               bsPrefix="encora-purple-check form-check-input"
+              checked={hasHighGrowth}
+              onChange={(e) => setHasHighGrowth(e.target.checked)}
             />
             <Form.Check.Label>High-Growth Client</Form.Check.Label>
           </Form.Check>
         </Col>
       </Form.Group>
+
       <Form.Group as={Row} className="mb-4 row-width-form">
         <Form.Label column sm={6} bsPrefix="label-style text-start">
           División
         </Form.Label>
         <Col sm={6}>
-          <Form.Select bsPrefix="encora-purple-input form-select">
+          <Form.Select 
+          value={selectedDivision}
+          onChange={(e) => setSelectedDivision(e.target.value as Division)}
+        
+          bsPrefix="encora-purple-input form-select">
             <option>Ninguno</option>
-            <option>PlaceHolder1</option>
-            <option>PlaceHolder1</option>
-            <option>PlaceHolder1</option>
+            <option>USA</option>
+            <option>MEXICO</option>
+            <option>BRAZIL</option>
           </Form.Select>
         </Col>
       </Form.Group>
-      <Form.Group as={Row} className="mb-4 row-width-form">
-        <Form.Label column sm={6} bsPrefix="label-style text-start">
-          División
-        </Form.Label>
-        <Col sm={6}>
-          <input
-            type="date"
-            className="encora-purple-input form-control"
-          ></input>
-        </Col>
-      </Form.Group>
-
-      <button onClick={() => prop.setActiveModal(false)}>Close</button>
+      
+      <button   
+        type="button"
+        className="btn btn-secondary" 
+        onClick={() => prop.setActiveModal(false)}>Close</button>
+      <button type="submit" className="btn btn-primary">
+        Submit
+      </button>
     </Form>
   );
 };

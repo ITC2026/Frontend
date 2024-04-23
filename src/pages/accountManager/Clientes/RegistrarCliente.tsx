@@ -1,5 +1,6 @@
 import LargeModal from "../../../components/modal/LargeModal";
 import ClientRegisterForm from "../../../components/accountModals/ClientRegisterForm";
+import NewClientRegisterForm from "../../../components/accountModals/NewClientRegisterForm";
 
 interface Props {
   setActiveModal: (active: boolean) => void;
@@ -10,7 +11,7 @@ const RegistrarCliente = (props: Props) => {
     <LargeModal
       titleModal="Registrar Cliente"
       formContent={
-        <ClientRegisterForm onClose={() => props.setActiveModal(false)} />
+        <NewClientRegisterForm setActiveModal={() => props.setActiveModal(false)} />
       }
     />
   );

@@ -2,15 +2,12 @@ import Form from "react-bootstrap/Form";
 import getClientNamesAndIds from "../../../utils/Clients/GetClientNamesID";
 import React, { useEffect, useState } from "react";
 import { createProject } from "../../../api/ProjectAPI";
-import ShortModal from "../../../components/modal/ShortModal";
 
 interface Props {
   setActiveModal: (active: boolean) => void;
 }
 
 const ProjectForm = (prop: Props) => {
-  const [showConfirmationModal, setShowConfirmationModal] =
-    useState<boolean>(false);
   const [clients, setClients] = useState<{ id: string; name: string }[]>([]);
   const [projectName, setProjectName] = useState<string>("");
   const [projectDescription, setProjectDescription] = useState<string>("");

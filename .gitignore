@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 ```
 TODO.md
+.zed
+*.zed

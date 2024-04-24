@@ -6,7 +6,7 @@ import { getAllProjects } from  "../../api/ProjectAPI";
 
 import { getAllClients } from  "../../api/ClientAPI";
 
-import { getAllPersons } from '../../api/PersonAPI';
+import { getAllPeople  } from '../../api/PersonAPI';
 
 import { getAllEmployees } from '../../api/EmployeeAPI';
 
@@ -46,7 +46,7 @@ const ChartAccount: React.FC = () => {
 
 
     useEffect(() => {
-    getAllPersons().then((data: unknown) => {
+        getAllPeople().then((data: unknown) => {
         setPersons(data as Person[]);
     });
     }, [setPersons]);

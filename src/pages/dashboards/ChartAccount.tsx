@@ -8,7 +8,7 @@ import { getAllClients } from  "../../api/ClientAPI";
 
 import { getAllPositions } from '../../api/PositionAPI';
 
-import { getAllPersons } from '../../api/PersonAPI';
+import {  getAllPeople } from '../../api/PersonAPI';
 
 import { getAllOpenings } from '../../api/OpeningAPI';
 
@@ -49,7 +49,7 @@ const ChartAccount: React.FC = () => {
   }, [setPositions]);
 
   useEffect(() => {
-    getAllPersons().then((data: unknown) => {
+    getAllPeople().then((data: unknown) => {
       setPersons(data as Person[]);
     });
   }, [setPersons]);

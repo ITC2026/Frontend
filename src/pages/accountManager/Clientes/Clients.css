@@ -1,3 +1,12 @@
+
+.mostrar{
+    display: flex;
+    justify-content: right;
+}
+.agregar{
+    display: flex;
+    margin-right: 3.9rem;
+}
 .container {
     max-width: 1200px; /* Adjust the value as needed */
     height: 500px;
@@ -20,8 +29,9 @@
 
 /* Change the background color of the active page link */
 .pagination .page-item.active .page-link {
-    background-color: purple; /* Set the background color to purple */
-    border-color: purple; /* Set the border color to purple */
+    background-color: #2D1154; 
+    border-color: #2D1154; 
+    color: white;
 }
 
 /* Change the hover color of the pagination links */

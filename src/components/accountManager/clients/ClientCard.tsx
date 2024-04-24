@@ -2,6 +2,7 @@ import "./ClientCard.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 
+
 const InfoCircleFillIcon: React.FC = () => {
   return (
      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2D1154" className="bi bi-info-circle-fill" viewBox="0 0 16 16">

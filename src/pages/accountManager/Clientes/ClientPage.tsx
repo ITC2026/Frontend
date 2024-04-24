@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ClientCard from "../../../components/accountManager/clients/ClientCard";
 import "./Clients.css";
+import LargeModal from "../../../components/modal/LargeModal";
+import NewClientRegisterForm from "../../../components/accountModals/NewClientRegisterForm";
 
-import RegistrarCliente from "./RegistrarCliente";
+
 
 const ClientPage = () => {
   const [registerVisible, setRegisterVisible] = useState<boolean>(false);
@@ -165,15 +167,25 @@ const ClientPage = () => {
       : `col-md-${12 / Math.max(currentClients.length, 1)}`;
 
   return (
-    <div className="container">
-      <h1>Clientes</h1>
-      <div>
-        <button onClick={() => setRegisterVisible(true)}>Caca</button>
+    <div>
+            <h1>Clientes</h1>
+      <div className="mostrar">
+        <button className="agregar btn encora-purple-button"
+         onClick={() => setRegisterVisible(true)}>Registrar Cliente</button>
 
         {registerVisible && (
-          <RegistrarCliente setActiveModal={setRegisterVisible} />
+          //<RegistrarCliente setActiveModal={setRegisterVisible} />
+          <LargeModal
+          titleModal="Registrar Cliente"
+          formContent={
+          <NewClientRegisterForm setActiveModal={setRegisterVisible} />
+          }
+          />
+          
         )}
       </div>
+    <div className="container">
+
       <div className="row">
         {currentClients.map((client) => (
           <div className={columnSize} key={client.id}>
@@ -208,6 +220,7 @@ const ClientPage = () => {
           </nav>
         )}
       </div>
+    </div>
     </div>
   );
 };

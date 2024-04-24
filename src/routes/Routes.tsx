@@ -5,6 +5,7 @@ import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import ModalPage from "../pages/ModalPage/ModalPage";
+import FirebaseStorage from "../pages/firebaseStorage/FirebaseStorage";
 import ClientPage from "../pages/accountManager/Clientes/ClientPage";
 import ProjectPage from "../pages/accountManager/projects/Projects";
 
@@ -123,6 +124,10 @@ const router = createBrowserRouter([
   {
     path: "/modalPage",
     element: <ModalPage />,
+  },
+  {
+    path: "/firebaseStorage",
+    element: <FirebaseStorage/>
   },
   {
     path: "resource",

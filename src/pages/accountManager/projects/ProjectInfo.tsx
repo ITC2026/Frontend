@@ -32,7 +32,6 @@ const ProjectInfo = () => {
       fetch(`http://localhost:3000/projects/${id}`)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data.payload);
           setProjectName(data.payload.project_title);
           setProjectDescription(data.payload.project_description);
           setSelectedClientId(data.payload.client_id);
@@ -40,15 +39,20 @@ const ProjectInfo = () => {
           setExpirationDate(
             data.payload.has_expiration_date
               ? formatDate(data.payload.expiration_date)
-              : "",
+              : ""
           );
           setHasExpirationDate(data.has_expiration_date);
         });
-      console.log(
-        `Info: ${id}, ${projectName}, ${projectDescription}, ${selectedClientId}, ${startingDate}, ${expirationDate}, ${hasExpirationDate}`,
-      );
     }
-  }, [id]);
+  }, [
+    expirationDate,
+    hasExpirationDate,
+    id,
+    projectDescription,
+    projectName,
+    selectedClientId,
+    startingDate,
+  ]);
 
   const navigate = useNavigate();
 
@@ -59,8 +63,7 @@ const ProjectInfo = () => {
         <Form.Control
           type="text"
           placeholder="Enter your name"
-          value={projectName}
-          onChange={(e) => setProjectName(e.target.value)}
+          defaultValue={projectName}
           disabled
         />
       </Form.Group>
@@ -70,21 +73,15 @@ const ProjectInfo = () => {
         <Form.Control
           type="text"
           placeholder="Enter your description"
-          value={projectDescription}
-          onChange={(e) => setProjectDescription(e.target.value)}
+          defaultValue={projectDescription}
           disabled
         />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicClientSelect">
         <Form.Label>Cliente</Form.Label>
-        <Form.Control
-          as="select"
-          value={selectedClientId}
-          onChange={(e) => setSelectedClientId(e.target.value)}
-          disabled
-        >
-          <option disabled value="">
+        <Form.Control as="select" value={selectedClientId} disabled>
+          <option disabled defaultValue="">
             Select a client
           </option>
           {clients.map((client) => (
@@ -97,12 +94,7 @@ const ProjectInfo = () => {
 
       <Form.Group className="mb-3" controlId="formBasicDate">
         <Form.Label>Fecha de inicio</Form.Label>
-        <Form.Control
-          type="date"
-          value={startingDate}
-          onChange={(e) => setStartingDate(e.target.value)}
-          disabled
-        />
+        <Form.Control type="date" value={startingDate} disabled />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
@@ -110,7 +102,6 @@ const ProjectInfo = () => {
           type="checkbox"
           label="¿El proyecto tiene una fecha de expiración?"
           checked={hasExpirationDate}
-          onChange={(e) => setHasExpirationDate(e.target.checked)}
           disabled
         />
       </Form.Group>
@@ -119,9 +110,8 @@ const ProjectInfo = () => {
         <Form.Label>Fecha de Expiracion</Form.Label>
         <Form.Control
           type="date"
-          value={expirationDate}
+          defaultValue={expirationDate}
           disabled={!hasExpirationDate}
-          onChange={(e) => setExpirationDate(e.target.value)}
         />
       </Form.Group>
 

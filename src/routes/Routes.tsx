@@ -6,7 +6,7 @@ import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import ProjectPage from "../pages/accountManager/projects/Projects";
 import ModalPage from "../pages/ModalPage/ModalPage";
-import ProjectInfo from "../pages/accountManager/projects/ProjectInfo";
+import ProjectInfoWrapper from "../pages/accountManager/projects/ProjectInfoWrapper";
 import ProjectModifyWrapper from "../pages/accountManager/projects/modify/ProjectModifyWrapper";
 import ChartStaffer from "../pages/dashboards/ChartStaffer";
 import ChartAccount from "../pages/dashboards/ChartAccount";
@@ -63,14 +63,14 @@ const router = createBrowserRouter([
         children: [
           {
             path: ":id/",
-            element: <ProjectInfo />,
+            element: <ProjectInfoWrapper />,
           },
           {
             path: "edit",
             children: [
               {
                 path: ":id/",
-                element: <ProjectModifyWrapper/>,
+                element: <ProjectModifyWrapper />,
               },
             ],
           },

@@ -29,22 +29,17 @@ const ClientCard = (prop: Props) => {
     <div className = "client-tab">
       
       <div className="contenido">
-      
-        
-      <div className="client-img">
-        <img src={prop.imgURL} alt={prop.imgURL} />
-      </div>
-      <div className="textito">
-      <div className="clientName">{prop.clientName}</div> 
-      <div className="clientDesc">{prop.clientDescription}</div>
-      
-      
-      </div>
-
-      <div className="abajo">
-      <button className="centro-1"><InfoCircleFillIcon/></button>
-      <button className="centro-2"><PencilFillIcon/></button>
-      </div>
+        <div className="client-img">
+          <img src={prop.imgURL} alt={prop.imgURL} />
+        </div>
+        <div className="textito">
+          <div className="clientName">{prop.clientName}</div> 
+          <div className="clientDesc">{prop.clientDescription}</div>
+        </div>
+        <div className="abajo">
+          <button className="centro-1"><InfoCircleFillIcon/></button>
+          <button className="centro-2"><PencilFillIcon/></button>
+        </div>
       </div>
       
     </div>

@@ -3,8 +3,14 @@ import getClientNamesAndIds from "../../../../utils/Clients/GetClientNamesID";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { modifyProject, deleteProject } from "../../../../api/ProjectAPI";
+import ShortModal from "../../../../components/modal/ShortModal";
 
 const ProjectModifyForm = () => {
+  const [showConfirmationDelete, setShowConfirmationDelete] =
+    useState<boolean>(false);
+  const [showConfirmationModify, setShowConfirmationModify] =
+    useState<boolean>(false);
+
   const [clients, setClients] = useState<{ id: string; name: string }[]>([]);
   const [projectName, setProjectName] = useState<string>("");
   const [projectDescription, setProjectDescription] = useState<string>("");
@@ -30,7 +36,6 @@ const ProjectModifyForm = () => {
   };
 
   const handleDeleteProject = () => {
-    console.log("Delete project");
     deleteProject(Number(id))
       .then(() => {
         console.log("Project deleted successfully");
@@ -53,13 +58,10 @@ const ProjectModifyForm = () => {
           setExpirationDate(
             data.payload.has_expiration_date
               ? formatDate(data.payload.expiration_date)
-              : ""
+              : "",
           );
           setHasExpirationDate(data.payload.has_expiration_date);
         });
-      console.log(
-        `Info: ${id}, ${projectName}, ${projectDescription}, ${selectedClientId}, ${startingDate}, ${expirationDate}, ${hasExpirationDate}`
-      );
     }
   }, [id]);
 
@@ -165,14 +167,48 @@ const ProjectModifyForm = () => {
       <button
         type="button"
         className="btn btn-danger"
-        onClick={handleDeleteProject}
+        onClick={() => setShowConfirmationDelete(true)}
       >
-        Delete
+        {" "}
+        Delete Project
       </button>
 
-      <button type="submit" className="btn btn-warning">
+      <button
+        type="button"
+        className="btn btn-warning"
+        onClick={() => setShowConfirmationModify(true)}
+      >
         Modify
       </button>
+
+      {showConfirmationModify && (
+        <ShortModal
+          typeOfModal="modify"
+          btnArray={[
+            <button key="modify" type="submit" className="btn btn-warning">
+              Modify
+            </button>,
+          ]}
+          onClose={() => setShowConfirmationModify(false)}
+        />
+      )}
+
+      {showConfirmationDelete && (
+        <ShortModal
+          typeOfModal="delete"
+          btnArray={[
+            <button
+              key="delete"
+              type="button"
+              className="btn btn-danger"
+              onClick={handleDeleteProject}
+            >
+              Delete
+            </button>,
+          ]}
+          onClose={() => setShowConfirmationDelete(false)}
+        />
+      )}
     </Form>
   );
 };

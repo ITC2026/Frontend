@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
 import "./Table.css";
 import { Project, Position, Opening, Person } from "../../types/";
-
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
   types: { [key: string]: string };
@@ -80,7 +79,7 @@ const TableView = (props: Props) => {
                   </Link>
                 </td>
               </tr>
-            )
+            ),
           )}
         </tbody>
       </Table>

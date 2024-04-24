@@ -107,12 +107,11 @@ const router = createBrowserRouter([
       {
         path: "people",
         element: <PostulatesPage />,
-        children: [
-          {
-            path: ":id",
-          },
-        ] 
       },
+      {
+      path: "people/:id",
+      element: <InfoPostulate />,
+      },    
       {
         path: "settings",
         element: (

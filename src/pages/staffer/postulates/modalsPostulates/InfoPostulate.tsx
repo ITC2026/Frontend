@@ -5,7 +5,7 @@ import LargeModal from "../../../../components/modal/LargeModal";
 import ShortModal from "../../../../components/modal/ShortModal";
 import { useLargeModal } from "../../../../hooks/useLargeModal";
 import { useShortModal } from "../../../../hooks/useShortModal";
-import { useState } from "react";
+
 
 const postulateForm: EntityFormType = {
     entity: "IT WORKS - Bench",
@@ -93,19 +93,19 @@ const postulateForm: EntityFormType = {
     }
 };
 
-interface InfoPostulateProps {
-    status?: string;
-}
 
-const InfoPostulate = (props : InfoPostulateProps) => {
+const InfoPostulate = () => {
     const { shortModalProps, typeOfShortModal, setTypeOfShortModal } = useShortModal(postulateForm);
     const { largeModalProps, typeOfLargeModal, setTypeOfLargeModal } = useLargeModal(postulateForm);
-    const [status, setStatus] = useState<string>(props.status || "Bench");  // Default status is Bench]
 
-
-    setTypeOfLargeModal("info");
     return (
         <div>
+            <button
+                type="submit"
+                className="bi bi-info-circle-fill"
+                onClick={() => setTypeOfLargeModal("info")}
+            >
+            </button>
             {typeOfLargeModal && largeModalProps && <LargeModal {...largeModalProps} btnArray={getBtnArrLargeModal(typeOfLargeModal, setTypeOfShortModal)} />}
             {typeOfShortModal && shortModalProps && <ShortModal {...shortModalProps} btnArray={getBtnArrShortModal(postulateForm.entity, typeOfShortModal)} />}
         </div>

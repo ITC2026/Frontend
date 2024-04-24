@@ -55,7 +55,7 @@ const ClientRegisterForm = (prop: Props) => {
   };
 
   return (
-    <Form onSubmit={submitForm} noValidate validated={validated}>
+    <Form className="form-group" onSubmit={submitForm} noValidate validated={validated}>
       <Form.Group as={Row} className="mb-4 row-width-form">
         <Form.Label column sm={6} bsPrefix="label-style text-start">
           Nombre De Cliente
@@ -147,6 +147,61 @@ const ClientRegisterForm = (prop: Props) => {
           </Form.Select>
         </Col>
       </Form.Group>
+
+      <Form.Group as={Row} className="mb-4 row-width-form">
+        <Form.Label column sm={6} bsPrefix="label-style text-start">
+          División
+        </Form.Label>
+        <Col sm={6}>
+          <Form.Select 
+          value={selectedDivision}
+          onChange={(e) => setSelectedDivision(e.target.value as Division)}
+        
+          bsPrefix="encora-purple-input form-select">
+            <option>Ninguno</option>
+            <option>USA</option>
+            <option>MEXICO</option>
+            <option>BRAZIL</option>
+          </Form.Select>
+        </Col>
+      </Form.Group>
+
+      <Form.Group as={Row} className="mb-4 row-width-form">
+        <Form.Label column sm={6} bsPrefix="label-style text-start">
+          División
+        </Form.Label>
+        <Col sm={6}>
+          <Form.Select 
+          value={selectedDivision}
+          onChange={(e) => setSelectedDivision(e.target.value as Division)}
+        
+          bsPrefix="encora-purple-input form-select">
+            <option>Ninguno</option>
+            <option>USA</option>
+            <option>MEXICO</option>
+            <option>BRAZIL</option>
+          </Form.Select>
+        </Col>
+      </Form.Group>
+
+      <Form.Group as={Row} className="mb-4 row-width-form">
+        <Form.Label column sm={6} bsPrefix="label-style text-start">
+          División
+        </Form.Label>
+        <Col sm={6}>
+          <Form.Select 
+          value={selectedDivision}
+          onChange={(e) => setSelectedDivision(e.target.value as Division)}
+        
+          bsPrefix="encora-purple-input form-select">
+            <option>Ninguno</option>
+            <option>USA</option>
+            <option>MEXICO</option>
+            <option>BRAZIL</option>
+          </Form.Select>
+        </Col>
+      </Form.Group>
+      
       
       <div className="button-wrapper">
         <button   

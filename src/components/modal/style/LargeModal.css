@@ -1,3 +1,4 @@
+
 .overlay {
   position: fixed;
   top: 0;
@@ -22,11 +23,11 @@
 }
 
 .heading-form {
-  margin-bottom: 7.25rem;
+  margin-bottom: 6rem;
 }
 
 .form-group {
-  height: 32rem;
+  height: 36rem;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -36,4 +37,5 @@
   display: flex;
   justify-content: flex-end;
   column-gap: 2.19rem;
+  margin-top: auto;
 }

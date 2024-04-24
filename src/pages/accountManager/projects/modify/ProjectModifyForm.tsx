@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { modifyProject, deleteProject } from "../../../../api/ProjectAPI";
 import ShortModal from "../../../../components/modal/ShortModal";
+import { formatDate } from "../../../../utils/Dates";
 
 const ProjectModifyForm = () => {
   const [showConfirmationDelete, setShowConfirmationDelete] =
@@ -18,6 +19,9 @@ const ProjectModifyForm = () => {
   const [startingDate, setStartingDate] = useState<string>("");
   const [expirationDate, setExpirationDate] = useState<string>("");
   const [hasExpirationDate, setHasExpirationDate] = useState<boolean>(false);
+  const [selectedStatus, setSelectedStatus] = useState<string>("");
+  const [closedStatus, setClosedStatus] = useState<string>("");
+  const [closedReason, setClosedReason] = useState<string>("");
 
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
@@ -25,15 +29,6 @@ const ProjectModifyForm = () => {
   useEffect(() => {
     getClientNamesAndIds().then((data) => setClients(data));
   }, []);
-
-  const formatDate = (isoDateString: string): string => {
-    const date = new Date(isoDateString);
-    const year = date.getFullYear();
-    const month = (1 + date.getMonth()).toString().padStart(2, "0");
-    const day = (1 + date.getDate()).toString().padStart(2, "0");
-
-    return `${year}-${month}-${day}`;
-  };
 
   const handleDeleteProject = () => {
     console.log("Delete project");
@@ -59,9 +54,10 @@ const ProjectModifyForm = () => {
           setExpirationDate(
             data.payload.has_expiration_date
               ? formatDate(data.payload.expiration_date)
-              : "",
+              : ""
           );
           setHasExpirationDate(data.payload.has_expiration_date);
+          setSelectedStatus(data.payload.general_status);
         });
     }
   }, [id]);
@@ -75,7 +71,9 @@ const ProjectModifyForm = () => {
       client_id: parseInt(selectedClientId),
       start_date: startingDate,
       has_expiration_date: hasExpirationDate,
-      general_status: "In Preparation",
+      general_status: selectedStatus,
+      closed_status: closedStatus,
+      closed_reason: closedReason,
     };
     const id_num = Number(id);
 
@@ -156,6 +154,45 @@ const ProjectModifyForm = () => {
           onChange={(e) => setExpirationDate(e.target.value)}
         />
       </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicClientSelect">
+        <Form.Label>Estado</Form.Label>
+        <Form.Control
+          as="select"
+          value={selectedStatus}
+          onChange={(e) => setSelectedStatus(e.target.value)}
+        >
+          <option value="In Preparation">In Preparation</option>
+          <option value="Active">Active</option>
+          <option value="Closed">Closed</option>
+        </Form.Control>
+      </Form.Group>
+
+      {selectedStatus === "Closed" && (
+        <div>
+          <Form.Group className="mb-3" controlId="formBasicClientSelect">
+            <Form.Label>Estado cerrado</Form.Label>
+            <Form.Control
+              as="select"
+              value={closedStatus}
+              onChange={(e) => setClosedStatus(e.target.value)}
+            >
+              <option value="Completed">Completed</option>
+              <option value="Cancelled">Cancelled</option>
+            </Form.Control>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Razón de cierre</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter your reason"
+              value={closedReason}
+              onChange={(e) => setClosedReason(e.target.value)}
+            />
+          </Form.Group>
+        </div>
+      )}
 
       <button
         type="button"

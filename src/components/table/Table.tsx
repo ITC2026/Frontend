@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
 import "./Table.css";
 import { Project, Position, Opening, Person } from "../../types/";
+import { formatTimestamp } from "../../utils/Dates";
+
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
   types: { [key: string]: string };
@@ -16,14 +18,6 @@ const TableView = (props: Props) => {
 
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term);
-  };
-
-  const formatTimestamp = (timestamp: string): string => {
-    const date = new Date(timestamp);
-    const month = date.getUTCMonth() + 1;
-    const day = date.getUTCDate();
-    const year = date.getUTCFullYear();
-    return `${month}/${day}/${year}`;
   };
 
   const filteredEntity = props.entity.filter((entity: any) => {
@@ -79,7 +73,7 @@ const TableView = (props: Props) => {
                   </Link>
                 </td>
               </tr>
-            ),
+            )
           )}
         </tbody>
       </Table>

@@ -7,12 +7,11 @@ import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper
 import ProjectPage from "../pages/accountManager/projects/Projects";
 import ModalPage from "../pages/ModalPage/ModalPage";
 import ProjectInfo from "../pages/accountManager/projects/ProjectInfo";
-
+import ProjectModifyWrapper from "../pages/accountManager/projects/modify/ProjectModifyWrapper";
 import ChartStaffer from "../pages/dashboards/ChartStaffer";
 import ChartAccount from "../pages/dashboards/ChartAccount";
 import ChartResource from "../pages/dashboards/ChartResource";
 
-//Staffer
 import StafferWrapper from "../pages/staffer/StafferWrapper";
 import ProjectsPage from "../pages/staffer/projects/ProjectsPage";
 import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
@@ -65,6 +64,15 @@ const router = createBrowserRouter([
           {
             path: ":id/",
             element: <ProjectInfo />,
+          },
+          {
+            path: "edit",
+            children: [
+              {
+                path: ":id/",
+                element: <ProjectModifyWrapper/>,
+              },
+            ],
           },
         ],
       },

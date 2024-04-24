@@ -1,9 +1,10 @@
 import Form from "react-bootstrap/Form";
-import getClientNamesAndIds from "../../../utils/Clients/GetClientNamesID";
+import getClientNamesAndIds from "../../../../utils/Clients/GetClientNamesID";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { modifyProject, deleteProject } from "../../../../api/ProjectAPI";
 
-const ProjectInfo = () => {
+const ProjectModifyForm = () => {
   const [clients, setClients] = useState<{ id: string; name: string }[]>([]);
   const [projectName, setProjectName] = useState<string>("");
   const [projectDescription, setProjectDescription] = useState<string>("");
@@ -11,6 +12,9 @@ const ProjectInfo = () => {
   const [startingDate, setStartingDate] = useState<string>("");
   const [expirationDate, setExpirationDate] = useState<string>("");
   const [hasExpirationDate, setHasExpirationDate] = useState<boolean>(false);
+
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     getClientNamesAndIds().then((data) => setClients(data));
@@ -25,14 +29,23 @@ const ProjectInfo = () => {
     return `${year}-${month}-${day}`;
   };
 
-  const { id } = useParams<{ id: string }>();
+  const handleDeleteProject = () => {
+    console.log("Delete project");
+    deleteProject(Number(id))
+      .then(() => {
+        console.log("Project deleted successfully");
+        navigate("/account_manager/projects");
+      })
+      .catch((error) => {
+        console.error("Error deleting project:", error);
+      });
+  };
 
   useEffect(() => {
     if (id) {
       fetch(`http://localhost:3000/projects/${id}`)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data.payload);
           setProjectName(data.payload.project_title);
           setProjectDescription(data.payload.project_description);
           setSelectedClientId(data.payload.client_id);
@@ -40,20 +53,41 @@ const ProjectInfo = () => {
           setExpirationDate(
             data.payload.has_expiration_date
               ? formatDate(data.payload.expiration_date)
-              : "",
+              : ""
           );
-          setHasExpirationDate(data.has_expiration_date);
+          setHasExpirationDate(data.payload.has_expiration_date);
         });
       console.log(
-        `Info: ${id}, ${projectName}, ${projectDescription}, ${selectedClientId}, ${startingDate}, ${expirationDate}, ${hasExpirationDate}`,
+        `Info: ${id}, ${projectName}, ${projectDescription}, ${selectedClientId}, ${startingDate}, ${expirationDate}, ${hasExpirationDate}`
       );
     }
   }, [id]);
 
-  const navigate = useNavigate();
+  const handleModifyProject = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const projectToSubmit: CreateProjectAttributes = {
+      project_title: projectName,
+      project_description: projectDescription,
+      client_id: parseInt(selectedClientId),
+      start_date: startingDate,
+      has_expiration_date: hasExpirationDate,
+      general_status: "In Preparation",
+    };
+    const id_num = Number(id);
+
+    modifyProject(id_num, projectToSubmit)
+      .then(() => {
+        console.log("Project modified successfully");
+        navigate("/account_manager/projects");
+      })
+      .catch((error) => {
+        console.error("Error modifying project:", error);
+      });
+  };
 
   return (
-    <Form>
+    <Form onSubmit={handleModifyProject}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Nombre</Form.Label>
         <Form.Control
@@ -61,7 +95,6 @@ const ProjectInfo = () => {
           placeholder="Enter your name"
           value={projectName}
           onChange={(e) => setProjectName(e.target.value)}
-          disabled
         />
       </Form.Group>
 
@@ -72,7 +105,6 @@ const ProjectInfo = () => {
           placeholder="Enter your description"
           value={projectDescription}
           onChange={(e) => setProjectDescription(e.target.value)}
-          disabled
         />
       </Form.Group>
 
@@ -82,7 +114,6 @@ const ProjectInfo = () => {
           as="select"
           value={selectedClientId}
           onChange={(e) => setSelectedClientId(e.target.value)}
-          disabled
         >
           <option disabled value="">
             Select a client
@@ -101,7 +132,6 @@ const ProjectInfo = () => {
           type="date"
           value={startingDate}
           onChange={(e) => setStartingDate(e.target.value)}
-          disabled
         />
       </Form.Group>
 
@@ -111,7 +141,6 @@ const ProjectInfo = () => {
           label="¿El proyecto tiene una fecha de expiración?"
           checked={hasExpirationDate}
           onChange={(e) => setHasExpirationDate(e.target.checked)}
-          disabled
         />
       </Form.Group>
 
@@ -132,9 +161,20 @@ const ProjectInfo = () => {
       >
         Close
       </button>
-      
+
+      <button
+        type="button"
+        className="btn btn-danger"
+        onClick={handleDeleteProject}
+      >
+        Delete
+      </button>
+
+      <button type="submit" className="btn btn-warning">
+        Modify
+      </button>
     </Form>
   );
 };
 
-export default ProjectInfo;
+export default ProjectModifyForm;

@@ -2,7 +2,6 @@ import Form from "react-bootstrap/Form";
 import getClientNamesAndIds from "../../../utils/Clients/GetClientNamesID";
 import React, { useEffect, useState } from "react";
 import { createProject } from "../../../api/ProjectAPI";
-import { Project } from "../../../types";
 interface Props {
   setActiveModal: (active: boolean) => void;
 }
@@ -23,7 +22,7 @@ const ProjectForm = (prop: Props) => {
   const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const projectToSubmit: Project = {
+    const projectToSubmit: CreateProjectAttributes = {
       project_title: projectName,
       project_description: projectDescription,
       client_id: parseInt(selectedClientId),

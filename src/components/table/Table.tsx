@@ -9,6 +9,7 @@ import { Project, Position, Opening, Person } from "../../types/";
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
   types: { [key: string]: string };
+  setVisibleForm?: (visible: boolean) => void;
 }
 
 const TableView = (props: Props) => {
@@ -18,7 +19,6 @@ const TableView = (props: Props) => {
     setSearchTerm(term);
   };
 
-  // Utility function to format timestamps
   const formatTimestamp = (timestamp: string): string => {
     const date = new Date(timestamp);
     const month = date.getMonth() + 1;
@@ -27,7 +27,6 @@ const TableView = (props: Props) => {
     return `${month}/${day}/${year}`;
   };
 
-  // Filtering the entity array based on the search term
   const filteredEntity = props.entity.filter((entity: any) => {
     const searchableFields = Object.values(entity)
       .map((value: any) => (value ? value.toString().toLowerCase() : ""))
@@ -43,7 +42,9 @@ const TableView = (props: Props) => {
           <tr>
             <th className="encora-purple text-light">#</th>
             {Object.values(props.types).map((type: string, index: number) => (
-              <th key={index} className="encora-purple text-light">{type}</th>
+              <th key={index} className="encora-purple text-light">
+                {type}
+              </th>
             ))}
             <th className="encora-purple text-light">Options</th>
           </tr>
@@ -54,17 +55,29 @@ const TableView = (props: Props) => {
               <tr key={index}>
                 <td>{index + 1}</td>
                 {Object.keys(props.types).map((key: string, index: number) => {
-                  const value = entity[key as keyof (Project | Position | Opening | Person)];
-                  // Check if the column is intended to display dates
-                  if (props.types[key] && props.types[key].includes("Fecha") && value) {
-                    return <td key={index}>{formatTimestamp(value.toString())}</td>;
+                  const value =
+                    entity[
+                      key as keyof (Project | Position | Opening | Person)
+                    ];
+                  if (
+                    props.types[key] &&
+                    props.types[key].includes("Fecha") &&
+                    value
+                  ) {
+                    return (
+                      <td key={index}>{formatTimestamp(value.toString())}</td>
+                    );
                   } else {
                     return <td key={index}>{value?.toString()}</td>;
                   }
                 })}
                 <td>
-                  <Link to={`/edit/${entity.id}`}><i className="bi bi-pencil-fill"></i></Link>
-                  <Link to={`/delete/${entity.id}`}><i className="bi bi-trash-fill"></i></Link>
+                  <Link to={`${entity.id}`}>
+                    <i className="bi bi-eye-fill"></i>
+                  </Link>
+                  <Link to={`edit/${entity.id}`}>
+                    <i className="bi bi-pencil-fill"></i>
+                  </Link>
                 </td>
               </tr>
             )

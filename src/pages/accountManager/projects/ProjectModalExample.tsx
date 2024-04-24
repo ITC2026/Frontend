@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import Modal from "react-bootstrap/Modal";
 import ProjectForm from "./ProjectForm";
+import LargeModal from "../../../components/modal/LargeModal";
 
 interface Props {
   projectId?: string;
@@ -9,15 +9,10 @@ interface Props {
 }
 const ProjectModal = (prop: Props) => {
   return (
-    <Modal dialogClassName="modal-90w" show={prop.isActive}>
-      <Modal.Header>
-        <Modal.Title>Modal title</Modal.Title>
-      </Modal.Header>
-
-      <Modal.Body>
-        <ProjectForm setActiveModal={prop.setActiveModal} />
-      </Modal.Body>
-    </Modal>
+    <LargeModal
+      titleModal="Register Project"
+      formContent={<ProjectForm setActiveModal={prop.setActiveModal} />}
+    />
   );
 };
 

@@ -3,7 +3,7 @@ import TableView from "../../../components/table/Table";
 import { Project } from "../../../types/.";
 import { getAllProjects } from "../../../api/ProjectAPI";
 import { useState, useEffect } from "react";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import ProjectModal from "./ProjectModalExample";
 
 const project_structure = {
@@ -46,14 +46,18 @@ const ProjectPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selected, setSelected] = useState<string>("Proyectos en Preparación");
   const [registerProject, setRegisterProject] = useState<boolean>(false);
+  const location = useLocation();
 
   const toggleRegisterProject = () => {
     setRegisterProject((prev) => !prev);
   };
 
   useEffect(() => {
-    !registerProject && getAllProjects().then((data: Project[] | undefined) => setProjects(data || []));
-  }, [registerProject]);
+    !registerProject &&
+      getAllProjects().then((data: Project[] | undefined) =>
+        setProjects(data || [])
+      );
+  }, [registerProject, location]);
 
   const filteredProjects = projects.filter((project) => {
     if (selected === "Proyectos Activos") {
@@ -86,10 +90,7 @@ const ProjectPage = () => {
       </div>
 
       {projects && (
-        <TableView
-          entity={filteredProjects}
-          types={project_structure}
-        />
+        <TableView entity={filteredProjects} types={project_structure} />
       )}
 
       {registerProject && (

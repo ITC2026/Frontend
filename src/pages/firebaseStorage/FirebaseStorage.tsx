@@ -3,6 +3,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 const clientLogoPath = "clients/logo/";
+// aca por ejemplo habria un contractPath, por ejemplo
 
 const FirebaseStorage = () => {
  const [file, setFile] = useState<File>();

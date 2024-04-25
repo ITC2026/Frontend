@@ -3,10 +3,25 @@ import React, { useEffect, useState } from "react";
 import { createClient } from "../../api/ClientAPI";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import { uploadFile } from "../../firebase/initialize";
+import { v4 as uuidv4 } from "uuid";
+
+const clientLogoPath = "clients/logo/";
+const clientContractPath = "clients/contract/";
 
 interface Props {
   setActiveModal: (active: boolean) => void;
 }
+
+const handleSubmitClient = async (e: React.FormEvent) => {
+  if (logoFile && logoPath && contractFile && contractPath) {
+    e.preventDefault();
+    const urlLogo = await uploadFile(logoFile, logoPath);
+    console.log(urlLogo);
+    const urlContract = await uploadFile(contractFile, contractPath);
+    console.log(urlContract);
+  }
+};
 
 const ClientRegisterForm = (prop: Props) => {
   const [contractPdfUrl, setContractPdfUrl] = useState<string>("");
@@ -15,9 +30,14 @@ const ClientRegisterForm = (prop: Props) => {
   const [clientDescription, setClientDescription] = useState<string>("");
   const [hasHighGrowth, setHasHighGrowth] = useState<boolean>(false);
   const [selectedDivision, setSelectedDivision] = useState<Division>();
-  const [validated, setValidated] = useState(false);
 
-  const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
+  const [validated, setValidated] = useState(false);
+  const [logoFile, setLogoFile] = useState<File>();
+  const [logoPath, setLogoPath] = useState<string>();
+  const [contractFile, setContractFile] = useState<File>();
+  const [contractPath, setContractPath] = useState<string>();
+
+  const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent the default form submission behavior
 
     const form = event.currentTarget;
@@ -31,14 +51,21 @@ const ClientRegisterForm = (prop: Props) => {
     }
 
     setValidated(true);
+    if (!logoFile || !logoPath || !contractFile || !contractPath) {
+      console.log("Files are missing");
+      return;
+    }
+
+    const urlContract = await uploadFile(contractFile, contractPath);
+    const urlLogo = await uploadFile(logoFile, logoPath);
 
     const clientToSubmit: CreateClientAttributes = {
-      contract_pdf_url: contractPdfUrl,
-      logo_url: logoUrl,
+      contract_pdf_url: urlContract,
+      logo_url: urlLogo,
       client_name: clientName,
       client_desc: clientDescription,
       high_growth: hasHighGrowth,
-      division: "USA",
+      division: selectedDivision,
     };
 
     console.log(`Submitting project: ${JSON.stringify(clientToSubmit)}`);
@@ -89,28 +116,42 @@ const ClientRegisterForm = (prop: Props) => {
           />
         </Col>
       </Form.Group>
+
       <Form.Group as={Row} className="mb-4 row-width-form">
         <Form.Label column sm={6} bsPrefix="label-style text-start">
           Contrato
         </Form.Label>
         <Col sm={6}>
           <Form.Control
+            accept=".pdf"
             value={contractPdfUrl}
-            onChange={(e) => setContractPdfUrl(e.target.value)}
-            type="text"
+            onChange={(e) => {
+              if (e.target.files && e.target.files.length > 0) {
+                setContractFile(e.target.files[0]);
+                setContractPath(clientContractPath + uuidv4());
+              }
+            }}
+            type="file"
             bsPrefix="encora-purple-input form-control"
           />
         </Col>
       </Form.Group>
+
       <Form.Group as={Row} className="mb-4 row-width-form">
         <Form.Label column sm={6} bsPrefix="label-style text-start">
           Logo
         </Form.Label>
         <Col sm={6}>
           <Form.Control
+            accept="image/png, image/jpeg"
             value={logoUrl}
-            onChange={(e) => setLogoUrl(e.target.value)}
-            type="text"
+            onChange={(e) => {
+              if (e.target.files && e.target.files.length > 0) {
+                setLogoFile(e.target.files[0]);
+                setLogoPath(clientLogoPath + uuidv4());
+              }
+            }}
+            type="file"
             bsPrefix="encora-purple-input form-control"
           />
         </Col>

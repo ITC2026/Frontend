@@ -3,15 +3,35 @@
 }
 
 .project-header {
-     display: flex;
-     flex-direction: row;
+    display: flex;
+    flex-direction: column;
         justify-content: space-between;
         align-items: center;
 }
 
+.project-header-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90vw;
+}
+
+h1 {
+    text-align: left;
+}
 .project-register {
-    height: 100%;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    transition: background-color 0.2s;
+    padding: 5%;
+        border-radius: 10px;
+        width: 15rem;
+}
+
+.project-page {
+    margin-top: 2rem;
+}
+
+.project-table {
+    display: flex;
+    width: 90vw;
+    height: 85vh;
+    justify-content: center;
 }

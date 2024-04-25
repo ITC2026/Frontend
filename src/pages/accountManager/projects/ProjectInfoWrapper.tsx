@@ -9,4 +9,4 @@ const ProjectInfoWrapper = () => {
   );
 };
 
-export default ProjectInfoWrapper; 
+export default ProjectInfoWrapper;

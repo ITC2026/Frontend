@@ -71,27 +71,33 @@ const ProjectPage = () => {
   });
 
   return (
-    <div>
+    <div className="project-page">
       <TabNav selected={selected} setSelected={setSelected} />
       <div className="project-header">
-        <h1>Proyectos</h1>
+        <div className="project-header-title">
+          <h1>Proyectos</h1>
+        </div>
+
         <Outlet />
         {selected === "Proyectos en Preparación" ? (
-          <button
-            className="project-register encora-purple-button text-light"
-            onClick={toggleRegisterProject}
-          >
-            {" "}
-            Registrar Proyecto{" "}
-          </button>
+          <div className="project-register-wrapper"></div>
         ) : (
           ""
         )}
       </div>
-
-      {projects && (
-        <TableView entity={filteredProjects} types={project_structure} />
-      )}
+      <div className="project-table">
+        {projects && (
+          <TableView entity={filteredProjects} categories={project_structure}>
+            <button
+              className="project-register encora-purple-button text-light"
+              onClick={toggleRegisterProject}
+            >
+              {" "}
+              Registrar Proyecto{" "}
+            </button>
+          </TableView>
+        )}
+      </div>
 
       {registerProject && (
         <ProjectModal

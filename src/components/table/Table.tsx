@@ -4,13 +4,14 @@ import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
 import "./Table.css";
-import { Project, Position, Opening, Person } from "../../types/";
 import { formatTimestamp } from "../../utils/Dates";
 
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
-  types: { [key: string]: string };
-  setVisibleForm?: (visible: boolean) => void;
+  categories: { [key: string]: string };
+
+  children?: JSX.Element;
+  
 }
 
 const TableView = (props: Props) => {
@@ -29,14 +30,20 @@ const TableView = (props: Props) => {
 
   return (
     <div>
-      <SearchBar onSearchTermChange={handleSearchTermChange} />
-      <Table striped bordered hover className="custom-table">
+      <div className="table-header">
+        <div className = "children-container">
+        {props.children}
+        </div>
+        <SearchBar onSearchTermChange={handleSearchTermChange} />
+      </div>
+
+      <Table striped bordered hover responsive bsPrefix="custom-table">
         <thead>
           <tr>
             <th className="encora-purple text-light">#</th>
-            {Object.values(props.types).map((type: string, index: number) => (
+            {Object.values(props.categories).map((category: string, index: number) => (
               <th key={index} className="encora-purple text-light">
-                {type}
+                {category}
               </th>
             ))}
             <th className="encora-purple text-light">Options</th>
@@ -47,14 +54,14 @@ const TableView = (props: Props) => {
             (entity: Project | Position | Opening | Person, index: number) => (
               <tr key={index}>
                 <td>{index + 1}</td>
-                {Object.keys(props.types).map((key: string, index: number) => {
+                {Object.keys(props.categories).map((key: string, index: number) => {
                   const value =
                     entity[
                       key as keyof (Project | Position | Opening | Person)
                     ];
                   if (
-                    props.types[key] &&
-                    props.types[key].includes("Fecha") &&
+                    props.categories[key] &&
+                    props.categories[key].includes("Fecha") &&
                     value
                   ) {
                     return (
@@ -66,10 +73,10 @@ const TableView = (props: Props) => {
                 })}
                 <td>
                   <Link to={`${entity.id}`}>
-                    <i className="bi bi-eye-fill"></i>
+                    <i className="bi bi-eye-fill table-element"></i>
                   </Link>
                   <Link to={`edit/${entity.id}`}>
-                    <i className="bi bi-pencil-fill"></i>
+                    <i className="bi bi-pencil-fill table-element"></i>
                   </Link>
                 </td>
               </tr>

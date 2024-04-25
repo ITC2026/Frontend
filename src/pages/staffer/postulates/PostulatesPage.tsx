@@ -41,7 +41,7 @@ const PostulatesPage: React.FC = () => {
             <div className="project-table-container">
                 <h1 className="table-title">Lista de Postudalos</h1>
                 <div className="table-wrapper">
-                    <ViewTable entity={filterPeopleByStatus(people, view)} types={personBlueprint} />    
+                    <ViewTable entity={filterPeopleByStatus(people, view)} categories={personBlueprint} />    
                 </div>
             </div>
         </div>

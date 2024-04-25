@@ -76,9 +76,9 @@ const ChartAccount: React.FC = () => {
 
   console.log(getAllOpeningsFilledPosition());
 
-  const getPositionsBillRate = (): number[] => {
-    return getAllOpeningsFilledPosition().map((position) => position.bill_rate);
-  };
+    const getPositionsBillRate = (): number[] => {
+    return getAllOpeningsFilledPosition().map((position) => position.bill_rate as number);
+    }
 
   const getPositionsBillRateSum = (): number => {
     return getPositionsBillRate().reduce((acc, rate) => acc + rate, 0);

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 const clientLogoPath = "clients/logo/";
-const clientContractPath = "client/contract";
+const clientContractPath = "clients/contract/";
 const peopleProfilePath = "people/profile/";
 
 const FirebaseStorage = () => {

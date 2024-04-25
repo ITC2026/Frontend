@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ViewTable from '../../../components/table/Table';
-import { createPerson, getAllPeople, getProjectTitleOfPerson } from "../../../api/PersonAPI";
- // Asegúrate de importar InfoPostulateBench
+import { createPerson, getAllPeople } from "../../../api/PersonAPI";
 import './PostulatesPage.css';
 
 
@@ -29,7 +28,7 @@ const PostulatesPage: React.FC = () => {
     const personBlueprint = {
         "first_name": "Nombre",
         "last_name": "",
-        "project": "Proyecto al que fue postulado",
+        "project_name": "Proyecto al que fue postulado",
         "position": "Posición de Trabajo",
         "division": "Division"
     };

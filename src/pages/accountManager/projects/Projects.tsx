@@ -27,7 +27,7 @@ const ProjectPage = () => {
     <div>
       <h1>Proyectos</h1>
 
-      <TableView entity = {projects} types = {projectBlueprint} type="Project"/>
+      <TableView entity = {projects} types = {projectBlueprint} categories="Project"/>
     </div>
   );
 };

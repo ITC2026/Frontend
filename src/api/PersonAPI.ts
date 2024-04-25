@@ -56,3 +56,15 @@ export const deletePerson = async (id: number) => {
         console.log(err);
     }
 };
+
+export const getProjectTitleOfPerson = async (id: number): Promise<string | null> => {
+    try {
+        const route = "/people/project";
+        const res = await api.get(`${route}/${id}`);
+        const project: Project = res.data.payload; 
+        return project.project_title; 
+    } catch (err) {
+        console.error("Error fetching project title:", err);
+        throw err;
+    }
+};

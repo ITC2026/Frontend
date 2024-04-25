@@ -27,7 +27,7 @@ const ProjectsPage = () => {
           <div className="project-table-container">
             <h1 className="table-title">Lista de Proyectos</h1>
             <div className="table-wrapper">
-              <TableView entity = {projects} types={projectBlueprint} type="StafferProject" />
+              <TableView entity = {projects} types={projectBlueprint} categories="StafferProject" />
             </div>
           </div>
         </div>

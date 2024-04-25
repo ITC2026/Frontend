@@ -7,7 +7,7 @@ import "./Table.css";
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
   types: { [key: string]: string };
-  type?: string;
+  categories?: string;
   buttonArr?: React.ReactElement | React.ReactElement[] | JSX.Element[];
 }
 
@@ -61,13 +61,13 @@ const TableView = (prop: Props) => {
                 <td>
                   {prop.buttonArr ? prop.buttonArr : null}
 
-                  {prop.type === "Project" ? (
+                  {prop.categories === "Project" ? (
                     <Link to={`${entity.id}`}>
                       <i className="table-button bi bi-briefcase-fill"></i>
                     </Link>
                   ) : null}
 
-                  {prop.type === "StafferProject" ? (
+                  {prop.categories === "StafferProject" ? (
                     <Link to={"positions"}>
                       <i className="bi bi-person-plus-fill"></i>
                     </Link>

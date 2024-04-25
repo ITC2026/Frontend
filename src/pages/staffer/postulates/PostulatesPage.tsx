@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ViewTable from '../../../components/table/Table';
-import { createPerson, getAllPeople } from "../../../api/PersonAPI";
+import { createPerson, getAllPeople, getProjectTitleOfPerson } from "../../../api/PersonAPI";
 import InfoPostulatePipeline from "./modalsPostulates/InfoPostulatePipeline";
 import InfoPostulateBench from "./modalsPostulates/InfoPostulateBench"; // Asegúrate de importar InfoPostulateBench
 import './PostulatesPage.css';
@@ -11,8 +11,8 @@ const PostulatesPage: React.FC = () => {
     const [person, setPerson] = useState<CreatePersonAttributes>();
 
     const personInject: CreatePersonAttributes = {
-        "first_name": "Andres",
-        "last_name": "Sandotinez",
+        "first_name": "Polo",
+        "last_name": "Hernandez",
         "profile_picture": "https://example.com/profiles/johndoe.jpg",
         "gender": "Male",
         "phone": "123-456-7890",
@@ -23,7 +23,7 @@ const PostulatesPage: React.FC = () => {
         "region": "CUU",
         "movement_reason": "Porque sí",
         "expected_salary": 10,
-        "status": "Bench"
+        "status": "Pipeline"
     }
 
     const personBlueprint = {
@@ -33,12 +33,6 @@ const PostulatesPage: React.FC = () => {
         "position": "Posición de Trabajo",
         "division": "Division"
     };
-
-    Object.defineProperty(personBlueprint, 'name', {
-        get: function () {
-            return `${this.first_name} ${this.last_name}`;
-        }
-    });
 
     useEffect(() => {
         getAllPeople().then((data: unknown) => {
@@ -68,10 +62,10 @@ const PostulatesPage: React.FC = () => {
                 <button className= {view === 'Pipeline' ? 'button-is-selected' : 'button-not-selected'} onClick={() => setView('Pipeline')}>Pipeline</button>
             </div>
             <div className="project-table-container">
-                <h1 className="table-title">Lista de Postudalos</h1>
+                <h1 className="table-title">Lista de Postulados</h1>
                 <div className="table-wrapper">
                     <button className='button' onClick={() => setPerson(personInject)}>Agrega Un Tilin</button>
-                    <ViewTable entity={filterPeopleByStatus(people, view)} types={personBlueprint} type='Person' buttonArr={view === 'Bench' ? <InfoPostulateBench /> : <InfoPostulatePipeline />}/>
+                    <ViewTable entity={filterPeopleByStatus(people, view)} types={personBlueprint} categories='Person' buttonArr={view === 'Bench' ? <InfoPostulateBench /> : <InfoPostulatePipeline />}/>
                 </div>
             </div>
         </div>

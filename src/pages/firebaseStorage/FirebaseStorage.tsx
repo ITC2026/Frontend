@@ -2,11 +2,15 @@ import { uploadFile } from "../../firebase/initialize";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
+// Paths donde se guardan los archivos dentro del bucket de Firebase
 const clientLogoPath = "clients/logo/";
 const clientContractPath = "clients/contract/";
 const peopleProfilePath = "people/profile/";
 
 const FirebaseStorage = () => {
+
+// Hooks que manejan los estados de los archivos y sus path. 
+// En el forms de clientes agarrar los primeros cuatro. En el forms de personas agarrar los últimos dos
  const [logoFile, setLogoFile] = useState<File>();
  const [logoPath, setLogoPath] = useState<string>();
  const [contractFile, setContractFile] = useState<File>();
@@ -32,9 +36,9 @@ const handleSubmitClient = async (e: React.FormEvent) => {
   }
 };
 
-
  return (
     <>
+      {/* Implementación sencilla de los botones de input-file en Clientes */}
       <form onSubmit={handleSubmitClient}>
         <h1>Formato para subir en Clientes</h1>
         <label htmlFor="clientLogo">Logo</label>
@@ -65,6 +69,7 @@ const handleSubmitClient = async (e: React.FormEvent) => {
         />
         <button>Subir a la DB de Clientes</button>
       </form>
+      {/* Implementación sencilla del botón de input-file en Personas  */}
       <form onSubmit={handleSubmitPeople}>
         <h1>Formato para subir en Empleados</h1>
         <label htmlFor="EmployeeProfile">Profile Pic</label>

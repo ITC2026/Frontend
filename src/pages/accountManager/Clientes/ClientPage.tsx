@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import ClientCard from "../../../components/accountManager/clients/ClientCard";
 import "./Clients.css";
 import LargeModal from "../../../components/modal/LargeModal";
-import NewClientRegisterForm from "../../../components/accountModals/NewClientRegisterForm";
-
-
+import ClientRegisterForm from "../../../components/accountModals/ClientRegisterForm";
 
 const ClientPage = () => {
   const [registerVisible, setRegisterVisible] = useState<boolean>(false);
@@ -168,59 +166,61 @@ const ClientPage = () => {
 
   return (
     <div>
-            <h1>Clientes</h1>
+      <h1>Clientes</h1>
       <div className="mostrar">
-        <button className="agregar btn encora-purple-button"
-         onClick={() => setRegisterVisible(true)}>Registrar Cliente</button>
+        <button
+          className="agregar btn encora-purple-button"
+          onClick={() => setRegisterVisible(true)}
+        >
+          Registrar Cliente
+        </button>
 
         {registerVisible && (
-          //<RegistrarCliente setActiveModal={setRegisterVisible} />
           <LargeModal
-          titleModal="Registrar Cliente"
-          formContent={
-          <NewClientRegisterForm setActiveModal={setRegisterVisible} />
-          }
+            titleModal="Registrar Cliente"
+            formContent={
+              <ClientRegisterForm setActiveModal={setRegisterVisible} />
+            }
           />
-          
         )}
       </div>
-    <div className="container">
 
-      <div className="row">
-        {currentClients.map((client) => (
-          <div className={columnSize} key={client.id}>
-            <ClientCard
-              clientName={client.name}
-              imgURL={client.imgURL}
-              clientDescription={client.description}
-            />
-          </div>
-        ))}
-      </div>
-      <div className="pagination-container">
-        {totalPages > 1 && (
-          <nav aria-label="Page navigation">
-            <ul className="pagination justify-content-center">
-              {Array.from({ length: totalPages }, (_, index) => (
-                <li
-                  className={`page-item ${
-                    currentPage === index + 1 ? "active" : ""
-                  }`}
-                  key={index + 1}
-                >
-                  <button
-                    className="page-link"
-                    onClick={() => handlePageChange(index + 1)}
+      <div className="container">
+        <div className="row">
+          {currentClients.map((client) => (
+            <div className={columnSize} key={client.id}>
+              <ClientCard
+                clientName={client.name}
+                imgURL={client.imgURL}
+                clientDescription={client.description}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="pagination-container">
+          {totalPages > 1 && (
+            <nav aria-label="Page navigation">
+              <ul className="pagination justify-content-center">
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <li
+                    className={`page-item ${
+                      currentPage === index + 1 ? "active" : ""
+                    }`}
+                    key={index + 1}
                   >
-                    {index + 1}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
+                    <button
+                      className="page-link"
+                      onClick={() => handlePageChange(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+        </div>
       </div>
-    </div>
     </div>
   );
 };

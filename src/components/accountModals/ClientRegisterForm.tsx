@@ -4,12 +4,11 @@ import { createClient } from "../../api/ClientAPI";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-
 interface Props {
   setActiveModal: (active: boolean) => void;
 }
 
-const  ClientRegisterForm = (prop: Props) => {
+const ClientRegisterForm = (prop: Props) => {
   const [contractPdfUrl, setContractPdfUrl] = useState<string>("");
   const [logoUrl, setLogoUrl] = useState<string>("");
   const [clientName, setClientName] = useState<string>("");
@@ -22,11 +21,11 @@ const  ClientRegisterForm = (prop: Props) => {
     event.preventDefault(); // Prevent the default form submission behavior
 
     const form = event.currentTarget;
-    if (form.checkValidity()===false) {
+    if (form.checkValidity() === false) {
       event.preventDefault();
 
       event.stopPropagation();
-      console.log("Form is invalid"); 
+      console.log("Form is invalid");
       setValidated(true);
       return;
     }
@@ -39,15 +38,14 @@ const  ClientRegisterForm = (prop: Props) => {
       client_name: clientName,
       client_desc: clientDescription,
       high_growth: hasHighGrowth,
-      division: "USA"
+      division: "USA",
     };
 
     console.log(`Submitting project: ${JSON.stringify(clientToSubmit)}`);
     createClient(clientToSubmit)
       .then(() => {
         console.log("Client submitted successfully");
-       prop.setActiveModal(false);
-        
+        prop.setActiveModal(false);
       })
       .catch((error) => {
         console.error("Error submitting project:", error);
@@ -55,7 +53,12 @@ const  ClientRegisterForm = (prop: Props) => {
   };
 
   return (
-    <Form className="form-group" onSubmit={submitForm} noValidate validated={validated}>
+    <Form
+      className="form-group"
+      onSubmit={submitForm}
+      noValidate
+      validated={validated}
+    >
       <Form.Group as={Row} className="mb-4 row-width-form">
         <Form.Label column sm={6} bsPrefix="label-style text-start">
           Nombre De Cliente
@@ -67,8 +70,8 @@ const  ClientRegisterForm = (prop: Props) => {
             onChange={(e) => setClientName(e.target.value)}
             type="text"
             bsPrefix="encora-purple-input form-control"
-
-          /><Form.Control.Feedback type="invalid">
+          />
+          <Form.Control.Feedback type="invalid">
             Please provide a valid zip.
           </Form.Control.Feedback>
         </Col>
@@ -135,11 +138,11 @@ const  ClientRegisterForm = (prop: Props) => {
           División
         </Form.Label>
         <Col sm={6}>
-          <Form.Select 
-          value={selectedDivision}
-          onChange={(e) => setSelectedDivision(e.target.value as Division)}
-        
-          bsPrefix="encora-purple-input form-select">
+          <Form.Select
+            value={selectedDivision}
+            onChange={(e) => setSelectedDivision(e.target.value as Division)}
+            bsPrefix="encora-purple-input form-select"
+          >
             <option>Ninguno</option>
             <option>USA</option>
             <option>MEXICO</option>
@@ -147,15 +150,18 @@ const  ClientRegisterForm = (prop: Props) => {
           </Form.Select>
         </Col>
       </Form.Group>
-      
-      
+
       <div className="button-wrapper">
-        <button   
+        <button type="button" className="btn  btn-primary gray-button">
+          Eliminar Cliente
+        </button>
+        <button
           type="button"
-          className="btn  btn-primary gray-button" 
-          onClick={() => prop.setActiveModal(false)}>
-            Close
-          </button>
+          className="btn  btn-primary gray-button"
+          onClick={() => prop.setActiveModal(false)}
+        >
+          Close
+        </button>
         <button type="submit" className="btn btn-primary encora-purple-button">
           Submit
         </button>

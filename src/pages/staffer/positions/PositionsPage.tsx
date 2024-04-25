@@ -22,7 +22,10 @@ const PositionsPage: React.FC = () => {
         });
     }, [setPositions]);
 
-    const filterPositionsByType = (positions: Position[], posting_type: string) => {
+    const filterPositionsByType = (positions: Position[] | undefined, posting_type: string) => {
+        if (!positions) {
+            return []; // Retorna un array vacío si positions es undefined
+        }
         return positions.filter(position => position.posting_type === posting_type);
     }
 

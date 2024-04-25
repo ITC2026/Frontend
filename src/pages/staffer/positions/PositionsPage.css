@@ -27,11 +27,11 @@
 .buttons-container {
     display: flex;
     justify-content: space-between;
-    margin-top: 50px; /* Aumenta este valor para mover los botones más abajo */
+    margin-top: 50px; 
     margin-left: 20px;
     width: 20rem;
     justify-self: left;
-    gap: 20px; /* Añade esta propiedad para aumentar el espacio entre los botones */
+    gap: 20px; 
 }
 
 .buttons-container button {

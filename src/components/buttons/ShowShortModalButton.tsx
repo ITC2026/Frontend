@@ -1,19 +1,19 @@
 import "../../index.css"
-import { ShortModalType } from "../modal/modalType";
+type ShortModalType = "register" | "modify" | "delete";
 
 interface Props {
   typeOfModalButton: ShortModalType;
-  setTypeOfModal: (value: React.SetStateAction<ShortModalType>) => void;
+  openModal: () => void;
 }
 
-const ShowShortModalButton = ({ typeOfModalButton, setTypeOfModal }: Props) => {
+const ShowShortModalButton = ({ typeOfModalButton, openModal }: Props) => {
   return (
     <button 
       type="submit" 
       className={
         `btn btn-primary ${typeOfModalButton === "delete" ? "red-encora-button" : "encora-purple-button"}`
       }
-      onClick={() => setTypeOfModal(typeOfModalButton)}
+      onClick={() => openModal()}
     >
       {typeOfModalButton === "delete" ? "Eliminar" : "Finalizar"}
     </button>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ViewTable from '../../../components/table/Table';
 import { createPerson, getAllPeople, getProjectTitleOfPerson } from "../../../api/PersonAPI";
-import InfoPostulatePipeline from "./modalsPostulates/InfoPostulatePipeline";
-import InfoPostulateBench from "./modalsPostulates/InfoPostulateBench"; // Asegúrate de importar InfoPostulateBench
+ // Asegúrate de importar InfoPostulateBench
 import './PostulatesPage.css';
+
 
 const PostulatesPage: React.FC = () => {
     const [view, setView] = useState<'Bench' | 'Pipeline'>('Bench');
@@ -65,7 +65,7 @@ const PostulatesPage: React.FC = () => {
                 <h1 className="table-title">Lista de Postulados</h1>
                 <div className="table-wrapper">
                     <button className='button' onClick={() => setPerson(personInject)}>Agrega Un Tilin</button>
-                    <ViewTable entity={filterPeopleByStatus(people, view)} types={personBlueprint} categories='Person' buttonArr={view === 'Bench' ? <InfoPostulateBench /> : <InfoPostulatePipeline />}/>
+                    <ViewTable entity={filterPeopleByStatus(people, view)} types={personBlueprint} categories='Person' /> 
                 </div>
             </div>
         </div>

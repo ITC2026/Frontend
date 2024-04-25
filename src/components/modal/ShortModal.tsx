@@ -1,6 +1,12 @@
 import "../../index.css";
-import "./style/ShortModal.css";
-import { ShortModalProps, ShortModalType } from "./modalType";
+import "./style/ShortModal.css"
+import { ShortModalType } from "./modalType";
+
+interface ShortModalProps {
+  typeOfModal: ShortModalType
+  btnArray?: React.ReactElement[];
+  onClose: () => void;
+}
 
 const renderModalContent = (typeOfModal: ShortModalType) => {
   switch (typeOfModal) {
@@ -22,7 +28,7 @@ const renderModalContent = (typeOfModal: ShortModalType) => {
       return (
         <>
           <h1 className="heading-form">Advertencia</h1>
-          <div className="form-group"></div>
+          <div className="form-group">aaaaa</div>
         </>
       );
     default:
@@ -30,7 +36,7 @@ const renderModalContent = (typeOfModal: ShortModalType) => {
   }
 }
 
-const ShortModal = ({ btnArray, typeOfModal, onClose }: ShortModalProps) => {
+const ShortModal = ({ typeOfModal, btnArray, onClose }: ShortModalProps) => {
   return (
     <div className="overlay background-gray">
       <div className="short-modal white">

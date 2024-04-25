@@ -1,3 +1,4 @@
+
 .overlay {
     position: fixed;
     top: 0;
@@ -8,6 +9,7 @@
 }
 
 .large-modal {
+<<<<<<< HEAD
     width: 82.125rem;
     height: 55.5rem;
     border-radius: 0.9375rem;
@@ -86,3 +88,35 @@
     max-width: 50%;
     padding: 10px;
 }
+=======
+  width: 82.125rem;
+  height: 55.5rem;
+  border-radius: 0.9375rem;
+  padding: 5rem;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.heading-form {
+  margin-bottom: 6rem;
+}
+
+.form-group {
+  height: 36rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 2.19rem;
+  margin-top: auto;
+}
+>>>>>>> 9f4b2693ba37ddc55d93976cf26cae1c1a652a7b

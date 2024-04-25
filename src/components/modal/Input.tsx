@@ -1,8 +1,8 @@
 import "../../index.css";
 import "./style/Input.css"
-import { InputType } from "./modalType";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
+import { InputType } from "./modalType";
 
 interface Props {
   inputType: InputType;

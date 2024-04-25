@@ -18,6 +18,10 @@ import StafferWrapper from "../pages/staffer/StafferWrapper";
 import ProjectsPage from "../pages/staffer/projects/ProjectsPage";
 import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
 
+//Resource
+import ResourceWrapper from "../pages/resourceManager/ResourceManagerWrapper";
+
+
 const router = createBrowserRouter([
   {
     path: "login",
@@ -118,6 +122,32 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "resource",
+    element: (
+      <>
+        <ResourceWrapper route="/resource" />
+      </>
+    ),
+    children: [
+      {
+        path: "",
+        element: (
+          <>
+          <ChartResource />,
+          </>
+        ),
+      },
+      {
+        path: "settings",
+        element: (
+          <>
+            <SettingsPage />
+          </>
+        ),
+      }
+    ],
+  },
+  {
     path: "*",
     element: <ErrorPage />,
   },
@@ -128,14 +158,6 @@ const router = createBrowserRouter([
   {
     path: "/firebaseStorage",
     element: <FirebaseStorage/>
-  },
-  {
-    path: "resource",
-    element: (
-      <>
-        <ChartResource />
-      </>
-    ),
   }
 ]);
 

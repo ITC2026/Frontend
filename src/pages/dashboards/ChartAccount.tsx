@@ -72,7 +72,7 @@ const ChartAccount: React.FC = () => {
   const getProjectsRevenue = (project_id: number): number => {
     return getAllProjectPositions(project_id).reduce(
       (acc, position) => acc + position.bill_rate,
-      0,
+      0
     );
   };
 
@@ -93,7 +93,7 @@ const ChartAccount: React.FC = () => {
     const lastSunday = new Date(
       today.getFullYear(),
       today.getMonth(),
-      today.getDate() - today.getDay(),
+      today.getDate() - today.getDay()
     );
     const last8Sundays = Array.from(
       { length: 8 },
@@ -101,8 +101,8 @@ const ChartAccount: React.FC = () => {
         new Date(
           lastSunday.getFullYear(),
           lastSunday.getMonth(),
-          lastSunday.getDate() - i * 7,
-        ),
+          lastSunday.getDate() - i * 7
+        )
     );
     return last8Sundays;
   };
@@ -112,16 +112,16 @@ const ChartAccount: React.FC = () => {
   };
 
   const getExpirationDatesInAWeek = (
-    WeekDay: Date,
+    WeekDay: Date
   ): ExpirationDateOpening[] => {
     const nextWeek = new Date(
       WeekDay.getFullYear(),
       WeekDay.getMonth(),
-      WeekDay.getDate() + 7,
+      WeekDay.getDate() + 7
     );
     return expirationDateOpenings.filter(
       (expirationDateOpening) =>
-        new Date(expirationDateOpening.expiration_date) < nextWeek,
+        new Date(expirationDateOpening.expiration_date) < nextWeek
     );
   };
 
@@ -138,14 +138,14 @@ const ChartAccount: React.FC = () => {
   const countBenchJobTitles = (): number[] => {
     const benchJobTitles = getBenchJobTitles();
     return benchJobTitles.map(
-      (title) => getBenchJobTitles().filter((t) => t === title).length,
+      (title) => getBenchJobTitles().filter((t) => t === title).length
     );
   };
 
   const countExpirationDatesLast8Weeks = (): number[] => {
     const last8Sundays = Last8Sundays();
     return last8Sundays.map(
-      (sunday) => getExpirationDatesInAWeek(sunday).length,
+      (sunday) => getExpirationDatesInAWeek(sunday).length
     );
   };
 

@@ -1,23 +1,16 @@
 import React from "react";
 import ChartComponent from "./ChartComponent";
-
 import "./Dashboard.css";
 import { getAllProjects } from "../../api/ProjectAPI";
-
 import { getAllClients } from "../../api/ClientAPI";
-
 import { getAllPeople } from "../../api/PersonAPI";
-
 import { getAllEmployees } from "../../api/EmployeeAPI";
-
 import { getAllPositions } from "../../api/PositionAPI";
-
 import { getAllOpenings } from "../../api/OpeningAPI";
-
 import { useState, useEffect } from "react";
 
 const ChartAccount: React.FC = () => {
-  // State to store data from API calls
+  
 
   const [, setProjects] = useState<Project[]>([]);
   const [, setClients] = useState<Client[]>([]);
@@ -38,9 +31,9 @@ const ChartAccount: React.FC = () => {
     });
   }, [setClients]);
 
-  useEffect(() => {
-    getAllPeople().then((data: unknown) => {
-      setPersons(data as Person[]);
+    useEffect(() => {
+        getAllPeople().then((data: unknown) => {
+        setPersons(data as Person[]);
     });
   }, [setPersons]);
 

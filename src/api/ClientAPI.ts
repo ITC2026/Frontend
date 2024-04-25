@@ -14,7 +14,7 @@ export const getAllClients = async () => {
 };
   
 // Create a client.
-export const createClient = async (client: Client) => {
+export const createClient = async (client: CreateClientAttributes) => {
     try {
         const res = await api.post(clientRoute, client);
         const action = await res.data.payload;

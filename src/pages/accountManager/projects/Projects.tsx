@@ -87,7 +87,7 @@ const ProjectPage = () => {
       </div>
       <div className="project-table">
         {projects && (
-          <TableView entity={filteredProjects} categories={project_structure}>
+          <TableView entity={filteredProjects as Project[]} categories={project_structure}>
             <button
               className="project-register encora-purple-button text-light"
               onClick={toggleRegisterProject}

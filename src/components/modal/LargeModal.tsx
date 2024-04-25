@@ -1,4 +1,5 @@
 /* eslint-disable no-case-declarations */
+import React from "react";
 import "../../index.css";
 import "./style/LargeModal.css";
 

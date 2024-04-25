@@ -1,3 +1,4 @@
+
 .overlay {
   position: fixed;
   top: 0;
@@ -30,21 +31,19 @@
 }
 
 .heading-form {
-  margin-bottom: 7.25rem;
+  margin-bottom: 6rem;
 }
 
 .form-group {
-  height: 32rem;
+  height: 36rem;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
 }
 
 .button-wrapper {
-  position: relative;
-  top: 15%;
   display: flex;
-  justify-content: flex-start;
-  flex-direction: row-reverse;
+  justify-content: flex-end;
   column-gap: 2.19rem;
+  margin-top: auto;
 }

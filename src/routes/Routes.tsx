@@ -8,6 +8,9 @@ import ProjectPage from "../pages/accountManager/projects/Projects";
 import ModalPage from "../pages/ModalPage/ModalPage";
 import ProjectInfoWrapper from "../pages/accountManager/projects/ProjectInfoWrapper";
 import ProjectModifyWrapper from "../pages/accountManager/projects/modify/ProjectModifyWrapper";
+import FirebaseStorage from "../pages/firebaseStorage/FirebaseStorage";
+import ClientPage from "../pages/accountManager/Clientes/ClientPage";
+
 import ChartStaffer from "../pages/dashboards/ChartStaffer";
 import ChartAccount from "../pages/dashboards/ChartAccount";
 import ChartResource from "../pages/dashboards/ChartResource";
@@ -49,7 +52,7 @@ const router = createBrowserRouter([
         path: "clients",
         element: (
           <>
-            <h1>clients</h1>
+            <ClientPage />
           </>
         ),
       },
@@ -119,6 +122,7 @@ const router = createBrowserRouter([
         path: "projects",
         element: <ProjectsPage />,
       },
+      
       {
         path: "people",
         element: <PostulatesPage />,
@@ -140,6 +144,10 @@ const router = createBrowserRouter([
   {
     path: "/modalPage",
     element: <ModalPage />,
+  },
+  {
+    path: "/firebaseStorage",
+    element: <FirebaseStorage />,
   },
   {
     path: "resource",

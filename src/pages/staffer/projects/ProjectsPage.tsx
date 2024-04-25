@@ -33,7 +33,7 @@ const ProjectsPage: React.FC = () => {
           <div className="project-table-container">
             <h1 className="table-title">Lista de Proyectos</h1>
             <div className="table-wrapper">
-              <TableView entity = {projects} types={projectBlueprint}/>
+              <TableView entity = {projects} categories={projectBlueprint}/>
             </div>
           </div>
         </div>

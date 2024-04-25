@@ -4,16 +4,17 @@ import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
+import ProjectPage from "../pages/accountManager/projects/Projects";
 import ModalPage from "../pages/ModalPage/ModalPage";
+import ProjectInfoWrapper from "../pages/accountManager/projects/ProjectInfoWrapper";
+import ProjectModifyWrapper from "../pages/accountManager/projects/modify/ProjectModifyWrapper";
 import FirebaseStorage from "../pages/firebaseStorage/FirebaseStorage";
 import ClientPage from "../pages/accountManager/Clientes/ClientPage";
-import ProjectPage from "../pages/accountManager/projects/Projects";
 
 import ChartStaffer from "../pages/dashboards/ChartStaffer";
 import ChartAccount from "../pages/dashboards/ChartAccount";
 import ChartResource from "../pages/dashboards/ChartResource";
 
-//Staffer
 import StafferWrapper from "../pages/staffer/StafferWrapper";
 import ProjectsPage from "../pages/staffer/projects/ProjectsPage";
 import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <>
-          <ChartAccount />,
+            <ChartAccount />,
           </>
         ),
       },
@@ -66,6 +67,21 @@ const router = createBrowserRouter([
             <ProjectPage />
           </>
         ),
+        children: [
+          {
+            path: ":id/",
+            element: <ProjectInfoWrapper />,
+          },
+          {
+            path: "edit",
+            children: [
+              {
+                path: ":id/",
+                element: <ProjectModifyWrapper />,
+              },
+            ],
+          },
+        ],
       },
       {
         path: "settings",
@@ -90,7 +106,10 @@ const router = createBrowserRouter([
     path: "staffer",
     element: (
       <>
-        <StafferWrapper route="/staffer" routes={["/", "/projects", "/people"]} />
+        <StafferWrapper
+          route="/staffer"
+          routes={["/", "/projects", "/people"]}
+        />
       </>
     ),
     children: [
@@ -98,7 +117,7 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <>
-          <ChartStaffer />,
+            <ChartStaffer />,
           </>
         ),
       },
@@ -107,9 +126,10 @@ const router = createBrowserRouter([
         path: "projects",
         element: <ProjectsPage />,
       },
+      
       {
         path: "people",
-        element: <PostulatesPage />, 
+        element: <PostulatesPage />,
       },
       {
         path: "settings",
@@ -157,8 +177,16 @@ const router = createBrowserRouter([
   },
   {
     path: "/firebaseStorage",
-    element: <FirebaseStorage/>
-  }
+    element: <FirebaseStorage />,
+  },
+  {
+    path: "resource",
+    element: (
+      <>
+        <ChartResource />
+      </>
+    ),
+  },
 ]);
 
 export default router;

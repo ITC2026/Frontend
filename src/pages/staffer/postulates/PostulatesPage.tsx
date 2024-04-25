@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ViewTable from '../../../components/table/Table';
+import { getAllPeople } from "../../../api/PersonAPI";
 import './PostulatesPage.css';
-import { getAllPeople } from '../../../api/PersonAPI';
 
 const PostulatesPage: React.FC = () => {
     const [view, setView] = useState<'Bench' | 'Pipeline'>('Bench');
@@ -41,7 +41,7 @@ const PostulatesPage: React.FC = () => {
             <div className="project-table-container">
                 <h1 className="table-title">Lista de Postudalos</h1>
                 <div className="table-wrapper">
-                    <ViewTable entity={filterPeopleByStatus(people, view)} types={personBlueprint} />    
+                    <ViewTable entity={filterPeopleByStatus(people, view)} categories={personBlueprint} />    
                 </div>
             </div>
         </div>

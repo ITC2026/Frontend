@@ -3,20 +3,16 @@ import ErrorPage from "../pages/error/ErrorPage";
 import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
-import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import ModalPage from "../pages/ModalPage/ModalPage";
-import FirebaseStorage from "../pages/firebaseStorage/FirebaseStorage";
-import ClientPage from "../pages/accountManager/Clientes/ClientPage";
+import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import ProjectPage from "../pages/accountManager/projects/Projects";
-
-import ChartStaffer from "../pages/dashboards/ChartStaffer";
-import ChartAccount from "../pages/dashboards/ChartAccount";
-import ChartResource from "../pages/dashboards/ChartResource";
-
 //Staffer
 import StafferWrapper from "../pages/staffer/StafferWrapper";
 import ProjectsPage from "../pages/staffer/projects/ProjectsPage";
 import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
+import InfoPostulate from "../pages/staffer/postulates/modalsPostulates/InfoPostulate";
+import InfoPostulateBench from "../pages/staffer/postulates/modalsPostulates/InfoPostulateBench";
+import PositionsPage from "../pages/staffer/positions/PositionsPage";
 
 const router = createBrowserRouter([
   {
@@ -43,7 +39,7 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <>
-          <ChartAccount />,
+            <h1>home</h1>
           </>
         ),
       },
@@ -51,17 +47,13 @@ const router = createBrowserRouter([
         path: "clients",
         element: (
           <>
-            <ClientPage />
+            <h1>clients</h1>
           </>
         ),
       },
       {
         path: "projects",
-        element: (
-          <>
-            <ProjectPage />
-          </>
-        ),
+        element: <ProjectPage />,
       },
       {
         path: "settings",
@@ -94,29 +86,27 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <>
-          <ChartStaffer />,
+            <h1>Dashboards</h1>
           </>
         ),
       },
-
       {
         path: "projects",
         element: <ProjectsPage />,
-        children: [
-          {
-            path: "positions",
-            //Pending
-          },
-        ],
+      },
+      {
+        path: "projects/positions",
+        element: <PositionsPage />,
       },
       {
         path: "people",
         element: <PostulatesPage />,
+        children: [
+          {
+            path: ":id",
+          },
+        ]
       },
-      {
-      path: "people/:id",
-      //element: <InfoPostulate />,
-      },    
       {
         path: "settings",
         element: (
@@ -135,18 +125,6 @@ const router = createBrowserRouter([
     path: "/modalPage",
     element: <ModalPage />,
   },
-  {
-    path: "/firebaseStorage",
-    element: <FirebaseStorage/>
-  },
-  {
-    path: "resource",
-    element: (
-      <>
-        <ChartResource />
-      </>
-    ),
-  }
 ]);
 
 export default router;

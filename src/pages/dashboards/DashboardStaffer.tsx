@@ -20,28 +20,43 @@ const ChartStaffer: React.FC = () => {
   const [applications, setApplications] = useState<Application[]>([])
 
 
+
   useEffect(() => {
     getAllProjects().then((data: unknown) => {
       setProjects(data as Project[]);
+    })
+    .catch((error) => {
+      console.error('Error fetching projects: ',error);
     });
-  }, [setProjects]);  
+  }, [setProjects]);
 
   useEffect(() => {
     getAllClients().then((data: unknown) => {
       setClients(data as Client[]);
+    })
+    .catch((error) => {
+      console.error('Error fetching clients: ',error);
     });
   }, [setClients]);
+
 
   useEffect(() => {
     getAllPositions().then((data: unknown) => {
       setPositions(data as Position[]);
-    });
+    })
+  .catch((error) => {
+    console.error('Error fetching positions: ',error);
+  });
   }, [setPositions]);
+
 
   useEffect(() => {
     getAllApplications().then((data: unknown) => {
       setApplications(data as Application[]);
-    });
+    })
+    .catch((error) => {
+      console.error('Error fetching applications: ',error)
+      });
   }, [setApplications]);
 
 

@@ -22,36 +22,54 @@ const ChartAccount: React.FC = () => {
   useEffect(() => {
     getAllProjects().then((data: unknown) => {
       setProjects(data as Project[]);
+    })
+    .catch((error) => {
+      console.error('Error fetching projects: ',error);
     });
   }, [setProjects]);
 
   useEffect(() => {
     getAllClients().then((data: unknown) => {
       setClients(data as Client[]);
+    })
+    .catch((error) => {
+      console.error('Error fetching clients: ',error);
     });
   }, [setClients]);
 
   useEffect(() => {
     getAllPositions().then((data: unknown) => {
       setPositions(data as Position[]);
-    });
+    })
+  .catch((error) => {
+    console.error('Error fetching positions: ',error);
+  });
   }, [setPositions]);
 
   useEffect(() => {
     getAllPeople().then((data: unknown) => {
-      setPersons(data as Person[]);
-    });
+    setPersons(data as Person[]);
+  })
+  .catch((error) => {
+    console.error('Error fetching people: ',error);
+  });
   }, [setPersons]);
 
   useEffect(() => {
     getAllOpenings().then((data: unknown) => {
       setOpenings(data as Opening[]);
+    })
+    .catch((error) => {
+      console.error('Error fetching openings: ',error);
     });
   }, [setOpenings]);
 
   useEffect(() => {
     getAllExpirationDateOpenings().then((data: unknown) => {
       setExpirationDateOpenings(data as ExpirationDateOpening[]);
+    })
+    .catch((error) => {
+      console.error('Error fetching expiration date openings: ',error);
     });
   }, [setExpirationDateOpenings]);
 
@@ -88,7 +106,7 @@ const ChartAccount: React.FC = () => {
     return Array.from(new Set(getPersonsBench().map((person) => person.title)));
   };
 
-  const Last8Sundays = (): Date[] => {
+  const getLast8Sundays = (): Date[] => {
     const today = new Date();
     const lastSunday = new Date(
       today.getFullYear(),
@@ -107,8 +125,8 @@ const ChartAccount: React.FC = () => {
     return last8Sundays;
   };
 
-  const Last8SundaysToString = (): string[] => {
-    return Last8Sundays().map((sunday) => sunday.toDateString());
+  const getLast8SundaysToString = (): string[] => {
+    return getLast8Sundays().map((sunday) => sunday.toDateString());
   };
 
   const getExpirationDatesInAWeek = (
@@ -143,7 +161,7 @@ const ChartAccount: React.FC = () => {
   };
 
   const countExpirationDatesLast8Weeks = (): number[] => {
-    const last8Sundays = Last8Sundays();
+    const last8Sundays = getLast8Sundays();
     return last8Sundays.map(
       (sunday) => getExpirationDatesInAWeek(sunday).length
     );
@@ -194,7 +212,7 @@ const ChartAccount: React.FC = () => {
   const chartData4 = getAllClientRevenue();
 
   const chartLabels = getClientNames();
-  const chartLabels2 = Last8SundaysToString().reverse();
+  const chartLabels2 = getLast8SundaysToString().reverse();
   const chartLabels3 = getBenchJobTitles();
   const chartLabels4 = getClientNames();
 

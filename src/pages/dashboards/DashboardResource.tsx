@@ -22,36 +22,54 @@ const ChartAccount: React.FC = () => {
   useEffect(() => {
     getAllProjects().then((data: unknown) => {
       setProjects(data as Project[]);
+    })
+    .catch((error) => {
+      console.error('Error fetching projects: ',error);
     });
   }, [setProjects]);
 
   useEffect(() => {
     getAllClients().then((data: unknown) => {
       setClients(data as Client[]);
+    })
+    .catch((error) => {
+      console.error('Error fetching clients: ',error);
     });
   }, [setClients]);
 
     useEffect(() => {
         getAllPeople().then((data: unknown) => {
         setPersons(data as Person[]);
+    })
+    .catch((error) => {
+      console.error('Error fetching people: ',error);
     });
   }, [setPersons]);
 
   useEffect(() => {
     getAllEmployees().then((data: unknown) => {
       setEmployees(data as Employee[]);
+    })
+    .catch((error) => {
+      console.error('Error fetching employees: ',error);
     });
   }, [setEmployees]);
 
   useEffect(() => {
     getAllOpenings().then((data: unknown) => {
       setOpenings(data as Opening[]);
+    })
+    .catch((error) => {
+      console.error('Error fetching openings: ',error);
     });
   }, [setOpenings]);
 
   useEffect(() => {
     getAllPositions().then((data: unknown) => {
       setPositions(data as Position[]);
+    })
+    .catch((error) => {
+      console.error('Error fetching positions: ',error);
     });
   }, [setPositions]);
   // Function to extract names into an array of strings

@@ -22,36 +22,83 @@ const ChartAccount: React.FC = () => {
   useEffect(() => {
     getAllProjects().then((data: unknown) => {
       setProjects(data as Project[]);
-    });
+    })
+    .catch((error) => {
+      if (error.response && error.response.status === 404) {
+        console.log('No projects found.');
+        setProjects([]);
+      } else {
+        console.error('Error fetching projects: ', error);
+      }});
   }, [setProjects]);
 
   useEffect(() => {
     getAllClients().then((data: unknown) => {
       setClients(data as Client[]);
+    })
+    .catch((error) => {
+      if (error.response && error.response.status === 404) {
+        console.log('No clients found.');
+        setClients([]);
+      } else {
+        console.error('Error fetching clients: ', error);
+      }
     });
   }, [setClients]);
 
     useEffect(() => {
         getAllPeople().then((data: unknown) => {
         setPersons(data as Person[]);
+    })
+    .catch((error) => {
+      if (error.response && error.response.status === 404) {
+        console.log('No persons found.');
+        setPersons([]);
+      } else {
+        console.error('Error fetching persons: ', error);
+      }
     });
   }, [setPersons]);
 
   useEffect(() => {
     getAllEmployees().then((data: unknown) => {
       setEmployees(data as Employee[]);
+    })
+    .catch((error) => {
+      if (error.response && error.response.status === 404) {
+        console.log('No employees found.');
+        setEmployees([]);
+      } else {
+        console.error('Error fetching employees: ', error);
+      }
     });
   }, [setEmployees]);
 
   useEffect(() => {
     getAllOpenings().then((data: unknown) => {
       setOpenings(data as Opening[]);
+    })
+    .catch((error) => {
+      if (error.response && error.response.status === 404) {
+        console.log('No openings found.');
+        setOpenings([]);
+      } else {
+        console.error('Error fetching openings: ', error);
+      }
     });
   }, [setOpenings]);
 
   useEffect(() => {
     getAllPositions().then((data: unknown) => {
       setPositions(data as Position[]);
+    })
+    .catch((error) => {
+      if (error.response && error.response.status === 404) {
+        console.log('No positions found.');
+        setPositions([]);
+      } else {
+        console.error('Error fetching positions: ', error);
+      }
     });
   }, [setPositions]);
   // Function to extract names into an array of strings
@@ -73,8 +120,6 @@ const ChartAccount: React.FC = () => {
         ) as Position,
     );
   };
-
-  console.log(getAllOpeningsFilledPosition());
 
     const getPositionsBillRate = (): number[] => {
     return getAllOpeningsFilledPosition().map((position) => position.bill_rate as number);

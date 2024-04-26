@@ -9,7 +9,7 @@
 
 .short-modal {
   width: 39.3125rem;
-  height: 18.4375rem;
+  height: 20.4375rem;
   border-radius: 0.625rem;
   padding: 2.5rem;
   position: relative;
@@ -22,7 +22,7 @@
 }
 
 .heading-form {
-  margin-bottom: 7.25rem;
+  margin-bottom: 3.25rem;
 }
 
 .form-group {

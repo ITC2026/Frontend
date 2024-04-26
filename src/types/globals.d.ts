@@ -59,6 +59,8 @@ region: Region; // Part of a type.
 status: PeopleStatus; // Part of a type.
 movement_reason: string;
 expected_salary: number;
+project_name: string;
+position_name: string;
 }
 
 interface Opening {
@@ -103,6 +105,7 @@ has_expiration_date: boolean;
 general_status: ProjectStatus; // Part of a type.
 positions: Position[];
 client_id: number;
+client_name: string;
 }
 
 // Roles interface.
@@ -214,12 +217,12 @@ person_id: number; // Foreign key.
 }
 
 
-interface CreatePersonAttributes extends Optional<Person, 'id' | 'profile_picture' | 'movement_reason'> {}
+interface CreatePersonAttributes extends Optional<Person, 'id' | 'profile_picture' | 'movement_reason' | 'project_name' | 'position_name'> {}
 interface CreateOpeningAttributes extends Optional<Opening, 'person_id' | 'person'> {}
-interface CreatePositionAttributes extends Optional<Position, 'id'> {}
+interface CreatePositionAttributes extends Optional<Position, 'id' | 'client_name'> {}
 interface CreateProjectAttributes extends Optional<Project, 'id'> {}
 interface CreateRoleAttributes extends Optional<Role, 'users'> {}
 interface CreateUserAttributes extends Optional<User, 'id'> {}
-interface createEmployeeAttributes extends Optional<Employee, 'id'> {}
+interface CreateEmployeeAttributes extends Optional<Employee, 'id'> {}
 interface CreateClientAttributes extends Optional<Client, 'employees'> {}
 interface CreateCandidateAttributes extends Optional<Candidate, 'id'> {}

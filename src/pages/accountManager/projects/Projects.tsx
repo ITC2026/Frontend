@@ -1,6 +1,5 @@
 import "./Projects.css";
 import TableView from "../../../components/table/Table";
-import { Project } from "../../../types/.";
 import { getAllProjects } from "../../../api/ProjectAPI";
 import { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router";

@@ -3,6 +3,7 @@ import { useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
+import getProjectTitleFromID from "../../pages/staffer/functions/forPostulates/getProjectTitleForPerson";
 import "./Table.css";
 import { formatTimestamp } from "../../utils/Dates";
 
@@ -39,6 +40,7 @@ const TableView = (props: Props) => {
 
       <Table striped bordered hover responsive bsPrefix="custom-table">
         <thead>
+          {getProjectTitleFromID(72).toString()}
           <tr>
             <th className="encora-purple text-light">#</th>
             {Object.values(props.categories).map((category: string, index: number) => (
@@ -89,3 +91,4 @@ const TableView = (props: Props) => {
 };
 
 export default TableView;
+

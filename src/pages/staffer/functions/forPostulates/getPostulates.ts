@@ -1,4 +1,4 @@
-import { getPositionOfPersonByID, getAllPeople } from "../../../api/PersonAPI";
+import { getPositionOfPersonByID, getAllPeople } from "../../../../api/PersonAPI";
 
 const checkPersonIsPostulate = async (id: number): Promise<boolean> => {
     try {

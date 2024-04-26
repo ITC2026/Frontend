@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import SearchBar from "../searchbar/SearchBar";
 import { Link } from "react-router-dom";
-import getProjectTitleFromID from "../../pages/staffer/functions/getProjectTitleForPerson";
+import getProjectTitleFromID from "../../pages/staffer/functions/forPostulates/getProjectTitleForPerson";
 import "./Table.css";
 
 interface Props {

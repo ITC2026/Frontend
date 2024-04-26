@@ -1,4 +1,4 @@
-import { getProjectOfPersonByID } from "../../../api/PersonAPI";
+import { getProjectOfPersonByID } from "../../../../api/PersonAPI";
 
 const getProjectTitleFromID = async (id: number) => {
     try {

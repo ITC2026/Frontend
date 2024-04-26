@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { createPerson } from "../../../api/PersonAPI";
-import  getPostulates  from '../functions/getPostulates';
-import TablePostulates from '../../../components/staffer/TablePostulates';
+import  getPostulates  from '../functions/forPostulates/getPostulates';
+import TableStaffer from '../../../components/staffer/TableStaffer';
+import getProjectTitleFromID from '../functions/forPostulates/getProjectTitleForPerson';
+import getPositionTitleFromID from '../functions/forPostulates/getPositionTitleForPerson';
 import './PostulatesPage.css';
 
 const PostulatesPage: React.FC = () => {
@@ -25,6 +27,27 @@ const PostulatesPage: React.FC = () => {
         "status": "Pipeline"
     }
 
+    const benchInject: CreatePersonAttributes = {
+            "salary": 30000,
+            "job_grade": "C6",
+            "proposed_action": "Project Search",
+            "employee_status": "On Hired",
+            "employee_reason": "Intern",
+            "first_name": "Renato",
+            "last_name": "Maligon",
+            "profile_picture": "https://example.com/profiles/johndoe.jpg",
+            "gender": "Male",
+            "phone": "123-456-7890",
+            "email": "mymail@gmail.com",
+            "title": "Software Engineer",
+            "tech_stack": "Java",
+            "division": "USA",
+            "region": "CUU",
+            "movement_reason": "Porque sí",
+            "expected_salary": 10,
+            "status": "Bench"
+        }
+
     const personBlueprint = {
         "first_name": "Nombre",
         "last_name": "",
@@ -34,8 +57,24 @@ const PostulatesPage: React.FC = () => {
     };
 
     useEffect(() => {
-        getPostulates().then((data: unknown) => {
-            setPostulates(data as Person[]);
+        getPostulates().then(async (data: Person[]) => {
+            if (!data) {
+                return
+            }
+            const personPositionPromises = await Promise.all(
+                data.map(async (person : Person) => {
+                    const position = await getPositionTitleFromID(person.id);
+                    return {...person , position_name: position};
+                
+            }));
+            setPostulates(personPositionPromises);
+            
+            const personProjectPromises = await Promise.all(
+                personPositionPromises.map(async (person : Person) => {
+                    const project = await getProjectTitleFromID(person.id);
+                    return {...person , project_name: project};
+            }));
+            setPostulates(personProjectPromises);
             console.log(data);
         });
     }, [view, person]);
@@ -63,8 +102,8 @@ const PostulatesPage: React.FC = () => {
             <div className="project-table-container">
                 <h1 className="table-title">Lista de Postulados</h1>
                 <div className="table-wrapper">
-                    <button className='button' onClick={() => setPerson(personInject)}>Agrega Un Tilin</button>
-                    <TablePostulates entity={filterPeopleByStatus(postulates, view)} types={personBlueprint} categories='Person' /> 
+                    <button className='button' onClick={() => setPerson(view === 'Bench' ? benchInject : personInject)}>Agrega Un Tilin</button>
+                    <TableStaffer entity={filterPeopleByStatus(postulates, view)} types={personBlueprint} categories='Person' /> 
                 </div>
             </div>
         </div>

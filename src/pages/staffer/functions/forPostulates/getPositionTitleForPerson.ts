@@ -1,4 +1,4 @@
-import { getPositionOfPersonByID } from "../../../api/PersonAPI";
+import { getPositionOfPersonByID } from "../../../../api/PersonAPI";
 
 const getPositionTitleFromID = async (id: number) => {
     try {

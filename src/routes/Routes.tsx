@@ -11,9 +11,9 @@ import ProjectModifyWrapper from "../pages/accountManager/projects/modify/Projec
 import FirebaseStorage from "../pages/firebaseStorage/FirebaseStorage";
 import ClientPage from "../pages/accountManager/Clientes/ClientPage";
 
-import ChartStaffer from "../pages/dashboards/ChartStaffer";
-import ChartAccount from "../pages/dashboards/ChartAccount";
-import ChartResource from "../pages/dashboards/ChartResource";
+import ChartStaffer from "../pages/dashboards/DashboardStaffer";
+import ChartAccount from "../pages/dashboards/DashboardAccount";
+import ChartResource from "../pages/dashboards/DashboardResource";
 
 import StafferWrapper from "../pages/staffer/StafferWrapper";
 import ProjectsPage from "../pages/staffer/projects/ProjectsPage";

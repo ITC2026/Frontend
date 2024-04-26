@@ -20,28 +20,57 @@ const ChartStaffer: React.FC = () => {
   const [applications, setApplications] = useState<Application[]>([])
 
 
+
   useEffect(() => {
     getAllProjects().then((data: unknown) => {
       setProjects(data as Project[]);
-    });
-  }, [setProjects]);  
+    })
+    .catch((error) => {
+      if (error.response && error.response.status === 404) {
+        console.log('No projects found.');
+        setProjects([]);
+      } else {
+        console.error('Error fetching projects: ', error);
+      }});
+  }, [setProjects]);
 
   useEffect(() => {
     getAllClients().then((data: unknown) => {
       setClients(data as Client[]);
+    })
+    .catch((error) => {
+      if (error.response && error.response.status === 404) {
+        console.log('No clients found.');
+        setClients([]);
+      } else {
+        console.error('Error fetching clients: ', error);
+      }
     });
   }, [setClients]);
+
 
   useEffect(() => {
     getAllPositions().then((data: unknown) => {
       setPositions(data as Position[]);
-    });
+    })
+  .catch((error) => {
+    if (error.response && error.response.status === 404) {
+      console.log('No positions found.');
+      setPositions([]);
+    } else {
+      console.error('Error fetching positions: ', error);
+    }
+  });
   }, [setPositions]);
+
 
   useEffect(() => {
     getAllApplications().then((data: unknown) => {
       setApplications(data as Application[]);
-    });
+    })
+    .catch((error) => {
+      console.error('Error fetching applications: ',error)
+      });
   }, [setApplications]);
 
 
@@ -63,7 +92,15 @@ const ChartStaffer: React.FC = () => {
   }
 
   const getAllPositionsTechStack = (): string[] => {
-    return positions.map((position) => position.tech_stack.split(', ')).flat();
+    let techStacks = [''];
+    try {
+      techStacks = positions.map((position) => position.tech_stack.split(', ')).flat();
+    } catch (error) {
+      if (error instanceof TypeError) {
+        console.error('Error splitting tech stacks: ', error);
+      }
+    }
+    return techStacks;
   }
 
   const nonRepeatingTechStack = (): string[] => {

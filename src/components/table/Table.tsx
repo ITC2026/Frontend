@@ -29,22 +29,22 @@ const TableView = (props: Props) => {
   return (
     <div>
       <div className="table-header">
-        <div className = "children-container">
-        {props.children}
-        </div>
+        <div className="children-container">{props.children}</div>
         <SearchBar onSearchTermChange={handleSearchTermChange} />
       </div>
 
-      <Table striped bordered hover responsive bsPrefix="custom-table">
+      <Table striped bordered responsive hover bsPrefix="custom-table">
         <thead>
           <tr>
             <th className="encora-purple text-light">#</th>
-            {Object.values(props.categories).map((category: string, index: number) => (
-              <th key={index} className="encora-purple text-light">
-                {category}
-              </th>
-            ))}
-            <th className="encora-purple text-light">Options</th>
+            {Object.values(props.categories).map(
+              (category: string, index: number) => (
+                <th key={index} className="encora-purple text-light">
+                  {category}
+                </th>
+              ),
+            )}
+            <th className="encora-purple text-light">Opciones</th>
           </tr>
         </thead>
         <tbody>
@@ -52,23 +52,25 @@ const TableView = (props: Props) => {
             (entity: Project | Position | Opening | Person, index: number) => (
               <tr key={index}>
                 <td>{index + 1}</td>
-                {Object.keys(props.categories).map((key: string, index: number) => {
-                  const value =
-                    entity[
-                      key as keyof (Project | Position | Opening | Person)
-                    ];
-                  if (
-                    props.categories[key] &&
-                    props.categories[key].includes("Fecha") &&
-                    value
-                  ) {
-                    return (
-                      <td key={index}>{formatTimestamp(value.toString())}</td>
-                    );
-                  } else {
-                    return <td key={index}>{value?.toString()}</td>;
-                  }
-                })}
+                {Object.keys(props.categories).map(
+                  (key: string, index: number) => {
+                    const value =
+                      entity[
+                        key as keyof (Project | Position | Opening | Person)
+                      ];
+                    if (
+                      props.categories[key] &&
+                      props.categories[key].includes("Fecha") &&
+                      value
+                    ) {
+                      return (
+                        <td key={index}>{formatTimestamp(value.toString())}</td>
+                      );
+                    } else {
+                      return <td key={index}>{value?.toString()}</td>;
+                    }
+                  },
+                )}
                 <td>
                   <Link to={`${entity.id}`}>
                     <i className="bi bi-eye-fill table-element"></i>
@@ -78,7 +80,7 @@ const TableView = (props: Props) => {
                   </Link>
                 </td>
               </tr>
-            )
+            ),
           )}
         </tbody>
       </Table>

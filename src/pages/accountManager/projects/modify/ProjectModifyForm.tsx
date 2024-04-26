@@ -20,7 +20,7 @@ const ProjectModifyForm = () => {
   const [expirationDate, setExpirationDate] = useState<string>("");
   const [hasExpirationDate, setHasExpirationDate] = useState<boolean>(false);
   const [selectedStatus, setSelectedStatus] = useState<string>("");
-  const [closedStatus, setClosedStatus] = useState<string>("");
+  const [closedStatus, setClosedStatus] = useState<string>("Completed");
   const [closedReason, setClosedReason] = useState<string>("");
 
   const navigate = useNavigate();
@@ -77,7 +77,6 @@ const ProjectModifyForm = () => {
       expiration_date: expirationDate,
     };
     const id_num = Number(id);
-
     modifyProject(id_num, projectToSubmit)
       .then(() => {
         console.log("Project modified successfully");

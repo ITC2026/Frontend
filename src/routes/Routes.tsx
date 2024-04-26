@@ -22,7 +22,6 @@ import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
 //Resource
 import ResourceWrapper from "../pages/resourceManager/ResourceManagerWrapper";
 
-
 const router = createBrowserRouter([
   {
     path: "login",
@@ -72,14 +71,15 @@ const router = createBrowserRouter([
             path: ":id/",
             element: <ProjectInfoWrapper />,
           },
+        ],
+      },
+
+      {
+        path: "projects/edit",
+        children: [
           {
-            path: "edit",
-            children: [
-              {
-                path: ":id/",
-                element: <ProjectModifyWrapper />,
-              },
-            ],
+            path: ":id/",
+            element: <ProjectModifyWrapper />,
           },
         ],
       },
@@ -126,7 +126,7 @@ const router = createBrowserRouter([
         path: "projects",
         element: <ProjectsPage />,
       },
-      
+
       {
         path: "people",
         element: <PostulatesPage />,
@@ -153,7 +153,7 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <>
-          <ChartResource />,
+            <ChartResource />,
           </>
         ),
       },
@@ -164,7 +164,7 @@ const router = createBrowserRouter([
             <SettingsPage />
           </>
         ),
-      }
+      },
     ],
   },
   {

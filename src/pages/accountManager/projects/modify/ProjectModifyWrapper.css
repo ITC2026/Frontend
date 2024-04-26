@@ -1,0 +1,24 @@
+.project-modify-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 85vw;
+  margin-top: 4rem;
+}
+
+project-modify-return {
+  display: flex;
+  flex-direction: flex-end;
+}
+
+#modify-id {
+  border-radius: 15%;
+}
+.project-modify-content {
+  width: 85%;
+}
+
+.table-positions {
+  margin-top: 2rem;
+}

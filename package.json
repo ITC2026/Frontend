@@ -22,7 +22,6 @@
     "bootstrap-icons": "^1.11.3",
     "bulma": "^1.0.0",
     "chart.js": "^4.4.2",
-    "dotenv": "^16.4.5",
     "firebase": "^10.11.0",
     "pg": "^8.11.5",
     "react": "^18.2.0",
@@ -31,11 +30,13 @@
     "react-dom": "^18.2.0",
     "react-router": "^6.22.3",
     "react-router-dom": "^6.22.3",
-    "react-toastify": "^10.0.5"
+    "react-toastify": "^10.0.5",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
+    "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.1",

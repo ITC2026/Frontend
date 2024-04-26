@@ -53,7 +53,7 @@ const ProjectModifyForm = () => {
           setStartingDate(formatDate(data.payload.start_date));
           setExpirationDate(
             data.payload.has_expiration_date
-              ? formatDate(data.payload.expiration_date)
+              ? formatDate(data.payload.expiration_date.expiration_date)
               : ""
           );
           setHasExpirationDate(data.payload.has_expiration_date);
@@ -74,6 +74,7 @@ const ProjectModifyForm = () => {
       general_status: selectedStatus,
       closed_status: closedStatus,
       closed_reason: closedReason,
+      expiration_date: expirationDate,
     };
     const id_num = Number(id);
 

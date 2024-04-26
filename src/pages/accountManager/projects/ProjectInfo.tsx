@@ -38,7 +38,7 @@ const ProjectInfo = () => {
           setStartingDate(formatDate(data.payload.start_date));
           setExpirationDate(
             data.payload.has_expiration_date
-              ? formatDate(data.payload.expiration_date)
+              ? formatDate(data.payload.expiration_date.expiration_date)
               : ""
           );
           setHasExpirationDate(data.has_expiration_date);

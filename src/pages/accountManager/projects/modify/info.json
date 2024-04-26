@@ -1,0 +1,136 @@
+{
+  "status": "Success",
+  "message": "Projects retrieved successfully",
+  "payload": [
+    {
+      "id": 12,
+      "project_title": "Projecto Geinal",
+      "project_description": "Genial",
+      "start_date": "2002-02-02T00:00:00.000Z",
+      "has_expiration_date": true,
+      "general_status": "In Preparation",
+      "client_id": 1,
+      "createdAt": "2024-04-26T00:02:53.696Z",
+      "updatedAt": "2024-04-26T00:02:53.696Z",
+      "deletedAt": null,
+      "positions": [],
+      "expiration_date": {
+        "id": 1,
+        "expiration_date": "2003-03-03T00:00:00.000Z",
+        "project_id": 12,
+        "createdAt": "2024-04-26T00:02:53.745Z",
+        "updatedAt": "2024-04-26T00:02:53.745Z"
+      }
+    },
+    {
+      "id": 13,
+      "project_title": "Proyecto",
+      "project_description": "Proyecto",
+      "start_date": "2002-02-02T00:00:00.000Z",
+      "has_expiration_date": true,
+      "general_status": "In Preparation",
+      "client_id": 1,
+      "createdAt": "2024-04-26T07:24:23.564Z",
+      "updatedAt": "2024-04-26T07:24:23.564Z",
+      "deletedAt": null,
+      "positions": [],
+      "expiration_date": {
+        "id": 2,
+        "expiration_date": "2003-02-02T00:00:00.000Z",
+        "project_id": 13,
+        "createdAt": "2024-04-26T07:24:23.592Z",
+        "updatedAt": "2024-04-26T07:24:23.592Z"
+      }
+    },
+    {
+      "id": 14,
+      "project_title": "thinking about yu",
+      "project_description": "narukami",
+      "start_date": "2002-02-02T00:00:00.000Z",
+      "has_expiration_date": true,
+      "general_status": "In Preparation",
+      "client_id": 1,
+      "createdAt": "2024-04-26T07:25:01.571Z",
+      "updatedAt": "2024-04-26T07:25:01.571Z",
+      "deletedAt": null,
+      "positions": [],
+      "expiration_date": {
+        "id": 3,
+        "expiration_date": "2002-02-02T00:00:00.000Z",
+        "project_id": 14,
+        "createdAt": "2024-04-26T07:25:01.589Z",
+        "updatedAt": "2024-04-26T07:25:01.589Z"
+      }
+    },
+    {
+      "id": 11,
+      "project_title": "juego de prueba 4",
+      "project_description": "desccc",
+      "start_date": "2002-02-02T00:00:00.000Z",
+      "has_expiration_date": false,
+      "general_status": "Closed",
+      "client_id": 1,
+      "createdAt": "2024-04-25T02:20:26.164Z",
+      "updatedAt": "2024-04-25T02:22:26.975Z",
+      "deletedAt": null,
+      "positions": [],
+      "expiration_date": null
+    },
+    {
+      "id": 8,
+      "project_title": "medina juego",
+      "project_description": "medina juego 2",
+      "start_date": "2006-06-06T00:00:00.000Z",
+      "has_expiration_date": false,
+      "general_status": "In Preparation",
+      "client_id": 1,
+      "createdAt": "2024-04-25T01:04:19.409Z",
+      "updatedAt": "2024-04-25T01:04:19.409Z",
+      "deletedAt": null,
+      "positions": [],
+      "expiration_date": null
+    },
+    {
+      "id": 4,
+      "project_title": "Test 137",
+      "project_description": "test123",
+      "start_date": "2006-05-27T00:00:00.000Z",
+      "has_expiration_date": false,
+      "general_status": "Closed",
+      "client_id": 1,
+      "createdAt": "2024-04-24T07:12:42.506Z",
+      "updatedAt": "2024-04-24T19:40:01.917Z",
+      "deletedAt": null,
+      "positions": [],
+      "expiration_date": null
+    },
+    {
+      "id": 9,
+      "project_title": "Juego Genial",
+      "project_description": "juego genial 12",
+      "start_date": "2006-06-06T00:00:00.000Z",
+      "has_expiration_date": false,
+      "general_status": "In Preparation",
+      "client_id": 1,
+      "createdAt": "2024-04-25T02:04:48.238Z",
+      "updatedAt": "2024-04-25T02:04:48.238Z",
+      "deletedAt": null,
+      "positions": [],
+      "expiration_date": null
+    },
+    {
+      "id": 7,
+      "project_title": "test adrian",
+      "project_description": "adrian 2",
+      "start_date": "2002-02-02T00:00:00.000Z",
+      "has_expiration_date": false,
+      "general_status": "In Preparation",
+      "client_id": 1,
+      "createdAt": "2024-04-24T19:43:47.935Z",
+      "updatedAt": "2024-04-24T19:43:47.935Z",
+      "deletedAt": null,
+      "positions": [],
+      "expiration_date": null
+    }
+  ]
+}

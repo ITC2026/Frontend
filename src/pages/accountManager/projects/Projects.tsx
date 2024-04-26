@@ -5,6 +5,7 @@ import { getAllProjects } from "../../../api/ProjectAPI";
 import { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
 import ProjectModal from "./ProjectModalExample";
+import getClientFromID from "../../../utils/Project/GetClientFromProject";
 
 const project_structure = {
   project_title: "Nombre del Proyecto",
@@ -52,11 +53,26 @@ const ProjectPage = () => {
     setRegisterProject((prev) => !prev);
   };
 
+  /**
+   * Fetches all projects from the API and sets the projects state,
+   * It also fetches the client name for each project and adds it to the project object
+   */
+
   useEffect(() => {
-    !registerProject &&
-      getAllProjects().then((data: Project[] | undefined) =>
-        setProjects(data || [])
-      );
+    if (!registerProject) {
+      getAllProjects().then(async (data: Project[] | undefined) => {
+        if (!data) {
+          return;
+        }
+        const projectsWithClient = await Promise.all(
+          data.map(async (project: Project) => {
+            const client = await getClientFromID(project.client_id);
+            return { ...project, client_name: client };
+          })
+        );
+        setProjects(projectsWithClient);
+      });
+    }
   }, [registerProject, location]);
 
   const filteredProjects = projects.filter((project) => {
@@ -87,7 +103,10 @@ const ProjectPage = () => {
       </div>
       <div className="project-table">
         {projects && (
-          <TableView entity={filteredProjects as Project[]} categories={project_structure}>
+          <TableView
+            entity={filteredProjects as Project[]}
+            categories={project_structure}
+          >
             <button
               className="project-register encora-purple-button text-light"
               onClick={toggleRegisterProject}

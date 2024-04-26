@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import ViewTable from '../../../components/table/Table';
-import { createPerson, getAllPeople } from "../../../api/PersonAPI";
+import { createPerson } from "../../../api/PersonAPI";
+import  getPostulates  from '../functions/getPostulates';
+import TablePostulates from '../../../components/staffer/TablePostulates';
 import './PostulatesPage.css';
-
 
 const PostulatesPage: React.FC = () => {
     const [view, setView] = useState<'Bench' | 'Pipeline'>('Bench');
-    const [people, setPeople] = useState<Person[]>([]);
+    const [postulates, setPostulates] = useState<Person[]>([]);
     const [person, setPerson] = useState<CreatePersonAttributes>();
 
     const personInject: CreatePersonAttributes = {
@@ -29,13 +29,13 @@ const PostulatesPage: React.FC = () => {
         "first_name": "Nombre",
         "last_name": "",
         "project_name": "Proyecto al que fue postulado",
-        "position": "Posición de Trabajo",
+        "position_name": "Posición de Trabajo",
         "division": "Division"
     };
 
     useEffect(() => {
-        getAllPeople().then((data: unknown) => {
-            setPeople(data as Person[]);
+        getPostulates().then((data: unknown) => {
+            setPostulates(data as Person[]);
             console.log(data);
         });
     }, [view, person]);
@@ -51,7 +51,7 @@ const PostulatesPage: React.FC = () => {
     }, [person]);
 
     const filterPeopleByStatus = (people: Person[], status: string) => {
-        return people.filter(person => person.status === status);
+        return people.filter((person) => person.status === status);
     }
 
     return (
@@ -64,7 +64,7 @@ const PostulatesPage: React.FC = () => {
                 <h1 className="table-title">Lista de Postulados</h1>
                 <div className="table-wrapper">
                     <button className='button' onClick={() => setPerson(personInject)}>Agrega Un Tilin</button>
-                    <ViewTable entity={filterPeopleByStatus(people, view)} types={personBlueprint} categories='Person' /> 
+                    <TablePostulates entity={filterPeopleByStatus(postulates, view)} types={personBlueprint} categories='Person' /> 
                 </div>
             </div>
         </div>

@@ -3,7 +3,8 @@ import Table from "react-bootstrap/Table";
 import SearchBar from "../searchbar/SearchBar";
 import { Link } from "react-router-dom";
 import getProjectTitleFromID from "../../pages/staffer/functions/getProjectTitleForPerson";
-import "./Table.css";
+import getPositionTitleFromID from "../../pages/staffer/functions/getPositionTitleForPerson";
+import "../table/Table.css";
 
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
@@ -12,12 +13,27 @@ interface Props {
   buttonArr?: React.ReactElement | React.ReactElement[] | JSX.Element[];
 }
 
-const TableView = (prop: Props) => {
+const TablePostulates = (prop: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [projectTitle, setProjectTitle] = useState<string>("No Tiene Projecto");
+  const [positionTitle, setPositionTitle] = useState<string>("No Tiene Posición");
 
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term);
   };
+
+  const handleProjectTitle = (id: number) => {
+    getProjectTitleFromID(id).then((data: unknown) => {
+      setProjectTitle(data as string);
+    });
+  }
+
+  const handlePositionTitle = (id: number) => {
+    getPositionTitleFromID(id).then((data: unknown) => {
+      setPositionTitle(data as string);
+    });
+  }
+  
 
   // Filtering the entity array based on the search term
   // Ensure prop.entity is defined before filtering
@@ -58,14 +74,31 @@ const TableView = (prop: Props) => {
                     entity[
                       key as keyof (Project | Position | Opening | Person)
                     ];
+                  if (key === "project_name") {
+                    handleProjectTitle(entity.id);
+                    return (
+                      <td key={index}>
+                        {projectTitle}
+                      </td>
+                    );
+                  } 
+                  if (key === "position_name") {
+                    handlePositionTitle(entity.id);
+                    return (
+                      <td key={index}>
+                        {positionTitle}
+                      </td>
+                    );
+                  } else {
                     return <td key={index}>{value?.toString()}</td>;
+                  }
                 })}
                 <td>
                   {prop.buttonArr ? prop.buttonArr : null}
 
-                  {prop.categories === "Project" ? (
-                    <Link to={`${entity.id}`}>
-                      <i className="table-button bi bi-briefcase-fill"></i>
+                  {prop.categories === "StafferProject" ? (
+                    <Link to={"positions"}>
+                      <i className="bi bi-person-plus-fill"></i>
                     </Link>
                   ) : null}
                 </td>
@@ -78,4 +111,4 @@ const TableView = (prop: Props) => {
   );
 };
 
-export default TableView;
+export default TablePostulates;

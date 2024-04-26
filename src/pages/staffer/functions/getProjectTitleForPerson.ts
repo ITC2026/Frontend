@@ -2,7 +2,7 @@ import { getProjectOfPersonByID } from "../../../api/PersonAPI";
 
 const getProjectTitleFromID = async (id: number) => {
     try {
-      const project: Project = await getProjectOfPersonByID(id);
+      const project = await getProjectOfPersonByID(id);
       if (!project) return "No Project Found";
       const projectTitle = project.project_title.toString();
       return projectTitle;

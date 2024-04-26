@@ -24,8 +24,12 @@ const ChartAccount: React.FC = () => {
       setProjects(data as Project[]);
     })
     .catch((error) => {
-      console.error('Error fetching projects: ',error);
-    });
+      if (error.response && error.response.status === 404) {
+        console.log('No projects found.');
+        setProjects([]);
+      } else {
+        console.error('Error fetching projects: ', error);
+      }});
   }, [setProjects]);
 
   useEffect(() => {
@@ -33,7 +37,12 @@ const ChartAccount: React.FC = () => {
       setClients(data as Client[]);
     })
     .catch((error) => {
-      console.error('Error fetching clients: ',error);
+      if (error.response && error.response.status === 404) {
+        console.log('No clients found.');
+        setClients([]);
+      } else {
+        console.error('Error fetching clients: ', error);
+      }
     });
   }, [setClients]);
 
@@ -42,7 +51,12 @@ const ChartAccount: React.FC = () => {
         setPersons(data as Person[]);
     })
     .catch((error) => {
-      console.error('Error fetching people: ',error);
+      if (error.response && error.response.status === 404) {
+        console.log('No persons found.');
+        setPersons([]);
+      } else {
+        console.error('Error fetching persons: ', error);
+      }
     });
   }, [setPersons]);
 
@@ -51,7 +65,12 @@ const ChartAccount: React.FC = () => {
       setEmployees(data as Employee[]);
     })
     .catch((error) => {
-      console.error('Error fetching employees: ',error);
+      if (error.response && error.response.status === 404) {
+        console.log('No employees found.');
+        setEmployees([]);
+      } else {
+        console.error('Error fetching employees: ', error);
+      }
     });
   }, [setEmployees]);
 
@@ -60,7 +79,12 @@ const ChartAccount: React.FC = () => {
       setOpenings(data as Opening[]);
     })
     .catch((error) => {
-      console.error('Error fetching openings: ',error);
+      if (error.response && error.response.status === 404) {
+        console.log('No openings found.');
+        setOpenings([]);
+      } else {
+        console.error('Error fetching openings: ', error);
+      }
     });
   }, [setOpenings]);
 
@@ -69,7 +93,12 @@ const ChartAccount: React.FC = () => {
       setPositions(data as Position[]);
     })
     .catch((error) => {
-      console.error('Error fetching positions: ',error);
+      if (error.response && error.response.status === 404) {
+        console.log('No positions found.');
+        setPositions([]);
+      } else {
+        console.error('Error fetching positions: ', error);
+      }
     });
   }, [setPositions]);
   // Function to extract names into an array of strings
@@ -91,8 +120,6 @@ const ChartAccount: React.FC = () => {
         ) as Position,
     );
   };
-
-  console.log(getAllOpeningsFilledPosition());
 
     const getPositionsBillRate = (): number[] => {
     return getAllOpeningsFilledPosition().map((position) => position.bill_rate as number);

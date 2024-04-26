@@ -24,8 +24,12 @@ const ChartAccount: React.FC = () => {
       setProjects(data as Project[]);
     })
     .catch((error) => {
-      console.error('Error fetching projects: ',error);
-    });
+      if (error.response && error.response.status === 404) {
+        console.log('No projects found.');
+        setProjects([]);
+      } else {
+        console.error('Error fetching projects: ', error);
+      }});
   }, [setProjects]);
 
   useEffect(() => {
@@ -33,7 +37,12 @@ const ChartAccount: React.FC = () => {
       setClients(data as Client[]);
     })
     .catch((error) => {
-      console.error('Error fetching clients: ',error);
+      if (error.response && error.response.status === 404) {
+        console.log('No clients found.');
+        setClients([]);
+      } else {
+        console.error('Error fetching clients: ', error);
+      }
     });
   }, [setClients]);
 
@@ -41,9 +50,14 @@ const ChartAccount: React.FC = () => {
     getAllPositions().then((data: unknown) => {
       setPositions(data as Position[]);
     })
-  .catch((error) => {
-    console.error('Error fetching positions: ',error);
-  });
+    .catch((error) => {
+      if (error.response && error.response.status === 404) {
+        console.log('No positions found.');
+        setPositions([]);
+      } else {
+        console.error('Error fetching positions: ', error);
+      }
+    });
   }, [setPositions]);
 
   useEffect(() => {
@@ -51,7 +65,12 @@ const ChartAccount: React.FC = () => {
     setPersons(data as Person[]);
   })
   .catch((error) => {
-    console.error('Error fetching people: ',error);
+    if (error.response && error.response.status === 404) {
+      console.log('No people found.');
+      setPersons([]);
+    } else {
+      console.error('Error fetching people: ', error);
+    }
   });
   }, [setPersons]);
 
@@ -60,7 +79,12 @@ const ChartAccount: React.FC = () => {
       setOpenings(data as Opening[]);
     })
     .catch((error) => {
-      console.error('Error fetching openings: ',error);
+      if (error.response && error.response.status === 404) {
+        console.log('No openings found.');
+        setOpenings([]);
+      } else {
+        console.error('Error fetching openings: ', error);
+      }
     });
   }, [setOpenings]);
 
@@ -69,7 +93,12 @@ const ChartAccount: React.FC = () => {
       setExpirationDateOpenings(data as ExpirationDateOpening[]);
     })
     .catch((error) => {
-      console.error('Error fetching expiration date openings: ',error);
+      if (error.response && error.response.status === 404) {
+        console.log('No expiration date openings found.');
+        setExpirationDateOpenings([]);
+      } else {
+        console.error('Error fetching expiration date openings: ', error);
+      }
     });
   }, [setExpirationDateOpenings]);
 

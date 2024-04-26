@@ -26,8 +26,12 @@ const ChartStaffer: React.FC = () => {
       setProjects(data as Project[]);
     })
     .catch((error) => {
-      console.error('Error fetching projects: ',error);
-    });
+      if (error.response && error.response.status === 404) {
+        console.log('No projects found.');
+        setProjects([]);
+      } else {
+        console.error('Error fetching projects: ', error);
+      }});
   }, [setProjects]);
 
   useEffect(() => {
@@ -35,7 +39,12 @@ const ChartStaffer: React.FC = () => {
       setClients(data as Client[]);
     })
     .catch((error) => {
-      console.error('Error fetching clients: ',error);
+      if (error.response && error.response.status === 404) {
+        console.log('No clients found.');
+        setClients([]);
+      } else {
+        console.error('Error fetching clients: ', error);
+      }
     });
   }, [setClients]);
 
@@ -45,7 +54,12 @@ const ChartStaffer: React.FC = () => {
       setPositions(data as Position[]);
     })
   .catch((error) => {
-    console.error('Error fetching positions: ',error);
+    if (error.response && error.response.status === 404) {
+      console.log('No positions found.');
+      setPositions([]);
+    } else {
+      console.error('Error fetching positions: ', error);
+    }
   });
   }, [setPositions]);
 
@@ -78,7 +92,15 @@ const ChartStaffer: React.FC = () => {
   }
 
   const getAllPositionsTechStack = (): string[] => {
-    return positions.map((position) => position.tech_stack.split(', ')).flat();
+    let techStacks = [''];
+    try {
+      techStacks = positions.map((position) => position.tech_stack.split(', ')).flat();
+    } catch (error) {
+      if (error instanceof TypeError) {
+        console.error('Error splitting tech stacks: ', error);
+      }
+    }
+    return techStacks;
   }
 
   const nonRepeatingTechStack = (): string[] => {

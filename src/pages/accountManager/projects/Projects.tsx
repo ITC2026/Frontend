@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
 import ProjectModal from "./ProjectModalExample";
 import getClientFromID from "../../../utils/Project/GetClientFromProject";
-
+import {getExpirationDateFromProject} from "../../../utils/Project/GetExpirationDateFromProject";
 const project_structure = {
   project_title: "Nombre del Proyecto",
   client_name: "Cliente",
@@ -70,7 +70,16 @@ const ProjectPage = () => {
             return { ...project, client_name: client };
           })
         );
-        setProjects(projectsWithClient);
+
+        const projectWithExpiration = await Promise.all(
+          projectsWithClient.map(async (project: Project) => {
+            const expiration = await getExpirationDateFromProject(String(project.id));
+            if (!expiration) return project;
+            return { ...project, expiration };
+          })
+        );
+
+        setProjects(projectWithExpiration);
       });
     }
   }, [registerProject, location]);

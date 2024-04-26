@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
@@ -9,9 +9,7 @@ import { formatTimestamp } from "../../utils/Dates";
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
   categories: { [key: string]: string };
-
   children?: JSX.Element;
-  
 }
 
 const TableView = (props: Props) => {
@@ -20,14 +18,6 @@ const TableView = (props: Props) => {
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term);
   };
-
-  useEffect(() => {
-    props.entity.forEach((entity: Opening | Position | Project | Person) => {
-      if ("expiration_date" in entity) {
-        console.log(entity.expiration_date?.expiration_date);
-      }
-    });
-  }, []);
 
   const filteredEntity = props.entity.filter((entity: any) => {
     const searchableFields = Object.values(entity)

@@ -9,8 +9,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-    <ToastContainer 
+    <div id="main">
+      <RouterProvider router={router} />
+    </div>
+    <ToastContainer
       position="top-right"
       autoClose={2000}
       hideProgressBar={false}

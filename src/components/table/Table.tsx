@@ -10,6 +10,8 @@ interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
   categories: { [key: string]: string };
   children?: JSX.Element;
+  hideIndex?: boolean;
+  showEdit?: boolean;
 }
 
 const TableView = (props: Props) => {
@@ -36,13 +38,15 @@ const TableView = (props: Props) => {
       <Table striped bordered responsive hover bsPrefix="custom-table">
         <thead>
           <tr>
-            <th className="encora-purple text-light">#</th>
+            {!props.hideIndex && (
+              <th className="encora-purple text-light">#</th>
+            )}
             {Object.values(props.categories).map(
               (category: string, index: number) => (
                 <th key={index} className="encora-purple text-light">
                   {category}
                 </th>
-              ),
+              )
             )}
             <th className="encora-purple text-light">Opciones</th>
           </tr>
@@ -51,7 +55,8 @@ const TableView = (props: Props) => {
           {filteredEntity.map(
             (entity: Project | Position | Opening | Person, index: number) => (
               <tr key={index}>
-                <td>{index + 1}</td>
+                {!props.hideIndex && <td>{index + 1}</td>}
+
                 {Object.keys(props.categories).map(
                   (key: string, index: number) => {
                     const value =
@@ -69,18 +74,23 @@ const TableView = (props: Props) => {
                     } else {
                       return <td key={index}>{value?.toString()}</td>;
                     }
-                  },
+                  }
                 )}
                 <td>
-                  <Link to={`${entity.id}`}>
-                    <i className="bi bi-eye-fill table-element"></i>
-                  </Link>
-                  <Link to={`edit/${entity.id}`}>
-                    <i className="bi bi-pencil-fill table-element"></i>
-                  </Link>
+                  <div className="table-options">
+                    <Link to={`${entity.id}`}>
+                      <i className="bi bi-eye-fill table-element info-element"></i>
+                    </Link>
+
+                    {props.showEdit && ( // Conditional rendering based on showEdit prop
+                      <Link to={`edit/${entity.id}`}>
+                        <i className="bi bi-pencil-fill table-element"></i>
+                      </Link>
+                    )}
+                  </div>
                 </td>
               </tr>
-            ),
+            )
           )}
         </tbody>
       </Table>

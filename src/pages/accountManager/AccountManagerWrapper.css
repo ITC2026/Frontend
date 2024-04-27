@@ -1,5 +1,9 @@
 .account-manager-wrapper { 
     display: flex;
     flex-direction: row;
-    
+}
+
+.account-manager-content {
+    margin-left: 10rem;
+    margin-top: 2rem;
 }

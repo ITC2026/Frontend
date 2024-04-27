@@ -10,6 +10,7 @@ import getClientFromID from "../../../utils/Project/GetClientFromProject";
 import { getExpirationDateFromProject } from "../../../utils/Project/GetExpirationDateFromProject";
 
 const project_structure = {
+  id: "ID",
   project_title: "Nombre del Proyecto",
   client_name: "Cliente",
   start_date: "Fecha de Apertura",
@@ -49,6 +50,7 @@ const ProjectPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selected, setSelected] = useState<string>("Proyectos en Preparación");
   const [registerProject, setRegisterProject] = useState<boolean>(false);
+  const [closedTable, setClosedTable] = useState<boolean>(false);
   const location = useLocation();
 
   const toggleRegisterProject = () => {
@@ -70,17 +72,17 @@ const ProjectPage = () => {
           data.map(async (project: Project) => {
             const client = await getClientFromID(project.client_id);
             return { ...project, client_name: client };
-          }),
+          })
         );
 
         const projectWithExpiration = await Promise.all(
           projectsWithClient.map(async (project: Project) => {
             const expiration = await getExpirationDateFromProject(
-              String(project.id),
+              String(project.id)
             );
             if (!expiration) return project;
             return { ...project, expiration };
-          }),
+          })
         );
 
         setProjects(projectWithExpiration);
@@ -98,6 +100,7 @@ const ProjectPage = () => {
     }
     return true;
   });
+
 
   return (
     <div className="project-page">
@@ -117,8 +120,10 @@ const ProjectPage = () => {
       <div className="project-table">
         {projects && (
           <TableView
+            hideIndex={true}
             entity={filteredProjects as Project[]}
             categories={project_structure}
+            showEdit={selected !== "Proyectos Cerrados"}
           >
             <button
               className="project-register encora-purple-button text-light"

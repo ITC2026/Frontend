@@ -1,4 +1,5 @@
 import LargeModal from "../../../../../components/modal/LargeModal";
+import ReturnButton from "../../../../../assets/arrow-left.png";
 
 interface Props {
   formContent: JSX.Element;
@@ -13,7 +14,7 @@ export const JobPositionModal = (prop: Props) => {
       header={
         <>
           <a className="close-modal" onClick={() => prop.setActiveModal(false)}>
-            <i className="fas fa-times">Bruh</i>
+            <img src={ReturnButton} id="return-button-position" />
           </a>
         </>
       }

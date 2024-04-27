@@ -47,3 +47,8 @@
   column-gap: 2.19rem;
   margin-top: auto;
 }
+.header-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}

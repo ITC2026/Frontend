@@ -4,7 +4,7 @@ import "./JobPositionForm.css";
 import { useParams } from "react-router-dom";
 
 /**
- * 
+ *
  Job Position Request Example
  * {
   "position_title": "Software Engineer",
@@ -22,7 +22,11 @@ import { useParams } from "react-router-dom";
 }
  */
 
-export const JobPositionForm = () => {
+interface Prop {
+  onlyInfo?: boolean;
+}
+
+export const JobPositionForm = (props: Prop) => {
   const [positionTitle, setPositionTitle] = useState<string>("");
   const [comment, setComment] = useState<string>("");
   const [vacanciesPosition, setVacanciesPosition] = useState<number>(0);
@@ -35,6 +39,11 @@ export const JobPositionForm = () => {
   const [isExclusive, setIsExclusive] = useState<boolean>(false);
   const [billRate, setBillRate] = useState<number>(0);
 
+  {
+    /**
+     TODO: Agregar todas las posibles divisiones, regiones y what not en un const para solo hacer mapping de las mismas.
+      */
+  }
   const { id } = useParams();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -52,94 +61,174 @@ export const JobPositionForm = () => {
       tech_stack: techStack,
       is_exclusive: isExclusive,
       bill_rate: billRate,
-      project_id: 11,
+      project_id: id,
     };
 
     console.log(
-      `Submitting job position: ${JSON.stringify(jobPositionToSubmit)}`
+      `Submitting job position: ${JSON.stringify(jobPositionToSubmit)}`,
     );
   };
 
   return (
     <div className="job-position-form">
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Position Title</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter position title"
-            value={positionTitle}
-            onChange={(e) => setPositionTitle(e.target.value)}
-          />
-        </Form.Group>
+        <div className="job-position-form-first-half">
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Position Title</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter position title"
+              value={positionTitle}
+              onChange={(e) => setPositionTitle(e.target.value)}
+              disabled={props.onlyInfo}
+            />
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Comment</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter comment"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Comment</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter comment"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              disabled={props.onlyInfo}
+            />
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Vacancies Position</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="Enter vacancies position"
-            value={vacanciesPosition}
-            onChange={(e) => setVacanciesPosition(parseInt(e.target.value))}
-          />
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Vacancies Position</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Enter vacancies position"
+              value={vacanciesPosition}
+              onChange={(e) => setVacanciesPosition(parseInt(e.target.value))}
+              disabled={props.onlyInfo}
+            />
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Working Hours</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="Enter working hours"
-            value={workingHours}
-            onChange={(e) => setWorkingHours(parseInt(e.target.value))}
-          />
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Working Hours</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Enter working hours"
+              value={workingHours}
+              onChange={(e) => setWorkingHours(parseInt(e.target.value))}
+              disabled={props.onlyInfo}
+            />
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Posting Type</Form.Label>
-          <Form.Control
-            as="select"
-            placeholder="Enter posting type"
-            value={postingType}
-            onChange={(e) => setPostingType(e.target.value)}
-          >
-            <option disabled value="">
-              Select a posting type
-            </option>
-            <option value="Exclusive">Exclusive</option>
-            <option value="New Head Count">New Head Count</option>
-            <option value="Replacement">Replacement</option>
-          </Form.Control>
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Bill Rate</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Enter working hours"
+              value={billRate}
+              onChange={(e) => setBillRate(parseInt(e.target.value))}
+              disabled={props.onlyInfo}
+            />
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Label>Is Cross Division</Form.Label>
-          <Form.Control
-            type="checkbox"
-            checked={isCrossDivision}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setIsCrossDivision(e.target.checked)
-            }
-          />
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Posting Type</Form.Label>
+            <Form.Control
+              as="select"
+              placeholder="Enter posting type"
+              value={postingType}
+              onChange={(e) => setPostingType(e.target.value)}
+              disabled={props.onlyInfo}
+            >
+              <option disabled value="">
+                Select a posting type
+              </option>
+              <option value="Exclusive">Exclusive</option>
+              <option value="New Head Count">New Head Count</option>
+              <option value="Replacement">Replacement</option>
+            </Form.Control>
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Division</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter division"
-            value={division}
-            onChange={(e) => setDivision(e.target.value)}
-          />
-        </Form.Group>
+          <div className="checkbox-form">
+            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+              <Form.Label>Is Cross Division</Form.Label>
+              <Form.Check
+                type="checkbox"
+                checked={isCrossDivision}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setIsCrossDivision(e.target.checked)
+                }
+                disabled={props.onlyInfo}
+              />
+            </Form.Group>
+          </div>
+        </div>
+
+        <div className="job-position-form-second-half">
+          {/**
+           * TODO: Agregar todas las demás divisiones y regiones que vayamos a utilizar. ¡Gracias!
+           */}
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Division</Form.Label>
+            <Form.Control
+              as="select"
+              placeholder="Enter posting type"
+              value={division}
+              onChange={(e) => setDivision(e.target.value)}
+              disabled={props.onlyInfo}
+            >
+              <option disabled value="">
+                Select your division
+              </option>
+              <option value="USA">USA</option>
+              <option value="MEXICO">MEXICO</option>
+              <option value="BRAZIL">BRAZIL</option>
+            </Form.Control>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Region</Form.Label>
+            <Form.Control
+              as="select"
+              placeholder="Enter posting type"
+              value={region}
+              onChange={(e) => setRegion(e.target.value)}
+              disabled={props.onlyInfo}
+            >
+              <option disabled value="">
+                Select your region
+              </option>
+              <option value="HMO">HMO</option>
+            </Form.Control>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Tech Stack</Form.Label>
+            <Form.Control
+              as="select"
+              placeholder="Enter posting type"
+              value={techStack}
+              onChange={(e) => setTechStack(e.target.value)}
+              disabled={props.onlyInfo}
+            >
+              <option disabled value="">
+                Select your Tech Stack
+              </option>
+              <option value="Javascript">Javascript</option>
+            </Form.Control>
+          </Form.Group>
+
+          <div className="checkbox-form">
+            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+              <Form.Label>Is Exclusive?</Form.Label>
+              <Form.Check
+                type="checkbox"
+                checked={isExclusive}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setIsExclusive(e.target.checked)
+                }
+                disabled={props.onlyInfo}
+              />
+            </Form.Group>
+          </div>
+        </div>
       </Form>
     </div>
   );

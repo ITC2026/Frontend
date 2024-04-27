@@ -50,7 +50,6 @@ const ProjectPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selected, setSelected] = useState<string>("Proyectos en Preparación");
   const [registerProject, setRegisterProject] = useState<boolean>(false);
-  const [closedTable, setClosedTable] = useState<boolean>(false);
   const location = useLocation();
 
   const toggleRegisterProject = () => {

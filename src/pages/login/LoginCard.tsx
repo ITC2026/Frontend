@@ -2,9 +2,43 @@ import "./LoginPage.css";
 import EncoraLogo from "../../assets/EncoraLogo";
 import MicrosoftLogo from "../../assets/MicrosoftLogo";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { auth } from "../../firebase/initialize";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithPopup, OAuthProvider } from "firebase/auth";
 
 const LoginCard = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onLogin = (e: any) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log(user);
+      navigate("/account_manager");
+    }) .catch ((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      alert("Inicio de Sesión fallido. Ingrese un correo electrónico y/o contraseña válidos.");
+    });
+  }
+
+    // Signing in with Microsoft.
+    const handleMicrosoftLogin = async () => {
+      const provider = new OAuthProvider('microsoft.com');
+      try {
+        const result = await signInWithPopup(auth, provider);
+        console.log("Microsoft Login Successful: ", result)
+        navigate("/account_manager");
+      } catch (error) {
+        console.log("Error Signing in with Microsoft: ", error);
+      }
+    };
+
 
   return (
     <div className="login-view">
@@ -29,6 +63,7 @@ const LoginCard = () => {
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             placeholder="Ingresa tu correo electronico"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="mb-3">
@@ -40,6 +75,7 @@ const LoginCard = () => {
             className="form-control"
             id="exampleInputPassword1"
             placeholder="Ingresa tu contraseña"
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         
@@ -47,7 +83,7 @@ const LoginCard = () => {
           type="submit" 
           className="btn btn-primary encora-purple-button " 
           id="login-button"
-          onClick={() => navigate("/")}
+          onClick={onLogin}
         >
           Login
         </button>
@@ -56,6 +92,7 @@ const LoginCard = () => {
           type="submit"
           className="btn btn-primary"
           id="login-button-microsoft"
+          onClick={handleMicrosoftLogin}
         >
           <MicrosoftLogo />
           Iniciar Sesion con Microsoft

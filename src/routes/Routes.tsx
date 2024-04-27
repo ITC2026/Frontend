@@ -21,6 +21,7 @@ import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
 
 //Resource
 import ResourceWrapper from "../pages/resourceManager/ResourceManagerWrapper";
+import Persons from "../pages/resourceManager/Persons/Persons";
 
 
 const router = createBrowserRouter([
@@ -160,6 +161,14 @@ const router = createBrowserRouter([
         element: (
           <>
           <ChartResource />,
+          </>
+        ),
+      },
+      {
+        path: "persons",
+        element: (
+          <>
+            <Persons />
           </>
         ),
       },

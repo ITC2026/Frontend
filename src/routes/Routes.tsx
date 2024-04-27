@@ -21,7 +21,7 @@ import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
 
 //Resource
 import ResourceWrapper from "../pages/resourceManager/ResourceManagerWrapper";
-import Persons from "../pages/resourceManager/Persons/Persons";
+import People from "../pages/resourceManager/Persons/Persons";
 
 
 const router = createBrowserRouter([
@@ -165,10 +165,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "persons",
+        path: "people",
         element: (
           <>
-            <Persons />
+            <People />
           </>
         ),
       },
@@ -193,14 +193,6 @@ const router = createBrowserRouter([
   {
     path: "/firebaseStorage",
     element: <FirebaseStorage />,
-  },
-  {
-    path: "resource",
-    element: (
-      <>
-        <ChartResource />
-      </>
-    ),
   },
 ]);
 

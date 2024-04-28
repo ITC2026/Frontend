@@ -3,7 +3,6 @@ import ProfilePicPlaceholder from "../../../../assets/profilepic_placeholder.png
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
-import { useState } from "react";
 import {
   genderOptions,
   techStackOptions,
@@ -17,45 +16,20 @@ interface Props {
   setActiveModal: (active: boolean) => void;
 }
 
-const RegisterBenchForm = (props: Props) => {
-  const [profilePic, setProfilePic] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [gender, setGender] = useState<Gender | "Ninguno">("Ninguno");
-  const [title, setTitle] = useState<string>("");
-  const [techStack, setTechStack] = useState<TechStack | "Ninguno">("Ninguno");
-  const [division, setDivision] = useState<Division | "Ninguno">("Ninguno");
-  const [region, setRegion] = useState<Region | "Ninguno">("Ninguno");
-  const [jobGrade, setJobGrade] = useState<JobGrade | "Ninguno">("Ninguno");
-  const [expectedSalary, setExpectedSalary] = useState<number>(0);
-  const [phoneNumber, setPhoneNumber] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [reasonBench, setReasonBench] = useState<string>("");
-  const [proposedAction, setProposedAction] = useState<ProposedAction | "Ninguno">("Ninguno");
-
+const InfoBillingForm = (props: Props) => {
   return (
     <Form className="form-group-person">
       <div className="top-form">
         <div className="leftside-top-form">
           <Form.Group className="mb-3 personal-image">
             <label className="label">
-              <input
-                accept="image/png, image/jpeg"
-                type="file"
-                onChange={(e) => {
-                  if (e.target.files && e.target.files[0]) {
-                    setProfilePic(URL.createObjectURL(e.target.files[0]));
-                  }
-                }}
-              />
+              <input disabled accept="image/png, image/jpeg" type="file" />
               <figure className="personal-figure">
                 <img
-                  src={!profilePic ? ProfilePicPlaceholder : profilePic}
-                  className="personal-avatar"
+                  src={ProfilePicPlaceholder}
+                  className="disabled-personal-avatar"
                   alt="avatar"
                 ></img>
-                <figcaption className="personal-figcaption">
-                  <i className="bi bi-pencil-fill h1"></i>
-                </figcaption>
               </figure>
             </label>
           </Form.Group>
@@ -68,11 +42,10 @@ const RegisterBenchForm = (props: Props) => {
             </Form.Label>
             <Col sm={7}>
               <Form.Control
+                disabled
                 type="text"
                 placeholder="Introduzca su nombre"
-                value={name}
                 bsPrefix="encora-purple-input form-control"
-                onChange={(e) => setName(e.target.value)}
               />
             </Col>
           </Form.Group>
@@ -83,35 +56,26 @@ const RegisterBenchForm = (props: Props) => {
             </Form.Label>
             <Col sm={7}>
               <Form.Control
+                disabled
                 as="select"
-                value={gender}
                 bsPrefix="encora-purple-input form-control"
-                onChange={(e) => setGender(e.target.value as Gender)}
-              >
-                <option selected>Ninguno</option>
-                {Object.keys(genderOptions).map((genderOption) => (
-                  <option key={genderOption} value={genderOption}>
-                    {genderOptions[genderOption as Gender]}
-                  </option>
-                ))}
-              </Form.Control>
+              ></Form.Control>
             </Col>
           </Form.Group>
         </div>
       </div>
 
-      <div className="bottom-form">
+      <div className="large-bottom-form">
         <Form.Group as={Row} className="mb-2 row-width-form">
           <Form.Label column sm={5} bsPrefix="label-style text-start">
             Título de Trabajo
           </Form.Label>
           <Col sm={7}>
             <Form.Control
+              disabled
               type="text"
               placeholder="Introduzca su Título de Trabajo"
-              value={title}
               bsPrefix="encora-purple-input form-control"
-              onChange={(e) => setTitle(e.target.value)}
             />
           </Col>
         </Form.Group>
@@ -122,18 +86,10 @@ const RegisterBenchForm = (props: Props) => {
           </Form.Label>
           <Col sm={7}>
             <Form.Control
+              disabled
               as="select"
-              value={techStack}
               bsPrefix="encora-purple-input form-control"
-              onChange={(e) => setTechStack(e.target.value as TechStack)}
-            >
-              <option selected>Ninguno</option>
-              {techStackOptions.map((techStackOption) => (
-                <option key={techStackOption} value={techStackOption}>
-                  {techStackOption}
-                </option>
-              ))}
-            </Form.Control>
+            ></Form.Control>
           </Col>
         </Form.Group>
 
@@ -143,18 +99,10 @@ const RegisterBenchForm = (props: Props) => {
           </Form.Label>
           <Col sm={7}>
             <Form.Control
+              disabled
               as="select"
-              value={division}
               bsPrefix="encora-purple-input form-control"
-              onChange={(e) => setDivision(e.target.value as Division)}
-            >
-              <option selected>Ninguno</option>
-              {divisionOptions.map((divisionOption) => (
-                <option key={divisionOption} value={divisionOption}>
-                  {divisionOption}
-                </option>
-              ))}
-            </Form.Control>
+            ></Form.Control>
           </Col>
         </Form.Group>
 
@@ -164,18 +112,10 @@ const RegisterBenchForm = (props: Props) => {
           </Form.Label>
           <Col sm={7}>
             <Form.Control
+              disabled
               as="select"
-              value={region}
               bsPrefix="encora-purple-input form-control"
-              onChange={(e) => setRegion(e.target.value as Region)}
-            >
-              <option selected>Ninguno</option>
-              {regionOptions.map((regionOption) => (
-                <option key={regionOption} value={regionOption}>
-                  {regionOption}
-                </option>
-              ))}
-            </Form.Control>
+            ></Form.Control>
           </Col>
         </Form.Group>
 
@@ -185,18 +125,10 @@ const RegisterBenchForm = (props: Props) => {
           </Form.Label>
           <Col sm={7}>
             <Form.Control
+              disabled
               as="select"
-              value={jobGrade}
               bsPrefix="encora-purple-input form-control"
-              onChange={(e) => setJobGrade(e.target.value as JobGrade)}
-            >
-              <option selected>Ninguno</option>
-              {jobGradeOptions.map((jobGradeOption) => (
-                <option key={jobGradeOption} value={jobGradeOption}>
-                  {jobGradeOption}
-                </option>
-              ))}
-            </Form.Control>
+            ></Form.Control>
           </Col>
         </Form.Group>
 
@@ -206,11 +138,10 @@ const RegisterBenchForm = (props: Props) => {
           </Form.Label>
           <Col sm={7}>
             <Form.Control
+              disabled
               type="text"
               placeholder="Introduzca su salario esperado en pesos"
-              value={expectedSalary}
               bsPrefix="encora-purple-input form-control"
-              onChange={(e) => setExpectedSalary(Number(e.target.value))}
             />
           </Col>
         </Form.Group>
@@ -221,11 +152,10 @@ const RegisterBenchForm = (props: Props) => {
           </Form.Label>
           <Col sm={7}>
             <Form.Control
+              disabled
               type="text"
               placeholder="Introduzca el télefono de contacto"
-              value={phoneNumber}
               bsPrefix="encora-purple-input form-control"
-              onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </Col>
         </Form.Group>
@@ -236,11 +166,10 @@ const RegisterBenchForm = (props: Props) => {
           </Form.Label>
           <Col sm={7}>
             <Form.Control
+              disabled
               type="text"
               placeholder="Introduzca su correo de contacto"
-              value={email}
               bsPrefix="encora-purple-input form-control"
-              onChange={(e) => setEmail(e.target.value)}
             />
           </Col>
         </Form.Group>
@@ -251,11 +180,10 @@ const RegisterBenchForm = (props: Props) => {
           </Form.Label>
           <Col sm={7}>
             <Form.Control
+              disabled
               type="text"
               placeholder="Introduzca su razón de bench"
-              value={reasonBench}
               bsPrefix="encora-purple-input form-control"
-              onChange={(e) => setReasonBench(e.target.value)}
             />
           </Col>
         </Form.Group>
@@ -266,46 +194,128 @@ const RegisterBenchForm = (props: Props) => {
           </Form.Label>
           <Col sm={7}>
             <Form.Control
+              disabled
               as="select"
-              value={proposedAction}
               bsPrefix="encora-purple-input form-control"
-              onChange={(e) =>
-                setProposedAction(e.target.value as ProposedAction)
-              }
-            >
-              <option selected>Ninguno</option>
-              {Object.keys(proposedActionOptions).map(
-                (proposedActionOption) => (
-                  <option
-                    key={proposedActionOption}
-                    value={proposedActionOption}
-                  >
-                    {
-                      proposedActionOptions[
-                        proposedActionOption as ProposedAction
-                      ]
-                    }
-                  </option>
-                )
-              )}
-            </Form.Control>
+            ></Form.Control>
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-2 row-width-form">
+          <Form.Label column sm={5} bsPrefix="label-style text-start">
+            Cliente Actual
+          </Form.Label>
+          <Col sm={7}>
+            <Form.Control
+              disabled
+              type="text"
+              bsPrefix="encora-purple-input form-control"
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-2 row-width-form">
+          <Form.Label column sm={5} bsPrefix="label-style text-start">
+            Cliente Anterior
+          </Form.Label>
+          <Col sm={7}>
+            <Form.Control
+              disabled
+              type="text"
+              bsPrefix="encora-purple-input form-control"
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-2 row-width-form">
+          <Form.Label column sm={5} bsPrefix="label-style text-start">
+            Empleado Desde
+          </Form.Label>
+          <Col sm={7}>
+            <Form.Control
+              disabled
+              type="date"
+              bsPrefix="encora-purple-input form-control"
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-2 row-width-form">
+          <Form.Label column sm={5} bsPrefix="label-style text-start">
+            Billing Desde
+          </Form.Label>
+          <Col sm={7}>
+            <Form.Control
+              disabled
+              type="date"
+              bsPrefix="encora-purple-input form-control"
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-2 row-width-form">
+          <Form.Label column sm={5} bsPrefix="label-style text-start">
+            Días en Billing
+          </Form.Label>
+          <Col sm={7}>
+            <Form.Control
+              disabled
+              type="text"
+              bsPrefix="encora-purple-input form-control"
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-2 row-width-form">
+          <Form.Label column sm={5} bsPrefix="label-style text-start">
+            Id del Empleado
+          </Form.Label>
+          <Col sm={7}>
+            <Form.Control
+              disabled
+              type="text"
+              bsPrefix="encora-purple-input form-control"
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-2 row-width-form">
+          <Form.Label column sm={5} bsPrefix="label-style text-start">
+            Creado En
+          </Form.Label>
+          <Col sm={7}>
+            <Form.Control
+              disabled
+              type="date"
+              bsPrefix="encora-purple-input form-control"
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-2 row-width-form">
+          <Form.Label column sm={5} bsPrefix="label-style text-start">
+            Última Actualización
+          </Form.Label>
+          <Col sm={7}>
+            <Form.Control
+              disabled
+              type="date"
+              bsPrefix="encora-purple-input form-control"
+            />
           </Col>
         </Form.Group>
       </div>
 
       <div className="button-wrapper">
-        <button type="submit" className="btn btn-primary encora-purple-button">
-          Registrar
-        </button>
         <button
-          className="btn btn-primary gray-button"
+          className="btn btn-primary encora-purple-button"
           onClick={() => props.setActiveModal(false)}
         >
-          Cancelar
+          Finalizar
         </button>
       </div>
     </Form>
   );
 };
 
-export default RegisterBenchForm;
+export default InfoBillingForm;

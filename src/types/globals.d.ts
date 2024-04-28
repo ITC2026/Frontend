@@ -43,7 +43,6 @@ type PeopleStatus = "Pipeline" | "Bench" | "Billing";
 
 type EmployeeStatus = "On Hired" | "Layoff" | "Resigned";
 
-  
 interface Person { 
 id: number;
 name: string;

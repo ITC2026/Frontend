@@ -1,11 +1,12 @@
 import "../../index.css";
 import "./style/ShortModal.css";
 import { ShortModalType } from "./modalType";
+import Form from "react-bootstrap/Form";
 
 interface ShortModalProps {
   typeOfModal: ShortModalType;
   btnArray?: React.ReactElement[];
-  onClose: () => void;
+  setActiveModal: (active: boolean) => void;
 }
 
 const renderModalContent = (typeOfModal: ShortModalType) => {
@@ -34,12 +35,19 @@ const renderModalContent = (typeOfModal: ShortModalType) => {
           </div>
         </>
       );
+      case "state":
+        return (
+          <Form>
+            <h1 className="heading-form">¿Desea Continuar?</h1>
+            <div className="form-group"></div>
+          </Form>
+        );
     default:
       break;
   }
 };
 
-const ShortModal = ({ typeOfModal, btnArray, onClose }: ShortModalProps) => {
+const ShortModal = ({ typeOfModal, btnArray, setActiveModal }: ShortModalProps) => {
   return (
     <div className="overlay background-gray">
       <div className="short-modal white">
@@ -49,7 +57,7 @@ const ShortModal = ({ typeOfModal, btnArray, onClose }: ShortModalProps) => {
           <button
             type="submit"
             className="btn btn-primary gray-button"
-            onClick={() => onClose()}
+            onClick={() => setActiveModal(true)}
           >
             Cancelar
           </button>

@@ -128,3 +128,18 @@ a:hover {
   background: #86352D !important;
   color: white !important;
 }
+
+.green-encora-button {
+  background: #8FC745 !important;
+  border: 0;
+}
+
+.green-encora-button:hover {
+  background: #e0fcb6 !important;
+  color: #8FC745 !important;
+}
+
+.green-encora-button:active {
+  background: #6A9628 !important;
+  color: white !important;
+}

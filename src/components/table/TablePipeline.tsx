@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import { Link } from 'react-router-dom';
 import SearchBar from '../searchbar/SearchBar';
@@ -6,7 +6,7 @@ import './Table.css';
 import { getPersonById } from '../../api/PersonAPI';
 
 interface Props {
-  entity: (Project | Position | Opening | Candidate)[];
+  entity: (Candidate)[];
   categories: { [key: string]: string };
   children?: JSX.Element;
 }
@@ -14,42 +14,80 @@ interface Props {
 const TablePipeline = (props: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [personNames, setPersonNames] = useState<{ [key: number]: string }>({});
+  const [jobTitles, setJobTitles] = useState<{ [key: number]: string }>({});
+  const [techStacks, setTechStacks] = useState<{ [key: number]: string }>({});
 
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term);
   };
 
   useEffect(() => {
-    const fetchPersonNames = async () => {
+    const fetchPersonData = async () => {
       const namesMap: { [key: number]: string } = {};
+      const jobTitleMap: { [key: number]: string } = {};
+      const techStackMap: { [key: number]: string } = {};
+  
       for (const entity of props.entity) {
+        const personId = entity.person_id;
         for (const key of Object.keys(props.categories)) {
-          const value = entity[key as keyof (Project | Position | Opening | Candidate)];
-          if (
-            props.categories[key] &&
-            props.categories[key].includes('Nombre') &&
-            value &&
-            !personNames[value]
-          ) {
-            try {
-              const person = await getPersonById(value);
-              if (!person) {
-                throw new Error('Person not found');
+          if (props.categories[key]) {
+            // Check if the category includes any of the desired data
+            if (props.categories[key].includes('Nombre') && personId && !personNames[personId]) {
+              try {
+                const person = await getPersonById(personId);
+                if (!person) {
+                  throw new Error('Person not found');
+                }
+                const personName = person.name.toString();
+                namesMap[personId] = personName;
+              } catch (error) {
+                console.error('Error fetching person name from ID:', error);
+                namesMap[personId] = 'Error fetching name';
               }
-              const personName = person.name.toString();
-              namesMap[value] = personName;
-            } catch (error) {
-              console.error('Error fetching person from ID:', error);
-              namesMap[value] = 'Error fetching name';
+            }
+  
+            if (props.categories[key].includes('Titulo de trabajo') && personId && !jobTitleMap[personId]) {
+              try {
+                const person = await getPersonById(personId);
+                if (!person) {
+                  throw new Error('Person not found');
+                }
+                const personJobTitle = person.title.toString();
+                jobTitleMap[personId] = personJobTitle;
+              } catch (error) {
+                console.error('Error fetching job title from ID:', error);
+                jobTitleMap[personId] = 'Error fetching job title';
+              }
+            }
+  
+            if (props.categories[key].includes('Tech Stack') && personId && !techStackMap[personId]) {
+              try {
+                const person = await getPersonById(personId);
+                if (!person) {
+                  throw new Error('Tech stack not found');
+                }
+                const personTechStack = person.tech_stack.toString();
+                techStackMap[personId] = personTechStack;
+              } catch (error) {
+                console.error('Error fetching tech stack from ID:', error);
+                techStackMap[personId] = 'Error fetching tech stack';
+              }
             }
           }
         }
       }
+  
+      // Update state with all fetched data
       setPersonNames((prevNames) => ({ ...prevNames, ...namesMap }));
+      setJobTitles((prevTitles) => ({ ...prevTitles, ...jobTitleMap }));
+      setTechStacks((prevStacks) => ({ ...prevStacks, ...techStackMap }));
     };
-
-    fetchPersonNames();
+  
+    fetchPersonData();
   }, [props.entity, props.categories]); // Trigger fetch when entity or categories change
+  
+
+
 
   const filteredEntity = props.entity.filter((entity) => {
     const searchableFields = Object.values(entity)
@@ -79,19 +117,28 @@ const TablePipeline = (props: Props) => {
         </thead>
         <tbody>
           {filteredEntity.map(
-            (entity: Project | Position | Opening | Candidate, index: number) => (
+            (entity: Candidate, index: number) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 {Object.keys(props.categories).map((key: string, columnIndex: number) => {
-                  const value =
-                    entity[key as keyof (Project | Position | Opening | Candidate)];
+                  const personId =
+                    entity.person_id;
+                  const value = entity[key as keyof Candidate];
                   if (
                     props.categories[key] &&
                     props.categories[key].includes('Nombre') &&
-                    value &&
-                    personNames[value]
+                    personId &&
+                    personNames[personId]
                   ) {
-                    return <td key={columnIndex}>{personNames[value]}</td>;
+                    return <td key={columnIndex}>{personNames[personId]}</td>;
+                  } if (
+                    props.categories[key].includes('Titulo de trabajo')
+                  ) {
+                    return <td key={columnIndex}>{jobTitles[personId]}</td>;
+                  } if (
+                    props.categories[key].includes('Tech Stack')
+                  ) {
+                    return <td key={columnIndex}>{techStacks[personId]}</td>;
                   } else {
                     return <td key={columnIndex}>{value?.toString()}</td>;
                   }

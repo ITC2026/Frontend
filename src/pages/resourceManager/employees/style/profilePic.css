@@ -9,6 +9,15 @@
   width: 120px;
   height: 120px;
 }
+
+.disabled-personal-avatar {
+  width: 120px;
+  height: 120px;
+  box-sizing: border-box;
+  border-radius: 100%;
+  transition: all ease-in-out .3s;
+}
+
 .personal-avatar {
   cursor: pointer;
   width: 120px;

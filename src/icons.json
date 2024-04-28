@@ -85,12 +85,12 @@
       "icon": "bi-gear"
     },
     {
-      "route": "/persons",
+      "route": "/people",
       "isSelected": true,
       "icon": "bi-person-lines-fill"
     },
     {
-      "route": "/persons",
+      "route": "/people",
       "isSelected": false,
       "icon": "bi-person-lines"
     }

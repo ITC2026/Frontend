@@ -1,13 +1,14 @@
-import "./Persons.css";
-import TableView from "../../../components/table/Table";
+import "./People.css";
+import TablePipeline from "../../../components/table/TablePipeline";
 import { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
-import ProjectModal from "../../accountManager/projects/ProjectModalExample";
+import PeopleModal from "./PersonModalExample";
 import { getAllPeople } from "../../../api/PersonAPI";
+import { getAllCandidates } from "../../../api/CandidateAPI";
 
 const pipeline_structure = {
-    name: "Nombre",
-    job_title: "Titulo de trabajo",
+    person_id: "Nombre",
+    title: "Titulo de trabajo",
     tech_stack: "Tech Stack",
     expected_salary: "Salario Esperado",
 };
@@ -19,7 +20,7 @@ interface PropTab {
 }
 
 const TabNav = (props: PropTab) => {
-  const projectTypeList = [
+  const personTypeList = [
     "Pipeline",
     "Bench",
     "Billing",
@@ -27,7 +28,7 @@ const TabNav = (props: PropTab) => {
 
   return (
     <ul className="nav nav-pills nav-fill">
-      {projectTypeList.map((type: string, index: number) => (
+      {personTypeList.map((type: string, index: number) => (
         <li key={index} className="nav-item">
           <a
             key={index}
@@ -44,6 +45,7 @@ const TabNav = (props: PropTab) => {
 
 const PersonsPage = () => {
     const [people, setPeople] = useState<Person[]>([]);
+    const [candidates, setCandidates] = useState<Candidate[]>([]);
     const [selected, setSelected] = useState<string>("Pipeline");
     const [registerPerson, setRegisterPerson] = useState<boolean>(false);
     const location = useLocation();
@@ -59,23 +61,19 @@ const PersonsPage = () => {
         );
     }, [registerPerson, location]);
 
-    const filteredPeople = people.filter((person) => {
-    if (selected === "Pipeline") {
-        return person.status === "Pipeline";
-    } else if (selected === "Bench") {
-        return person.status === "Bench";
-    } else if (selected === "Billing") {
-        return person.status === "Billing";
-    }
-    return true;
-    });
+    useEffect(() => {
+    !registerPerson &&
+        getAllCandidates().then((data: Candidate[] | undefined) =>
+        setCandidates(data || [])
+        );
+    }, [registerPerson, location]);
 
     return (
     <div className="project-page">
         <TabNav selected={selected} setSelected={setSelected} />
         <div className="project-header">
         <div className="project-header-title">
-            <h1>Proyectos</h1>
+            <h1>Personas</h1>
         </div>
 
         <Outlet />
@@ -87,7 +85,7 @@ const PersonsPage = () => {
         </div>
         <div className="project-table">
         {people && (
-            <TableView entity={filteredPeople as Person[]} categories={pipeline_structure}>
+            <TablePipeline entity={candidates} categories={pipeline_structure}>
             <button
                 className="project-register encora-purple-button text-light"
                 onClick={toggleRegisterPerson}
@@ -95,12 +93,12 @@ const PersonsPage = () => {
                 {" "}
                 Registrar Persona{" "}
             </button>
-            </TableView>
+            </TablePipeline>
         )}
         </div>
 
         {registerPerson && (
-        <ProjectModal
+        <PeopleModal
             isActive={registerPerson}
             setActiveModal={toggleRegisterPerson}
         />

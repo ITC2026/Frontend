@@ -21,7 +21,7 @@ import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
 
 //Resource
 import ResourceWrapper from "../pages/resourceManager/ResourceManagerWrapper";
-import People from "../pages/resourceManager/Persons/Persons";
+import People from "../pages/resourceManager/People/People";
 
 
 const router = createBrowserRouter([

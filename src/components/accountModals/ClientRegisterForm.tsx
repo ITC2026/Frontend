@@ -193,9 +193,6 @@ const ClientRegisterForm = (prop: Props) => {
       </Form.Group>
 
       <div className="button-wrapper">
-        <button type="button" className="btn  btn-primary gray-button">
-          Eliminar Cliente
-        </button>
         <button
           type="button"
           className="btn  btn-primary gray-button"

@@ -5,9 +5,11 @@ import LargeModal from "../../../components/modal/LargeModal";
 import ClientRegisterForm from "../../../components/accountModals/ClientRegisterForm";
 import { getAllClients } from "../../../api/ClientAPI";
 import { Outlet, useLocation } from "react-router-dom";
+import ClientModifyForm from "../../../components/accountModals/ClientModifyForm.tsx";
 
 const ClientPage = () => {
   const [registerVisible, setRegisterVisible] = useState<boolean>(false);
+  const [modifyVisible, setModifyVisible] = useState<boolean>(false);
   const pageSize = 8; // Number of clients per page
   const [clients, setClients] = useState<Client[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,18 +62,32 @@ const ClientPage = () => {
         >
           Registrar Cliente
         </button>
+        <div className="mostrar">
+          {registerVisible && (
+            //<RegistrarCliente setActiveModal={setRegisterVisible} />
+            <LargeModal
+              titleModal="Registrar Cliente"
+              formContent={
+                <ClientRegisterForm setActiveModal={setRegisterVisible} />
+              }
+            />
+          )}
+        </div>
       </div>
+
+      <button onClick={() => setModifyVisible(true)}>Modificar Cliente</button>
       <div className="mostrar">
-        {registerVisible && (
+        {modifyVisible && (
           //<RegistrarCliente setActiveModal={setRegisterVisible} />
           <LargeModal
-            titleModal="Registrar Cliente"
+            titleModal="Modificar Cliente"
             formContent={
-              <ClientRegisterForm setActiveModal={setRegisterVisible} />
+              <ClientModifyForm setActiveModal2={setModifyVisible} />
             }
           />
         )}
       </div>
+
       <div className="container">
         <div className="row">
           {currentClients.map((client) => (

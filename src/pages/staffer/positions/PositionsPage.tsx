@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './PositionsPage.css';
-import TableView from '../../../components/table/Table';
+import { Link } from 'react-router-dom';
+import TableStaffer from '../../../components/staffer/TableStaffer';
 import { getAllPositions } from '../../../api/PositionAPI';
 
 interface Position {
@@ -52,6 +53,11 @@ const PositionsPage: React.FC = () => {
             <div className="project-table-container">
                 <h1 className="table-title">{view}</h1>
                 <div className="table-wrapper">
+                    <Link to={"candidates"}>
+                        <button className='button'>
+                            <h1>Añadir Candidato</h1>
+                        </button>
+                    </Link>
                     <div className="position-details">
                         <div className="detail-column">
                             <div className="detail-row">
@@ -72,7 +78,7 @@ const PositionsPage: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <TableView entity={filterPositionsByType(positions, view)} types={positionBlueprint} categories="StafferProject" />
+                    <TableStaffer entity={filterPositionsByType(positions, view)} types={positionBlueprint} />
                 </div>
             </div>
         </div>

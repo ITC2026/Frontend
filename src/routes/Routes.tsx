@@ -19,6 +19,7 @@ import StafferWrapper from "../pages/staffer/StafferWrapper";
 import ProjectsPage from "../pages/staffer/projects/ProjectsPage";
 import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
 import PositionsPage from "../pages/staffer/positions/PositionsPage";
+import CandidatesPage from "../pages/staffer/candidates/CandidatesPage";
 
 
 
@@ -110,7 +111,7 @@ const router = createBrowserRouter([
     path: "staffer",
     element: (
       <>
-        <StafferWrapper route="/staffer" routes={["/", "/projects", "/people", "/people/"]} />
+        <StafferWrapper route="/staffer" routes={["/", "/projects", "/postulates", "/postulates/"]} />
       </>
     ),
     children: [
@@ -131,7 +132,11 @@ const router = createBrowserRouter([
         element: <PositionsPage />,
       },
       {
-        path: "people",
+        path: "projects/positions/candidates",
+        element: <CandidatesPage />
+      },
+      {
+        path: "postulates",
         element: <PostulatesPage />,
         children: [
           {

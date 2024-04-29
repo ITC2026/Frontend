@@ -36,7 +36,7 @@ export const createPerson = async (person: CreatePersonAttributes) => {
 };
 
 // Modify a person.
-export const modifyPerson = async (id: number, tPerson: Person) => {
+export const modifyPerson = async (id: number, tPerson: CreatePersonAttributes) => {
     try {
         const res = await api.patch(`${personRoute}/${id}`, {data: tPerson});
         const person: Person = await res.data.payload;

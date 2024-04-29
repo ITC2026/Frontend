@@ -4,7 +4,7 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 import TableView from "../../../../components/table/Table";
 import { useState, useEffect } from "react";
 import { getPositionsByProject } from "../../../../utils/Project/GetPositionFromProject";
-import { JobPositionModal } from "../../../../components/accountManager/job_positions/Forms/JobPositionModal";
+import { JobPositionModal } from "../../../../components/accountManager/job_positions/forms/JobPositionModal";
 import { Container, Row, Col } from "react-bootstrap";
 import ArrowLeft from "../../../../assets/arrow-left.png";
 import { job_position_structure } from "../../../../components/accountManager/projects/struct/JobPositionStruct";

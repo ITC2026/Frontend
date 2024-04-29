@@ -3,16 +3,24 @@ import "./styles/JobPositionTable.css";
 import { JobPositionStruct } from "./struct/JobPositionStruct";
 import TableView from "../../table/Table";
 import { useEffect, useState } from "react";
+import { getProjectTitleFromJobID } from "../../../utils/JobPositions/GetProjectFromJobID";
 
 const JobPositionTable = () => {
   const [jobPositions, setJobPositions] = useState<Position[]>([]);
-  
+
   useEffect(() => {
     getAllPositions().then(async (position: Position[] | undefined) => {
       if (!position) {
         return;
       }
-      setJobPositions(position);
+
+      const positionWithProject = await Promise.all(
+        position.map(async (pos: Position) => {
+          const proj_title = await getProjectTitleFromJobID(pos.id);
+          return { ...pos, project_title: proj_title };
+        }),
+      );
+      setJobPositions(positionWithProject);
     });
   }, [jobPositions]);
 
@@ -22,6 +30,8 @@ const JobPositionTable = () => {
         entity={jobPositions}
         categories={JobPositionStruct}
         hideIndex={true}
+        showEdit={true}
+        configBtn="Position"
       />
     </div>
   );

@@ -9,6 +9,7 @@ import ModalPage from "../pages/ModalPage/ModalPage";
 import ProjectInfoWrapper from "../pages/accountManager/projects/ProjectInfoWrapper";
 import ProjectModifyWrapper from "../pages/accountManager/projects/modify/ProjectModifyWrapper";
 import JobPositionPage from "../pages/accountManager/JobPositions/JobPosition";
+import OpeningTablePage from "../pages/accountManager/JobPositions/Openings/OpeningTablePage";
 
 import FirebaseStorage from "../pages/firebaseStorage/FirebaseStorage";
 import ClientPage from "../pages/accountManager/Clientes/ClientPage";
@@ -94,6 +95,11 @@ const router = createBrowserRouter([
             <JobPositionPage />
           </>
         ),
+        children: [],
+      },
+      {
+        path: "positions/:id/",
+        element: <OpeningTablePage />,
       },
     ],
     errorElement: <ErrorPage />,

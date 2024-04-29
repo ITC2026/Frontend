@@ -3,7 +3,7 @@ import TableView from "../../../components/table/Table";
 import { Project } from "../../../types/.";
 import { getAllProjects } from "../../../api/ProjectAPI";
 import { useState, useEffect } from "react";
-import { Outlet, useLocation } from "react-router";
+import { Outlet, useLocation } from "react-router-dom";
 import ProjectModal from "./ProjectModalExample";
 import getClientFromID from "../../../utils/Project/GetClientFromProject";
 import { TabNav } from "../../../components/accountManager/projects/TabNav";

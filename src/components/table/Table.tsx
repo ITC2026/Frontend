@@ -5,13 +5,14 @@ import { Link } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
 import "./Table.css";
 import { formatTimestamp } from "../../utils/Dates";
-
+import { ConfigIcons } from "../table/ConfigIcons/ConfigIcons";
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
   categories: { [key: string]: string };
   children?: JSX.Element;
   hideIndex?: boolean;
   showEdit?: boolean;
+  configBtn?: string;
 }
 
 const TableView = (props: Props) => {
@@ -87,6 +88,8 @@ const TableView = (props: Props) => {
                         <i className="bi bi-pencil-fill table-element"></i>
                       </Link>
                     )}
+
+                    <ConfigIcons entity={props.configBtn} id={entity.id} />
                   </div>
                 </td>
               </tr>

@@ -4,12 +4,13 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 import TableView from "../../../../components/table/Table";
 import { useState, useEffect } from "react";
 import { getPositionsByProject } from "../../../../utils/Project/GetPositionFromProject";
-import { JobPositionModal } from "./jobPositions/JobPositionModal";
-import { JobPositionForm } from "./jobPositions/JobPositionForm";
+import { JobPositionModal } from "../../../../components/accountManager/job_positions/Forms/JobPositionModal";
 import { Container, Row, Col } from "react-bootstrap";
-import ArrowLeft from "../../../../assets/arrow-left.png"
+import ArrowLeft from "../../../../assets/arrow-left.png";
+import { job_position_structure } from "../../../../components/accountManager/projects/struct/JobPositionStruct";
+
 /**
- * 
+ *
  Job Position Request Example
  * {
   "position_title": "Software Engineer",
@@ -26,14 +27,6 @@ import ArrowLeft from "../../../../assets/arrow-left.png"
   "project_id": 11
 }
  */
-const job_position_structure = {
-  id: "ID",
-  position_title: "Posicion",
-  division: "Division",
-  region: "Region",
-  tech_stack: "Tecnologia",
-  posting_type: "Tipo de publicacion",
-};
 
 const ProjectModifyWrapper = () => {
   const [jobPositions, setJobPositions] = useState<Position[]>([]);
@@ -42,32 +35,34 @@ const ProjectModifyWrapper = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-
   const { id } = useParams();
+
+  useEffect(() => {
+    console.log(`Register: ${showRegisterPositions}`);
+  }, [showRegisterPositions]);
+
   useEffect(() => {
     getPositionsByProject(Number(id)).then((positions) => {
       setJobPositions(positions);
     });
-  }, [location, id, jobPositions.length]);
+  }, [location, id, showRegisterPositions, setShowRegisterPositions]);
 
   return (
     <Container className="project-modify-wrapper">
       <Row className="project-modify-content">
         <Col>
           <div className="project-modify-return">
-            
             <a
               onClick={() => navigate("/account_manager/projects")}
               id="modify-id"
             >
-              <img src = {ArrowLeft} key = "arrow-left" /> 
-
+              <img src={ArrowLeft} key="arrow-left" />
             </a>
             <h1> Modificar Proyecto </h1>
           </div>
           <ProjectModifyForm />
 
-          <h2 className = "table-position-subtitle"> Posiciones del Proyecto </h2>
+          <h2 className="table-position-subtitle"> Posiciones del Proyecto </h2>
           <div className="table-positions">
             <TableView
               entity={jobPositions}
@@ -83,10 +78,7 @@ const ProjectModifyWrapper = () => {
             </TableView>
 
             {showRegisterPositions && (
-              <JobPositionModal
-                formContent={<JobPositionForm />}
-                setActiveModal={setShowRegisterPositions}
-              />
+              <JobPositionModal setActiveModal={setShowRegisterPositions} />
             )}
           </div>
         </Col>

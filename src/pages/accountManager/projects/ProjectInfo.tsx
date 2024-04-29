@@ -2,7 +2,9 @@ import Form from "react-bootstrap/Form";
 import getClientNamesAndIds from "../../../utils/Clients/GetClientNamesID";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { formatDate } from "../../../utils/Dates";
 
+import { getProjectById } from "../../../api/ProjectAPI";
 const ProjectInfo = () => {
   const [clients, setClients] = useState<{ id: string; name: string }[]>([]);
   const [projectName, setProjectName] = useState<string>("");
@@ -16,33 +18,23 @@ const ProjectInfo = () => {
     getClientNamesAndIds().then((data) => setClients(data));
   }, []);
 
-  const formatDate = (isoDateString: string): string => {
-    const date = new Date(isoDateString);
-    const year = date.getFullYear();
-    const month = (1 + date.getMonth()).toString().padStart(2, "0");
-    const day = (1 + date.getDate()).toString().padStart(2, "0");
-
-    return `${year}-${month}-${day}`;
-  };
-
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:3000/projects/${id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setProjectName(data.payload.project_title);
-          setProjectDescription(data.payload.project_description);
-          setSelectedClientId(data.payload.client_id);
-          setStartingDate(formatDate(data.payload.start_date));
-          setExpirationDate(
-            data.payload.has_expiration_date
-              ? formatDate(data.payload.expiration_date.expiration_date)
-              : ""
-          );
-          setHasExpirationDate(data.has_expiration_date);
-        });
+      getProjectById(Number(id)).then((data) => {
+        if (!data) {
+          return;
+        }
+        setProjectName(data.project_title);
+        setProjectDescription(data.project_description);
+        setSelectedClientId(String(data.client_id));
+        setStartingDate(formatDate(String(data.start_date)));
+        setHasExpirationDate(data.has_expiration_date);
+        setExpirationDate(
+          formatDate(String(data.expiration_date?.expiration_date)),
+        );
+      });
     }
   }, [
     expirationDate,
@@ -108,11 +100,7 @@ const ProjectInfo = () => {
 
       <Form.Group className="mb-3" controlId="formBasicDate">
         <Form.Label>Fecha de Expiracion</Form.Label>
-        <Form.Control
-          type="date"
-          defaultValue={expirationDate}
-          disabled={!hasExpirationDate}
-        />
+        <Form.Control type="date" defaultValue={expirationDate} disabled />
       </Form.Group>
 
       <button

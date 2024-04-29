@@ -8,6 +8,8 @@ import ProjectPage from "../pages/accountManager/projects/Projects";
 import ModalPage from "../pages/ModalPage/ModalPage";
 import ProjectInfoWrapper from "../pages/accountManager/projects/ProjectInfoWrapper";
 import ProjectModifyWrapper from "../pages/accountManager/projects/modify/ProjectModifyWrapper";
+import JobPositionPage from "../pages/accountManager/JobPositions/JobPosition";
+
 import FirebaseStorage from "../pages/firebaseStorage/FirebaseStorage";
 import ClientPage from "../pages/accountManager/Clientes/ClientPage";
 
@@ -73,15 +75,9 @@ const router = createBrowserRouter([
           },
         ],
       },
-
       {
-        path: "projects/edit",
-        children: [
-          {
-            path: ":id/",
-            element: <ProjectModifyWrapper />,
-          },
-        ],
+        path: "projects/edit/:id/",
+        element: <ProjectModifyWrapper />,
       },
       {
         path: "settings",
@@ -95,7 +91,7 @@ const router = createBrowserRouter([
         path: "positions",
         element: (
           <>
-            <h1>positions</h1>
+            <JobPositionPage />
           </>
         ),
       },

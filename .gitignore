@@ -27,6 +27,7 @@ TODO.md
 *.zed
 
 # Environment Files
+*.env
 .env
 .env.development.local
 .env.test.local

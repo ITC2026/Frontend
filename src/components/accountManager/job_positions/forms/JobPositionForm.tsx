@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./JobPositionForm.css";
 import { useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { createPosition } from "../../../../../api/PositionAPI";
+import { createPosition } from "../../../../api/PositionAPI";
 
 /**
  *

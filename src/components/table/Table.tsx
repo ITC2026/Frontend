@@ -12,7 +12,7 @@ interface Props {
   categories: { [key: string]: string };
 
   children?: JSX.Element;
-  
+
 }
 
 const TableView = (props: Props) => {
@@ -32,8 +32,8 @@ const TableView = (props: Props) => {
   return (
     <div>
       <div className="table-header">
-        <div className = "children-container">
-        {props.children}
+        <div className="children-container">
+          {props.children}
         </div>
         <SearchBar onSearchTermChange={handleSearchTermChange} />
       </div>
@@ -59,7 +59,7 @@ const TableView = (props: Props) => {
                 {Object.keys(props.categories).map((key: string, index: number) => {
                   const value =
                     entity[
-                      key as keyof (Project | Position | Opening | Person)
+                    key as keyof (Project | Position | Opening | Person)
                     ];
                   if (
                     props.categories[key] &&
@@ -79,6 +79,7 @@ const TableView = (props: Props) => {
                   </Link>
                   <Link to={`edit/${entity.id}`}>
                     <i className="bi bi-pencil-fill table-element"></i>
+
                   </Link>
                 </td>
               </tr>
@@ -91,4 +92,3 @@ const TableView = (props: Props) => {
 };
 
 export default TableView;
-

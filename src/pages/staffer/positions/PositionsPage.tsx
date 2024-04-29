@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './PositionsPage.css';
-import TableView from '../../../components/table/Table';
+import TableStaffer from '../../../components/staffer/TableStaffer';
 import { getAllPositions } from '../../../api/PositionAPI'; 
 
 const PositionsPage: React.FC = () => {
@@ -39,7 +39,7 @@ const PositionsPage: React.FC = () => {
             <div className="project-table-container">
                 <h1 className="table-title">{view}</h1>
                 <div className="table-wrapper">
-                    <TableView entity={filterPositionsByType(positions, view)} types={positionBlueprint} categories="StafferProject" />
+                    <TableStaffer entity={filterPositionsByType(positions, view)}  types={positionBlueprint} />
                 </div>
             </div>
         </div>

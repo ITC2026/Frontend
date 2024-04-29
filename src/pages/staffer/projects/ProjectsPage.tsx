@@ -25,7 +25,8 @@ const ProjectsPage = () => {
           const projects = await Promise.all(
             (data as Project[]).map(async (project : Project) => {
               const client = await getClientNameByProjectID(project.id);
-              return {...project, client_name: client};
+              const accountManager = await getAMUsernameForProject(project.id);
+              return { ...project, client_name: client, account_manager: accountManager };
             })
           );
           

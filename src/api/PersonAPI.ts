@@ -59,7 +59,7 @@ export const deletePerson = async (id: number) => {
 
 export const getProjectOfPersonByID = async (id: number) => {
     try {
-        const route = "/project";
+        const route = "project";
         const res = await api.get(`${personRoute}/${route}/${id}`);
         const project = res.data.payload as Project; 
         if (!project) {
@@ -74,7 +74,7 @@ export const getProjectOfPersonByID = async (id: number) => {
 
 export const getPositionOfPersonByID = async (id: number) => {
     try {
-        const route = "/position";
+        const route = "position";
         const res = await api.get(`${personRoute}/${route}/${id}`);
         const position = res.data.payload as Position;
         if (!position) {

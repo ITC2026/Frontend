@@ -6,6 +6,7 @@ import { useState } from "react";
 import { auth } from "../../firebase/initialize";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { signInWithPopup, OAuthProvider } from "firebase/auth";
+import { toast } from "react-toastify";
 
 const LoginCard = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const LoginCard = () => {
       const user = userCredential.user;
       console.log(user);
       navigate("/account_manager");
+      toast.success("¡Ha iniciado sesión exitosamente!")
     }) .catch ((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;

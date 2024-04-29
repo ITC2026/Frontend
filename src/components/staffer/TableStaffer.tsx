@@ -43,7 +43,7 @@ const TableStaffer = (prop: Props) => {
                 {type}
               </th>
             ))}
-            <th className="encora-purple text-light">Options</th>
+            <th className="encora-purple text-light">Opciones</th>
           </tr>
         </thead>
         <tbody>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './PositionsPage.css';
 import TableStaffer from '../../../components/staffer/TableStaffer';
+import { Link } from 'react-router-dom';
 import { getAllPositions } from '../../../api/PositionAPI'; 
 
 const PositionsPage: React.FC = () => {
@@ -37,9 +38,14 @@ const PositionsPage: React.FC = () => {
                 <button className='button' onClick={() => setView('Quality Control Tech')}>Quality Control Tech<br />ID: B12345<br />Vacantes Disponibles: 3 / 5</button>
             </div>
             <div className="project-table-container">
-                <h1 className="table-title">{view}</h1>
-                <div className="table-wrapper">
-                    <TableStaffer entity={filterPositionsByType(positions, view)}  types={positionBlueprint} />
+                <h1 className="table-title">{view}</h1>  
+                <div className="table-wrapper">    
+                    <Link to={"candidates"}>
+                        <button className='button'>
+                            <h1>Añadir Candidato</h1>
+                        </button>
+                    </Link>   
+                    <TableStaffer entity={filterPositionsByType(positions, view)} types={positionBlueprint}/>
                 </div>
             </div>
         </div>

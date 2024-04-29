@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { modifyProject, deleteProject } from "../../../../api/ProjectAPI";
 import ShortModal from "../../../../components/modal/ShortModal";
 import { formatDate } from "../../../../utils/Dates";
-
+import { getProjectById } from "../../../../api/ProjectAPI";
 const ProjectModifyForm = () => {
   const [showConfirmationDelete, setShowConfirmationDelete] =
     useState<boolean>(false);
@@ -44,21 +44,19 @@ const ProjectModifyForm = () => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:3000/projects/${id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setProjectName(data.payload.project_title);
-          setProjectDescription(data.payload.project_description);
-          setSelectedClientId(data.payload.client_id);
-          setStartingDate(formatDate(data.payload.start_date));
-          setExpirationDate(
-            data.payload.has_expiration_date
-              ? formatDate(data.payload.expiration_date.expiration_date)
-              : ""
-          );
-          setHasExpirationDate(data.payload.has_expiration_date);
-          setSelectedStatus(data.payload.general_status);
-        });
+      getProjectById(Number(id)).then((data) => {
+        if (!data) {
+          return;
+        }
+        setProjectName(data.project_title);
+        setProjectDescription(data.project_description);
+        setSelectedClientId(String(data.client_id));
+        setStartingDate(formatDate(String(data.start_date)));
+        setHasExpirationDate(data.has_expiration_date);
+        setExpirationDate(
+          formatDate(String(data.expiration_date?.expiration_date))
+        );
+      });
     }
   }, [id]);
 

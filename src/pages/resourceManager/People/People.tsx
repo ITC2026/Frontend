@@ -6,6 +6,7 @@ import { getAllPeople } from "../../../api/PersonAPI";
 import { getAllCandidates } from "../../../api/CandidateAPI";
 import { getAllEmployees } from "../../../api/EmployeeAPI";
 import  getAllEmployeesOnHired  from "../../resourceManager/functions/getAllEmployeesOnHired";
+import  getAllEmployeesNotOnHired  from "../../resourceManager/functions/getAllEmployeesNotOnHired";
 import TablePipeline from "../../../components/table/TablePipeline";
 import TableBench from "../../../components/table/TableBench";
 import TableBilling from "../../../components/table/TableBilling";
@@ -41,6 +42,7 @@ const PersonsPage = () => {
   const [, setPeople] = useState<Person[]>([]);
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const [employeesNotOnHired, setEmployeesNotOnHired] = useState<Employee[]>([]);
   const [employeesOnHired, setEmployeesOnHired] = useState<Employee[]>([]);
 
   const [selected, setSelected] = useState<string>("Pipeline");
@@ -61,6 +63,9 @@ const PersonsPage = () => {
       );
       getAllEmployees().then((data: Employee[] | undefined) =>
         setEmployees(data || [])
+      );
+      getAllEmployeesNotOnHired().then((data: Employee[] | undefined) =>
+        setEmployeesNotOnHired(data || [])
       );
       getAllEmployeesOnHired().then((data: Employee[] | undefined) =>
         setEmployeesOnHired(data || [])
@@ -84,7 +89,7 @@ const PersonsPage = () => {
       case "Bench":
         return (
           <TableBench
-            entity={employees}
+            entity={employeesNotOnHired}
             categories={bench_structure}
           />
         );

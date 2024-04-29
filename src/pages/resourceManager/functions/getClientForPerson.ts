@@ -1,6 +1,6 @@
 import { getClientById } from "../../../api/ClientAPI";
 import { getEmployeeById } from "../../../api/EmployeeAPI";
-import { getProjectOfPersonByID } from "../../../api/PersonAPI";
+import { getProjectOfPersonByIDResource } from "../../../api/PersonAPI";
 
 const getClientFromID = async (id: number) => {
     try {
@@ -8,7 +8,7 @@ const getClientFromID = async (id: number) => {
         if (!employee) {
             return "";
         }
-        const project = await getProjectOfPersonByID(employee.person_id);
+        const project = await getProjectOfPersonByIDResource(employee.person_id);
         if (!project) {
             return "";
         }

@@ -5,7 +5,7 @@ import SearchBar from '../searchbar/SearchBar';
 import './Table.css';
 import { getPersonById } from '../../api/PersonAPI';
 import  getClientForPerson  from '../../pages/resourceManager/functions/getClientForPerson';
-import getProjectForPerson from '../../pages/resourceManager/functions/getProjectForPerson';
+import getProjectForPerson from '../../pages/staffer/functions/forPostulates/getProjectForPerson';
 import getBillRateForBilling from '../../pages/resourceManager/functions/getBillRateForBilling';
 
 interface Props {

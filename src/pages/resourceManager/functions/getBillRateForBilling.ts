@@ -1,5 +1,5 @@
 import { getEmployeeById } from "../../../api/EmployeeAPI";
-import { getPositionOfPersonByID } from "../../../api/PersonAPI";
+import { getPositionOfPersonByIDResource } from "../../../api/PersonAPI";
 
 const getClientFromID = async (id: number) => {
     try {
@@ -7,7 +7,7 @@ const getClientFromID = async (id: number) => {
         if (!employee) {
             return "";
         }
-        const position = await getPositionOfPersonByID(employee.person_id);
+        const position = await getPositionOfPersonByIDResource(employee.person_id);
         if (!position) {
             return "";
         }

@@ -4,14 +4,6 @@ import { Link } from 'react-router-dom';
 import TableStaffer from '../../../components/staffer/TableStaffer';
 import { getAllPositions } from '../../../api/PositionAPI';
 
-interface Position {
-    candidate_name: string;
-    application_status: string;
-    company_status: string;
-    application_date: string;
-    posting_type: string;
-}
-
 const PositionsPage: React.FC = () => {
     const [view, setView] = useState<'Fiber Technician' | 'Quality Control Tech'>('Fiber Technician');
     const [positions, setPositions] = useState<Position[]>([]);

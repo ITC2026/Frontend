@@ -1,5 +1,5 @@
-import { getEmployeeById } from "../../../../api/EmployeeAPI";
-import { getPositionOfPersonByID } from "../../../../api/PersonAPI";
+import { getEmployeeById } from "../../../api/EmployeeAPI";
+import { getPositionOfPersonByID } from "../../../api/PersonAPI";
 
 const getClientFromID = async (id: number) => {
     try {

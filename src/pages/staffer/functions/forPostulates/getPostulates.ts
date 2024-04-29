@@ -8,15 +8,15 @@ const checkPersonIsPostulate = async (id: number): Promise<boolean> => {
         console.error("Error fetching position from ID:", error);
         return false;
     }
-};
+}; 
 
-const getPostulates = async (): Promise<Person[]> => {
+const getPostulates = async (isCandidate: boolean): Promise<Person[]> => {
     const people: Person[] = await getAllPeople() as Person[];
     
     const postulates = await Promise.all(
         people.map(async (person) => {
             const isPostulate = await checkPersonIsPostulate(person.id);
-            if (isPostulate) {
+            if (isPostulate === !isCandidate) {
                 return person;
             }
             return null;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TableStaffer from '../../../components/staffer/TableStaffer';
-import { getAllPeople } from '../../../api/PersonAPI';
+import getPostulates from '../functions/forPostulates/getPostulates';
 import { Link } from 'react-router-dom';
 import '../postulates/PostulatesPage.css';
 
@@ -16,7 +16,7 @@ const CandidatesPage: React.FC = () => {
     };
 
     useEffect(() => {
-        getAllPeople().then(async (data: Person[] | undefined) => {
+        getPostulates(true).then(async (data: Person[] | undefined) => {
             if (!data) {
                 return;
             }

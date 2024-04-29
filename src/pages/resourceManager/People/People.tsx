@@ -41,7 +41,7 @@ salary: "Salario"
 const PersonsPage = () => {
   const [, setPeople] = useState<Person[]>([]);
   const [candidates, setCandidates] = useState<Candidate[]>([]);
-  const [employees, setEmployees] = useState<Employee[]>([]);
+  const [, setEmployees] = useState<Employee[]>([]);
   const [employeesNotOnHired, setEmployeesNotOnHired] = useState<Employee[]>([]);
   const [employeesOnHired, setEmployeesOnHired] = useState<Employee[]>([]);
 

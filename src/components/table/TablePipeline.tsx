@@ -3,10 +3,10 @@ import Table from 'react-bootstrap/Table';
 import { Link } from 'react-router-dom';
 import SearchBar from '../searchbar/SearchBar';
 import './Table.css';
-import { getPersonById } from '../../api/PersonAPI';
+import { getAllCandidates } from '../../api/CandidateAPI';
 
 interface Props {
-  entity: (Candidate)[];
+  entity: (Person)[];
   categories: { [key: string]: string };
   children?: JSX.Element;
 }
@@ -16,6 +16,7 @@ const TablePipeline = (props: Props) => {
   const [personNames, setPersonNames] = useState<{ [key: number]: string }>({});
   const [jobTitles, setJobTitles] = useState<{ [key: number]: string }>({});
   const [techStacks, setTechStacks] = useState<{ [key: number]: string }>({});
+  const [salarioEsperado, setSalarioEsperado] = useState<{ [key: number]: string }>({});
 
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term);
@@ -26,19 +27,16 @@ const TablePipeline = (props: Props) => {
       const namesMap: { [key: number]: string } = {};
       const jobTitleMap: { [key: number]: string } = {};
       const techStackMap: { [key: number]: string } = {};
+      const SalarioEsperadoMap: { [key: number]: string } = {};
   
       for (const entity of props.entity) {
-        const personId = entity.person_id;
+        const personId = entity.id;
         for (const key of Object.keys(props.categories)) {
           if (props.categories[key]) {
             // Check if the category includes any of the desired data
             if (props.categories[key].includes('Nombre') && personId && !personNames[personId]) {
               try {
-                const person = await getPersonById(personId);
-                if (!person) {
-                  throw new Error('Person not found');
-                }
-                const personName = person.name.toString();
+                const personName = entity.name.toString();
                 namesMap[personId] = personName;
               } catch (error) {
                 console.error('Error fetching person name from ID:', error);
@@ -48,11 +46,7 @@ const TablePipeline = (props: Props) => {
   
             if (props.categories[key].includes('Titulo de trabajo') && personId && !jobTitleMap[personId]) {
               try {
-                const person = await getPersonById(personId);
-                if (!person) {
-                  throw new Error('Person not found');
-                }
-                const personJobTitle = person.title.toString();
+                const personJobTitle = entity.title.toString();
                 jobTitleMap[personId] = personJobTitle;
               } catch (error) {
                 console.error('Error fetching job title from ID:', error);
@@ -62,15 +56,25 @@ const TablePipeline = (props: Props) => {
   
             if (props.categories[key].includes('Tech Stack') && personId && !techStackMap[personId]) {
               try {
-                const person = await getPersonById(personId);
-                if (!person) {
-                  throw new Error('Tech stack not found');
-                }
-                const personTechStack = person.tech_stack.toString();
+                const personTechStack = entity.tech_stack.toString();
                 techStackMap[personId] = personTechStack;
               } catch (error) {
                 console.error('Error fetching tech stack from ID:', error);
                 techStackMap[personId] = 'Error fetching tech stack';
+              }
+            }
+            if (props.categories[key].includes('Salario Esperado') && personId && !SalarioEsperadoMap[personId]) {
+              try {
+                const candidates = await getAllCandidates();
+                if (!candidates) {
+                  throw new Error('Candidates not found');
+                }
+                const candidate = candidates.find((candidate) => candidate.id === personId);
+                const personExpectedSalary = candidate?.expected_salary;
+                SalarioEsperadoMap[personId] = personExpectedSalary?.toString() || 'Error fetching expected salary';
+              } catch (error) {
+                console.error('Error fetching tech stack from ID:', error);
+                SalarioEsperadoMap[personId] = 'Error fetching expected salary';
               }
             }
           }
@@ -81,6 +85,7 @@ const TablePipeline = (props: Props) => {
       setPersonNames((prevNames) => ({ ...prevNames, ...namesMap }));
       setJobTitles((prevTitles) => ({ ...prevTitles, ...jobTitleMap }));
       setTechStacks((prevStacks) => ({ ...prevStacks, ...techStackMap }));
+      setSalarioEsperado((prevSalario) => ({ ...prevSalario, ...SalarioEsperadoMap }));
     };
   
     fetchPersonData();
@@ -117,13 +122,13 @@ const TablePipeline = (props: Props) => {
         </thead>
         <tbody>
           {filteredEntity.map(
-            (entity: Candidate, index: number) => (
+            (entity: Person, index: number) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 {Object.keys(props.categories).map((key: string, columnIndex: number) => {
                   const personId =
-                    entity.person_id;
-                  const value = entity[key as keyof Candidate];
+                    entity.id;
+                  const value = entity[key as keyof Person];
                   if (
                     props.categories[key] &&
                     props.categories[key].includes('Nombre') &&
@@ -139,6 +144,10 @@ const TablePipeline = (props: Props) => {
                     props.categories[key].includes('Tech Stack')
                   ) {
                     return <td key={columnIndex}>{techStacks[personId]}</td>;
+                  } if (
+                    props.categories[key].includes('Salario Esperado')
+                  ) {
+                    return <td key={columnIndex}>{salarioEsperado[personId]}</td>;
                   } else {
                     return <td key={columnIndex}>{value?.toString()}</td>;
                   }

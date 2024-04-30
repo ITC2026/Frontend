@@ -5,11 +5,12 @@ import SearchBar from '../searchbar/SearchBar';
 import './Table.css';
 import { getPersonById } from '../../api/PersonAPI';
 import  getClientForPerson  from '../../pages/resourceManager/functions/getClientForPerson';
-import getProjectForPerson from '../../pages/staffer/functions/forPostulates/getProjectForPerson';
 import getBillRateForBilling from '../../pages/resourceManager/functions/getBillRateForBilling';
+import getProjectForPerson from '../../pages/resourceManager/functions/getProjectForPerson';
+import getSalaryForEmployee from '../../pages/resourceManager/functions/getSalaryForEmployee';
 
 interface Props {
-  entity: (Employee)[];
+  entity: (Person)[];
   categories: { [key: string]: string };
   children?: JSX.Element;
 }
@@ -22,6 +23,7 @@ const TableBench = (props: Props) => {
   const [clients, setClients] = useState<{ [key: number]: string }>({});
   const [projects, setProjects] = useState<{ [key: number]: string }>({});
     const [billRate, setBillRate] = useState<{ [key: number]: string }>({});
+    const [salary, setSalary] = useState<{ [key: number]: string }>({});
 
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term);
@@ -35,9 +37,10 @@ const TableBench = (props: Props) => {
       const clientMap: { [key: number]: string } = {};
       const projectMap: { [key: number]: string } = {};
       const billRateMap: { [key: number]: string } = {};
+      const salaryMap: { [key: number]: string } = {};
 
       for (const entity of props.entity) {
-        const personId = entity.person_id;
+        const personId = entity.id;
         for (const key of Object.keys(props.categories)) {
           if (props.categories[key]) {
             // Check if the category includes any of the desired data
@@ -75,7 +78,7 @@ const TableBench = (props: Props) => {
                   if (!client) {
                     throw new Error('Client not found');
                   }
-                  clientMap[personId] = client;
+                  clientMap[personId] = client.toString();
                 } catch (error) {
                   console.error('Error fetching client from ID:', error);
                   clientMap[personId] = 'Error fetching client';
@@ -114,12 +117,26 @@ const TableBench = (props: Props) => {
                   if (!billRate) {  
                     throw new Error('Bill Rate not found');
                   }
-                  billRateMap[personId] = billRate;
+                  billRateMap[personId] = billRate.toString();
                 } catch (error) {
                   console.error('Error fetching Bill Rate from ID:', error);
                   billRateMap[personId] = 'Error fetching Bill Rate';
                 }
               }
+              if (props.categories[key].includes('Salario') && personId && !salaryMap[personId]) {
+                try {
+                  const salary = await getSalaryForEmployee(personId);
+                  if (!salary) {
+                    throw new Error('Person not found');
+                  }
+                  const personSalary = salary;
+                  salaryMap[personId] = personSalary.toString();
+                } catch (error) {
+                  console.error('Error fetching salary from ID:', error);
+                  salaryMap[personId] = 'Error fetching salary';
+                }
+              }
+
           }
         }
       }
@@ -131,6 +148,7 @@ const TableBench = (props: Props) => {
       setClients((prevClients) => ({ ...prevClients, ...clientMap }));
       setProjects((prevProjects) => ({ ...prevProjects, ...projectMap }));
       setBillRate((prevBillRate) => ({ ...prevBillRate, ...billRateMap }));
+      setSalary((prevSalary) => ({ ...prevSalary, ...salaryMap }));
     };
   
     fetchPersonData();
@@ -167,13 +185,13 @@ const TableBench = (props: Props) => {
         </thead>
         <tbody>
           {filteredEntity.map(
-            (entity: Employee, index: number) => (
+            (entity: Person, index: number) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 {Object.keys(props.categories).map((key: string, columnIndex: number) => {
                   const personId =
-                    entity.person_id;
-                  const value = entity[key as keyof Employee];
+                    entity.id;
+                  const value = entity[key as keyof Person];
                   if (
                     props.categories[key] &&
                     props.categories[key].includes('Nombre') &&
@@ -206,6 +224,11 @@ const TableBench = (props: Props) => {
                         props.categories[key].includes('Billing Rate')
                       ) {
                         return <td key={columnIndex}>{billRate[personId]}</td>;
+                      }
+                      if (
+                        props.categories[key].includes('Salario')
+                      ) {
+                        return <td key={columnIndex}>{salary[personId]}</td>;
                       }
 
                    else {

@@ -1,12 +1,11 @@
 import "./People.css";
 import { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
-import PeopleModal from "./PersonModalExample";
+
+import PeopleModal from "./RegisterPerson";
+
 import { getAllPeople } from "../../../api/PersonAPI";
-import { getAllCandidates } from "../../../api/CandidateAPI";
-import { getAllEmployees } from "../../../api/EmployeeAPI";
-import  getAllEmployeesOnHired  from "../../resourceManager/functions/getAllEmployeesOnHired";
-import  getAllEmployeesNotOnHired  from "../../resourceManager/functions/getAllEmployeesNotOnHired";
+
 import TablePipeline from "../../../components/table/TablePipeline";
 import TableBench from "../../../components/table/TableBench";
 import TableBilling from "../../../components/table/TableBilling";
@@ -39,11 +38,7 @@ salary: "Salario"
 
 
 const PersonsPage = () => {
-  const [, setPeople] = useState<Person[]>([]);
-  const [candidates, setCandidates] = useState<Candidate[]>([]);
-  const [, setEmployees] = useState<Employee[]>([]);
-  const [employeesNotOnHired, setEmployeesNotOnHired] = useState<Employee[]>([]);
-  const [employeesOnHired, setEmployeesOnHired] = useState<Employee[]>([]);
+  const [people, setPeople] = useState<Person[]>([]);
 
   const [selected, setSelected] = useState<string>("Pipeline");
   const [registerPerson, setRegisterPerson] = useState<boolean>(false);
@@ -58,20 +53,21 @@ const PersonsPage = () => {
       getAllPeople().then((data: Person[] | undefined) =>
         setPeople(data || [])
       );
-      getAllCandidates().then((data: Candidate[] | undefined) =>
-        setCandidates(data || [])
-      );
-      getAllEmployees().then((data: Employee[] | undefined) =>
-        setEmployees(data || [])
-      );
-      getAllEmployeesNotOnHired().then((data: Employee[] | undefined) =>
-        setEmployeesNotOnHired(data || [])
-      );
-      getAllEmployeesOnHired().then((data: Employee[] | undefined) =>
-        setEmployeesOnHired(data || [])
-      );
     }
   }, [registerPerson, location]);
+
+  const filteredPeople = people.filter((person) => {
+    if (selected === "Pipeline") {
+      return person.status === "Pipeline";
+    } else if (selected === "Bench") {
+      return person.status === "Bench";
+    } else if (selected === "Billing") {
+      return person.status === "Billing";
+    }
+    return true;
+  });
+
+  console.log(selected);
 
   const handleTableChange = (type: string) => {
     setSelected(type);
@@ -82,21 +78,21 @@ const PersonsPage = () => {
       case "Pipeline":
         return (
           <TablePipeline
-            entity={candidates}
+            entity={filteredPeople}
             categories={pipeline_structure}
           />
         );
       case "Bench":
         return (
           <TableBench
-            entity={employeesNotOnHired}
+            entity={filteredPeople}
             categories={bench_structure}
           />
         );
       case "Billing":
         return (
           <TableBilling
-            entity={employeesOnHired} // Assuming employees data for billing
+            entity={filteredPeople}
             categories={billing_structure}
           />
         );
@@ -130,14 +126,34 @@ const PersonsPage = () => {
               className="project-register encora-purple-button text-light"
               onClick={toggleRegisterPerson}
             >
-              Registrar Persona
+              Registrar en Pipeline
+            </button>
+          </div>
+        )}
+        {selected === "Bench" && (
+          <div className="project-register-wrapper">
+            <button
+              className="project-register encora-purple-button text-light"
+              onClick={toggleRegisterPerson}
+            >
+              Registrar en Bench
+            </button>
+          </div>
+        )}
+        {selected === "Billing" && (
+          <div className="project-register-wrapper">
+            <button
+              className="project-register encora-purple-button text-light"
+              onClick={toggleRegisterPerson}
+            >
+              Registrar en Billing
             </button>
           </div>
         )}
       </div>
       <div className="project-table">{renderTable()}</div>
       {registerPerson && (
-        <PeopleModal isActive={registerPerson} setActiveModal={toggleRegisterPerson} />
+        <PeopleModal currentTable={selected} setActiveModal={toggleRegisterPerson} />
       )}
     </div>
   );

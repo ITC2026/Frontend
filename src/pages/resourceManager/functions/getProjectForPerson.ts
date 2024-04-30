@@ -1,8 +1,9 @@
 import { getAllPositions } from "../../../api/PositionAPI";
+import { getAllProjects } from "../../../api/ProjectAPI";
 
 import getAllFilledOpenings from "./getAllFilledOpenings";
 
-const getBillRateForBilling = async (id: number) => {
+const getProjectForPerson = async (id: number) => {
     try {
 
         console.log("ESTE ES EL ID DE TU PERSONA: ", id);
@@ -17,6 +18,11 @@ const getBillRateForBilling = async (id: number) => {
             return "";
         }
 
+        const projects = await getAllProjects();
+        if (!projects) {
+            return "";
+        }
+
         const employeeOpening = openings.find((opening) => opening.person_id === id);
         if (!employeeOpening) {
             return "";
@@ -27,7 +33,14 @@ const getBillRateForBilling = async (id: number) => {
             return "";
         }
 
-        return openingJobPosition.bill_rate;
+
+
+        const jobPositionProject = projects.find((project) => project.id === openingJobPosition.project_id);
+        if (!jobPositionProject) {
+            return "";
+        }
+
+        return jobPositionProject.project_title;
     
     } catch (error) {
       console.error("Error fetching client from ID:", error);
@@ -35,4 +48,4 @@ const getBillRateForBilling = async (id: number) => {
     }
 };
 
-export default getBillRateForBilling;
+export default getProjectForPerson;

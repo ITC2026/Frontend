@@ -6,6 +6,8 @@ import Row from "react-bootstrap/esm/Row";
 import { useState, useEffect } from "react";
 import getProjectNamesAndIds from "../../../../utils/People/GetProjectNamesId";
 import getPositionNamesAndIds from "../../../../utils/People/GetPositionNamesId";
+import { createPerson } from "../../../../api/PersonAPI";
+
 import {
   genderOptions,
   techStackOptions,
@@ -13,7 +15,9 @@ import {
   regionOptions,
   jobGradeOptions,
   proposedActionOptions,
+  statusReasonOptions,
 } from "../Options";
+import getClientNamesAndIds from "../../../../utils/Clients/GetClientNamesID";
 
 interface Props {
   setActiveModal: (active: boolean) => void;
@@ -31,20 +35,61 @@ const RegisterBillingForm = (props: Props) => {
   const [expectedSalary, setExpectedSalary] = useState<number>(0);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [reasonBench, setReasonBench] = useState<string>("");
+  const [reasonBench, setReasonBench] = useState<StatusReason | "Ninguno">("Ninguno");
   const [proposedAction, setProposedAction] = useState<ProposedAction | "Ninguno">("Ninguno");
   const [projectIds, setProjectIds] = useState<{ id: string; name: string }[]>([]);
+  const [clientsIds, setClientsIds] = useState<{ id: string; name: string }[]>([]);
   const [selectedProjectId, selectedSetProjectId] = useState<string>("");
   const [jobPositionIds, setJobPositionIds] = useState<{ id: string; name: string }[]>([]);
   const [selectedJobPositionId, selectedSetJobPositionId] = useState<string>("");
+  const [selectedClientId, setSelectedClientId] = useState<string>("");
+
+  const general_status = "Billing";
+  const salary: number = 1111;
+  const employee_status = "On Hired";
+
+  const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const candidateToSubmit: CreatePersonAttributes = {
+      name: name,
+      phone: phoneNumber,
+      email: email,
+      title: title,
+      tech_stack: techStack,
+      division: division,
+      region: region,
+      gender: gender,
+      expected_salary: expectedSalary,
+      status: general_status,
+      salary: salary,
+      job_grade: jobGrade,
+      proposed_action: proposedAction,
+      employee_status: employee_status,
+      employee_reason: reasonBench,
+      client_id: selectedClientId,
+      project_id: selectedProjectId,
+    };
+    console.log(`Submitting project: ${JSON.stringify(candidateToSubmit)}`);
+    createPerson(candidateToSubmit)
+      .then(() => {
+        console.log("Project submitted successfully");
+        props.setActiveModal(false);
+      })
+      .catch((error) => {
+        console.error("Error submitting project:", error);
+      });
+  };
+
 
   useEffect(() => {
     getProjectNamesAndIds().then((data) => setProjectIds(data));
+    getClientNamesAndIds().then((data) => setClientsIds(data));
     getPositionNamesAndIds().then((data) => setJobPositionIds(data));
   }, []);
 
   return (
-    <Form className="form-group-person">
+    <Form className="form-group-person" onSubmit={submitForm}>
       <div className="top-form">
         <div className="leftside-top-form">
           <Form.Group className="mb-3 personal-image">
@@ -258,16 +303,33 @@ const RegisterBillingForm = (props: Props) => {
 
         <Form.Group as={Row} className="mb-2 row-width-form">
           <Form.Label column sm={5} bsPrefix="label-style text-start">
-            Razón de Bench
+            Razón de Billing
           </Form.Label>
           <Col sm={7}>
             <Form.Control
-              type="text"
-              placeholder="Introduzca su razón de bench"
+              as="select"
               value={reasonBench}
               bsPrefix="encora-purple-input form-control"
-              onChange={(e) => setReasonBench(e.target.value)}
-            />
+              onChange={(e) => 
+                setReasonBench(e.target.value as StatusReason)
+              }
+              >
+              <option selected>Ninguno</option>
+              {Object.keys(statusReasonOptions).map(
+                (statusReasonOption) => (
+                  <option
+                    key={statusReasonOption}
+                    value={statusReasonOption}
+                  >
+                    {
+                      statusReasonOptions[
+                        statusReasonOption as StatusReason
+                      ]
+                    }
+                  </option>
+                )
+              )}
+              </Form.Control>
           </Col>
         </Form.Group>
 
@@ -299,6 +361,26 @@ const RegisterBillingForm = (props: Props) => {
                   </option>
                 )
               )}
+            </Form.Control>
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-2 row-width-form">
+          <Form.Label column sm={5} bsPrefix="label-style text-start">
+            Cliente
+          </Form.Label>
+          <Col sm={7}>
+            <Form.Control
+              as="select"
+              value={selectedClientId}
+              onChange={(e) => setSelectedClientId(e.target.value)}
+            >
+              <option selected>Ninguno</option>
+              {clientsIds.map((client) => (
+                <option key={client.id} value={client.id}>
+                  {client.name}
+                </option>
+              ))}
             </Form.Control>
           </Col>
         </Form.Group>

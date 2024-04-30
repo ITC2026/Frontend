@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import SearchBar from '../searchbar/SearchBar';
 import './Table.css';
 import { getPersonById } from '../../api/PersonAPI';
+import { getEmployeeById } from '../../api/EmployeeAPI';
 
 interface Props {
-  entity: (Employee)[];
+  entity: (Person)[];
   categories: { [key: string]: string };
   children?: JSX.Element;
 }
@@ -18,6 +19,7 @@ const TableBench = (props: Props) => {
   const [jobTitles, setJobTitles] = useState<{ [key: number]: string }>({});
   const [techStacks, setTechStacks] = useState<{ [key: number]: string }>({});
   const [daysOnBench, setDaysOnBench] = useState<{ [key: number]: string }>({});
+  const [accionPropuesta, setAccionPropuesta] = useState<{ [key: number]: string }>({});
 
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term);
@@ -32,7 +34,7 @@ const TableBench = (props: Props) => {
       const daysOnBenchMap: { [key: number]: string } = {};
 
       for (const entity of props.entity) {
-        const personId = entity.person_id;
+        const personId = entity.id;
         for (const key of Object.keys(props.categories)) {
           if (props.categories[key]) {
             // Check if the category includes any of the desired data
@@ -93,13 +95,30 @@ const TableBench = (props: Props) => {
             }
             if (props.categories[key].includes('Días en el bench') && personId && !daysOnBenchMap[personId]) {
                 try {
-                  const on_bench_since = entity.last_movement_at;
+                  const employee = await getEmployeeById(personId);
+                  if (!employee) {
+                    throw new Error('Employee not found');
+                  }
+                  const on_bench_since = employee.last_movement_at;
                   const today = new Date();
                   const days_on_bench = Math.floor((today.getTime() - new Date(on_bench_since).getTime()) / (1000 * 60 * 60 * 24));
                   daysOnBenchMap[personId] = days_on_bench.toString();
                 } catch (error) {
                   console.error('Error getting days on bench:', error);
                   daysOnBenchMap[personId] = 'Error fetching days on bench';
+                }
+              }
+              if (props.categories[key].includes('Acción Propuesta') && personId && !accionPropuesta[personId]) {
+                try {
+                  const employee = await getEmployeeById(personId);
+                  if (!employee) {
+                    throw new Error('Employee not found');
+                  }
+                  const proposed_action = employee.proposed_action;
+                  accionPropuesta[personId] = proposed_action;
+                } catch (error) {
+                  console.error('Error getting proposed action:', error);
+                  accionPropuesta[personId] = 'Error fetching proposed action';
                 }
               }
           }
@@ -112,6 +131,7 @@ const TableBench = (props: Props) => {
       setJobTitles((prevTitles) => ({ ...prevTitles, ...jobTitleMap }));
       setTechStacks((prevStacks) => ({ ...prevStacks, ...techStackMap }));
       setDaysOnBench((prevDays) => ({ ...prevDays, ...daysOnBenchMap }));
+      setAccionPropuesta((prevAccion) => ({ ...prevAccion, ...accionPropuesta }));
     };
   
     fetchPersonData();
@@ -148,13 +168,13 @@ const TableBench = (props: Props) => {
         </thead>
         <tbody>
           {filteredEntity.map(
-            (entity: Employee, index: number) => (
+            (entity: Person, index: number) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 {Object.keys(props.categories).map((key: string, columnIndex: number) => {
                   const personId =
-                    entity.person_id;
-                  const value = entity[key as keyof Employee];
+                    entity.id;
+                  const value = entity[key as keyof Person];
                   if (
                     props.categories[key] &&
                     props.categories[key].includes('Nombre') &&
@@ -182,8 +202,11 @@ const TableBench = (props: Props) => {
                     props.categories[key].includes('Días en el bench')
                   ) {
                     return <td key={columnIndex}>{daysOnBench[personId]}</td>;
-                  }
-                   else {
+                  } if (
+                    props.categories[key].includes('Acción Propuesta')
+                  ) {
+                    return <td key={columnIndex}>{accionPropuesta[personId]}</td>;
+                  } else {
                     return <td key={columnIndex}>{value?.toString()}</td>;
                   }
                 })}

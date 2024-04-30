@@ -53,3 +53,21 @@ export const proposedActionOptions: Record<ProposedAction, string> = {
   "Others": "Otros",
   "Attrition": "Desgaste"
 };
+
+export const statusReasonOptions: Record<StatusReason, string> = {
+  "In Training": "En Entrenamiento",
+  "Induction / Orientation": "Inducción / Orientación",
+  "Shadow Resources": "Recursos en Sombra",
+  "Awaiting Client Confirmation Joining": "Esperando Confirmación del Cliente",
+  "Maternity Leave": "Licencia de Maternidad",
+  "Sabbatical / Other Leave": "Sabático / Otra Licencia",
+  "Previous Client Attrition": "Desgaste del Cliente Anterior",
+  "Previous Client HC Reduction": "Reducción de Personal del Cliente Anterior",
+  "Transition Between Projects": "Transición Entre Proyectos",
+  "No Available Projects": "No hay Proyectos Disponibles",
+  "Internal Project": "Proyecto Interno",
+  "Moved To Billing": "Movido a Facturación",
+  "Performance Issues / PIP": "Problemas de Rendimiento / PIP",
+  "Other": "Otro",
+  "Intern": "Internado"
+};

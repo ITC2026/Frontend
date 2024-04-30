@@ -18,7 +18,7 @@ const PostulatesPage: React.FC = () => {
     };
 
     useEffect(() => {
-        getPostulates(false).then(async (data: Person[]) => {
+        getPostulates().then(async (data: Person[]) => {
             if (!data) {
                 return
             }

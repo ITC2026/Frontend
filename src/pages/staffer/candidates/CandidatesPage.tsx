@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import TableStaffer from '../../../components/staffer/TableStaffer';
-import getPostulates from '../functions/forPostulates/getPostulates';
+import getCandidates from '../functions/forCandidates/getCandidates';
 import '../postulates/PostulatesPage.css';
 
 const CandidatesPage: React.FC = () => {
     const [view, setView] = useState<'Bench' | 'Pipeline'>('Bench');
     const [candidates, setCandidates] = useState<Person[]>([]);
 
-    const postitulateBlueprint = {
+    const candidateBlueprint = {
         "name": "Nombre",
         "division": "División",
         "title": "Título de Trabajo",
@@ -15,7 +15,7 @@ const CandidatesPage: React.FC = () => {
     };
 
     useEffect(() => {
-        getPostulates(true).then(async (data: Person[] | undefined) => {
+        getCandidates().then(async (data: Person[] | undefined) => {
             if (!data) {
                 return;
             }
@@ -42,7 +42,7 @@ const CandidatesPage: React.FC = () => {
             <div className="project-table-container">
                 <h1 className="table-title">Lista de Candidatos</h1>
                 <div className="table-wrapper">
-                    <TableStaffer entity={filterPostulateByStatus(candidates, view)} types={postitulateBlueprint} buttonArr={[addButton()]} showInfoButton={true}/> 
+                    <TableStaffer entity={filterPostulateByStatus(candidates, view)} types={candidateBlueprint} buttonArr={[addButton()]} showInfoButton={true}/> 
                 </div>
             </div>
         </div>

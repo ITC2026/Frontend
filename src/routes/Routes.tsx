@@ -4,7 +4,6 @@ import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
-import ProjectPage from "../pages/accountManager/projects/Projects";
 import ModalPage from "../pages/ModalPage/ModalPage";
 import ProjectInfoWrapper from "../pages/accountManager/projects/ProjectInfoWrapper";
 import ProjectModifyWrapper from "../pages/accountManager/projects/modify/ProjectModifyWrapper";

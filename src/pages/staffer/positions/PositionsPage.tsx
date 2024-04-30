@@ -56,7 +56,7 @@ const PositionsPage: React.FC = () => {
         <h1 className="table-title">{view}</h1>
         <div className="table-wrapper">
           <Link to={"candidates"}>
-            <button className="button-register">
+            <button className="button1">
               <h1>Añadir Candidato</h1>
             </button>
           </Link>

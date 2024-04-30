@@ -109,11 +109,15 @@ const ClientRegisterForm = (prop: Props) => {
         </Form.Label>
         <Col sm={6}>
           <Form.Control
+            required
             value={clientDescription}
             onChange={(e) => setClientDescription(e.target.value)}
             type="text"
             bsPrefix="encora-purple-input form-control"
           />
+          <Form.Control.Feedback type="invalid">
+            Please provide a valid zip.
+          </Form.Control.Feedback>
         </Col>
       </Form.Group>
 
@@ -123,6 +127,7 @@ const ClientRegisterForm = (prop: Props) => {
         </Form.Label>
         <Col sm={6}>
           <Form.Control
+            //required
             accept=".pdf"
             value={contractPdfUrl}
             onChange={(e) => {
@@ -134,6 +139,9 @@ const ClientRegisterForm = (prop: Props) => {
             type="file"
             bsPrefix="encora-purple-input form-control"
           />
+          <Form.Control.Feedback type="invalid">
+            Please provide a valid zip.
+          </Form.Control.Feedback>
         </Col>
       </Form.Group>
 
@@ -143,6 +151,7 @@ const ClientRegisterForm = (prop: Props) => {
         </Form.Label>
         <Col sm={6}>
           <Form.Control
+            // required
             accept="image/png, image/jpeg"
             value={logoUrl}
             onChange={(e) => {
@@ -155,6 +164,9 @@ const ClientRegisterForm = (prop: Props) => {
             bsPrefix="encora-purple-input form-control"
           />
         </Col>
+        <Form.Control.Feedback type="invalid">
+          Please provide a valid zip.
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group as={Row} className="mb-4 row-width-form">
@@ -172,6 +184,9 @@ const ClientRegisterForm = (prop: Props) => {
             <Form.Check.Label>High-Growth Client</Form.Check.Label>
           </Form.Check>
         </Col>
+        <Form.Control.Feedback type="invalid">
+          Please provide a valid zip.
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group as={Row} className="mb-4 row-width-form">
@@ -180,16 +195,19 @@ const ClientRegisterForm = (prop: Props) => {
         </Form.Label>
         <Col sm={6}>
           <Form.Select
+            required
             value={selectedDivision}
             onChange={(e) => setSelectedDivision(e.target.value as Division)}
             bsPrefix="encora-purple-input form-select"
           >
-            <option>Ninguno</option>
             <option>USA</option>
             <option>MEXICO</option>
             <option>BRAZIL</option>
           </Form.Select>
         </Col>
+        <Form.Control.Feedback type="invalid">
+          Please provide a valid zip.
+        </Form.Control.Feedback>
       </Form.Group>
 
       <div className="button-wrapper">

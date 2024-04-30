@@ -16,7 +16,7 @@ const ClientWrapper = (props: Props) => {
         />
       ) : props.modalType === "modify" ? (
         <LargeModal
-          titleModal="Modify Client"
+          titleModal="Modificar Cliente"
           formContent={<ClientModifyForm />}
         />
       ) : null}

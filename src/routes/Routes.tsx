@@ -6,9 +6,9 @@ import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import ModalPage from "../pages/ModalPage/ModalPage";
 import FirebaseStorage from "../pages/firebaseStorage/FirebaseStorage";
-import ClientPage from "../pages/accountManager/Clientes/ClientPage";
+import ClientPage from "../pages/accountManager/clients/ClientPage";
 import ProjectPage from "../pages/accountManager/projects/Projects";
-import ClientWrapper from "../pages/accountManager/Clientes/ClientWrapper";
+import ClientWrapper from "../pages/accountManager/clients/ClientWrapper";
 
 import ChartStaffer from "../pages/dashboards/ChartStaffer";
 import ChartAccount from "../pages/dashboards/ChartAccount";

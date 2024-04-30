@@ -184,7 +184,6 @@ const ClientModifyForm = () => {
             onChange={(e) => setSelectedDivision(e.target.value as Division)}
             bsPrefix="encora-purple-input form-select"
           >
-            <option>Ninguno</option>
             <option>USA</option>
             <option>MEXICO</option>
             <option>BRAZIL</option>

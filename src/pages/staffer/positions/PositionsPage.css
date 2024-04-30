@@ -23,6 +23,17 @@
     height: 600px;
     overflow-y: auto;
 }
+.table-wrapper .button-register {
+    display: inline-flex;
+    width: 10rem;
+    padding: 6px 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4.8px;
+    background-color: #2D1154;
+    border: 1px solid #2D1154;
+}
+
 
 .buttons-container {
     display: flex;

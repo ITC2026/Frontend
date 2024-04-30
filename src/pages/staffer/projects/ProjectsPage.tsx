@@ -2,6 +2,7 @@ import "./ProjectsPage.css";
 import TableStaffer from "../../../components/staffer/TableStaffer";
 import getAMUsernameForProject from "../functions/forProjects/getAccountManagerUsernameForProject";
 import getClientNameByProjectID from "../functions/forProjects/getClientForProject";
+import {Link} from "react-router-dom"
 import { getAllProjects } from "../../../api/ProjectAPI";
 import { useState, useEffect } from "react";
 
@@ -33,14 +34,18 @@ const ProjectsPage = () => {
           setProjects(projects);
           console.log(projects);
         });
-      
-
-
-
     }, [setProjects]);
 
     const filteredProjects = (projects: Project[]) => {
       return projects.filter((project) => (project.general_status === "Active"));
+    };
+
+    const openingsButton = () => {
+      return (
+          <Link to={"positions"}>
+          <i className="bi bi-person-plus-fill"></i>
+          </Link>
+      );
     };
 
     return (
@@ -48,7 +53,7 @@ const ProjectsPage = () => {
           <div className="project-table-container">
             <h1 className="table-title">Lista de Proyectos</h1>
             <div className="table-wrapper">
-              <TableStaffer entity = {filteredProjects(projects)} types={projectBlueprint} categories="StafferProject" />
+              <TableStaffer entity = {filteredProjects(projects)} types={projectBlueprint} buttonArr={[openingsButton()]} />
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import  getPostulates  from '../functions/forPostulates/getPostulates';
 import TableStaffer from '../../../components/staffer/TableStaffer';
 import getProjectTitleFromID from '../functions/forPostulates/getProjectTitleForPerson';
 import getPositionTitleFromID from '../functions/forPostulates/getPositionTitleForPerson';
+import { Link } from 'react-router-dom';
 import './PostulatesPage.css';
 
 const PostulatesPage: React.FC = () => {
@@ -43,6 +44,12 @@ const PostulatesPage: React.FC = () => {
         return people.filter((person) => person.status === status);
     }
 
+    const modifyButton = () => {
+        return (
+            <i className='bi bi-pencil-fill'></i>
+        );
+    }
+
     return (
         <div className='postulates-page'>
             <div className="top-status-wrapper">
@@ -52,7 +59,7 @@ const PostulatesPage: React.FC = () => {
             <div className="project-table-container">
                 <h1 className="table-title">Lista de Postulados</h1>
                 <div className="table-wrapper">
-                    <TableStaffer entity={filterPostulateByStatus(postulates, view)} types={postitulateBlueprint} /> 
+                    <TableStaffer entity={filterPostulateByStatus(postulates, view)} types={postitulateBlueprint} buttonArr={[modifyButton()]} showInfoButton={true}/> 
                 </div>
             </div>
         </div>

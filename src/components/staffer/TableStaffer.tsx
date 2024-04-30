@@ -7,7 +7,7 @@ import "../table/Table.css";
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
   types: { [key: string]: string };
-  categories?: string;
+  showInfoButton?: boolean;
   buttonArr?: React.ReactElement | React.ReactElement[] | JSX.Element[];
 }
 
@@ -30,7 +30,14 @@ const TableStaffer = (prop: Props) => {
           .includes(searchTerm.toLowerCase());
       }) : [];
 
-  
+    const infoButton = (id: number) => {
+      return (
+          <Link to={`${id}`}>
+              <i className='bi bi-info-circle-fill'></i>
+          </Link>
+      );
+    }
+
   return (
     <div>
       <SearchBar onSearchTermChange={handleSearchTermChange} />
@@ -61,13 +68,10 @@ const TableStaffer = (prop: Props) => {
                   }
                 })}
                 <td>
+                  {prop.showInfoButton === true ? (
+                      infoButton(entity.id)
+                    ) : null}
                   {prop.buttonArr ? prop.buttonArr : null}
-
-                  {prop.categories === "StafferProject" ? (
-                    <Link to={"positions"}>
-                      <i className="bi bi-person-plus-fill"></i>
-                    </Link>
-                  ) : null}
                 </td>
               </tr>
             )

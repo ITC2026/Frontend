@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TableStaffer from '../../../components/staffer/TableStaffer';
 import getPostulates from '../functions/forPostulates/getPostulates';
-import { Link } from 'react-router-dom';
 import '../postulates/PostulatesPage.css';
 
 const CandidatesPage: React.FC = () => {
@@ -28,14 +27,6 @@ const CandidatesPage: React.FC = () => {
         return people.filter((person) => person.status === status);
     }
 
-    const infoButton = () => {
-        return (
-            <Link to={"/info"}>
-                <i className='bi bi-info-circle-fill'></i>
-            </Link>
-        );
-    }
-
     const addButton = () => {
         return (
             <i className='bi bi-plus-circle-fill'></i>
@@ -51,7 +42,7 @@ const CandidatesPage: React.FC = () => {
             <div className="project-table-container">
                 <h1 className="table-title">Lista de Candidatos</h1>
                 <div className="table-wrapper">
-                    <TableStaffer entity={filterPostulateByStatus(candidates, view)} types={postitulateBlueprint} buttonArr={[infoButton(), addButton()]}/> 
+                    <TableStaffer entity={filterPostulateByStatus(candidates, view)} types={postitulateBlueprint} buttonArr={[addButton()]} showInfoButton={true}/> 
                 </div>
             </div>
         </div>

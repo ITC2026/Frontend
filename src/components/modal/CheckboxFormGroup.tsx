@@ -17,6 +17,7 @@ const CheckboxFormGroup = ({ nameLabel, disableInput }: Props) => {
           type={"checkbox"}
           bsPrefix="label-style text-start form-check"
         >
+
           <Form.Check.Input
             type="checkbox"
             bsPrefix="encora-purple-check form-check-input"

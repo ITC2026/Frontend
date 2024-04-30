@@ -1,40 +1,51 @@
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from "react";
 import Table from "react-bootstrap/Table";
+import { Link } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
+import getProjectTitleFromID from "../../pages/staffer/functions/forPostulates/getProjectTitleForPerson";
 import "./Table.css";
-import { Project, Position, Opening, Person } from "../../types/";
+import { formatTimestamp } from "../../utils/Dates";
 
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
-  types: { [key: string]: string };
+  categories: { [key: string]: string };
+
+  children?: JSX.Element;
+
 }
 
-const TableView = (prop: Props) => {
+const TableView = (props: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term);
   };
 
-  // Filtering the entity array based on the search term
-  // Ensure prop.entity is defined before filtering
-  const filteredEntity = prop.entity ? prop.entity.filter((entity: any) => {
+  const filteredEntity = props.entity.filter((entity: any) => {
     const searchableFields = Object.values(entity)
       .map((value: any) => (value ? value.toString().toLowerCase() : ""))
       .join(" ");
     return searchableFields.toLowerCase().includes(searchTerm.toLowerCase());
-  }) : [];
+  });
 
   return (
     <div>
-      <SearchBar onSearchTermChange={handleSearchTermChange} />
-      <Table striped bordered hover className="custom-table">
+      <div className="table-header">
+        <div className="children-container">
+          {props.children}
+        </div>
+        <SearchBar onSearchTermChange={handleSearchTermChange} />
+      </div>
+
+      <Table striped bordered hover responsive bsPrefix="custom-table">
         <thead>
+          {getProjectTitleFromID(72).toString()}
           <tr>
             <th className="encora-purple text-light">#</th>
-            {Object.values(prop.types).map((type: string, index: number) => (
+            {Object.values(props.categories).map((category: string, index: number) => (
               <th key={index} className="encora-purple text-light">
-                {type}
+                {category}
               </th>
             ))}
             <th className="encora-purple text-light">Options</th>
@@ -45,14 +56,31 @@ const TableView = (prop: Props) => {
             (entity: Project | Position | Opening | Person, index: number) => (
               <tr key={index}>
                 <td>{index + 1}</td>
-                {Object.keys(prop.types).map((key: string, index: number) => (
-                  <td key={index}>
-                    {entity[key as keyof (Project | Position | Opening | Person)]?.toString()}
-                  </td>
-                ))}
+                {Object.keys(props.categories).map((key: string, index: number) => {
+                  const value =
+                    entity[
+                    key as keyof (Project | Position | Opening | Person)
+                    ];
+                  if (
+                    props.categories[key] &&
+                    props.categories[key].includes("Fecha") &&
+                    value
+                  ) {
+                    return (
+                      <td key={index}>{formatTimestamp(value.toString())}</td>
+                    );
+                  } else {
+                    return <td key={index}>{value?.toString()}</td>;
+                  }
+                })}
                 <td>
-                  <button className="btn btn-primary">Edit</button>
-                  <button className="btn btn-danger">Delete</button>
+                  <Link to={`${entity.id}`}>
+                    <i className="bi bi-eye-fill table-element"></i>
+                  </Link>
+                  <Link to={`edit/${entity.id}`}>
+                    <i className="bi bi-pencil-fill table-element"></i>
+
+                  </Link>
                 </td>
               </tr>
             )

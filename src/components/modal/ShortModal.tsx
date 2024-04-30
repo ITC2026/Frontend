@@ -1,9 +1,9 @@
 import "../../index.css";
-import "./style/ShortModal.css"
+import "./style/ShortModal.css";
 import { ShortModalType } from "./modalType";
 
 interface ShortModalProps {
-  typeOfModal: ShortModalType
+  typeOfModal: ShortModalType;
   btnArray?: React.ReactElement[];
   onClose: () => void;
 }
@@ -28,13 +28,16 @@ const renderModalContent = (typeOfModal: ShortModalType) => {
       return (
         <>
           <h1 className="heading-form">Advertencia</h1>
-          <div className="form-group">aaaaa</div>
+          <div className="form-group">
+            Estás a punto de eliminar un elemento. Esta acción es irreversible y
+            no se puede deshacer. ¿Estás seguro?
+          </div>
         </>
       );
     default:
       break;
   }
-}
+};
 
 const ShortModal = ({ typeOfModal, btnArray, onClose }: ShortModalProps) => {
   return (
@@ -42,11 +45,11 @@ const ShortModal = ({ typeOfModal, btnArray, onClose }: ShortModalProps) => {
       <div className="short-modal white">
         {renderModalContent(typeOfModal)}
         <div className="button-wrapper">
-          {btnArray && btnArray.map((btn => btn))}
+          {btnArray && btnArray.map((btn) => btn)}
           <button
-              type="submit"
-              className="btn btn-primary gray-button"
-              onClick={() => onClose()}
+            type="submit"
+            className="btn btn-primary gray-button"
+            onClick={() => onClose()}
           >
             Cancelar
           </button>

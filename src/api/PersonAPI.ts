@@ -25,7 +25,7 @@ export const getPersonById = async (id: number) => {
 };
 
 // Create a person.
-export const createPerson = async (person: Person) => {
+export const createPerson = async (person: CreatePersonAttributes) => {
     try {
         const res = await api.post(personRoute, person);
         const action = await res.data.payload;
@@ -56,3 +56,33 @@ export const deletePerson = async (id: number) => {
         console.log(err);
     }
 };
+
+export const getProjectOfPersonByID = async (id: number) => {
+    try {
+        const route = "project";
+        const res = await api.get(`${personRoute}/${route}/${id}`);
+        const project = res.data.payload as Project; 
+        if (!project) {
+            return;
+        }
+        return project;
+    } catch (err) {
+        console.error("Error fetching project:", err);
+        throw err;
+    }
+};
+
+export const getPositionOfPersonByID = async (id: number) => {
+    try {
+        const route = "position";
+        const res = await api.get(`${personRoute}/${route}/${id}`);
+        const position = res.data.payload as Position;
+        if (!position) {
+            return;
+        }
+        return position;
+    } catch (err) {
+        console.error("Error fetching position:", err);
+        throw err;
+    }
+}

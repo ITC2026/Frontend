@@ -1,3 +1,45 @@
-th, td { 
+th,
+td {
     border: 0;
 }
+td i {
+    color: #2D1154;
+}
+
+.table-button {
+    border: 0;
+    color: #2d1154;
+    margin-right: 10px;
+}
+.table-element {
+    color: #2d1154;
+    transition: 0.2s all;
+}
+
+.table-element:hover {
+    color: #9474c2;
+}
+
+.custom-table {
+    width: 80vw;
+    height: 15vh;
+
+    border: 1px solid #ccc;
+    font-size: 1.2rem;
+}
+
+.table-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 5px;
+    color: white;
+}
+
+.table-header>* {
+    margin-left: 10px;
+    align-content: center;
+    align-items: center;
+    margin-bottom: 1%;
+}
+

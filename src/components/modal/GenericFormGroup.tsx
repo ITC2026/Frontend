@@ -12,13 +12,20 @@ interface Props {
  inputType: InputType;
 }
 
-const GenericFormGroup = ({ nameLabel, disableInput, inputType }: Props) => {
+const GenericFormGroup = ({
+  nameLabel,
+  inputType,
+  disableInput
+}: Props) => {
   return (
     <Form.Group as={Row} className="mb-4 row-width-form">
       <Form.Label column sm={6} bsPrefix="label-style text-start">
         {nameLabel}
       </Form.Label>
-      <Input inputType={inputType} disableInput={disableInput} />
+      <Input
+        inputType={inputType}
+        disableInput={disableInput}
+      />
     </Form.Group>
   );
 };

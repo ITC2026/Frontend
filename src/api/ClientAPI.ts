@@ -39,7 +39,7 @@ export const deleteClient = async (id: number) => {
 export const getClientById = async (id: number) => {
   try {
     const res = await api.get(`${clientRoute}/${id}`);
-    const client: Client = await res.data.payload;
+    const client: Client = (await res.data.payload) as Client;
     return client;
   } catch (err) {
     console.log(err);

@@ -68,5 +68,31 @@
       "isSelected": false,
       "icon": "bi-gear"
     }
+  ],
+  "resource" : [
+    {
+      "route": "/",
+      "icon": "bi-house-door-fill"
+    },
+    {
+      "route": "/settings",
+      "isSelected": true,
+      "icon": "bi-gear-fill"
+    },
+    {
+      "route": "/settings",
+      "isSelected": false,
+      "icon": "bi-gear"
+    },
+    {
+      "route": "/employees",
+      "isSelected": true,
+      "icon": "bi-person-lines-fill"
+    },
+    {
+      "route": "/employees",
+      "isSelected": false,
+      "icon": "bi-person-lines"
+    }
   ]
 }

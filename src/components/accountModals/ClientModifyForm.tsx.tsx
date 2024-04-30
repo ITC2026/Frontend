@@ -4,12 +4,9 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { modifyClient, deleteClient } from "../../api/ClientAPI";
+import { getClientById, modifyClient, deleteClient } from "../../api/ClientAPI";
 
-interface Props {
-  setActiveModal2: (active: boolean) => void;
-}
-const ClientModifyForm = (prop: Props) => {
+const ClientModifyForm = () => {
   const [contractPdfUrl, setContractPdfUrl] = useState<string>("");
   const [logoUrl, setLogoUrl] = useState<string>("");
   const [clientName, setClientName] = useState<string>("");
@@ -31,7 +28,7 @@ const ClientModifyForm = (prop: Props) => {
     deleteClient(Number(id))
       .then(() => {
         console.log("Client deleted successfully");
-        prop.setActiveModal2(false);
+        navigate("/account_manager/clients");
       })
       .catch((error) => {
         console.error("Error deleting client:", error);
@@ -40,23 +37,32 @@ const ClientModifyForm = (prop: Props) => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:3000/clients/${id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setClientName(data.payload.project_title);
-          setClientDescription(data.payload.project_description);
-          setContractPdfUrl(data.payload.contract_pdf_url);
-          setLogoUrl(data.payload.logo_url);
-          setHasHighGrowth(data.payload.has_high_growth);
-          setSelectedDivision(data.payload.division);
-        });
+      getClientById(Number(id)).then((data) => {
+        if (!data) {
+          return;
+        }
+        setClientName(data.client_name);
+        setClientDescription(data.client_desc);
+        setContractPdfUrl(data.contract_pdf_url);
+        setLogoUrl(data.logo_url);
+        setHasHighGrowth(data.high_growth);
+        setSelectedDivision(data.division);
+      });
     }
-  }, [id]);
+  }, [
+    id,
+    setClientName,
+    setClientDescription,
+    setContractPdfUrl,
+    setLogoUrl,
+    setHasHighGrowth,
+    setSelectedDivision,
+  ]);
 
   const handleModifyClient = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const clientToSubmit: CreateClientAttributes = {
+    const clientToModify: CreateClientAttributes = {
       contract_pdf_url: contractPdfUrl,
       logo_url: logoUrl,
       client_name: clientName,
@@ -67,10 +73,10 @@ const ClientModifyForm = (prop: Props) => {
 
     const id_num = Number(id);
 
-    modifyClient(id_num, clientToSubmit)
+    modifyClient(id_num, clientToModify)
       .then(() => {
         console.log("Client modified successfully");
-        prop.setActiveModal2(false);
+        navigate("/account_manager/clients");
       })
       .catch((error) => {
         console.error("Error modifying client:", error);
@@ -122,11 +128,9 @@ const ClientModifyForm = (prop: Props) => {
         <Col sm={6}>
           <Form.Control
             accept=".pdf"
-            value={contractPdfUrl}
             onChange={(e) => {
               if (e.target.files && e.target.files.length > 0) {
                 setContractFile(e.target.files[0]);
-                setContractPath(clientContractPath + uuidv4());
               }
             }}
             type="file"
@@ -142,11 +146,9 @@ const ClientModifyForm = (prop: Props) => {
         <Col sm={6}>
           <Form.Control
             accept="image/png, image/jpeg"
-            value={logoUrl}
             onChange={(e) => {
               if (e.target.files && e.target.files.length > 0) {
                 setLogoFile(e.target.files[0]);
-                setLogoPath(clientLogoPath + uuidv4());
               }
             }}
             type="file"
@@ -197,12 +199,12 @@ const ClientModifyForm = (prop: Props) => {
         <button
           type="button"
           className="btn  btn-primary gray-button"
-          onClick={() => prop.setActiveModal2(false)}
+          onClick={() => navigate("/account_manager/clients")}
         >
           Close
         </button>
         <button type="submit" className="btn btn-primary encora-purple-button">
-          Submit
+          Modify
         </button>
       </div>
     </Form>

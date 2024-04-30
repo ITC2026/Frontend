@@ -8,6 +8,7 @@ import ModalPage from "../pages/ModalPage/ModalPage";
 import FirebaseStorage from "../pages/firebaseStorage/FirebaseStorage";
 import ClientPage from "../pages/accountManager/Clientes/ClientPage";
 import ProjectPage from "../pages/accountManager/projects/Projects";
+import ModifyClientWrapper from "../pages/accountManager/Clientes/ModifyClientWrapper";
 
 import ChartStaffer from "../pages/dashboards/ChartStaffer";
 import ChartAccount from "../pages/dashboards/ChartAccount";
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <>
-          <ChartAccount />,
+            <ChartAccount />,
           </>
         ),
       },
@@ -54,6 +55,12 @@ const router = createBrowserRouter([
             <ClientPage />
           </>
         ),
+        children: [
+          {
+            path: ":id/",
+            element: <ModifyClientWrapper />,
+          },
+        ],
       },
       {
         path: "projects",
@@ -86,7 +93,10 @@ const router = createBrowserRouter([
     path: "staffer",
     element: (
       <>
-        <StafferWrapper route="/staffer" routes={["/", "/projects", "/people"]} />
+        <StafferWrapper
+          route="/staffer"
+          routes={["/", "/projects", "/people"]}
+        />
       </>
     ),
     children: [
@@ -94,7 +104,7 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <>
-          <ChartStaffer />,
+            <ChartStaffer />,
           </>
         ),
       },
@@ -105,7 +115,7 @@ const router = createBrowserRouter([
       },
       {
         path: "people",
-        element: <PostulatesPage />, 
+        element: <PostulatesPage />,
       },
       {
         path: "settings",
@@ -127,7 +137,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/firebaseStorage",
-    element: <FirebaseStorage/>
+    element: <FirebaseStorage />,
   },
   {
     path: "resource",
@@ -136,7 +146,7 @@ const router = createBrowserRouter([
         <ChartResource />
       </>
     ),
-  }
+  },
 ]);
 
 export default router;

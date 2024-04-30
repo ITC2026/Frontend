@@ -54,6 +54,7 @@ const ClientPage = () => {
 
   return (
     <div>
+      <Outlet />
       <h1>Clientes</h1>
       <div className="botoncito">
         <button
@@ -75,19 +76,6 @@ const ClientPage = () => {
         </div>
       </div>
 
-      <button onClick={() => setModifyVisible(true)}>Modificar Cliente</button>
-      <div className="mostrar">
-        {modifyVisible && (
-          //<RegistrarCliente setActiveModal={setRegisterVisible} />
-          <LargeModal
-            titleModal="Modificar Cliente"
-            formContent={
-              <ClientModifyForm setActiveModal2={setModifyVisible} />
-            }
-          />
-        )}
-      </div>
-
       <div className="container">
         <div className="row">
           {currentClients.map((client) => (
@@ -96,6 +84,7 @@ const ClientPage = () => {
                 clientName={client.client_name}
                 imgURL={client.logo_url}
                 clientDescription={client.client_desc}
+                id={client.id}
               />
             </div>
           ))}

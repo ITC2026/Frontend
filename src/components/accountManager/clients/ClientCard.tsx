@@ -52,9 +52,13 @@ const ClientCard = (prop: Props) => {
           <div className="clientDesc">{prop.clientDescription}</div>
         </div>
         <div className="abajo">
-          <button className="centro-1">
+          <button
+            onClick={() => navigate(`/account_manager/clients/info/${prop.id}`)}
+            className="centro-1"
+          >
             <InfoCircleFillIcon />
           </button>
+
           <button
             onClick={() => navigate(`/account_manager/clients/${prop.id}`)}
             className="centro-2"

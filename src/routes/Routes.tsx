@@ -8,7 +8,7 @@ import ModalPage from "../pages/ModalPage/ModalPage";
 import FirebaseStorage from "../pages/firebaseStorage/FirebaseStorage";
 import ClientPage from "../pages/accountManager/Clientes/ClientPage";
 import ProjectPage from "../pages/accountManager/projects/Projects";
-import ModifyClientWrapper from "../pages/accountManager/Clientes/ModifyClientWrapper";
+import ClientWrapper from "../pages/accountManager/Clientes/ClientWrapper";
 
 import ChartStaffer from "../pages/dashboards/ChartStaffer";
 import ChartAccount from "../pages/dashboards/ChartAccount";
@@ -58,7 +58,11 @@ const router = createBrowserRouter([
         children: [
           {
             path: ":id/",
-            element: <ModifyClientWrapper />,
+            element: <ClientWrapper modalType="modify" />,
+          },
+          {
+            path: "info/:id/",
+            element: <ClientWrapper modalType="read" />,
           },
         ],
       },

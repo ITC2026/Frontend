@@ -22,9 +22,13 @@ import ChartResource from "../pages/dashboards/DashboardResource";
 import StafferWrapper from "../pages/staffer/StafferWrapper";
 import ProjectsPage from "../pages/staffer/projects/ProjectsPage";
 import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
+import PositionsPage from "../pages/staffer/positions/PositionsPage";
+
+
 
 //Resource
 import ResourceWrapper from "../pages/resourceManager/ResourceManagerWrapper";
+import Employee from "../pages/resourceManager/employees/Employee";
 
 const router = createBrowserRouter([
   {
@@ -114,10 +118,7 @@ const router = createBrowserRouter([
     path: "staffer",
     element: (
       <>
-        <StafferWrapper
-          route="/staffer"
-          routes={["/", "/projects", "/people"]}
-        />
+        <StafferWrapper route="/staffer" routes={["/", "/projects", "/people", "/people/"]} />
       </>
     ),
     children: [
@@ -125,19 +126,26 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <>
-            <ChartStaffer />,
+            <ChartStaffer/>,
           </>
         ),
       },
-
       {
         path: "projects",
         element: <ProjectsPage />,
       },
-
+      {
+        path: "projects/positions",
+        element: <PositionsPage />,
+      },
       {
         path: "people",
         element: <PostulatesPage />,
+        children: [
+          {
+            path: ":id",
+          },
+        ]
       },
       {
         path: "settings",
@@ -166,6 +174,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "employees",
+        element: (
+          <>
+          <Employee/>,
+          </>
+        ),
+      },
+      {
         path: "settings",
         element: (
           <>
@@ -186,14 +202,6 @@ const router = createBrowserRouter([
   {
     path: "/firebaseStorage",
     element: <FirebaseStorage />,
-  },
-  {
-    path: "resource",
-    element: (
-      <>
-        <ChartResource />
-      </>
-    ),
   },
 ]);
 

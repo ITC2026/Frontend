@@ -2,6 +2,9 @@
   border: 0;
   color: #2d1154;
 }
+td i {
+    color: #2D1154;
+}
 
 .table-element {
   color: #2d1154;
@@ -48,3 +51,10 @@
 .info-element {
   margin-right: 1rem;
 }
+.table-header>* {
+    margin-left: 10px;
+    align-content: center;
+    align-items: center;
+    margin-bottom: 1%;
+}
+

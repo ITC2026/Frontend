@@ -3,8 +3,8 @@ import getClientNamesAndIds from "../../../utils/Clients/GetClientNamesID";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { formatDate } from "../../../utils/Dates";
-
 import { getProjectById } from "../../../api/ProjectAPI";
+
 const ProjectInfo = () => {
   const [clients, setClients] = useState<{ id: string; name: string }[]>([]);
   const [projectName, setProjectName] = useState<string>("");
@@ -32,7 +32,7 @@ const ProjectInfo = () => {
         setStartingDate(formatDate(String(data.start_date)));
         setHasExpirationDate(data.has_expiration_date);
         setExpirationDate(
-          formatDate(String(data.expiration_date?.expiration_date)),
+          formatDate(String(data.expiration_date?.expiration_date))
         );
       });
     }

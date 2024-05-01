@@ -36,7 +36,7 @@ export const createPosition = async (position: CreatePositionAttributes) => {
 };
 
 // Modify a position.
-export const modifyOpening = async (id: number, tposition: Position) => {
+export const modifyPosition = async (id: number, tposition: CreatePositionAttributes) => {
   try {
     const res = await api.patch(`${positionRoute}/${id}`, { data: tposition });
     const position: Position = await res.data.payload;

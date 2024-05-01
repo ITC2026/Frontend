@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
 import { OpeningStructure } from "./OpeningStructure";
 
-export const OpeningTable = () => {
+interface Props {
+  registerBtn: JSX.Element;
+  registerState: boolean;
+}
+export const OpeningTable = (prop: Props) => {
   const [openings, setOpening] = useState<Opening[]>([]);
   const location = useLocation();
   const { id } = useParams<{ id: string }>();
@@ -15,9 +19,8 @@ export const OpeningTable = () => {
         return;
       }
       setOpening(result);
-      console.log(JSON.stringify(result));
     });
-  }, [id, location]);
+  }, [id, location, prop.registerState]);
 
   return (
     <>
@@ -26,7 +29,9 @@ export const OpeningTable = () => {
         categories={OpeningStructure}
         hideIndex={true}
         showEdit={true}
-      />
+      >
+        {prop.registerBtn}
+      </TableView>
     </>
   );
 };

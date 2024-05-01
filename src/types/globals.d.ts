@@ -126,7 +126,7 @@ interface Opening {
   id: number;
   opening_status: OpeningStatus; // Part of a type.
   opening_reason: OpeningReason; // Part of a type.
-  start_date: Date;
+  expiration_date: Date;
   has_expiration_date: boolean;
   position_id: number;
   person_id: number;

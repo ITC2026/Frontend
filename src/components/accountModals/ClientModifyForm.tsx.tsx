@@ -192,8 +192,8 @@ const ClientModifyForm = () => {
       </Form.Group>
 
       <div className="button-wrapper">
-        <button type="button" className="btn  btn-primary ">
-          Eliminar Cliente
+        <button type="submit" className="btn btn-primary encora-purple-button">
+          Modify
         </button>
         <button
           type="button"
@@ -202,8 +202,12 @@ const ClientModifyForm = () => {
         >
           Close
         </button>
-        <button type="submit" className="btn btn-primary encora-purple-button">
-          Modify
+        <button
+          onClick={handleDeleteClient}
+          type="button"
+          className="btn red-encora-button "
+        >
+          Eliminar Cliente
         </button>
       </div>
     </Form>

@@ -211,15 +211,15 @@ const ClientRegisterForm = (prop: Props) => {
       </Form.Group>
 
       <div className="button-wrapper">
+        <button type="submit" className="btn btn-primary encora-purple-button">
+          Submit
+        </button>
         <button
           type="button"
           className="btn  btn-primary gray-button"
           onClick={() => prop.setActiveModal(false)}
         >
           Close
-        </button>
-        <button type="submit" className="btn btn-primary encora-purple-button">
-          Submit
         </button>
       </div>
     </Form>

@@ -2,6 +2,7 @@ import "./ErrorPage.css"
 import ErrorLogo from "../../assets/error/encora_logo_error.png"
 
 const ErrorPage = () => {
+  
   return (
     <div>
       <img 
@@ -15,8 +16,9 @@ const ErrorPage = () => {
         <button 
           type="submit" 
           className="btn btn-primary align-self-start encora-purple-button"
+          onClick={() => window.history.back()}
         >
-          Ir a la Página de Inicio
+          Volver a la página anterior
         </button>
       </div>
     </div>

@@ -37,6 +37,7 @@ const LoginCard = () => {
       onAuthStateChanged(auth, (user) => {
         if (user) {
           getRol(user.uid).then((rol) => {
+            localStorage.setItem("userRole", rol);
             if (rol === "Account") {
               navigate("/account_manager");
             } else if (rol === "Resource") {

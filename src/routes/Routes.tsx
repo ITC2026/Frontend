@@ -21,12 +21,13 @@ import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
 
 //Resource
 import ResourceWrapper from "../pages/resourceManager/ResourceManagerWrapper";
-
+// Protected Routes.
+import ProtectedRoute from "../firebase/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
     path: "login",
-    element: <LoginPage />,
+    element:<LoginPage />,
   },
   {
     path: "settings",
@@ -40,7 +41,9 @@ const router = createBrowserRouter([
     path: "account_manager",
     element: (
       <>
+      <ProtectedRoute allowedRoles="Account">
         <AccountManagerWrapper route="/account_manager" />
+      </ProtectedRoute>
       </>
     ),
     children: [
@@ -106,10 +109,12 @@ const router = createBrowserRouter([
     path: "staffer",
     element: (
       <>
+      <ProtectedRoute allowedRoles="Staffer">
         <StafferWrapper
           route="/staffer"
           routes={["/", "/projects", "/people"]}
         />
+      </ProtectedRoute>
       </>
     ),
     children: [
@@ -145,7 +150,9 @@ const router = createBrowserRouter([
     path: "resource",
     element: (
       <>
+      <ProtectedRoute allowedRoles="Resource">
         <ResourceWrapper route="/resource" />
+      </ProtectedRoute>
       </>
     ),
     children: [

@@ -1,10 +1,9 @@
-import axios from 'axios';
-import { getAllPeople } from "../../../../api/PersonAPI";
 import { getAllApplications } from "../../../../api/ApplicationAPI";
+import getPostulates from "../forPostulates/getPostulates";
 
-export const fetchPositionsData = async () => {
+export const fetchPositionsData = async (positionID: number) => {
     try {
-        const people = await getAllPeople();
+        const people = await getPostulates();
         const applications = await getAllApplications();
 
         if (!people || !applications) {
@@ -12,7 +11,7 @@ export const fetchPositionsData = async () => {
         }
 
         const positionsData = people.map((person) => {
-            const personApplications = applications.filter((application) => application.person_id === person.id);
+            const personApplications = applications.filter((application) => application.person_id === person.id && application.position_id === positionID);
             const latestApplication = personApplications[personApplications.length - 1];
 
             return {
@@ -21,12 +20,6 @@ export const fetchPositionsData = async () => {
                 company_status: person.status,
             };
         });
-
-        const response = await axios.post('http://localhost:5173/staffer/projects/positions', positionsData);
-
-        if (response.status !== 200) {
-            throw new Error('Error posting data to API');
-        }
 
         return positionsData;
     } catch (error) {

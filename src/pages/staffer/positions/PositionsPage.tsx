@@ -2,36 +2,49 @@ import React, { useState, useEffect } from 'react';
 import "./PositionsPage.css";
 import { Link } from "react-router-dom";
 import TableStaffer from "../../../components/staffer/TableStaffer";
+import  getProjectPositions  from '../functions/forPositions/getProjectPositions';
 import { fetchPositionsData } from '../functions/forPositions/fetchPositionsData';
+import { useParams } from 'react-router-dom';
+import getPostulates from '../functions/forPostulates/getPostulates';
 
-type PositionData = {
-    candidate_name: string;
-    application_status: string;
-    company_status: string;
-    application_date: string;
-    posting_type: string;
-};
+
 
 const PositionsPage: React.FC = () => {
     const [view, setView] = useState<"Fiber Technician" | "Quality Control Tech">("Fiber Technician");
-    const [positions, setPositions] = useState<PositionData[]>([]);
+    const [postulates, setPostulates] = useState<Person[]>([]);
+    const [positions, setPositions] = useState<Position[]>([]);
+
+
+    const { id }  = useParams();
+    const projectId = parseInt(id as string);
 
     useEffect(() => {
-        fetchPositionsData().then((data) => {
+        getProjectPositions(projectId).then((data) => {
             if (data) {
                 setPositions(data);
             } else {
                 console.error('No data fetched');
             }
         });
+    }, [projectId]);
+    
+    useEffect(() => { 
+        getPostulates().then((data) => {
+            if (data) {
+                setPostulates(data);
+            } else {
+                console.error('No data fetched');
+            }
+        });
     }, []);
+    
 
-    const filterPositionsByType = (positions: PositionData[] | undefined, posting_type: string) => {
-        if (!positions) {
-            return [];
-        }
-        return positions.filter((position) => position.posting_type === posting_type);
-    };
+    // const filterPositionsByType = (people: Person[] | undefined, posting_type: string) => {
+    //     if (!people) {
+    //         return [];
+    //     }
+    //     return people.filter((position) => position.posting_type === posting_type);
+    // };
 
     return (
         <div className="positions-page">
@@ -76,13 +89,12 @@ const PositionsPage: React.FC = () => {
                         </div>
                     </div>
                     <TableStaffer
-                        entity={filterPositionsByType(positions, view)}
+                        entity={postulates}
                         types={{
-                            candidate_name: "Nombre del Candidato",
+                            name: "Nombre del Candidato",
                             application_status: "Estado en la Postulación",
-                            company_status: "Estado en la Empresa",
+                            status: "Estado del Postulado",
                             application_date: "Fecha de Postulación",
-                            posting_type: "Tipo de Publicación",
                         }}
                         showInfoButton={true}
                     />

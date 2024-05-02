@@ -68,6 +68,7 @@ const ProjectModifyWrapper = () => {
               entity={jobPositions}
               categories={job_position_structure}
               hideIndex={true}
+              showEdit={true}
             >
               <button
                 className="project-register encora-purple-button text-light"

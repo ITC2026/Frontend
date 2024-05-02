@@ -11,6 +11,9 @@ type Type =
   | "People"
   | "Users";
 
+type Entity = Project | Position | Opening | Person;
+type EntityKey = keyof Project | keyof Position | keyof Opening | keyof Person;
+
 type ProjectStatus = "In Preparation" | "Active" | "Closed";
 
 type ClosedStatus = "Completed" | "Cancelled";
@@ -105,24 +108,23 @@ type PeopleStatus = "Pipeline" | "Bench" | "Billing";
 
 type EmployeeStatus = "On Hired" | "Layoff" | "Resigned";
 
-  
-interface Person { 
-id: number;
-first_name: string;
-last_name: string;
-profile_picture: string;
-gender: Gender; // Part of a type.
-phone: string;
-email: string;
-title: string;
-tech_stack: TechStack; // Part of a type.
-division: Division; // Part of a type.
-region: Region; // Part of a type.
-status: PeopleStatus; // Part of a type.
-movement_reason: string;
-expected_salary: number;
-project_name: string;
-position_name: string;
+interface Person {
+  id: number;
+  first_name: string;
+  last_name: string;
+  profile_picture: string;
+  gender: Gender; // Part of a type.
+  phone: string;
+  email: string;
+  title: string;
+  tech_stack: TechStack; // Part of a type.
+  division: Division; // Part of a type.
+  region: Region; // Part of a type.
+  status: PeopleStatus; // Part of a type.
+  movement_reason: string;
+  expected_salary: number;
+  project_name: string;
+  position_name: string;
 }
 
 interface Opening {
@@ -279,13 +281,22 @@ interface Candidate {
   person_id: number; // Foreign key.
 }
 
-
-interface CreatePersonAttributes extends Optional<Person, 'id' | 'profile_picture' | 'movement_reason' | 'project_name' | 'position_name'> {}
-interface CreateOpeningAttributes extends Optional<Opening, 'person_id' | 'person'> {}
-interface CreatePositionAttributes extends Optional<Position, 'id' | 'client_name'> {}
-interface CreateProjectAttributes extends Optional<Project, 'id'> {}
-interface CreateRoleAttributes extends Optional<Role, 'users'> {}
-interface CreateUserAttributes extends Optional<User, 'id'> {}
-interface CreateEmployeeAttributes extends Optional<Employee, 'id'> {}
-interface CreateClientAttributes extends Optional<Client, 'employees'> {}
-interface CreateCandidateAttributes extends Optional<Candidate, 'id'> {}
+interface CreatePersonAttributes
+  extends Optional<
+    Person,
+    | "id"
+    | "profile_picture"
+    | "movement_reason"
+    | "project_name"
+    | "position_name"
+  > {}
+interface CreateOpeningAttributes
+  extends Optional<Opening, "person_id" | "person"> {}
+interface CreatePositionAttributes
+  extends Optional<Position, "id" | "client_name"> {}
+interface CreateProjectAttributes extends Optional<Project, "id"> {}
+interface CreateRoleAttributes extends Optional<Role, "users"> {}
+interface CreateUserAttributes extends Optional<User, "id"> {}
+interface CreateEmployeeAttributes extends Optional<Employee, "id"> {}
+interface CreateClientAttributes extends Optional<Client, "employees"> {}
+interface CreateCandidateAttributes extends Optional<Candidate, "id"> {}

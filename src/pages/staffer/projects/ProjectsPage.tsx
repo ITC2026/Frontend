@@ -2,6 +2,7 @@ import "./ProjectsPage.css";
 import TableStaffer from "../../../components/staffer/TableStaffer";
 import getAMUsernameForProject from "../functions/forProjects/getAccountManagerUsernameForProject";
 import getClientNameByProjectID from "../functions/forProjects/getClientForProject";
+import { getExpirationDateFromProject } from "../../../utils/Project/GetExpirationDateFromProject";
 import { Link } from "react-router-dom"
 import { getAllProjects } from "../../../api/ProjectAPI";
 import { useState, useEffect } from "react";
@@ -26,8 +27,10 @@ const ProjectsPage = () => {
       const projects = await Promise.all(
         (data as Project[]).map(async (project: Project) => {
           const client = await getClientNameByProjectID(project.id);
-          const accountManager = await getAMUsernameForProject(project.id);
-          return { ...project, client_name: client, account_manager: accountManager };
+          const accountManager = "Sin Usuario Asignado";
+          const expiration : Date  | null = await getExpirationDateFromProject(
+            String(project.id));
+          return { ...project , client_name: client, account_manager: accountManager , expiration};
         })
       );
 

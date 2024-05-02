@@ -105,6 +105,7 @@ general_status: ProjectStatus; // Part of a type.
 positions: Position[];
 client_id: number;
 client_name: string;
+expiration_date: ExpirationDateProject;
 }
 
 // Roles interface.
@@ -219,7 +220,7 @@ person_id: number; // Foreign key.
 interface CreatePersonAttributes extends Optional<Person, 'id' | 'profile_picture' | 'movement_reason' | 'project_name' | 'position_name'> {}
 interface CreateOpeningAttributes extends Optional<Opening, 'person_id' | 'person'> {}
 interface CreatePositionAttributes extends Optional<Position, 'id' | 'client_name'> {}
-interface CreateProjectAttributes extends Optional<Project, 'id'> {}
+interface CreateProjectAttributes extends Optional<Project, 'id' | 'expiration_date'> {}
 interface CreateRoleAttributes extends Optional<Role, 'users'> {}
 interface CreateUserAttributes extends Optional<User, 'id'> {}
 interface CreateEmployeeAttributes extends Optional<Employee, 'id'> {}

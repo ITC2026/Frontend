@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TableStaffer from '../../../components/staffer/TableStaffer';
 import getCandidates from '../functions/forCandidates/getCandidates';
+import orderTables from '../functions/orderTables'
 import '../postulates/PostulatesPage.css';
 
 const CandidatesPage: React.FC = () => {
@@ -19,7 +20,7 @@ const CandidatesPage: React.FC = () => {
             if (!data) {
                 return;
             }
-            setCandidates(data);
+            setCandidates(await orderTables(data));
         });
     }, [view]);
 

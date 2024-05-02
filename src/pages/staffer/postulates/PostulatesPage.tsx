@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import  getPostulates  from '../functions/forPostulates/getPostulates';
 import TableStaffer from '../../../components/staffer/TableStaffer';
 import getTitlesFromID from '../functions/forPostulates/getTitlesFromID';
+import orderTables from '../functions/orderTables'
 import './PostulatesPage.css';
 
 const PostulatesPage: React.FC = () => {
@@ -26,7 +27,7 @@ const PostulatesPage: React.FC = () => {
                     return {...person , project_name: titles[0] , position_name: titles[1]};
                 
             }));
-            setPostulates(postulatePromises);
+            setPostulates(await orderTables(postulatePromises));
             console.log(data);
         });
     }, [view]);

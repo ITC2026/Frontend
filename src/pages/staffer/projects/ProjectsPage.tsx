@@ -1,6 +1,7 @@
 import "./ProjectsPage.css";
 import TableStaffer from "../../../components/staffer/TableStaffer";
 import getAMUsernameForProject from "../functions/forProjects/getAccountManagerUsernameForProject";
+import getOpeningProgress from "../functions/forProjects/getOpeningProgress";
 import getClientNameByProjectID from "../functions/forProjects/getClientForProject";
 import { getExpirationDateFromProject } from "../../../utils/Project/GetExpirationDateFromProject";
 import { Link } from "react-router-dom"
@@ -11,7 +12,7 @@ const projectBlueprint = {
   "project_title": "Nombre del Proyecto",
   "client_name": "Cliente",
   "account_manager": "Account Manager",
-  "percentage_complete": "% de Completado",
+  "opening_progress": "% de Completado",
   "start_date": "Fecha de Apertura",
   "expiration_date": "Fecha de Cierre",
 }
@@ -30,7 +31,7 @@ const ProjectsPage = () => {
           const accountManager = "Sin Usuario Asignado";
           const expiration : Date  | null = await getExpirationDateFromProject(
             String(project.id));
-          return { ...project , client_name: client, account_manager: accountManager , expiration};
+          return { ...project , client_name: client, account_manager: accountManager , expiration , opening_progress : await getOpeningProgress(project.id)};
         })
       );
 

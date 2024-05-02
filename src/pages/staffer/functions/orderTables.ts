@@ -1,4 +1,4 @@
-const orderTables = async (peopleList: Person[]) => {
+const orderPeopleTables = async (peopleList: Person[]) => {
     const sortedPeople = peopleList.sort((a, b) => {
         // Check for null values and move them to the end
         if (a.name === null && b.name !== null) {
@@ -17,4 +17,4 @@ const orderTables = async (peopleList: Person[]) => {
     return sortedPeople;
 };
 
-export default orderTables;
+export default orderPeopleTables;

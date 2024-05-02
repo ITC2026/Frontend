@@ -1,4 +1,3 @@
-import "../../index.css";
 import "./style/ShortModal.css";
 import { ShortModalType } from "./modalType";
 import Form from "react-bootstrap/Form";
@@ -15,14 +14,20 @@ const renderModalContent = (typeOfModal: ShortModalType) => {
       return (
         <>
           <h1 className="heading-form">¿Desea Continuar?</h1>
-          <div className="form-group"></div>
+          <div className="form-group">
+          Estás a punto de registrar un elemento. Esta acción es irreversible y
+            no se puede deshacer. ¿Estás seguro?
+          </div>
         </>
       );
     case "modify":
       return (
         <>
           <h1 className="heading-form">¿Desea Continuar?</h1>
-          <div className="form-group"></div>
+          <div className="form-group">
+          Estás a punto de modificar un elemento. Esta acción es irreversible y
+            no se puede deshacer. ¿Estás seguro?
+          </div>
         </>
       );
     case "delete":
@@ -49,7 +54,7 @@ const renderModalContent = (typeOfModal: ShortModalType) => {
 
 const ShortModal = ({ typeOfModal, btnArray, setActiveModal }: ShortModalProps) => {
   return (
-    <div className="overlay background-gray">
+    <div className={`overlay background-gray`}>
       <div className="short-modal white">
         {renderModalContent(typeOfModal)}
         <div className="button-wrapper">

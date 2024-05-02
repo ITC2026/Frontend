@@ -18,7 +18,7 @@
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-between;  
   overflow-y: auto;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -39,6 +39,24 @@
     height: auto;
     flex-wrap: nowrap;
   }
+}
+
+@media screen and (max-width: 1440px) {
+  .large-modal {
+    width: 61.59375rem;
+    height: 41.625rem;
+  }
+
+  .large-modal h1 {
+    font-size: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .large-modal .bottom-form {
+    height: auto;
+    flex-wrap: nowrap;
+  }
+
 }
 
 .large-modal::-webkit-scrollbar {
@@ -91,4 +109,10 @@
   column-gap: 2.19rem;
   margin-top: auto;
   padding-bottom: 5rem;
+}
+.header-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+
 }

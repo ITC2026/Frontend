@@ -29,11 +29,12 @@ const ProjectForm = (prop: Props) => {
       client_id: parseInt(selectedClientId),
       start_date: new Date(startingDate),
       has_expiration_date: hasExpirationDate,
-      // To fix the has_expiration based on backend capabilities.
-      // expiration_date: hasExpirationDate ? new Date(expirationDate) : undefined,
+      expiration_date: new Date(expirationDate),
       general_status: "In Preparation",
     };
+
     console.log(`Submitting project: ${JSON.stringify(projectToSubmit)}`);
+
     createProject(projectToSubmit)
       .then(() => {
         console.log("Project submitted successfully");

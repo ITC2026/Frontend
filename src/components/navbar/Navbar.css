@@ -1,5 +1,6 @@
 .navbar-account-manager {
     display: absolute;
+    position:fixed;
     height: 100vh;
     width: 5rem;
     background-color: #2D1154;

@@ -74,6 +74,7 @@ a:hover {
   background: #44197e !important;
   border: 0;
   color: white !important;
+  transition: 0.2s all;
 }
 
 .encora-purple-button:hover {

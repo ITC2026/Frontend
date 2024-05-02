@@ -4,22 +4,50 @@ import MicrosoftLogo from "../../assets/MicrosoftLogo";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { auth } from "../../firebase/initialize";
+import { onAuthStateChanged } from "firebase/auth";
+import {getFirestore, doc, getDoc} from "firebase/firestore";
+import { app } from "../../firebase/initialize";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { signInWithPopup, OAuthProvider } from "firebase/auth";
 import { toast } from "react-toastify";
+
 
 const LoginCard = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const firestore = getFirestore(app);
 
   const onLogin = (e: any) => {
+    // Get user role.
+    async function getRol(uid: any) {
+      const docuref = doc(firestore, `users/${uid}`);
+      const docuCifrada = await getDoc(docuref);
+      console.log("User document data:", docuCifrada.data());
+      const rol = docuCifrada.data()?.rol; // Add null check
+      console.log(rol);
+      return rol;
+    }
+
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
       console.log(user);
-      navigate("/account_manager");
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          getRol(user.uid).then((rol) => {
+            if (rol === "Account") {
+              navigate("/account_manager");
+            } else if (rol === "Resource") {
+              navigate("/resource");
+            } else if (rol === "Staffer") {
+              navigate("/staffer");
+            }
+          });
+        }
+      });
+      console.log(user);
       toast.success("¡Ha iniciado sesión exitosamente!")
     }) .catch ((error) => {
       const errorCode = error.code;

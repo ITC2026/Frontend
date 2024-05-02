@@ -23,7 +23,7 @@ const PostulatesPage: React.FC = () => {
             const postulatePromises = await Promise.all(
                 data.map(async (person : Person) => {
                     const titles = await getTitlesFromID(person.id);
-                    return {...person , project_name: titles[0], position_name: titles[1]};
+                    return {...person , project_name: titles[0] , position_name: titles[1]};
                 
             }));
             setPostulates(postulatePromises);

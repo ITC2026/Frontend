@@ -326,7 +326,3 @@ const RegisterBillingForm = (props: Props) => {
 };
 
 export default RegisterBillingForm;
-
-{
-  /*  */
-}

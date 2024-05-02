@@ -105,6 +105,7 @@ const ModifyBenchForm = () => {
         setShowConfirmationModify(false);
         console.log("Person submitted successfully");
         navigate("/resource/people");
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error modifying person:", error);

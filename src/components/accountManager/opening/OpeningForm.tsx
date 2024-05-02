@@ -98,14 +98,17 @@ const OpeningForm = (prop: Props) => {
         />
       </Form.Group>
 
-      <Button
-        onClick={() => {
-          setShowConfirmationRegister(true);
-        }}
-      >
-        {" "}
-        Registrar{" "}
-      </Button>
+      {onlyRegister ||
+        (onlyModify && (
+          <Button
+            onClick={() => {
+              setShowConfirmationRegister(true);
+            }}
+          >
+            {" "}
+            Registrar{" "}
+          </Button>
+        ))}
 
       {showConfirmationRegister && (
         <ShortModal

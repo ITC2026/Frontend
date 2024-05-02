@@ -38,7 +38,7 @@ export const createPosition = async (position: Position) => {
 // Modify a position.
 export const modifyOpening = async (id: number, tposition: Position) => {
     try {
-        const res = await api.patch(`${positionRoute}/${id}`, {data: tposition});
+        const res = await api.patch(`${positionRoute}/${id}`, { data: tposition });
         const position: Position = await res.data.payload;
         return position;
     } catch (err) {
@@ -49,7 +49,7 @@ export const modifyOpening = async (id: number, tposition: Position) => {
 // Delete a position.
 export const deletePosition = async (id: number) => {
     try {
-        const res = await api.delete(positionRoute, {data: {id}});
+        const res = await api.delete(positionRoute, { data: { id } });
         const action = await res.data.payload;
         return action;
     } catch (err) {

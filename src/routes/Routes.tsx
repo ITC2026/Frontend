@@ -8,6 +8,10 @@ import ProjectPage from "../pages/accountManager/projects/Projects";
 import ModalPage from "../pages/ModalPage/ModalPage";
 import ProjectInfoWrapper from "../pages/accountManager/projects/ProjectInfoWrapper";
 import ProjectModifyWrapper from "../pages/accountManager/projects/modify/ProjectModifyWrapper";
+import JobPositionPage from "../pages/accountManager/JobPositions/JobPosition";
+import JobPositionModify from "../pages/accountManager/JobPositions/JobPositionModify";
+import OpeningTablePage from "../pages/accountManager/JobPositions/Openings/OpeningTablePage";
+
 import FirebaseStorage from "../pages/firebaseStorage/FirebaseStorage";
 import ClientPage from "../pages/accountManager/Clientes/ClientPage";
 
@@ -25,7 +29,6 @@ import PositionsPage from "../pages/staffer/positions/PositionsPage";
 //Resource
 import ResourceWrapper from "../pages/resourceManager/ResourceManagerWrapper";
 import Employee from "../pages/resourceManager/employees/Employee";
-
 
 const router = createBrowserRouter([
   {
@@ -76,16 +79,11 @@ const router = createBrowserRouter([
             path: ":id/",
             element: <ProjectInfoWrapper />,
           },
-          {
-            path: "edit",
-            children: [
-              {
-                path: ":id/",
-                element: <ProjectModifyWrapper />,
-              },
-            ],
-          },
         ],
+      },
+      {
+        path: "projects/edit/:id/",
+        element: <ProjectModifyWrapper />,
       },
       {
         path: "settings",
@@ -99,9 +97,19 @@ const router = createBrowserRouter([
         path: "positions",
         element: (
           <>
-            <h1>positions</h1>
+            <JobPositionPage />
           </>
         ),
+        children: [
+          {
+            path: "edit/:id/",
+            element: <JobPositionModify />,
+          },
+        ],
+      },
+      {
+        path: "positions/:id/",
+        element: <OpeningTablePage />,
       },
     ],
     errorElement: <ErrorPage />,
@@ -161,7 +169,7 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <>
-          <ChartResource />,
+            <ChartResource />,
           </>
         ),
       },
@@ -180,7 +188,7 @@ const router = createBrowserRouter([
             <SettingsPage />
           </>
         ),
-      }
+      },
     ],
   },
   {

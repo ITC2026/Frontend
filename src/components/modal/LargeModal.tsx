@@ -6,12 +6,14 @@ import "./style/LargeModal.css";
 interface Props {
   titleModal: string;
   formContent: React.ReactElement;
+  header?: React.ReactElement;
 }
 
-const LargeModal = ({ titleModal, formContent}: Props) => {
+const LargeModal = ({ titleModal, formContent, header}: Props) => {
   return (
     <div className="overlay background-gray">
       <div className="large-modal white">
+        <div className="header-container">{header}</div>
         <h1 className="heading-form">{titleModal}</h1>
         {formContent}
       </div>

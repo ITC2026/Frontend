@@ -19,6 +19,8 @@ Prof. Sasha Valdés Jímenez
 
 ### Cómo correr el proyecto
 
+*Importante:* Para poder ejecutar este proyecto es necesario tener una instance corriendo del servidor backend. Para más información, favor de checar el [repositorio del mismo](https://github.com/ITC2026/backend). 
+
 1. Clonar el repositorio `git clone https://www.github.com/ITC2016/Frontend`
 2. Correr el comando `npm install` para instalar las dependencias
 3. Correr el comando `npm run dev` para correr el servidor

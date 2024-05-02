@@ -3,16 +3,16 @@ import { useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
-import getProjectTitleFromID from "../../pages/staffer/functions/forPostulates/getProjectTitleForPerson";
 import "./Table.css";
 import { formatTimestamp } from "../../utils/Dates";
-
+import { ConfigIcons } from "../table/ConfigIcons/ConfigIcons";
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
   categories: { [key: string]: string };
-
   children?: JSX.Element;
-
+  hideIndex?: boolean;
+  showEdit?: boolean;
+  configBtn?: string;
 }
 
 const TableView = (props: Props) => {
@@ -32,55 +32,65 @@ const TableView = (props: Props) => {
   return (
     <div>
       <div className="table-header">
-        <div className="children-container">
-          {props.children}
-        </div>
+        <div className="children-container">{props.children}</div>
         <SearchBar onSearchTermChange={handleSearchTermChange} />
       </div>
 
-      <Table striped bordered hover responsive bsPrefix="custom-table">
+      <Table striped bordered responsive hover bsPrefix="custom-table">
         <thead>
-          {getProjectTitleFromID(72).toString()}
           <tr>
-            <th className="encora-purple text-light">#</th>
-            {Object.values(props.categories).map((category: string, index: number) => (
-              <th key={index} className="encora-purple text-light">
-                {category}
-              </th>
-            ))}
-            <th className="encora-purple text-light">Options</th>
+            {!props.hideIndex && (
+              <th className="encora-purple text-light">#</th>
+            )}
+            {Object.values(props.categories).map(
+              (category: string, index: number) => (
+                <th key={index} className="encora-purple text-light">
+                  {category}
+                </th>
+              )
+            )}
+            <th className="encora-purple text-light">Opciones</th>
           </tr>
         </thead>
         <tbody>
           {filteredEntity.map(
             (entity: Project | Position | Opening | Person, index: number) => (
               <tr key={index}>
-                <td>{index + 1}</td>
-                {Object.keys(props.categories).map((key: string, index: number) => {
-                  const value =
-                    entity[
-                    key as keyof (Project | Position | Opening | Person)
-                    ];
-                  if (
-                    props.categories[key] &&
-                    props.categories[key].includes("Fecha") &&
-                    value
-                  ) {
-                    return (
-                      <td key={index}>{formatTimestamp(value.toString())}</td>
-                    );
-                  } else {
-                    return <td key={index}>{value?.toString()}</td>;
-                  }
-                })}
-                <td>
-                  <Link to={`${entity.id}`}>
-                    <i className="bi bi-eye-fill table-element"></i>
-                  </Link>
-                  <Link to={`edit/${entity.id}`}>
-                    <i className="bi bi-pencil-fill table-element"></i>
+                {!props.hideIndex && <td>{index + 1}</td>}
 
-                  </Link>
+                {Object.keys(props.categories).map(
+                  (key: string, index: number) => {
+                    const value =
+                      entity[
+                        key as keyof (Project | Position | Opening | Person)
+                      ];
+                    if (
+                      props.categories[key] &&
+                      props.categories[key].includes("Fecha") &&
+                      value
+                    ) {
+                      return (
+                        <td key={index}>{formatTimestamp(value.toString())}</td>
+                      );
+                    } else {
+                      return <td key={index}>{value?.toString()}</td>;
+                    }
+                  }
+                )}
+                <td>
+                  <div className="table-options">
+                    <Link to={`${entity.id}`}>
+                      <i className="bi bi-eye-fill table-element info-element"></i>
+                    </Link>
+
+                    {props.showEdit && ( // Conditional rendering based on showEdit prop
+                      <Link to={`edit/${entity.id}`}>
+                        <i className="bi bi-pencil-fill table-element"></i>
+                      </Link>
+                    )}
+
+                    <ConfigIcons entity={props.configBtn} id={entity.id} />
+                  </div>
                 </td>
               </tr>
             )

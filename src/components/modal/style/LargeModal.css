@@ -93,3 +93,9 @@
   margin-top: auto;
   padding-bottom: 5rem;
 }
+.header-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+
+}

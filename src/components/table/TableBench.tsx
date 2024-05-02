@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import SearchBar from '../searchbar/SearchBar';
 import './Table.css';
 import { getPersonById } from '../../api/PersonAPI';
-import { getEmployeeById } from '../../api/EmployeeAPI';
+import { getEmployeeByPersonID } from '../../api/EmployeeAPI';
+import getDaysOnBenchByPersonID from '../../pages/resourceManager/functions/getDaysOnBenchByPersonID';
 
 interface Props {
   entity: (Person)[];
@@ -95,14 +96,12 @@ const TableBench = (props: Props) => {
             }
             if (props.categories[key].includes('Días en el bench') && personId && !daysOnBenchMap[personId]) {
                 try {
-                  const employee = await getEmployeeById(personId);
-                  if (!employee) {
-                    throw new Error('Employee not found');
+                  const days_on_bench = await getDaysOnBenchByPersonID(personId);
+                  if (!days_on_bench) {
+                    throw new Error('Days on bench not found');
                   }
-                  const on_bench_since = employee.last_movement_at;
-                  const today = new Date();
-                  const days_on_bench = Math.floor((today.getTime() - new Date(on_bench_since).getTime()) / (1000 * 60 * 60 * 24));
                   daysOnBenchMap[personId] = days_on_bench.toString();
+
                 } catch (error) {
                   console.error('Error getting days on bench:', error);
                   daysOnBenchMap[personId] = 'Error fetching days on bench';
@@ -110,12 +109,12 @@ const TableBench = (props: Props) => {
               }
               if (props.categories[key].includes('Acción Propuesta') && personId && !accionPropuesta[personId]) {
                 try {
-                  const employee = await getEmployeeById(personId);
+                  const employee = await getEmployeeByPersonID(personId);
                   if (!employee) {
                     throw new Error('Employee not found');
                   }
                   const proposed_action = employee.proposed_action;
-                  accionPropuesta[personId] = proposed_action;
+                  accionPropuesta[personId] = proposed_action.toString();
                 } catch (error) {
                   console.error('Error getting proposed action:', error);
                   accionPropuesta[personId] = 'Error fetching proposed action';

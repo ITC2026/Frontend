@@ -45,14 +45,14 @@ const RegisterPipelineForm = (props: Props) => {
       expected_salary: expectedSalary,
       status: general_status
     };
-    console.log(`Submitting project: ${JSON.stringify(candidateToSubmit)}`);
+    console.log(`Submitting person: ${JSON.stringify(candidateToSubmit)}`);
     createPerson(candidateToSubmit)
       .then(() => {
-        console.log("Project submitted successfully");
+        console.log("Person submitted successfully");
         props.setActiveModal(false);
       })
       .catch((error) => {
-        console.error("Error submitting project:", error);
+        console.error("Error submitting person:", error);
       });
   };
 

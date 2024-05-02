@@ -58,14 +58,14 @@ const RegisterBenchForm = (props: Props) => {
       employee_status: employee_status,
       employee_reason: reasonBench,
     };
-    console.log(`Submitting project: ${JSON.stringify(candidateToSubmit)}`);
+    console.log(`Submitting person: ${JSON.stringify(candidateToSubmit)}`);
     createPerson(candidateToSubmit)
       .then(() => {
-        console.log("Project submitted successfully");
+        console.log("Person submitted successfully");
         props.setActiveModal(false);
       })
       .catch((error) => {
-        console.error("Error submitting project:", error);
+        console.error("Error submitting person:", error);
       });
   };
 

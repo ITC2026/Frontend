@@ -128,5 +128,35 @@ a:hover {
 
 .red-encora-button:active {
   background: #86352d !important;
-  color: rgb(255, 255, 255) !important;
+  color: white !important;
+}
+
+.green-encora-button {
+  background: #8fc745 !important;
+  border: 0;
+}
+
+.green-encora-button:hover {
+  background: #e0fcb6 !important;
+  color: #8fc745 !important;
+}
+
+.green-encora-button:active {
+  background: #6a9628 !important;
+  color: white !important;
+}
+
+.green-encora-button {
+  background: #8fc745 !important;
+  border: 0;
+}
+
+.green-encora-button:hover {
+  background: #e0fcb6 !important;
+  color: #8fc745 !important;
+}
+
+.green-encora-button:active {
+  background: #6a9628 !important;
+  color: white !important;
 }

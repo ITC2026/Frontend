@@ -1,5 +1,5 @@
 import LargeModal from "../../../components/modal/LargeModal.tsx";
-import ClientModifyForm from "../../../components/accountModals/ClientModifyForm.tsx.tsx";
+import ClientModifyForm from "../../../components/accountModals/ClientModifyForm.tsx";
 import ClientReadForm from "../../../components/accountModals/ClientReadForm.tsx";
 
 interface Props {

@@ -37,7 +37,7 @@ const ClientReadForm = () => {
     <Form className="form-group" noValidate>
       <Form.Group as={Row} className="mb-4 row-width-form">
         <Form.Label column sm={6} bsPrefix="label-style text-start">
-          Nombre De Cliente
+          Nombre del Cliente
         </Form.Label>
         <Col sm={6}>
           <Form.Control
@@ -51,7 +51,7 @@ const ClientReadForm = () => {
       </Form.Group>
       <Form.Group as={Row} className="mb-4 row-width-form">
         <Form.Label column sm={6} bsPrefix="label-style text-start">
-          Descripcion
+          Descripción
         </Form.Label>
         <Col sm={6}>
           <Form.Control
@@ -132,7 +132,7 @@ const ClientReadForm = () => {
           className="btn btn-primary gray-button"
           onClick={() => navigate("/account_manager/clients")}
         >
-          Close
+          Cerrar
         </button>
       </div>
     </Form>

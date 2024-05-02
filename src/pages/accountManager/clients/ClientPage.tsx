@@ -5,10 +5,13 @@ import LargeModal from "../../../components/modal/LargeModal.tsx";
 import ClientRegisterForm from "../../../components/accountModals/ClientRegisterForm.tsx";
 import { getAllClients } from "../../../api/ClientAPI.ts";
 import { Outlet, useLocation } from "react-router-dom";
-import ClientModifyForm from "../../../components/accountModals/ClientModifyForm.tsx.tsx";
+import ClientModifyForm from "../../../components/accountModals/ClientModifyForm.tsx";
+import PostulateInfoForm from "../../../components/accountModals/PostulateInfo..tsx";
 
 const ClientPage = () => {
   const [registerVisible, setRegisterVisible] = useState<boolean>(false);
+  const [postulateInfoVisible, setPostulateInfoVisible] =
+    useState<boolean>(false);
   const [modifyVisible, setModifyVisible] = useState<boolean>(false);
   const pageSize = 8; // Number of clients per page
   const [clients, setClients] = useState<Client[]>([]);
@@ -70,6 +73,26 @@ const ClientPage = () => {
               titleModal="Registrar Cliente"
               formContent={
                 <ClientRegisterForm setActiveModal={setRegisterVisible} />
+              }
+            />
+          )}
+        </div>
+      </div>
+
+      <div className="botoncito">
+        <button
+          className="agregar btn red-encora-button"
+          onClick={() => setPostulateInfoVisible(true)}
+        >
+          Información de Postulante
+        </button>
+        <div className="mostrar">
+          {postulateInfoVisible && (
+            //<RegistrarCliente setActiveModal={setRegisterVisible} />
+            <LargeModal
+              titleModal="Información de Postulante"
+              formContent={
+                <PostulateInfoForm setActiveModal={setPostulateInfoVisible} />
               }
             />
           )}

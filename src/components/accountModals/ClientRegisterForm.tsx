@@ -88,7 +88,7 @@ const ClientRegisterForm = (prop: Props) => {
     >
       <Form.Group as={Row} className="mb-4 row-width-form">
         <Form.Label column sm={6} bsPrefix="label-style text-start">
-          Nombre De Cliente
+          Nombre del Cliente
         </Form.Label>
         <Col sm={6}>
           <Form.Control
@@ -105,7 +105,7 @@ const ClientRegisterForm = (prop: Props) => {
       </Form.Group>
       <Form.Group as={Row} className="mb-4 row-width-form">
         <Form.Label column sm={6} bsPrefix="label-style text-start">
-          Descripcion
+          Descripción
         </Form.Label>
         <Col sm={6}>
           <Form.Control
@@ -212,14 +212,14 @@ const ClientRegisterForm = (prop: Props) => {
 
       <div className="button-wrapper">
         <button type="submit" className="btn btn-primary encora-purple-button">
-          Submit
+          Subir
         </button>
         <button
           type="button"
           className="btn  btn-primary gray-button"
           onClick={() => prop.setActiveModal(false)}
         >
-          Close
+          Cerrar
         </button>
       </div>
     </Form>

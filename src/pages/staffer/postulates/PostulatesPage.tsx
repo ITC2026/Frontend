@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import  getPostulates  from '../functions/forPostulates/getPostulates';
 import TableStaffer from '../../../components/staffer/TableStaffer';
-import getProjectTitleFromID from '../functions/forPostulates/getProjectTitleForPerson';
-import getPositionTitleFromID from '../functions/forPostulates/getPositionTitleForPerson';
-import { Link } from 'react-router-dom';
+import getTitlesFromID from '../functions/forPostulates/getTitlesFromID';
 import './PostulatesPage.css';
 
 const PostulatesPage: React.FC = () => {
@@ -22,20 +20,13 @@ const PostulatesPage: React.FC = () => {
             if (!data) {
                 return
             }
-            const postulatePositionPromises = await Promise.all(
+            const postulatePromises = await Promise.all(
                 data.map(async (person : Person) => {
-                    const position = await getPositionTitleFromID(person.id);
-                    return {...person , position_name: position};
+                    const titles = await getTitlesFromID(person.id);
+                    return {...person , project_name: titles[0], position_name: titles[1]};
                 
             }));
-            setPostulates(postulatePositionPromises);
-            
-            const postulateProjectPromises = await Promise.all(
-                postulatePositionPromises.map(async (person : Person) => {
-                    const project = await getProjectTitleFromID(person.id);
-                    return {...person , project_name: project};
-            }));
-            setPostulates(postulateProjectPromises);
+            setPostulates(postulatePromises);
             console.log(data);
         });
     }, [view]);

@@ -3,7 +3,7 @@ import { useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
-import getProjectTitleFromID from "../../pages/staffer/functions/forPostulates/getProjectTitleForPerson";
+import getProjectTitleFromID from "../../pages/staffer/functions/forPostulates/getTitlesFromID";
 import "./Table.css";
 import { formatTimestamp } from "../../utils/Dates";
 

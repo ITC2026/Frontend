@@ -1,38 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import "./PositionsPage.css";
 import { Link } from "react-router-dom";
 import TableStaffer from "../../../components/staffer/TableStaffer";
-import { getAllPositions } from "../../../api/PositionAPI";
+import { fetchPositionsData } from '../functions/forPositions/fetchPositionsData';
+
+type PositionData = {
+    candidate_name: string;
+    application_status: string;
+    company_status: string;
+    application_date: string;
+    posting_type: string;
+};
 
 const PositionsPage: React.FC = () => {
-    const [view, setView] = useState<"Fiber Technician" | "Quality Control Tech">(
-        "Fiber Technician"
-    );
-    const [positions, setPositions] = useState<Position[]>([]);
-
-    const positionBlueprint = {
-        candidate_name: "Nombre del Candidato",
-        application_status: "Estado en la Postulación",
-        company_status: "Estado en la Empresa",
-        application_date: "Fecha de Postulación",
-    };
+    const [view, setView] = useState<"Fiber Technician" | "Quality Control Tech">("Fiber Technician");
+    const [positions, setPositions] = useState<PositionData[]>([]);
 
     useEffect(() => {
-        getAllPositions().then((data: unknown) => {
-            setPositions(data as Position[]);
+        fetchPositionsData().then((data) => {
+            if (data) {
+                setPositions(data);
+            } else {
+                console.error('No data fetched');
+            }
         });
-    }, [setPositions]);
+    }, []);
 
-    const filterPositionsByType = (
-        positions: Position[] | undefined,
-        posting_type: string
-    ) => {
+    const filterPositionsByType = (positions: PositionData[] | undefined, posting_type: string) => {
         if (!positions) {
             return [];
         }
-        return positions.filter(
-            (position) => position.posting_type === posting_type
-        );
+        return positions.filter((position) => position.posting_type === posting_type);
     };
 
     return (
@@ -44,10 +42,7 @@ const PositionsPage: React.FC = () => {
                     <div className="button-title">Fiber Technician</div>
                     <div className="button-vacancies">Vacantes Disponibles: 2 / 6</div>
                 </button>
-                <button
-                    className="button"
-                    onClick={() => setView("Quality Control Tech")}
-                >
+                <button className="button" onClick={() => setView("Quality Control Tech")}>
                     <div className="button-title">Quality Control Tech</div>
                     <div className="button-vacancies">Vacantes Disponibles: 3 / 5</div>
                 </button>
@@ -82,7 +77,13 @@ const PositionsPage: React.FC = () => {
                     </div>
                     <TableStaffer
                         entity={filterPositionsByType(positions, view)}
-                        types={positionBlueprint}
+                        types={{
+                            candidate_name: "Nombre del Candidato",
+                            application_status: "Estado en la Postulación",
+                            company_status: "Estado en la Empresa",
+                            application_date: "Fecha de Postulación",
+                            posting_type: "Tipo de Publicación",
+                        }}
                         showInfoButton={true}
                     />
                 </div>

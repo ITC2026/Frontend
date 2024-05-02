@@ -5,19 +5,16 @@ import LargeModal from "../../../components/modal/LargeModal.tsx";
 import ClientRegisterForm from "../../../components/accountModals/ClientRegisterForm.tsx";
 import { getAllClients } from "../../../api/ClientAPI.ts";
 import { Outlet, useLocation } from "react-router-dom";
-import ClientModifyForm from "../../../components/accountModals/ClientModifyForm.tsx";
-import PostulateInfoForm from "../../../components/accountModals/PostulateInfo..tsx";
 
+import SearchBar from "../../../components/searchbar/SearchBar.tsx";
 const ClientPage = () => {
   const [registerVisible, setRegisterVisible] = useState<boolean>(false);
-  const [postulateInfoVisible, setPostulateInfoVisible] =
-    useState<boolean>(false);
   const [modifyVisible, setModifyVisible] = useState<boolean>(false);
   const pageSize = 8; // Number of clients per page
   const [clients, setClients] = useState<Client[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const location = useLocation();
-
+  const [searchTerm, setSearchTerm] = useState<string>('');
   useEffect(() => {
     !registerVisible &&
       getAllClients().then((data: Client[] | undefined) =>
@@ -32,6 +29,26 @@ const ClientPage = () => {
     setCurrentPage(page);
   };
 
+  useEffect(() => {
+    const filteredClients = clients.filter(client =>
+        client.client_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setClients(filteredClients);
+}, [searchTerm]);
+useEffect(() => {
+ 
+  if (searchTerm === '') {
+      getAllClients().then((data: Client[] | undefined) =>
+          setClients(data || [])
+      );
+  } else {
+      
+      const filteredClients = clients.filter(client =>
+          client.client_name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setClients(filteredClients);
+  }
+}, [searchTerm]);
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const currentClients = clients.slice(startIndex, endIndex);
@@ -57,15 +74,22 @@ const ClientPage = () => {
 
   return (
     <div>
+
       <Outlet />
-      <h1>Clientes</h1>
+      <h1 className="titulo">Clientes</h1>
+      
       <div className="botoncito">
+        
         <button
           className="agregar btn encora-purple-button"
           onClick={() => setRegisterVisible(true)}
         >
           Registrar Cliente
         </button>
+        
+        <SearchBar onSearchTermChange={setSearchTerm} />
+        
+        </div>
         <div className="mostrar">
           {registerVisible && (
             //<RegistrarCliente setActiveModal={setRegisterVisible} />
@@ -77,27 +101,8 @@ const ClientPage = () => {
             />
           )}
         </div>
-      </div>
-
-      <div className="botoncito">
-        <button
-          className="agregar btn red-encora-button"
-          onClick={() => setPostulateInfoVisible(true)}
-        >
-          Información de Postulante
-        </button>
-        <div className="mostrar">
-          {postulateInfoVisible && (
-            //<RegistrarCliente setActiveModal={setRegisterVisible} />
-            <LargeModal
-              titleModal="Información de Postulante"
-              formContent={
-                <PostulateInfoForm setActiveModal={setPostulateInfoVisible} />
-              }
-            />
-          )}
-        </div>
-      </div>
+      
+      
 
       <div className="container">
         <div className="row">

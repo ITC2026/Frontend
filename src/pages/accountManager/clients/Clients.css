@@ -1,16 +1,37 @@
 
-.mostrar{
-    display: flex;
+.botoncito{
+    margin-bottom: 1rem;
+    width: 100%; 
     justify-content: right;
-}
-.agregar{
     display: flex;
-    margin-right: 3.9rem;
+    flex-direction: row;
+
+}
+.titulo{
+    margin-right: 60rem;
+
+}
+
+.extension{
+    margin-right: 50rem;
+}
+
+.agregar{
+    border-radius: 10px;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+   padding-left: 5%;
+   padding-right: 5%;
+    margin-top: auto;
+    margin-bottom: auto;
+    justify-content: center;
+    margin-right: 0.8rem !important;
+    
 }
 .container {
-    max-width: 1200px; /* Adjust the value as needed */
+    width: 100%; /* Adjust the value as needed */
     height: 500px;
-    margin: 0 auto; /* Center the container horizontally */
+
 }
 .pagination-container{
     position: absolute;

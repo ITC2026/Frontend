@@ -85,7 +85,7 @@ const ClientRegisterForm = (prop: Props) => {
             bsPrefix="encora-purple-input form-control"
           />
           <Form.Control.Feedback type="invalid">
-            Please provide a valid zip.
+            Por favor ingresa un nombre 
           </Form.Control.Feedback>
         </Col>
       </Form.Group>
@@ -102,7 +102,7 @@ const ClientRegisterForm = (prop: Props) => {
             bsPrefix="encora-purple-input form-control"
           />
           <Form.Control.Feedback type="invalid">
-            Please provide a valid zip.
+            Por favor ingresa una descripción
           </Form.Control.Feedback>
         </Col>
       </Form.Group>
@@ -113,7 +113,7 @@ const ClientRegisterForm = (prop: Props) => {
         </Form.Label>
         <Col sm={6}>
           <Form.Control
-            //required
+            required
             accept=".pdf"
             onChange={(e) => {
               const target = e.target as HTMLInputElement;
@@ -126,7 +126,7 @@ const ClientRegisterForm = (prop: Props) => {
             bsPrefix="encora-purple-input form-control"
           />
           <Form.Control.Feedback type="invalid">
-            Please provide a valid zip.
+          Por favor inserta un archivo PDF
           </Form.Control.Feedback>
         </Col>
       </Form.Group>
@@ -137,7 +137,7 @@ const ClientRegisterForm = (prop: Props) => {
         </Form.Label>
         <Col sm={6}>
           <Form.Control
-            // required
+            required
             accept="image/png, image/jpeg"
             onChange={(e) => {
               const target = e.target as HTMLInputElement;
@@ -149,10 +149,11 @@ const ClientRegisterForm = (prop: Props) => {
             type="file"
             bsPrefix="encora-purple-input form-control"
           />
-        </Col>
-        <Form.Control.Feedback type="invalid">
-          Please provide a valid zip.
+                  <Form.Control.Feedback type="invalid">
+          Por favor inserta una imagen
         </Form.Control.Feedback>
+        </Col>
+
       </Form.Group>
 
       <Form.Group as={Row} className="mb-4 row-width-form">
@@ -170,9 +171,7 @@ const ClientRegisterForm = (prop: Props) => {
             <Form.Check.Label>High-Growth Client</Form.Check.Label>
           </Form.Check>
         </Col>
-        <Form.Control.Feedback type="invalid">
-          Please provide a valid zip.
-        </Form.Control.Feedback>
+ 
       </Form.Group>
 
       <Form.Group as={Row} className="mb-4 row-width-form">
@@ -189,10 +188,11 @@ const ClientRegisterForm = (prop: Props) => {
             <option>USA</option>
             <option>MEXICO</option>
             <option>BRAZIL</option>
+            <option>CSA</option>
           </Form.Select>
         </Col>
         <Form.Control.Feedback type="invalid">
-          Please provide a valid zip.
+          Por favor selecciona una división.
         </Form.Control.Feedback>
       </Form.Group>
 

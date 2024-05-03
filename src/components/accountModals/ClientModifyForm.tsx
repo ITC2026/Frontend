@@ -82,19 +82,15 @@ const ClientModifyForm = () => {
     let urlContract = originalContractPath;
 
     if (originalLogoPath !== logoPath) {
-      if (!logoFile || !logoPath) {
-        console.log("Logo File is missing");
-        return;
+      if (logoPath && logoFile) {
+        urlLogo = await uploadFile(logoFile, logoPath);
       }
-      urlLogo = await uploadFile(logoFile, logoPath);
     } 
 
     if (originalContractPath !== contractPath) {
-      if (!contractFile || !contractPath) {
-        console.log("Contract File is missing");
-        return;
+      if (contractPath && contractFile) {
+        urlContract = await uploadFile(contractFile, contractPath);
       }
-      urlContract = await uploadFile(contractFile, contractPath);
     }
 
     const clientToModify: CreateClientAttributes = {
@@ -138,7 +134,7 @@ const ClientModifyForm = () => {
             bsPrefix="encora-purple-input form-control"
           />
           <Form.Control.Feedback type="invalid">
-            Please provide a valid zip.
+            Por favor ingresa un nombre 
           </Form.Control.Feedback>
         </Col>
       </Form.Group>
@@ -148,11 +144,15 @@ const ClientModifyForm = () => {
         </Form.Label>
         <Col sm={6}>
           <Form.Control
+            required
             value={clientDescription}
             onChange={(e) => setClientDescription(e.target.value)}
             type="text"
             bsPrefix="encora-purple-input form-control"
           />
+          <Form.Control.Feedback type="invalid">
+            Por favor ingresa una descripción 
+          </Form.Control.Feedback>
         </Col>
       </Form.Group>
 
@@ -234,13 +234,14 @@ const ClientModifyForm = () => {
             <option>USA</option>
             <option>MEXICO</option>
             <option>BRAZIL</option>
+            <option>CSA</option>
           </Form.Select>
         </Col>
       </Form.Group>
 
       <div className="button-wrapper">
         <button type="submit" className="btn btn-primary encora-purple-button">
-          Modify
+          Modificar
         </button>
         <button
           type="button"

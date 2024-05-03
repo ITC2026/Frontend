@@ -30,6 +30,8 @@ import ResourceWrapper from "../pages/resourceManager/ResourceManagerWrapper";
 import People from "../pages/resourceManager/People/People";
 import PersonModifyWrapper from "../pages/resourceManager/employees/modifyForms/PersonModifyWrapper";
 import PersonInfoWrapper from "../pages/resourceManager/employees/infoForms/PersonInfoWrapper";
+import MovePipelineToBench from "../pages/resourceManager/employees/moveForms/MovePipelineToBench";
+import LargeModal from "../components/modal/LargeModal";
 
 
 const router = createBrowserRouter([
@@ -206,6 +208,19 @@ const router = createBrowserRouter([
               {
                 path: ":id/",
                 element: <PersonModifyWrapper />,
+              }
+            ]
+          },
+          {
+            path: "move",
+            children: [
+              {
+                path: ":id/",
+                element: 
+                <LargeModal
+                titleModal={`Modificando a persona`}
+                formContent={<MovePipelineToBench />}
+                />,
               }
             ]
           }

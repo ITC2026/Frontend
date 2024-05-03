@@ -299,7 +299,7 @@ const ModifyPipelineForm = () => {
           <button 
           type="submit" 
           className="btn btn-primary encora-purple-button"
-          onClick={() => setShowConfirmationModify(true)}>
+          onClick={() => navigate("/resource/people/move/1")}>
             Modificar
           </button>
 

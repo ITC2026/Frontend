@@ -14,6 +14,7 @@ interface Props {
   showAddButton?: boolean;
   buttonArr?: React.ReactElement | React.ReactElement[] | JSX.Element[];
   showEditButton?: boolean;
+  hideOptions: boolean; 
   entity_id?: { [key: string]: number };
   routing?: number;
 }
@@ -98,7 +99,7 @@ useState<string>("");
                 {type}
               </th>
             ))}
-            <th className="encora-purple text-light">Options</th>
+            {props.hideOptions && <th className="encora-purple text-light">Options</th>}
           </tr>
         </thead>
         <tbody>
@@ -124,17 +125,14 @@ useState<string>("");
                     return <td key={index}>{value?.toString()}</td>;
                   }
                 })}
-                <td>
-
-                  {props.showInfoButton === true ? infoButton(entity.id) : null}
-                  {props.showInfoButton === false
-                    ? openingsButton(entity.id)
-                    : null}
-                  {props.showAddButton === true
-                    ? addApplicationButton(entity.id)
-                    : null}
-                  {props.buttonArr ? props.buttonArr : null}
-                </td>
+                {props.hideOptions && (
+                  <td>
+                    {props.showInfoButton === true ? infoButton(entity.id) : null}
+                    {props.showInfoButton === false ? openingsButton(entity.id) : null}
+                    {props.showAddButton === true ? addApplicationButton(entity.id) : null}
+                    {props.buttonArr ? props.buttonArr : null}
+                  </td>
+                )}
               </tr>
             )
           )}

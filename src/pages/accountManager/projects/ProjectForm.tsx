@@ -13,6 +13,7 @@ const ProjectForm = (prop: Props) => {
   const [projectDescription, setProjectDescription] = useState<string>("");
   const [selectedClientId, setSelectedClientId] = useState<string>("");
   const [startingDate, setStartingDate] = useState<string>("");
+  const [validated, setValidated] = useState(false);
   const [expirationDate, setExpirationDate] = useState<string>("");
   const [hasExpirationDate, setHasExpirationDate] = useState<boolean>(false);
 
@@ -22,7 +23,14 @@ const ProjectForm = (prop: Props) => {
 
   const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      console.log("Form is invalid");
+      setValidated(true);
+      return;
+    }
     const projectToSubmit: CreateProjectAttributes = {
       project_title: projectName,
       project_description: projectDescription,
@@ -46,22 +54,30 @@ const ProjectForm = (prop: Props) => {
   };
 
   return (
-    <Form onSubmit={submitForm}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
+    <Form       
+    className="form-group"
+    onSubmit={submitForm}
+    noValidate
+    validated={validated}>
+      <Form.Group className="mb-3" bsPrefix="label-style text-start"controlId="formBasicEmail">
         <Form.Label>Nombre</Form.Label>
+        
         <Form.Control
+        required
           type="text"
-          placeholder="Enter your name"
+          placeholder="Ingresa el nombre del proyecto"
           value={projectName}
           onChange={(e) => setProjectName(e.target.value)}
         />
+        
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Descripción</Form.Label>
         <Form.Control
+          required
           type="text"
-          placeholder="Enter your description"
+          placeholder="Ingresa la descripción del proyecto"
           value={projectDescription}
           onChange={(e) => setProjectDescription(e.target.value)}
         />
@@ -70,12 +86,13 @@ const ProjectForm = (prop: Props) => {
       <Form.Group className="mb-3" controlId="formBasicClientSelect">
         <Form.Label>Cliente</Form.Label>
         <Form.Control
+          required
           as="select"
           value={selectedClientId}
           onChange={(e) => setSelectedClientId(e.target.value)}
         >
           <option disabled value="">
-            Select a client
+            Selecciona un cliente
           </option>
           {clients.map((client) => (
             <option key={client.id} value={client.id}>
@@ -88,6 +105,7 @@ const ProjectForm = (prop: Props) => {
       <Form.Group className="mb-3" controlId="formBasicDate">
         <Form.Label>Fecha de inicio</Form.Label>
         <Form.Control
+        required
           type="date"
           value={startingDate}
           onChange={(e) => setStartingDate(e.target.value)}

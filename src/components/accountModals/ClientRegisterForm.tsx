@@ -168,7 +168,7 @@ const ClientRegisterForm = (prop: Props) => {
               checked={hasHighGrowth}
               onChange={(e) => setHasHighGrowth(e.target.checked)}
             />
-            <Form.Check.Label>High-Growth Client</Form.Check.Label>
+            <Form.Check.Label>Es High-Growth Client?</Form.Check.Label>
           </Form.Check>
         </Col>
  

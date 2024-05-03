@@ -13,7 +13,7 @@ const ProjectModifyForm = () => {
     useState<boolean>(false);
   const [showConfirmationModify, setShowConfirmationModify] =
     useState<boolean>(false);
-
+  const [validated, setValidated] = useState(false);
   const [clients, setClients] = useState<{ id: string; name: string }[]>([]);
   const [projectName, setProjectName] = useState<string>("");
   const [projectDescription, setProjectDescription] = useState<string>("");
@@ -64,7 +64,14 @@ const ProjectModifyForm = () => {
 
   const handleModifyProject = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      console.log("Form is invalid");
+      setValidated(true);
+      return;
+    }
     const projectToSubmit: CreateProjectAttributes = {
       project_title: projectName,
       project_description: projectDescription,
@@ -88,12 +95,13 @@ const ProjectModifyForm = () => {
   };
 
   return (
-    <Form onSubmit={handleModifyProject}>
+    <Form  onSubmit={handleModifyProject} noValidate validated={validated}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Nombre</Form.Label>
         <Form.Control
+          required
           type="text"
-          placeholder="Enter your name"
+          placeholder="Ingresa el nombre del proyecto"
           value={projectName}
           onChange={(e) => setProjectName(e.target.value)}
         />
@@ -102,8 +110,9 @@ const ProjectModifyForm = () => {
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Descripción</Form.Label>
         <Form.Control
+        required
           type="text"
-          placeholder="Enter your description"
+          placeholder="Ingresa la descripción del proyecto"
           value={projectDescription}
           onChange={(e) => setProjectDescription(e.target.value)}
         />
@@ -112,6 +121,7 @@ const ProjectModifyForm = () => {
       <Form.Group className="mb-3" controlId="formBasicClientSelect">
         <Form.Label>Cliente</Form.Label>
         <Form.Control
+        required
           as="select"
           value={selectedClientId}
           onChange={(e) => setSelectedClientId(e.target.value)}

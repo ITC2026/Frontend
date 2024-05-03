@@ -28,7 +28,7 @@ const JobPositionModifyForm = (prop: Props) => {
   const [isExclusive, setIsExclusive] = useState<boolean>(false);
   const [projectId, setProjectId] = useState<number>(0);
   const [billRate, setBillRate] = useState<number>(0);
-
+  const [validated, setValidated] = useState(false);
   const [onlyInfo, setOnlyInfo] = useState<boolean>(false);
   const [onlyModify, setOnlyModify] = useState<boolean>(false);
 
@@ -64,7 +64,14 @@ const JobPositionModifyForm = (prop: Props) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      console.log("Form is invalid");
+      setValidated(true);
+      return;
+    }
     const jobPositionToSubmit: CreatePositionAttributes = {
       position_title: positionTitle,
       comment: comment,
@@ -113,14 +120,16 @@ const JobPositionModifyForm = (prop: Props) => {
   }, [id]);
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} noValidate
+    validated={validated}>
       <div className="job-position-form">
         <div className="job-position-form-first-half">
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Position Title</Form.Label>
+            <Form.Label>Titulo</Form.Label>
             <Form.Control
+            required
               type="text"
-              placeholder="Enter position title"
+              placeholder="Ingresar tilulo de la posición"
               value={positionTitle}
               onChange={(e) => setPositionTitle(e.target.value)}
               disabled={onlyInfo}
@@ -128,10 +137,11 @@ const JobPositionModifyForm = (prop: Props) => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Comment</Form.Label>
+            <Form.Label>Descripción</Form.Label>
             <Form.Control
+            required
               type="text"
-              placeholder="Enter comment"
+              placeholder="Ingresar descripción de la posición"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               disabled={onlyInfo}
@@ -139,10 +149,10 @@ const JobPositionModifyForm = (prop: Props) => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Vacancies Position</Form.Label>
+            <Form.Label>Número de Vacantes</Form.Label>
             <Form.Control
               type="number"
-              placeholder="Enter vacancies position"
+              placeholder="Ingresar número de vacantes"
               value={vacanciesPosition}
               onChange={(e) => setVacanciesPosition(parseInt(e.target.value))}
               disabled={onlyInfo}
@@ -150,10 +160,10 @@ const JobPositionModifyForm = (prop: Props) => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Working Hours</Form.Label>
+            <Form.Label>Horas de trabajo</Form.Label>
             <Form.Control
               type="number"
-              placeholder="Enter working hours"
+              placeholder="Ingresar horas de trabajo"
               value={workingHours}
               onChange={(e) => setWorkingHours(parseInt(e.target.value))}
               disabled={onlyInfo}
@@ -164,7 +174,7 @@ const JobPositionModifyForm = (prop: Props) => {
             <Form.Label>Bill Rate</Form.Label>
             <Form.Control
               type="number"
-              placeholder="Enter working hours"
+              placeholder="Ingresar Bill Rate"
               value={billRate}
               onChange={(e) => setBillRate(parseInt(e.target.value))}
               disabled={onlyInfo}
@@ -174,6 +184,7 @@ const JobPositionModifyForm = (prop: Props) => {
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Posting Type</Form.Label>
             <Form.Control
+            required
               as="select"
               placeholder="Enter posting type"
               value={postingType}
@@ -181,7 +192,7 @@ const JobPositionModifyForm = (prop: Props) => {
               disabled={onlyInfo}
             >
               <option disabled value="">
-                Select a posting type
+                Selecciona un posting type
               </option>
               <option value="New Head Count">New Head Count</option>
               <option value="Back-fill Replacement">
@@ -192,7 +203,7 @@ const JobPositionModifyForm = (prop: Props) => {
 
           <div className="checkbox-form">
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Label>Is Cross Division</Form.Label>
+              <Form.Label>Es Cross Division?</Form.Label>
               <Form.Check
                 type="checkbox"
                 checked={isCrossDivision}
@@ -210,8 +221,9 @@ const JobPositionModifyForm = (prop: Props) => {
            * TODO: Agregar todas las demás divisiones y regiones que vayamos a utilizar. ¡Gracias!
            */}
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Division</Form.Label>
+            <Form.Label>División</Form.Label>
             <Form.Control
+            required
               as="select"
               placeholder="Enter posting type"
               value={division}
@@ -219,7 +231,7 @@ const JobPositionModifyForm = (prop: Props) => {
               disabled={onlyInfo}
             >
               <option disabled value="">
-                Select your division
+                Selecciona la división
               </option>
               <option value="USA">USA</option>
               <option value="MEXICO">MEXICO</option>
@@ -229,7 +241,7 @@ const JobPositionModifyForm = (prop: Props) => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Region</Form.Label>
+            <Form.Label>Región</Form.Label>
             <Form.Control
               as="select"
               placeholder="Enter posting type"
@@ -237,7 +249,7 @@ const JobPositionModifyForm = (prop: Props) => {
               onChange={(e) => setRegion(e.target.value)}
             >
               <option disabled value="">
-                Select your region
+              Selecciona la región
               </option>
               <option value="CDMX">CDMX</option>
               <option value="CUU">CUU</option>
@@ -266,7 +278,7 @@ const JobPositionModifyForm = (prop: Props) => {
               disabled={onlyInfo}
             >
               <option disabled value="">
-                Select your Tech Stack
+                Selecciona la tech stack
               </option>
               <option value="Java">Java</option>
               <option value="React">React</option>
@@ -287,7 +299,7 @@ const JobPositionModifyForm = (prop: Props) => {
 
           <div className="checkbox-form">
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Label>Is Exclusive?</Form.Label>
+              <Form.Label>Es Exclusiva?</Form.Label>
               <Form.Check
                 type="checkbox"
                 checked={isExclusive}
@@ -302,11 +314,12 @@ const JobPositionModifyForm = (prop: Props) => {
       </div>
       {onlyModify && (
         <>
+        <div className="button-wrapper">
           <Button className="encora-purple-button" type="submit">
             Modificar Posición
           </Button>
 
-          <Button
+          <Button className="red-encora-button"
             onClick={() => {
               setShowConfirmationDelete(true);
             }}
@@ -314,6 +327,7 @@ const JobPositionModifyForm = (prop: Props) => {
             {" "}
             Eliminar Posición{" "}
           </Button>
+          </div>
         </>
       )}
 

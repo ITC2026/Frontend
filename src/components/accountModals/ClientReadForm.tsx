@@ -103,7 +103,7 @@ const ClientReadForm = () => {
               checked={hasHighGrowth}
               disabled
             />
-            <Form.Check.Label>High-Growth Client</Form.Check.Label>
+            <Form.Check.Label>Es High-Growth Client?</Form.Check.Label>
           </Form.Check>
         </Col>
       </Form.Group>

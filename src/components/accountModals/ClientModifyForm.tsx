@@ -213,7 +213,7 @@ const ClientModifyForm = () => {
               checked={hasHighGrowth}
               onChange={(e) => setHasHighGrowth(e.target.checked)}
             />
-            <Form.Check.Label>High-Growth Client</Form.Check.Label>
+            <Form.Check.Label>Es High-Growth Client?</Form.Check.Label>
           </Form.Check>
         </Col>
       </Form.Group>
@@ -245,7 +245,7 @@ const ClientModifyForm = () => {
           className="btn  btn-primary gray-button"
           onClick={() => navigate("/account_manager/clients")}
         >
-          Close
+          Cerrar
         </button>
         <button
           onClick={handleDeleteClient}

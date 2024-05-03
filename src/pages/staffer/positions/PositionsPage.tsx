@@ -1,59 +1,77 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import "./PositionsPage.css";
 import { Link } from "react-router-dom";
 import TableStaffer from "../../../components/staffer/TableStaffer";
-import { getAllPositions } from "../../../api/PositionAPI";
+import  getProjectPositions  from '../functions/forPositions/getProjectPositions';
+import { fetchPositionsData } from '../functions/forPositions/fetchPositionsData';
+import { useParams } from 'react-router-dom';
+import getPostulates from '../functions/forPostulates/getPostulates';
+
+
 
 const PositionsPage: React.FC = () => {
-    const [view, setView] = useState<"Fiber Technician" | "Quality Control Tech">(
-        "Fiber Technician"
-    );
     const [positions, setPositions] = useState<Position[]>([]);
+    const [view, setView] = useState<"Position 1" | "Position 2">("Position 1");
+    const [postulates, setPostulates] = useState<Person[]>([]);
 
-    const positionBlueprint = {
-        candidate_name: "Nombre del Candidato",
-        application_status: "Estado en la Postulación",
-        company_status: "Estado en la Empresa",
-        application_date: "Fecha de Postulación",
-    };
+    const { id }  = useParams();
+    const projectId = parseInt(id as string);
 
-    useEffect(() => {
-        getAllPositions().then((data: unknown) => {
-            setPositions(data as Position[]);
+    
+    useEffect(() => { 
+        getPostulates().then((data) => {
+            if (data) {
+                setPostulates(data);
+            } else {
+                console.error('No data fetched');
+            }
         });
-    }, [setPositions]);
+    }, []);
+    
+    useEffect(() => {
+        getProjectPositions(projectId).then((data : Position[]) => {
+            if (data) {
+                setPositions(data);
+            } else {
+                console.error('No data fetched');
+            }
+        });
+    }, [projectId]);
 
-    const filterPositionsByType = (
-        positions: Position[] | undefined,
-        posting_type: string
-    ) => {
-        if (!positions) {
-            return [];
+    // const filterPositionsByType = (people: Person[] | undefined, posting_type: string) => {
+    //     if (!people) {
+    //         return [];
+    //     }
+    //     return people.filter((position) => position.posting_type === posting_type);
+    // };
+
+    const posTitles = (position: string) => {
+        var whichPos : number = 0;
+        if (position === "Position 1") {
+            whichPos = 0;
+        } else if (position === "Position 2") {
+            whichPos = 1;
         }
-        return positions.filter(
-            (position) => position.posting_type === posting_type
-        );
+        return (positions && positions[whichPos]?.position_title as string);
     };
 
     return (
         <div className="positions-page">
             <h1>Posiciones de Proyecto</h1>
-            <h2>{view}</h2>
+            <h2>{posTitles(view)}</h2>
+            
             <div className="buttons-container">
-                <button className="button" onClick={() => setView("Fiber Technician")}>
-                    <div className="button-title">Fiber Technician</div>
+                <button className="button" onClick={() => setView("Position 1")}>
+                    <div className="button-title">{posTitles("Position 1")}</div>
                     <div className="button-vacancies">Vacantes Disponibles: 2 / 6</div>
                 </button>
-                <button
-                    className="button"
-                    onClick={() => setView("Quality Control Tech")}
-                >
-                    <div className="button-title">Quality Control Tech</div>
+                <button className="button" onClick={() => setView("Position 2")}>
+                    <div className="button-title">{posTitles("Position 2")}</div>
                     <div className="button-vacancies">Vacantes Disponibles: 3 / 5</div>
                 </button>
             </div>
             <div className="project-table-container">
-                <h1 className="table-title">{view}</h1>
+                <h1 className="table-title">{posTitles(view)}</h1>
                 <div className="table-wrapper">
                     <Link to={"candidates"}>
                         <button className="button1">
@@ -81,8 +99,13 @@ const PositionsPage: React.FC = () => {
                         </div>
                     </div>
                     <TableStaffer
-                        entity={filterPositionsByType(positions, view)}
-                        types={positionBlueprint}
+                        entity={postulates}
+                        types={{
+                            name: "Nombre del Candidato",
+                            application_status: "Estado en la Postulación",
+                            status: "Estado del Postulado",
+                            application_date: "Fecha de Postulación",
+                        }}
                         showInfoButton={true}
                     />
                 </div>

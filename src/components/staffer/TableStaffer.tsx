@@ -4,6 +4,7 @@ import SearchBar from "../searchbar/SearchBar";
 import { Link } from "react-router-dom";
 import "../table/Table.css";
 
+
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
   types: { [key: string]: string };
@@ -36,7 +37,15 @@ const TableStaffer = (prop: Props) => {
               <i className='bi bi-info-circle-fill'></i>
           </Link>
       );
-    }
+    };
+
+    const openingsButton = (id:number) => {
+      return (
+        <Link to={`positions/${id}`}>
+          <i className="bi bi-person-plus-fill"></i>
+        </Link>
+      );
+    };
 
   return (
     <div>
@@ -69,8 +78,11 @@ const TableStaffer = (prop: Props) => {
                 })}
                 <td>
                   {prop.showInfoButton === true ? (
-                      infoButton(entity.id)
-                    ) : null}
+                    infoButton(entity.id)
+                  ) : null}
+                  {prop.showInfoButton === false ? (
+                    openingsButton(entity.id) 
+                  ) : null}
                   {prop.buttonArr ? prop.buttonArr : null}
                 </td>
               </tr>

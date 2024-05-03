@@ -10,12 +10,13 @@ import {
   divisionOptions,
   regionOptions,
 } from "../Options";
-import ShortModal from "../../../../components/modal/ShortModal";
+import MediumModal from "../../../../components/modal/MediumModal";
 import { modifyPerson } from "../../../../api/PersonAPI";
 import { getPersonById } from "../../../../api/PersonAPI";
 import { uploadFile } from "../../../../firebase/initialize";
 import { v4 as uuidv4 } from "uuid";
 import ChangeStatePipelineForm from "./ChangeStatePipelineForm";
+import ChangeStatePipelineBillingForm from "./ChangeStatePipelineBillingForm";
 
 const peopleProfilePath = "people/profile/";
 
@@ -41,6 +42,8 @@ const ModifyPipelineForm = () => {
 
   const [modal, setModal] = useState<boolean>(false);  
   const toggleModal = (_prev: boolean) => { setModal((prev) => !prev); };
+
+  const toggleModalBilling = (_prev: boolean) => { setModal((prev) => !prev); };
 
   useEffect(() => {
     if (id) {
@@ -310,7 +313,8 @@ const ModifyPipelineForm = () => {
             </Col>
           </Form.Group>
         </div>
-          <div className="button-wrapper">
+
+        <div className="button-wrapper">
 
           <button
             className="btn btn-primary gray-button"
@@ -324,7 +328,15 @@ const ModifyPipelineForm = () => {
             className="btn btn-primary green-encora-button"
             onClick={() => toggleModal(true)}
           >
-            Cambiar Estado
+            Cambiar Estado a Bench
+          </button>
+
+          <button 
+            type="button"
+            className="btn btn-primary blue-encora-button"
+            onClick={() => toggleModalBilling(true)}
+          >
+            Cambiar Estado a Billing
           </button>
 
           <button 
@@ -336,10 +348,16 @@ const ModifyPipelineForm = () => {
         </div>
       </Form>
       {modal && (
-        <ShortModal
-          content={<ChangeStatePipelineForm/>}
-          onClose={() => setShowConfirmationModify(false)}
-        />
+        <MediumModal
+        content={<ChangeStatePipelineForm/>}
+        onClose={() => setShowConfirmationModify(false)}
+      />
+      )}
+      {modal && (
+        <MediumModal
+        content={<ChangeStatePipelineBillingForm/>}
+        onClose={() => setShowConfirmationModify(false)}
+      />
       )}
     </>
   );

@@ -19,6 +19,7 @@ import { getPersonById } from "../../../../api/PersonAPI";
 import { getEmployeeByPersonID } from "../../../../api/EmployeeAPI";
 import { uploadFile } from "../../../../firebase/initialize";
 import { v4 as uuidv4 } from "uuid";
+import ChangeStateBenchForm from "./ChangeStateBenchForm";
 
 const peopleProfilePath = "people/profile/";
 
@@ -471,27 +472,14 @@ const ModifyBenchForm = () => {
           onClick={() => setShowConfirmationModify(true)}>
             Modificar
           </button>
-
-          {showConfirmationModify && (
-            <ShortModal
-              typeOfModal="modify"
-              btnArray={[
-                <button key="modify" type="submit" className="btn btn-warning"
->
-                  Modificar
-                </button>,
-              ]}
-              onClose={() => setShowConfirmationModify(false)}
-              />
-          )}
-        </div>
-
-      </Form>
+          
+          </div>
+          </Form>
       {modal && (
         <ShortModal
-          typeOfModal="state"
-          setActiveModal={toggleModal}
-        />
+        content={<ChangeStateBenchForm/>}
+        onClose={() => setShowConfirmationModify(false)}
+      />
       )}
     </>
   );

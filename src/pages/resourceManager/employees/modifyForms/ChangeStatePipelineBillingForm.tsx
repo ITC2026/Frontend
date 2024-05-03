@@ -16,7 +16,7 @@ import {
 } from "../Options";
 
 
-const ChangeStatePipelineForm = () => {
+const ChangeStatePipelineBillingForm = () => {
 
   const [profilePic] = useState<File>();
   const [profilePicPath, setProfilePicPath] = useState<string>();
@@ -38,7 +38,7 @@ const ChangeStatePipelineForm = () => {
   const [, setStatus] = useState<string>("");
   const [movementReason, setMovementReason] = useState<string>("");
 
-  const general_status = "Bench";
+  const general_status = "Billing";
   const salary: number = 1111;
   const employee_status = "On Hired";
 
@@ -59,7 +59,7 @@ const ChangeStatePipelineForm = () => {
         setPhoneNumber(data.phone);
         setEmail(data.email);
         setTitle(data.title);
-        setStatus("Bench")
+        setStatus("Billing")
         setTechStack(data.tech_stack);
         setDivision(data.division);
         setRegion(data.region);
@@ -286,4 +286,4 @@ const ChangeStatePipelineForm = () => {
   );
 };
 
-export default ChangeStatePipelineForm;
+export default ChangeStatePipelineBillingForm;

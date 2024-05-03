@@ -3,5 +3,5 @@ export const OpeningStructure = {
   opening_status: "Estado",
   opening_reason: "Razón",
   start_date: "Fecha de Inicio",
-  expiration_date: "Fecha límite",
+  expiration: "Fecha límite",
 };

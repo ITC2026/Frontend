@@ -130,7 +130,7 @@ interface Opening {
   id: number;
   opening_status: OpeningStatus; // Part of a type.
   opening_reason: OpeningReason; // Part of a type.
-  expiration_date: Date;
+  expiration_date: ExpirationDateOpening;
   has_expiration_date: boolean;
   position_id: number;
   person_id: number;

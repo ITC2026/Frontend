@@ -38,7 +38,7 @@ export const createPosition = async (position: CreatePositionAttributes) => {
 // Modify a position.
 export const modifyPosition = async (id: number, tposition: CreatePositionAttributes) => {
   try {
-    const res = await api.patch(`${positionRoute}/${id}`, { data: tposition });
+    const res = await api.patch(`${positionRoute}/${id}`, tposition);
     const position: Position = await res.data.payload;
     return position;
   } catch (err) {

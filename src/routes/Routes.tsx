@@ -10,6 +10,7 @@ import ProjectModifyWrapper from "../pages/accountManager/projects/modify/Projec
 import JobPositionPage from "../pages/accountManager/JobPositions/JobPosition";
 import JobPositionModify from "../pages/accountManager/JobPositions/JobPositionModify";
 import OpeningTablePage from "../pages/accountManager/JobPositions/Openings/OpeningTablePage";
+import OpeningWrapper from "../components/accountManager/opening/OpeningWrapper";
 
 import FirebaseStorage from "../pages/firebaseStorage/FirebaseStorage";
 import ClientPage from "../pages/accountManager/clients/ClientPage";
@@ -30,7 +31,6 @@ import ResourceWrapper from "../pages/resourceManager/ResourceManagerWrapper";
 import People from "../pages/resourceManager/People/People";
 import PersonModifyWrapper from "../pages/resourceManager/employees/modifyForms/PersonModifyWrapper";
 import PersonInfoWrapper from "../pages/resourceManager/employees/infoForms/PersonInfoWrapper";
-
 
 const router = createBrowserRouter([
   {
@@ -96,6 +96,16 @@ const router = createBrowserRouter([
       {
         path: "projects/edit/:id/",
         element: <ProjectModifyWrapper />,
+        children: [
+          {
+            path: ":id/",
+            element: <JobPositionModify origin="Project" type="Info" />,
+          },
+          {
+            path: "edit/:id/",
+            element: <JobPositionModify origin="Project" type="Modify" />,
+          },
+        ],
       },
       {
         path: "settings",
@@ -115,13 +125,23 @@ const router = createBrowserRouter([
         children: [
           {
             path: "edit/:id/",
-            element: <JobPositionModify />,
+            element: <JobPositionModify type="Modify" />,
           },
         ],
       },
       {
         path: "positions/:id/",
         element: <OpeningTablePage />,
+        children: [
+          {
+            path: "edit/:id/",
+            element: <OpeningWrapper type="Modify" />,
+          },
+          {
+            path: ":id/",
+            element: <OpeningWrapper type="Info" />,
+          },
+        ],
       },
     ],
     errorElement: <ErrorPage />,
@@ -206,9 +226,9 @@ const router = createBrowserRouter([
               {
                 path: ":id/",
                 element: <PersonModifyWrapper />,
-              }
-            ]
-          }
+              },
+            ],
+          },
         ],
       },
       {

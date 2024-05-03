@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
 import { OpeningStructure } from "./OpeningStructure";
 import { getOpeningName } from "../../../../utils/Openings/GetOpeningName";
+import { getExpirationDateOpening } from "../../../../utils/Openings/GetExpirationDateOpening";
 
 interface Props {
   registerBtn: JSX.Element;
@@ -11,27 +12,36 @@ interface Props {
 }
 export const OpeningTable = (prop: Props) => {
   const [openings, setOpening] = useState<Opening[]>([]);
-  const [jobTitle, setJobTitle] = useState<string>(""); 
+  const [jobTitle, setJobTitle] = useState<string>("");
   const location = useLocation();
   const { id } = useParams<{ id: string }>();
   const int_id = Number(id);
 
   useEffect(() => {
-    getOpeningsWithPositionId(int_id).then((result) => {
-      if (!result) {
-        return;
+    getOpeningsWithPositionId(int_id).then(
+      async (result: Opening[] | undefined) => {
+        if (!result) {
+          return;
+        }
+        const openingsWithExpiration = await Promise.all(
+          result.map(async (opening: Opening) => {
+            const expiration = await getExpirationDateOpening(opening.id);
+            if (!expiration) return opening;
+            return { ...opening, expiration };
+          })
+        );
+        console.log(openingsWithExpiration);
+        setOpening(openingsWithExpiration);
       }
-      setOpening(result);
-     
-    });
+    );
 
     getOpeningName(int_id).then((jobPositionName) => {
-    if (!jobPositionName) {
-    return;
-        }
+      if (!jobPositionName) {
+        return;
+      }
       setJobTitle(jobPositionName);
     });
-  }, [id, location, prop.registerState]);
+  }, [id, int_id, location, prop.registerState]);
 
   return (
     <>

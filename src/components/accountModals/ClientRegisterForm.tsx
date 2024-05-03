@@ -17,7 +17,7 @@ const ClientRegisterForm = (prop: Props) => {
   const [clientName, setClientName] = useState<string>("");
   const [clientDescription, setClientDescription] = useState<string>("");
   const [hasHighGrowth, setHasHighGrowth] = useState<boolean>(false);
-  const [selectedDivision, setSelectedDivision] = useState<Division>();
+  const [selectedDivision, setSelectedDivision] = useState<Division>("USA");
   const [validated, setValidated] = useState(false);
   const [logoFile, setLogoFile] = useState<File>();
   const [logoPath, setLogoPath] = useState<string>();

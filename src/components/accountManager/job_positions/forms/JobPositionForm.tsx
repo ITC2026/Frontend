@@ -1,5 +1,5 @@
 import Form from "react-bootstrap/Form";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./JobPositionForm.css";
 import { useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -73,8 +73,6 @@ export const JobPositionForm = (props: Prop) => {
       }
     });
   };
-
-  useEffect(() => {}, [id]);
 
   return (
     <>

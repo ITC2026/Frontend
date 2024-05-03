@@ -7,7 +7,6 @@ import {
   modifyPosition,
   getPositionById,
 } from "../../../../../api/PositionAPI";
-import { ReturnButton } from "../../../../ReturnButton/ReturnButton";
 
 const JobPositionModifyForm = () => {
   const [positionTitle, setPositionTitle] = useState<string>("");
@@ -49,6 +48,7 @@ const JobPositionModifyForm = () => {
   };
 
   useEffect(() => {
+    console.log("ID", id)
     if (id) {
       getPositionById(Number(id)).then((data) => {
         if (!data) {
@@ -68,9 +68,9 @@ const JobPositionModifyForm = () => {
     }
   }, [id]);
 
+
   return (
     <Form onSubmit={handleSubmit}>
-      <ReturnButton/>
       <div className="job-position-form">
         <div className="job-position-form-first-half">
           <Form.Group className="mb-3" controlId="formBasicEmail">

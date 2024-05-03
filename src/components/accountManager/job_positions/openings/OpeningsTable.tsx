@@ -17,26 +17,25 @@ export const OpeningTable = (prop: Props) => {
   const int_id = Number(id);
 
   useEffect(() => {
-
     getOpeningsWithPositionId(int_id).then((result) => {
       if (!result) {
         return;
       }
       setOpening(result);
-      getOpeningName(int_id).then((name) => {
-      if (!name) {
-        return;
-      }
-      setJobTitle(name);
-      });
+     
+    });
 
+    getOpeningName(int_id).then((jobPositionName) => {
+    if (!jobPositionName) {
+    return;
+        }
+      setJobTitle(jobPositionName);
     });
   }, [id, location, prop.registerState]);
 
   return (
     <>
       <h1> {jobTitle} </h1>
-      <h3> Bruh </h3> 
       <TableView
         entity={openings}
         categories={OpeningStructure}

@@ -5,6 +5,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { modifyProject, deleteProject } from "../../../../api/ProjectAPI";
 import ShortModal from "../../../../components/modal/ShortModal";
 import { formatDate } from "../../../../utils/Dates";
+import { getProjectById } from "../../../../api/ProjectAPI";
+import "./ProjectModifyForm.css"
 
 const ProjectModifyForm = () => {
   const [showConfirmationDelete, setShowConfirmationDelete] =
@@ -20,7 +22,7 @@ const ProjectModifyForm = () => {
   const [expirationDate, setExpirationDate] = useState<string>("");
   const [hasExpirationDate, setHasExpirationDate] = useState<boolean>(false);
   const [selectedStatus, setSelectedStatus] = useState<string>("");
-  const [closedStatus, setClosedStatus] = useState<string>("");
+  const [closedStatus, setClosedStatus] = useState<string>("Completed");
   const [closedReason, setClosedReason] = useState<string>("");
 
   const navigate = useNavigate();
@@ -44,21 +46,20 @@ const ProjectModifyForm = () => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:3000/projects/${id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setProjectName(data.payload.project_title);
-          setProjectDescription(data.payload.project_description);
-          setSelectedClientId(data.payload.client_id);
-          setStartingDate(formatDate(data.payload.start_date));
-          setExpirationDate(
-            data.payload.has_expiration_date
-              ? formatDate(data.payload.expiration_date)
-              : ""
-          );
-          setHasExpirationDate(data.payload.has_expiration_date);
-          setSelectedStatus(data.payload.general_status);
-        });
+      getProjectById(Number(id)).then((data) => {
+        if (!data) {
+          return;
+        }
+        setProjectName(data.project_title);
+        setProjectDescription(data.project_description);
+        setSelectedClientId(String(data.client_id));
+        setStartingDate(formatDate(String(data.start_date)));
+        setHasExpirationDate(data.has_expiration_date);
+        setExpirationDate(
+          formatDate(String(data.expiration_date?.expiration_date))
+        );
+        setSelectedStatus(data.general_status);
+      });
     }
   }, [id]);
 
@@ -74,9 +75,9 @@ const ProjectModifyForm = () => {
       general_status: selectedStatus,
       closed_status: closedStatus,
       closed_reason: closedReason,
+      expiration_date: expirationDate,
     };
     const id_num = Number(id);
-
     modifyProject(id_num, projectToSubmit)
       .then(() => {
         console.log("Project modified successfully");
@@ -194,31 +195,24 @@ const ProjectModifyForm = () => {
         </div>
       )}
 
-      <button
-        type="button"
-        className="btn btn-secondary"
-        onClick={() => navigate("/account_manager/projects")}
-      >
-        Close
-      </button>
+      <div className="action-buttons">
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={() => setShowConfirmationDelete(true)}
+        >
+          {" "}
+          Delete Project
+        </button>
 
-      <button
-        type="button"
-        className="btn btn-danger"
-        onClick={() => setShowConfirmationDelete(true)}
-      >
-        {" "}
-        Delete Project
-      </button>
-
-      <button
-        type="button"
-        className="btn btn-warning"
-        onClick={() => setShowConfirmationModify(true)}
-      >
-        Modify
-      </button>
-
+        <button
+          type="button"
+          className="btn btn-warning"
+          onClick={() => setShowConfirmationModify(true)}
+        >
+          Modify
+        </button>
+      </div>
       {showConfirmationModify && (
         <ShortModal
           typeOfModal="modify"

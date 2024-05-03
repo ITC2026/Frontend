@@ -1,41 +1,65 @@
-th,
-td {
-    border: 0;
+.table-button {
+  border: 0;
+  color: #2d1154;
+}
+td i {
+    color: #2D1154;
 }
 
-.table-button {
-    border: 0;
-    color: #2d1154;
-    margin-right: 10px;
-}
 .table-element {
-    color: #2d1154;
-    transition: 0.2s all;
+  color: #2d1154;
+  transition: 0.2s all;
 }
 
 .table-element:hover {
-    color: #9474c2;
+  color: #9474c2;
 }
 
-.custom-table {
-    width: 80vw;
-    height: 15vh;
+.table-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    border: 1px solid #ccc;
-    font-size: 1.2rem;
+.custom-table th,
+.custom-table td {
+  min-width: 150px;
+  width: 250px;
+  padding: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.custom-table tr:nth-child(even) {
+  background-color: #d8d8d8;
 }
 
 .table-header {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 5px;
-    color: white;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 3rem;
+  margin-left: auto;
+
 }
 
+.table-options {
+  font-size: 1.3rem;
+}
+
+.table-options > * {
+  margin-left: 0.2rem;
+}
+
+.info-element {
+  margin-right: 1rem;
+}
 .table-header>* {
     margin-left: 10px;
     align-content: center;
     align-items: center;
     margin-bottom: 1%;
 }
+

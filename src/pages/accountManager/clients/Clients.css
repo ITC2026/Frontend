@@ -1,0 +1,63 @@
+
+.botoncito{
+    margin-bottom: 1rem;
+    width: 100%; 
+    justify-content: right;
+    display: flex;
+    flex-direction: row;
+
+}
+.titulo{
+    margin-right: 60rem;
+
+}
+
+.extension{
+    margin-right: 50rem;
+}
+
+.agregar{
+    border-radius: 10px;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+   padding-left: 5%;
+   padding-right: 5%;
+    margin-top: auto;
+    margin-bottom: auto;
+    justify-content: center;
+    margin-right: 0.8rem !important;
+    
+}
+.container {
+    width: 100%; /* Adjust the value as needed */
+    height: 500px;
+
+}
+.pagination-container{
+    position: absolute;
+    bottom: 0px;
+    list-style: none;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex; 
+    justify-content: center;
+    color: white;
+}
+
+.pagination .page-link {
+    color: purple; /* Set the text color to purple */
+}
+
+/* Change the background color of the active page link */
+.pagination .page-item.active .page-link {
+    background-color: #2D1154; 
+    border-color: #2D1154; 
+    color: white;
+}
+
+/* Change the hover color of the pagination links */
+.pagination .page-link:hover {
+    color: white; /* Set the text color to white on hover */
+    background-color: darkpurple; /* Set the background color to dark purple on hover */
+    border-color: darkpurple; /* Set the border color to dark purple on hover */
+}

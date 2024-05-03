@@ -1,28 +1,27 @@
+import { LargeModalType, ShortModalType } from "./modalType";
 import ShowShortModalButton from "../buttons/ShowShortModalButton";
 import RegisterButton from "../buttons/RegisterButton";
 import ModifyButton from "../buttons/ModifyButton";
 import DeleteButton from "../buttons/DeleteButton";
-import { LargeModalType } from "./modalType";
-import { ShortModalType } from "./modalType";
 
-export const getBtnArrLargeModal = (typeOfLargeModal: LargeModalType, openModal: React.Dispatch<React.SetStateAction<ShortModalType>>) => {
+export const getBtnArrLargeModal = (typeOfLargeModal: LargeModalType, setTypeOfShortModal: React.Dispatch<React.SetStateAction<ShortModalType>>) => {
   switch (typeOfLargeModal) {
     case "register":
       return [
         <ShowShortModalButton
           typeOfModalButton={"register"}
-          openModal={() => openModal("register")}
+          setTypeOfModal={setTypeOfShortModal}
         />,
       ];
     case "modify":
       return [
         <ShowShortModalButton
-          typeOfModalButton={"modify"}
-          openModal={() => openModal("modify")}
+          typeOfModalButton={"modify"} 
+          setTypeOfModal={setTypeOfShortModal}
         />,
         <ShowShortModalButton
           typeOfModalButton={"delete"}
-          openModal={() => openModal("delete")}
+          setTypeOfModal={setTypeOfShortModal}
         />,
       ];
     case "info":
@@ -31,14 +30,14 @@ export const getBtnArrLargeModal = (typeOfLargeModal: LargeModalType, openModal:
   }
 };
 
-export const getBtnArrShortModal = (typeOfShortModal: ShortModalType) => {
-  switch (typeOfShortModal) {
+export const getBtnArrShortModal = (entityName: string, typeOfLargeModal: ShortModalType) => {
+  switch (typeOfLargeModal) {
     case "register":
-      return [<RegisterButton/>];
+      return [<RegisterButton entityName={entityName} />];
     case "modify":
-      return [<ModifyButton/>];
+      return [<ModifyButton entityName={entityName} />];
     case "delete":
-      return [<DeleteButton/>];
+      return [<DeleteButton entityName={entityName} />];
     default:
       return [];
   }

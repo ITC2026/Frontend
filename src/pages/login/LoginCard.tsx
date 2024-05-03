@@ -10,6 +10,7 @@ import { app } from "../../firebase/initialize";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { signInWithPopup, OAuthProvider } from "firebase/auth";
 import { toast } from "react-toastify";
+import { Location } from "react-router-dom";
 
 
 const LoginCard = () => {
@@ -64,7 +65,6 @@ const LoginCard = () => {
       try {
         const result = await signInWithPopup(auth, provider);
         console.log("Microsoft Login Successful: ", result)
-        navigate("/account_manager");
       } catch (error) {
         console.log("Error Signing in with Microsoft: ", error);
       }

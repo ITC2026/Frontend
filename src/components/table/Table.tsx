@@ -1,87 +1,108 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
 import "./Table.css";
 import { formatTimestamp } from "../../utils/Dates";
+import { ConfigIcons } from "../table/ConfigIcons/ConfigIcons";
 
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
   categories: { [key: string]: string };
-
   children?: JSX.Element;
-  
+  hideIndex?: boolean;
+  showEdit?: boolean;
+  configBtn?: string;
 }
+
+interface Entity extends Project, Position, Opening, Person {}
 
 const TableView = (props: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'ascending' | 'descending' } | null>(null);
 
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term);
   };
 
-  const filteredEntity = props.entity.filter((entity: any) => {
+  const handleSort = (key: string) => {
+    let direction = 'ascending';
+    if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  useEffect(() => {
+    if (sortConfig !== null) {
+      props.entity.sort((a, b) => {
+        const aValue = a[sortConfig.key]?.toString().toLowerCase() || "";
+        const bValue = b[sortConfig.key]?.toString().toLowerCase() || "";
+        if (aValue < bValue) {
+          return sortConfig.direction === 'ascending' ? -1 : 1;
+        }
+        if (aValue > bValue) {
+          return sortConfig.direction === 'ascending' ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+  }, [sortConfig, props.entity]);
+
+  const filteredEntity = props.entity.filter((entity: Entity) => {
     const searchableFields = Object.values(entity)
-      .map((value: any) => (value ? value.toString().toLowerCase() : ""))
+      .map(value => (value ? value.toString().toLowerCase() : ""))
       .join(" ");
-    return searchableFields.toLowerCase().includes(searchTerm.toLowerCase());
+    return searchableFields.includes(searchTerm.toLowerCase());
   });
 
   return (
     <div>
       <div className="table-header">
-        <div className = "children-container">
-        {props.children}
-        </div>
+        <div className="children-container">{props.children}</div>
         <SearchBar onSearchTermChange={handleSearchTermChange} />
       </div>
 
-      <Table striped bordered hover responsive bsPrefix="custom-table">
+      <Table striped bordered responsive hover bsPrefix="custom-table">
         <thead>
           <tr>
-            <th className="encora-purple text-light">#</th>
-            {Object.values(props.categories).map((category: string, index: number) => (
-              <th key={index} className="encora-purple text-light">
-                {category}
+            {!props.hideIndex && <th className="encora-purple text-light">#</th>}
+            {Object.entries(props.categories).map(([key, category], index) => (
+              <th key={index} className="encora-purple text-light" onClick={() => handleSort(key)}>
+                {category} {sortConfig && sortConfig.key === key ? (sortConfig.direction === 'ascending' ? '↑' : '↓') : ''}
               </th>
             ))}
-            <th className="encora-purple text-light">Options</th>
+            <th className="encora-purple text-light">Opciones</th>
           </tr>
         </thead>
         <tbody>
-          {filteredEntity.map(
-            (entity: Project | Position | Opening | Person, index: number) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                {Object.keys(props.categories).map((key: string, index: number) => {
-                  const value =
-                    entity[
-                      key as keyof (Project | Position | Opening | Person)
-                    ];
-                  if (
-                    props.categories[key] &&
-                    props.categories[key].includes("Fecha") &&
-                    value
-                  ) {
-                    return (
-                      <td key={index}>{formatTimestamp(value.toString())}</td>
-                    );
-                  } else {
-                    return <td key={index}>{value?.toString()}</td>;
-                  }
-                })}
-                <td>
+          {filteredEntity.map((entity, index) => (
+            <tr key={index}>
+              {!props.hideIndex && <td>{index + 1}</td>}
+              {Object.keys(props.categories).map((key, index) => {
+                const value = entity[key];
+                if (props.categories[key] && props.categories[key].includes("Fecha") && value) {
+                  return <td key={index}>{formatTimestamp(value.toString())}</td>;
+                } else {
+                  return <td key={index}>{value?.toString()}</td>;
+                }
+              })}
+              <td>
+                <div className="table-options">
                   <Link to={`${entity.id}`}>
                     <i className="bi bi-eye-fill table-element"></i>
                   </Link>
-                  <Link to={`edit/${entity.id}`}>
-                    <i className="bi bi-pencil-fill table-element"></i>
-                  </Link>
-                </td>
-              </tr>
-            )
-          )}
+                  {props.showEdit && (
+                    <Link to={`edit/${entity.id}`}>
+                      <i className="bi bi-pencil-fill table-element"></i>
+                    </Link>
+                  )}
+                  <ConfigIcons entity={props.configBtn} id={entity.id} />
+                </div>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </div>

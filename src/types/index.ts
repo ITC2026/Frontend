@@ -1,24 +1,3 @@
-import {
-  TypesOfRoles,
-  Action,
-  Type,
-  ProjectStatus,
-  ClosedStatus,
-  PostingType,
-  OpeningReason,
-  ApplicationStatus,
-  Gender,
-  JobGrade,
-  TechStack,
-  ProposedAction,
-  StatusReason,
-  Division,
-  Region,
-  PeopleStatus,
-  EmployeeStatus,
-  OpeningStatus,
-} from "./types";
-
 export interface Person {
   id: number;
   first_name: string;
@@ -62,7 +41,7 @@ export interface Position {
 }
 
 export interface Project {
-  id?: number;
+  id: number;
   project_title: string;
   project_description: string;
   start_date: Date;
@@ -72,6 +51,7 @@ export interface Project {
   client_id: number;
   has_expiration?: Date;
   client_name?: string;
+  expiration?: Date; 
 }
 
 // Roles interface.

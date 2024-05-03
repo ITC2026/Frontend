@@ -1,6 +1,5 @@
 import "./ProjectsPage.css";
 import TableStaffer from "../../../components/staffer/TableStaffer";
-import getAMUsernameForProject from "../functions/forProjects/getAccountManagerUsernameForProject";
 import getOpeningProgress from "../functions/forProjects/getOpeningProgress";
 import getClientNameByProjectID from "../functions/forProjects/getClientForProject";
 import { getExpirationDateFromProject } from "../../../utils/Project/GetExpirationDateFromProject";

@@ -6,7 +6,7 @@ import { modifyProject, deleteProject } from "../../../../api/ProjectAPI";
 import ShortModal from "../../../../components/modal/ShortModal";
 import { formatDate } from "../../../../utils/Dates";
 import { getProjectById } from "../../../../api/ProjectAPI";
-import "./ProjectModifyForm.css"
+import "./ProjectModifyForm.css";
 
 const ProjectModifyForm = () => {
   const [showConfirmationDelete, setShowConfirmationDelete] =
@@ -221,7 +221,7 @@ const ProjectModifyForm = () => {
               Modify
             </button>,
           ]}
-          onClose={() => setShowConfirmationModify(false)}
+          setActiveModal={() => setShowConfirmationModify(false)}
         />
       )}
 
@@ -238,7 +238,7 @@ const ProjectModifyForm = () => {
               Delete
             </button>,
           ]}
-          onClose={() => setShowConfirmationDelete(false)}
+          setActiveModal={() => setShowConfirmationDelete(false)}
         />
       )}
     </Form>

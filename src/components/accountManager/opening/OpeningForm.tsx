@@ -1,12 +1,16 @@
 import { Form, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import ShortModal from "../../modal/ShortModal";
-import { createOpening } from "../../../api/OpeningAPI";
+import { createOpening, getOpeningById } from "../../../api/OpeningAPI";
 import { useParams } from "react-router";
+import { formatDate } from "../../../utils/Dates";
+
 
 interface Props {
   type: string;
-  onClose: (active: boolean) => void;
+  onClose?: (active: boolean) => void;
+  returnFunction?: (route: string) => void;
+  route?: string;
 }
 
 const OpeningForm = (prop: Props) => {
@@ -20,6 +24,18 @@ const OpeningForm = (prop: Props) => {
   const [showConfirmationRegister, setShowConfirmationRegister] =
     useState<boolean>(false);
 
+  const updateOpening = (id: number) => {
+    getOpeningById(id).then((data) => {
+      if (!data) {
+        return;
+      }
+      setExpirationDate(formatDate(data.expiration_date.expiration_date.toString()));
+      setHasExpirationDate(data.has_expiration_date);
+      setOpeningReason(data.opening_reason);
+      setOpeningStatus(data.opening_status);
+    });    
+  };
+
   const { id } = useParams();
   useEffect(() => {
     switch (prop.type) {
@@ -28,6 +44,7 @@ const OpeningForm = (prop: Props) => {
         break;
       case "Modify":
         setOnlyModify(true);
+        updateOpening(Number(id));
         break;
       case "Info":
         setOnlyInfo(true);
@@ -36,9 +53,41 @@ const OpeningForm = (prop: Props) => {
         // Handle any other cases or do nothing
         break;
     }
-  }, [prop.type]);
+  }, [id, prop.type]);
+
+  const handleModify = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const currentDate = Date();
+
+    const openingToSubmit = {
+      expiration_date: expirationDate,
+      has_expiration_date: hasExpirationDate,
+      opening_reason: openingReason,
+      opening_status: openingStatus,
+      start_date: currentDate,
+      position_id: Number(id),
+    };
+
+    createOpening(openingToSubmit).then(() => {
+      if (prop.onClose) {
+        prop.onClose(false);
+      }
+      if (prop.returnFunction) {
+        prop.returnFunction(prop.route || "");
+      }
+    });
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (prop.type === "Register") {
+      handleRegister(event);
+    } else if (prop.type === "Modify") {
+      handleModify(event);
+    }
+  };
+
+  const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const currentDate = Date();
 
@@ -52,7 +101,12 @@ const OpeningForm = (prop: Props) => {
     };
 
     createOpening(openingToSubmit).then(() => {
-      prop.onClose(false);
+      if (prop.onClose) {
+        prop.onClose(false);
+      }
+      if (prop.returnFunction) {
+        prop.returnFunction(prop.route || "");
+      }
     });
   };
 
@@ -98,17 +152,16 @@ const OpeningForm = (prop: Props) => {
         />
       </Form.Group>
 
-      {onlyRegister ||
-        (onlyModify && (
-          <Button
-            onClick={() => {
-              setShowConfirmationRegister(true);
-            }}
-          >
-            {" "}
-            Registrar{" "}
-          </Button>
-        ))}
+      {(onlyRegister || onlyModify) && (
+        <Button
+          onClick={() => {
+            setShowConfirmationRegister(true);
+          }}
+        >
+          {" "}
+          Registrar{" "}
+        </Button>
+      )}
 
       {showConfirmationRegister && (
         <ShortModal
@@ -118,8 +171,8 @@ const OpeningForm = (prop: Props) => {
               Submit
             </button>,
           ]}
-          onClose={() => {
-            setShowConfirmationRegister(false);
+          setActiveModal={() => {
+            return setShowConfirmationRegister(false);
           }}
         />
       )}

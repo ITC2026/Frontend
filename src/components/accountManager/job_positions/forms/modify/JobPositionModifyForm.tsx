@@ -8,7 +8,11 @@ import {
   getPositionById,
 } from "../../../../../api/PositionAPI";
 
-const JobPositionModifyForm = () => {
+interface Props {
+  type: string;
+}
+
+const JobPositionModifyForm = (prop: Props) => {
   const [positionTitle, setPositionTitle] = useState<string>("");
   const [comment, setComment] = useState<string>("");
   const [vacanciesPosition, setVacanciesPosition] = useState<number>(0);
@@ -20,6 +24,20 @@ const JobPositionModifyForm = () => {
   const [techStack, setTechStack] = useState<string>("");
   const [isExclusive, setIsExclusive] = useState<boolean>(false);
   const [billRate, setBillRate] = useState<number>(0);
+
+  const [onlyInfo, setOnlyInfo] = useState<boolean>(false);
+  const [onlyModify, setOnlyModify] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (prop.type === "Info") {
+      setOnlyInfo(true);
+    } else if (prop.type === "Modify") {
+      setOnlyModify(true);
+    } else if (prop.type === "Register") {
+      setOnlyInfo(false);
+      setOnlyModify(false);
+    }
+  }, [prop.type]);
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -43,12 +61,13 @@ const JobPositionModifyForm = () => {
     };
 
     modifyPosition(Number(id), jobPositionToSubmit).then(() => {
-      navigate("account_manager/job_positions");
+      console.log("Changed :)");
+      navigate("/account_manager/positions/");
     });
   };
 
   useEffect(() => {
-    console.log("ID", id)
+    console.log("ID", id);
     if (id) {
       getPositionById(Number(id)).then((data) => {
         if (!data) {
@@ -68,7 +87,6 @@ const JobPositionModifyForm = () => {
     }
   }, [id]);
 
-
   return (
     <Form onSubmit={handleSubmit}>
       <div className="job-position-form">
@@ -80,6 +98,7 @@ const JobPositionModifyForm = () => {
               placeholder="Enter position title"
               value={positionTitle}
               onChange={(e) => setPositionTitle(e.target.value)}
+              disabled={onlyInfo}
             />
           </Form.Group>
 
@@ -90,6 +109,7 @@ const JobPositionModifyForm = () => {
               placeholder="Enter comment"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
+              disabled={onlyInfo}
             />
           </Form.Group>
 
@@ -100,6 +120,7 @@ const JobPositionModifyForm = () => {
               placeholder="Enter vacancies position"
               value={vacanciesPosition}
               onChange={(e) => setVacanciesPosition(parseInt(e.target.value))}
+              disabled={onlyInfo}
             />
           </Form.Group>
 
@@ -110,6 +131,7 @@ const JobPositionModifyForm = () => {
               placeholder="Enter working hours"
               value={workingHours}
               onChange={(e) => setWorkingHours(parseInt(e.target.value))}
+              disabled={onlyInfo}
             />
           </Form.Group>
 
@@ -120,6 +142,7 @@ const JobPositionModifyForm = () => {
               placeholder="Enter working hours"
               value={billRate}
               onChange={(e) => setBillRate(parseInt(e.target.value))}
+              disabled={onlyInfo}
             />
           </Form.Group>
 
@@ -130,6 +153,7 @@ const JobPositionModifyForm = () => {
               placeholder="Enter posting type"
               value={postingType}
               onChange={(e) => setPostingType(e.target.value)}
+              disabled={onlyInfo}
             >
               <option disabled value="">
                 Select a posting type
@@ -148,6 +172,7 @@ const JobPositionModifyForm = () => {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setIsCrossDivision(e.target.checked)
                 }
+                disabled={onlyInfo}
               />
             </Form.Group>
           </div>
@@ -164,6 +189,7 @@ const JobPositionModifyForm = () => {
               placeholder="Enter posting type"
               value={division}
               onChange={(e) => setDivision(e.target.value)}
+              disabled={onlyInfo}
             >
               <option disabled value="">
                 Select your division
@@ -196,6 +222,7 @@ const JobPositionModifyForm = () => {
               placeholder="Enter posting type"
               value={techStack}
               onChange={(e) => setTechStack(e.target.value)}
+              disabled={onlyInfo}
             >
               <option disabled value="">
                 Select your Tech Stack
@@ -213,14 +240,17 @@ const JobPositionModifyForm = () => {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setIsExclusive(e.target.checked)
                 }
+                disabled={onlyInfo}
               />
             </Form.Group>
           </div>
         </div>
       </div>
-      <Button className="encora-purple-button" type="submit">
-        Registrar proyecto
-      </Button>
+      {onlyModify && (
+        <Button className="encora-purple-button" type="submit">
+          Modificar proyecto
+        </Button>
+      )}
     </Form>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./PositionsPage.css";
 import TableStaffer from "../../../components/staffer/TableStaffer";
-import getProjectPositions from "../functions/forPositions/getProjectPositions";
 import {
   useParams,
   useLocation,
@@ -11,7 +10,6 @@ import {
 } from "react-router-dom";
 import getPostulatesForPosition from "../functions/forPositions/getPostulatesForPosition";
 import getPostulateApplicationProgress from "../functions/forPositions/getPostulateApplicationProgress";
-import getPositionVacancies from "../functions/forPositions/getPositionVacancies";
 import getDemandCuration from "../functions/forPositions/getDemandCuration";
 
 import { JobPreviewList } from "../../../components/staffer/ProjectPositions/JobPreviewList";
@@ -20,15 +18,10 @@ import { JobPositionPreviewInfo } from "../../../components/staffer/ProjectPosit
 import { formatDate } from "../../../utils/Dates";
 
 const PositionsPage: React.FC = () => {
-  const [positions, setPositions] = useState<Position[]>([]);
-  const [position, setPosition] = useState<Position>();
-  const [view, setView] = useState<"Position 1" | "Position 2">("Position 1");
   const [postulates, setPostulates] = useState<Person[]>([]);
-  const [vacancies, setVacancies] = useState<number>(0);
   const [demandCuration, setDemandCuration] = useState<string>("");
   const [projectTitle, setProjectTitle] = useState<string>("");
   const location = useLocation();
-  const navigate = useNavigate();
 
   const [showingId, setShowingId] = useState<number>(0);
 
@@ -48,15 +41,6 @@ const PositionsPage: React.FC = () => {
   }, [id]);
   const projectId = parseInt(id as string);
 
-  useEffect(() => {
-    getProjectPositions(projectId).then((data: Position[]) => {
-      if (data) {
-        setPositions(data);
-      } else {
-        console.error("No data fetched");
-      }
-    });
-  }, [projectId]);
 
   const generateUniqueId = () => {
     return Math.floor(Math.random() * 100000);
@@ -87,19 +71,9 @@ const PositionsPage: React.FC = () => {
     });
   }, [showingId, location]);
 
-  const handleVacancies = () => {
-    getPositionVacancies(position?.id as number).then((data: number) => {
-      setVacancies(data);
-    });
-    return;
-  };
-
-  useEffect(() => {
-    handleVacancies();
-  }, [position]);
 
   const handleDemandCuration = () => {
-    getDemandCuration(projectId, position as Position).then((data: string) => {
+    getDemandCuration(projectId, showingId).then((data: string) => {
       setDemandCuration(data);
     });
     return;
@@ -107,21 +81,8 @@ const PositionsPage: React.FC = () => {
 
   useEffect(() => {
     handleDemandCuration();
-  }, [position]);
+  }, [postulates]);
 
-  const posTitles = (position: string) => {
-    let whichPos: number = 0;
-    if (position === "Position 1") {
-      whichPos = 0;
-    } else if (position === "Position 2") {
-      whichPos = 1;
-    }
-    return positions && (positions[whichPos]?.position_title as string);
-  };
-
-  const handleViewChange = (position: "Position 1" | "Position 2") => {
-    setView(position);
-  };
 
   return (
     <div className="positions-page">
@@ -131,7 +92,7 @@ const PositionsPage: React.FC = () => {
       <div className="project-table-container">
         <div className="table-wrapper">
           <JobPreviewList setId={setShowingId} project_id={Number(id)} />
-          <Link to={`${position?.id}/candidates`}>
+          <Link to={`${showingId}/candidates`}>
             <button className="button1">
               <h1>Añadir Candidato</h1>
             </button>

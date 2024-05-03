@@ -15,30 +15,34 @@ interface Props {
   buttonArr?: React.ReactElement | React.ReactElement[] | JSX.Element[];
   showEditButton?: boolean;
   entity_id?: { [key: string]: number };
+  routing?: number;
 }
 const TableStaffer = (props: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
+useState<string>("");
 
   const { id1, id2 } = useParams();
-  const positionProjectID  = parseInt(id1 as string);
+  const positionProjectID = parseInt(id1 as string);
   const positionID = parseInt(id2 as string);
   console.log(positionID);
 
   const navigate = useNavigate();
+
 
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term);
   };
   // Filtering the entity array based on the search term and ensuring prop.entity is defined before filtering
   const filteredEntity = props.entity
-  ? props.entity.filter((entity: any) => {
-      const searchableFields = Object.values(entity)
-        .map((value: any) => (value ? value.toString().toLowerCase() : ""))
-        .join(" ");
-      return searchableFields
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
-    }) : [];
+    ? props.entity.filter((entity: any) => {
+        const searchableFields = Object.values(entity)
+          .map((value: any) => (value ? value.toString().toLowerCase() : ""))
+          .join(" ");
+        return searchableFields
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+      })
+    : [];
 
   // Function definitions for buttons
   const infoButton = (id: number) => (
@@ -47,14 +51,19 @@ const TableStaffer = (props: Props) => {
     </Link>
   );
 
-  const openingsButton = (id:number) => {
+  const modifyButton = (id: number) => (
+    <Link to={`${id}`}>
+      <i className="bi bi-pencil-fill"></i>
+    </Link>
+  );
+
+  const openingsButton = (id: number) => {
     return (
       <Link to={`positions/${id}`}>
         <i className="bi bi-person-plus-fill"></i>
       </Link>
     );
   };
-
 
   const addButton = async (candidate_id: number) => {
     const addApplication = {
@@ -93,7 +102,7 @@ const TableStaffer = (props: Props) => {
           </tr>
         </thead>
         <tbody>
-        {filteredEntity.map(
+          {filteredEntity.map(
             (entity: Project | Position | Opening | Person, index: number) => (
               <tr key={index}>
                 <td>{index + 1}</td>
@@ -102,20 +111,28 @@ const TableStaffer = (props: Props) => {
                     entity[
                       key as keyof (Project | Position | Opening | Person)
                     ];
+                  if (props.types[key] === "application_id" || props.types[key].includes("Aplicacion") && value) {
+                    
+                    return (
+                      <td key={index}>
+                        <Link to={`${value}`}>{value}</Link>
+                      </td>
+                    );
+                  }
+
                   {
                     return <td key={index}>{value?.toString()}</td>;
                   }
                 })}
                 <td>
-                  {props.showInfoButton === true ? (
-                    infoButton(entity.id)
-                  ) : null}
-                  {props.showInfoButton === false ? (
-                    openingsButton(entity.id) 
-                  ) : null}
-                  {props.showAddButton === true ? (
-                    addApplicationButton(entity.id)
-                  ) : null}
+
+                  {props.showInfoButton === true ? infoButton(entity.id) : null}
+                  {props.showInfoButton === false
+                    ? openingsButton(entity.id)
+                    : null}
+                  {props.showAddButton === true
+                    ? addApplicationButton(entity.id)
+                    : null}
                   {props.buttonArr ? props.buttonArr : null}
                 </td>
               </tr>

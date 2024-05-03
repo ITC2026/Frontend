@@ -10,16 +10,19 @@ interface ShortModalProps {
   route?: string;
 
   children?: React.ReactNode;
+  header?: React.ReactNode;
 }
 
 const renderModalContent = (
   typeOfModal: ShortModalType,
-  children?: React.ReactNode
+  children?: React.ReactNode,
+  header?: React.ReactNode
 ) => {
   switch (typeOfModal) {
     case "register":
       return (
         <>
+          {header}
           <h1 className="heading-form">¿Desea Continuar?</h1>
           <div className="form-group">
             Estás a punto de registrar un elemento. Esta acción es irreversible
@@ -32,6 +35,7 @@ const renderModalContent = (
     case "modify":
       return (
         <>
+          {header}
           <h1 className="heading-form">¿Desea Continuar?</h1>
           <div className="form-group">
             Estás a punto de modificar un elemento. Esta acción es irreversible
@@ -44,6 +48,7 @@ const renderModalContent = (
     case "delete":
       return (
         <>
+          {header}
           <h1 className="heading-form">Advertencia</h1>
           <div className="form-group">
             Estás a punto de eliminar un elemento. Esta acción es irreversible y
@@ -71,13 +76,14 @@ const ShortModal = ({
   setActiveModal,
   children,
   route,
+  header,
 }: ShortModalProps) => {
   const navigate = useNavigate();
 
   return (
     <div className={`overlay background-gray`}>
       <div className="short-modal white">
-        {renderModalContent(typeOfModal, children)}
+        {renderModalContent(typeOfModal, children, header)}
         <div className="button-wrapper">
           {btnArray && btnArray.map((btn) => btn)}
 

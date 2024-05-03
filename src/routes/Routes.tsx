@@ -33,6 +33,7 @@ import ResourceWrapper from "../pages/resourceManager/ResourceManagerWrapper";
 import People from "../pages/resourceManager/People/People";
 import PersonModifyWrapper from "../pages/resourceManager/employees/modifyForms/PersonModifyWrapper";
 import PersonInfoWrapper from "../pages/resourceManager/employees/infoForms/PersonInfoWrapper";
+import { ApplicationModal } from "../pages/staffer/application/ApplicationModal";
 
 const router = createBrowserRouter([
   {
@@ -178,6 +179,10 @@ const router = createBrowserRouter([
           {
             path: "edit/:id",
             element: <OpeningStatusModal />,
+          },
+          {
+            path: ":id/",
+            element: <ApplicationModal />,
           },
         ],
       },

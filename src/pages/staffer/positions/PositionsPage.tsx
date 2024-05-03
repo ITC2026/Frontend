@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./PositionsPage.css";
 import TableStaffer from "../../../components/staffer/TableStaffer";
-import {
-  useParams,
-  useLocation,
-  Outlet,
-  useNavigate,
-  Link,
-} from "react-router-dom";
+import { useParams, useLocation, Outlet, Link } from "react-router-dom";
 import getPostulatesForPosition from "../functions/forPositions/getPostulatesForPosition";
 import getPostulateApplicationProgress from "../functions/forPositions/getPostulateApplicationProgress";
 import getDemandCuration from "../functions/forPositions/getDemandCuration";
-
+import { getApplicationIDFromPersonPositionID } from "../../../utils/Application/GetApplicationIDFromPersonPositionID";
 import { JobPreviewList } from "../../../components/staffer/ProjectPositions/JobPreviewList";
 import { getProjectById } from "../../../api/ProjectAPI";
 import { JobPositionPreviewInfo } from "../../../components/staffer/ProjectPositions/JobPositionPreviewInfo/JobPosPreviewInfo";
@@ -21,11 +15,10 @@ const PositionsPage: React.FC = () => {
   const [postulates, setPostulates] = useState<Person[]>([]);
   const [demandCuration, setDemandCuration] = useState<string>("");
   const [projectTitle, setProjectTitle] = useState<string>("");
-  const location = useLocation();
-
   const [showingId, setShowingId] = useState<number>(0);
-
+  const [routing, setRouting] = useState<number>(0); 
   const { id } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     getProjectById(Number(id)).then((project) => {
@@ -41,7 +34,6 @@ const PositionsPage: React.FC = () => {
   }, [id]);
   const projectId = parseInt(id as string);
 
-
   const generateUniqueId = () => {
     return Math.floor(Math.random() * 100000);
   };
@@ -52,25 +44,28 @@ const PositionsPage: React.FC = () => {
         return;
       }
 
-      const postulatePromises = await Promise.all(
+    const postulatePromises = await Promise.all(
         data.map(async (person: Person) => {
-          const appStatus = await getPostulateApplicationProgress(
-            showingId,
-            person.id
-          );
-          return {
-            ...person,
-            application_status: appStatus,
-            application_date: formatDate(new Date()),
-            id: person.id || generateUniqueId(),
-          };
+            const appStatus = await getPostulateApplicationProgress(
+                showingId,
+                person.id
+            );
+            const applicationId = await getApplicationIDFromPersonPositionID(person.id, showingId);
+
+            setRouting(applicationId)
+            return {
+                ...person,
+                application_status: appStatus,
+                application_date: formatDate(new Date().toISOString()),
+                id: person.id || generateUniqueId(),
+                application_id: applicationId
+            };
         })
-      );
+    );
 
       setPostulates(postulatePromises.filter(Boolean) as Person[]);
     });
   }, [showingId, location]);
-
 
   const handleDemandCuration = () => {
     getDemandCuration(projectId, showingId).then((data: string) => {
@@ -81,8 +76,7 @@ const PositionsPage: React.FC = () => {
 
   useEffect(() => {
     handleDemandCuration();
-  }, [postulates]);
-
+  }, [showingId]);
 
   return (
     <div className="positions-page">
@@ -108,6 +102,7 @@ const PositionsPage: React.FC = () => {
           <TableStaffer
             entity={postulates}
             types={{
+                application_id: "ID de la Aplicacion", 
               name: "Nombre del Candidato",
               application_status: "Estado en la Postulación",
               status: "Estado del Postulado",
@@ -115,6 +110,7 @@ const PositionsPage: React.FC = () => {
             }}
             showInfoButton={true}
             showEditButton={true}
+            routing={routing}
           />
         </div>
         <Outlet />

@@ -60,6 +60,8 @@ movement_reason: string;
 expected_salary: number;
 project_name: string;
 position_name: string;
+application_status : string; // Part of a type.
+application_date: string;
 }
 
 interface Opening {
@@ -218,7 +220,7 @@ person_id: number; // Foreign key.
 }
 
 
-interface CreatePersonAttributes extends Optional<Person, 'id' | 'profile_picture' | 'movement_reason' | 'project_name' | 'position_name'> {}
+interface CreatePersonAttributes extends Optional<Person, 'id' | 'profile_picture' | 'movement_reason' | 'project_name' | 'position_name' | 'application_status' | 'application_date'> {}
 interface CreateOpeningAttributes extends Optional<Opening, 'person_id' | 'person'> {}
 interface CreatePositionAttributes extends Optional<Position, 'id' | 'client_name'> {}
 interface CreateProjectAttributes extends Optional<Project, 'id' | 'expiration_date' | 'opening_progress'> {}

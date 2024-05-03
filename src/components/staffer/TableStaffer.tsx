@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import SearchBar from "../searchbar/SearchBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createApplication } from "../../api/ApplicationAPI";
 import { useParams } from "react-router-dom";
 import "../table/Table.css";
@@ -17,11 +17,13 @@ interface Props {
 
 const TableStaffer = (prop: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [addApplication, setAddApplication] = useState<boolean>(false);
 
-  const { id } = useParams();
-  const positionID = parseInt(id as string);
+  const { id1, id2 } = useParams();
+  const positionProjectID  = parseInt(id1 as string);
+  const positionID = parseInt(id2 as string);
   console.log(positionID);
+
+  const navigate = useNavigate();
 
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term);
@@ -62,8 +64,6 @@ const TableStaffer = (prop: Props) => {
         application_status: "Waiting on Client Response"
       };
       await createApplication(addApplication);
-      setAddApplication(true);
-      setAddApplication(false);
     };
   
     const addButton = (id : number) => {
@@ -73,7 +73,7 @@ const TableStaffer = (prop: Props) => {
     const addApplicationButton = (id:number) => {
       return (
         <button>
-          <i onClick={() => addButton(id)} className="bi bi-plus-circle-fill"></i>
+          <i onClick={() => { addButton(id); navigate(-1); }} className="bi bi-plus-circle-fill"></i>
         </button>
       );
     };

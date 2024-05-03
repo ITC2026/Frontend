@@ -5,6 +5,7 @@ import TableStaffer from "../../../components/staffer/TableStaffer";
 import getProjectPositions from '../functions/forPositions/getProjectPositions';
 import { useParams } from 'react-router-dom';
 import getPostulatesForPosition from '../functions/forPositions/getPostulatesForPosition';
+import getPostulateApplicationProgress from '../functions/forPositions/getPostulateApplicationProgress';
 
 const PositionsPage: React.FC = () => {
     const [positions, setPositions] = useState<Position[]>([]);
@@ -38,12 +39,17 @@ const PositionsPage: React.FC = () => {
     }), [view, positions];
 
     useEffect(() => { 
-        getPostulatesForPosition(position?.id as number ).then((data) => {
-            if (data) {
-                setPostulates(data);
-            } else {
-                console.error('No data fetched');
-            }
+        getPostulatesForPosition(position?.id as number ).then(async (data) => {
+            if (!data) {
+                return;
+            } 
+
+            const postulatePromises : Person[] = await Promise.all(
+                data.map(async (person: Person) => {
+                    const appStatus : string = await getPostulateApplicationProgress(position?.id as number, data as Person[]);
+                    return { ...person, application_status : appStatus , application_date : "05/03/2023"};
+            }));
+            setPostulates(postulatePromises.filter(Boolean) as Person[]);
         });
     }, [view,positions,position]);
 

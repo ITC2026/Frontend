@@ -1,0 +1,11 @@
+.job-container { 
+    display: flex; 
+    flex-direction: row; 
+    gap: 10px; 
+    margin-top: 20px; 
+    height: 30%;
+    overflow-x: auto;  /* Ensures only horizontal scrolling is allowed */
+    overflow-y: hidden; /* Prevents vertical scrolling */
+    width: 100rem; 
+
+}

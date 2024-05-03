@@ -10,6 +10,7 @@ import ProjectModifyWrapper from "../pages/accountManager/projects/modify/Projec
 import JobPositionPage from "../pages/accountManager/JobPositions/JobPosition";
 import JobPositionModify from "../pages/accountManager/JobPositions/JobPositionModify";
 import OpeningTablePage from "../pages/accountManager/JobPositions/Openings/OpeningTablePage";
+import OpeningWrapper from "../components/accountManager/opening/OpeningWrapper";
 
 import FirebaseStorage from "../pages/firebaseStorage/FirebaseStorage";
 import ClientPage from "../pages/accountManager/clients/ClientPage";
@@ -24,12 +25,16 @@ import StafferWrapper from "../pages/staffer/StafferWrapper";
 import ProjectsPage from "../pages/staffer/projects/ProjectsPage";
 import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
 import PositionsPage from "../pages/staffer/positions/PositionsPage";
+import CandidatesPage from "../pages/staffer/candidates/CandidatesPage";
+
 
 //Resource
 import ResourceWrapper from "../pages/resourceManager/ResourceManagerWrapper";
 // Protected Routes.
 import ProtectedRoute from "../firebase/ProtectedRoute";
-import Employee from "../pages/resourceManager/employees/Employee";
+import People from "../pages/resourceManager/People/People";
+import PersonModifyWrapper from "../pages/resourceManager/employees/modifyForms/PersonModifyWrapper";
+import PersonInfoWrapper from "../pages/resourceManager/employees/infoForms/PersonInfoWrapper";
 
 const router = createBrowserRouter([
   {
@@ -97,6 +102,16 @@ const router = createBrowserRouter([
       {
         path: "projects/edit/:id/",
         element: <ProjectModifyWrapper />,
+        children: [
+          {
+            path: ":id/",
+            element: <JobPositionModify origin="Project" type="Info" />,
+          },
+          {
+            path: "edit/:id/",
+            element: <JobPositionModify origin="Project" type="Modify" />,
+          },
+        ],
       },
       {
         path: "settings",
@@ -116,13 +131,23 @@ const router = createBrowserRouter([
         children: [
           {
             path: "edit/:id/",
-            element: <JobPositionModify />,
+            element: <JobPositionModify type="Modify" />,
           },
         ],
       },
       {
         path: "positions/:id/",
         element: <OpeningTablePage />,
+        children: [
+          {
+            path: "edit/:id/",
+            element: <OpeningWrapper type="Modify" />,
+          },
+          {
+            path: ":id/",
+            element: <OpeningWrapper type="Info" />,
+          },
+        ],
       },
     ],
     errorElement: <ErrorPage />,
@@ -131,12 +156,7 @@ const router = createBrowserRouter([
     path: "staffer",
     element: (
       <>
-      <ProtectedRoute allowedRoles="Staffer">
-        <StafferWrapper
-          route="/staffer"
-          routes={["/", "/projects", "/people", "/people/"]}
-        />
-      </ProtectedRoute>
+        <StafferWrapper route="/staffer" routes={["/", "/projects", "/postulates", "/postulates/"]} />
       </>
     ),
     children: [
@@ -153,11 +173,15 @@ const router = createBrowserRouter([
         element: <ProjectsPage />,
       },
       {
-        path: "projects/positions",
+        path: "projects/positions/:id",
         element: <PositionsPage />,
       },
       {
-        path: "people",
+        path: "projects/positions/:id1/:id2/candidates",
+        element: <CandidatesPage />
+      },
+      {
+        path: "postulates",
         element: <PostulatesPage />,
         children: [
           {
@@ -194,12 +218,27 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "employees",
+        path: "people",
         element: (
           <>
-            <Employee />,
+            <People />
           </>
         ),
+        children: [
+          {
+            path: ":id/",
+            element: <PersonInfoWrapper />,
+          },
+          {
+            path: "edit",
+            children: [
+              {
+                path: ":id/",
+                element: <PersonModifyWrapper />,
+              },
+            ],
+          },
+        ],
       },
       {
         path: "settings",

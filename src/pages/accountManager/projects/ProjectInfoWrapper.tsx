@@ -4,7 +4,7 @@ import ProjectInfo from "./ProjectInfo";
 const ProjectInfoWrapper = () => {
   return (
     <div className="project-info-wrapper">
-      <LargeModal titleModal="Project Info" formContent={<ProjectInfo />} />
+      <LargeModal titleModal="Información del Proyecto" formContent={<ProjectInfo />} />
     </div>
   );
 };

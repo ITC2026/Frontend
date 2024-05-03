@@ -1,18 +1,29 @@
 import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import SearchBar from "../searchbar/SearchBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { createApplication } from "../../api/ApplicationAPI";
+import { useParams } from "react-router-dom";
 import "../table/Table.css";
+
 
 interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
   types: { [key: string]: string };
-  categories?: string;
+  showInfoButton?: boolean;
+  showAddButton?: boolean;
   buttonArr?: React.ReactElement | React.ReactElement[] | JSX.Element[];
 }
 
 const TableStaffer = (prop: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const { id1, id2 } = useParams();
+  const positionProjectID  = parseInt(id1 as string);
+  const positionID = parseInt(id2 as string);
+  console.log(positionID);
+
+  const navigate = useNavigate();
 
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term);
@@ -30,7 +41,43 @@ const TableStaffer = (prop: Props) => {
           .includes(searchTerm.toLowerCase());
       }) : [];
 
+    const infoButton = (id: number) => {
+      return (
+          <Link to={`${id}`}>
+              <i className='bi bi-info-circle-fill'></i>
+          </Link>
+      );
+    };
+
+    const openingsButton = (id:number) => {
+      return (
+        <Link to={`positions/${id}`}>
+          <i className="bi bi-person-plus-fill"></i>
+        </Link>
+      );
+    };
+
+    const handleAddButton = async (candidate_id : number) => {
+      const addApplication = {
+        person_id: candidate_id,
+        position_id: positionID,
+        application_status: "Waiting on Client Response"
+      };
+      await createApplication(addApplication);
+    };
   
+    const addButton = (id : number) => {
+      handleAddButton(id);
+    };
+
+    const addApplicationButton = (id:number) => {
+      return (
+        <button>
+          <i onClick={() => { addButton(id); navigate(-1); }} className="bi bi-plus-circle-fill"></i>
+        </button>
+      );
+    };
+
   return (
     <div>
       <SearchBar onSearchTermChange={handleSearchTermChange} />
@@ -43,7 +90,7 @@ const TableStaffer = (prop: Props) => {
                 {type}
               </th>
             ))}
-            <th className="encora-purple text-light">Options</th>
+            <th className="encora-purple text-light">Opciones</th>
           </tr>
         </thead>
         <tbody>
@@ -61,13 +108,16 @@ const TableStaffer = (prop: Props) => {
                   }
                 })}
                 <td>
-                  {prop.buttonArr ? prop.buttonArr : null}
-
-                  {prop.categories === "StafferProject" ? (
-                    <Link to={"positions"}>
-                      <i className="bi bi-person-plus-fill"></i>
-                    </Link>
+                  {prop.showInfoButton === true ? (
+                    infoButton(entity.id)
                   ) : null}
+                  {prop.showInfoButton === false ? (
+                    openingsButton(entity.id) 
+                  ) : null}
+                  {prop.showAddButton === true ? (
+                    addApplicationButton(entity.id)
+                  ) : null}
+                  {prop.buttonArr ? prop.buttonArr : null}
                 </td>
               </tr>
             )

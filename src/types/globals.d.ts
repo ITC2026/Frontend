@@ -65,7 +65,7 @@ type ProposedAction =
   | "Upskilling Crosstraining"
   | "Backup / Shadow other projects"
   | "Resouce Pool"
-  | "No Action Required"
+  | "No action required"
   | "Others"
   | "Attrition";
 
@@ -124,13 +124,15 @@ movement_reason: string;
 expected_salary: number;
 project_name: string;
 position_name: string;
+application_status : string; // Part of a type.
+application_date: string;
 }
 
 interface Opening {
   id: number;
   opening_status: OpeningStatus; // Part of a type.
   opening_reason: OpeningReason; // Part of a type.
-  expiration_date: Date;
+  expiration_date: ExpirationDateOpening;
   has_expiration_date: boolean;
   position_id: number;
   person_id: number;
@@ -160,15 +162,17 @@ interface CommentPosition {
 }
 
 interface Project {
-  id: number;
-  project_title: string;
-  project_description: string;
-  start_date: Date;
-  has_expiration_date: boolean;
-  general_status: ProjectStatus; // Part of a type.
-  positions: Position[];
-  client_id: number;
-  expiration_date?: ExpirationDateProject;
+id: number;
+project_title: string;
+project_description: string;
+start_date: Date;
+has_expiration_date: boolean;
+general_status: ProjectStatus; // Part of a type.
+positions: Position[];
+client_id: number;
+client_name: string;
+expiration_date: ExpirationDateProject;
+opening_progress: string
 }
 
 // Roles interface.
@@ -279,14 +283,50 @@ interface Candidate {
   expected_salary: number;
   person_id: number; // Foreign key.
 }
+interface GetPersonAttributes {
+  id: number;
+  name: string;
+  profile_picture: string;
+  gender: Gender; // Part of a type.
+  phone: string;
+  email: string;
+  title: string;
+  tech_stack: TechStack; // Part of a type.
+  division: Division; // Part of a type.
+  region: Region; // Part of a type.
+  status: PeopleStatus; // Part of a type.
+  movement_reason: string;
+  expected_salary: number;
+  project_name: string;
+  position_name: string;
+  created_at: Date;
+  updated_at: Date;
+  clients: Client[];
+  projects: Project[];
+}
 
+// Employee interface.
+interface GetEmployeeAttributes {
+  id: number;
+  salary: number;
+  job_grade: JobGrade; // Part of a type.
+  proposed_action: ProposedAction; // Part of a type.
+  employee_status: EmployeeStatus; // Part of a type.
+  employee_reason: StatusReason;
+  contract_start_date: Date; 
+  last_movement_at: Date;
+  person_id: number; // Foreign Key.
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-interface CreatePersonAttributes extends Optional<Person, 'id' | 'profile_picture' | 'movement_reason' | 'project_name' | 'position_name'> {}
+interface CreatePersonAttributes extends Optional<Person, 'id' | 'profile_picture' | 'movement_reason' | 'project_name' | 'position_name' | 'application_status' | 'application_date'> {}
 interface CreateOpeningAttributes extends Optional<Opening, 'person_id' | 'person'> {}
 interface CreatePositionAttributes extends Optional<Position, 'id' | 'client_name'> {}
-interface CreateProjectAttributes extends Optional<Project, 'id'> {}
+interface CreateProjectAttributes extends Optional<Project, 'id' | 'expiration_date' | 'opening_progress'> {}
 interface CreateRoleAttributes extends Optional<Role, 'users'> {}
 interface CreateUserAttributes extends Optional<User, 'id'> {}
 interface CreateEmployeeAttributes extends Optional<Employee, 'id'> {}
 interface CreateClientAttributes extends Optional<Client, 'employees'> {}
 interface CreateCandidateAttributes extends Optional<Candidate, 'id'> {}
+interface CreateApplicationAtributes extends Optional<Application, 'id'> {}

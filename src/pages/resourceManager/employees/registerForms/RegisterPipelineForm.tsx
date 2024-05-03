@@ -10,13 +10,19 @@ import {
   divisionOptions,
   regionOptions,
 } from "../Options";
+import { createPerson } from "../../../../api/PersonAPI";
+import { uploadFile } from "../../../../firebase/initialize";
+import { v4 as uuidv4 } from "uuid";
+
+const peopleProfilePath = "people/profile/";
 
 interface Props {
   setActiveModal: (active: boolean) => void;
 }
 
 const RegisterPipelineForm = (props: Props) => {
-  const [profilePic, setProfilePic] = useState<string>("");
+  const [profilePic, setProfilePic] = useState<File>();
+  const [profilePicPath, setProfilePicPath] = useState<string>();
   const [name, setName] = useState<string>("");
   const [gender, setGender] = useState<Gender | "Ninguno">("Ninguno");
   const [title, setTitle] = useState<string>("");
@@ -26,9 +32,55 @@ const RegisterPipelineForm = (props: Props) => {
   const [expectedSalary, setExpectedSalary] = useState<number>(0);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const general_status = "Pipeline";
+  const [validated, setValidated] = useState(false);
+  
+  const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      console.log("Form is invalid");
+      setValidated(true);
+      return;
+    }
+
+    setValidated(true);
+    if (!profilePic || !profilePicPath) {
+      console.log("Files are missing");
+      return;
+    }
+
+    const urlProfilePic = await uploadFile(profilePic, profilePicPath);
+
+    const candidateToSubmit: CreatePersonAttributes = {
+      name: name,
+      phone: phoneNumber,
+      email: email,
+      title: title,
+      tech_stack: techStack,
+      division: division,
+      region: region,
+      gender: gender,
+      expected_salary: expectedSalary,
+      status: general_status,
+      profile_picture: urlProfilePic,
+    };
+    console.log(`Submitting person: ${JSON.stringify(candidateToSubmit)}`);
+    createPerson(candidateToSubmit)
+      .then(() => {
+        console.log("Person submitted successfully");
+        props.setActiveModal(false);
+      })
+      .catch((error) => {
+        console.error("Error submitting person:", error);
+      });
+  };
 
   return (
-    <Form className="form-group-person">
+    <Form className="form-group-person" onSubmit={submitForm} validated={validated}>
       <div className="top-form">
         <div className="leftside-top-form">
           <Form.Group className="mb-3 personal-image">
@@ -38,13 +90,14 @@ const RegisterPipelineForm = (props: Props) => {
                 type="file"
                 onChange={(e) => {
                   if (e.target.files && e.target.files[0]) {
-                    setProfilePic(URL.createObjectURL(e.target.files[0]));
+                    setProfilePic(e.target.files[0]);
+                    setProfilePicPath(peopleProfilePath + uuidv4());
                   }
                 }}
               />
               <figure className="personal-figure">
                 <img
-                  src={!profilePic ? ProfilePicPlaceholder : profilePic}
+                  src={!profilePic ? ProfilePicPlaceholder : URL.createObjectURL(profilePic)}
                   className="personal-avatar"
                   alt="avatar"
                 ></img>

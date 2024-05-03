@@ -4,23 +4,27 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
 import { useState, useEffect } from "react";
-import getProjectNamesAndIds from "../../../../utils/People/GetProjectNamesId";
-import getPositionNamesAndIds from "../../../../utils/People/GetPositionNamesId";
 import {
   genderOptions,
   techStackOptions,
   divisionOptions,
   regionOptions,
   jobGradeOptions,
-  proposedActionOptions,
 } from "../Options";
+import getPositionNamesAndIds from "../../../../utils/People/GetPositionNamesId";
+import { createPerson } from "../../../../api/PersonAPI";
+import { uploadFile } from "../../../../firebase/initialize";
+import { v4 as uuidv4 } from "uuid";
+
+const peopleProfilePath = "people/profile/";
 
 interface Props {
   setActiveModal: (active: boolean) => void;
 }
 
 const RegisterBillingForm = (props: Props) => {
-  const [profilePic, setProfilePic] = useState<string>("");
+  const [profilePic, setProfilePic] = useState<File>();
+  const [profilePicPath, setProfilePicPath] = useState<string>();
   const [name, setName] = useState<string>("");
   const [gender, setGender] = useState<Gender | "Ninguno">("Ninguno");
   const [title, setTitle] = useState<string>("");
@@ -31,20 +35,72 @@ const RegisterBillingForm = (props: Props) => {
   const [expectedSalary, setExpectedSalary] = useState<number>(0);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [reasonBench, setReasonBench] = useState<string>("");
-  const [proposedAction, setProposedAction] = useState<ProposedAction | "Ninguno">("Ninguno");
-  const [projectIds, setProjectIds] = useState<{ id: string; name: string }[]>([]);
-  const [selectedProjectId, selectedSetProjectId] = useState<string>("");
   const [jobPositionIds, setJobPositionIds] = useState<{ id: string; name: string }[]>([]);
   const [selectedJobPositionId, selectedSetJobPositionId] = useState<string>("");
+  const [validated, setValidated] = useState(false);
+
+  const general_status = "Billing";
+  const salary: number = 1111;
+  const employee_status = "On Hired";
+  const proposedAction = "No action required";
+  const reasonBench = "Other";
+
+  const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      console.log("Form is invalid");
+      setValidated(true);
+      return;
+    }
+
+    setValidated(true);
+    if (!profilePic || !profilePicPath) {
+      console.log("Files are missing");
+      return;
+    }
+
+    const urlProfilePic = await uploadFile(profilePic, profilePicPath);
+
+    const candidateToSubmit: CreatePersonAttributes = {
+      name: name,
+      phone: phoneNumber,
+      email: email,
+      title: title,
+      tech_stack: techStack,
+      division: division,
+      region: region,
+      gender: gender,
+      expected_salary: expectedSalary,
+      status: general_status,
+      salary: salary,
+      job_grade: jobGrade,
+      proposed_action: proposedAction,
+      employee_status: employee_status,
+      employee_reason: reasonBench,
+      profile_picture: urlProfilePic,
+    };
+    console.log(`Submitting person: ${JSON.stringify(candidateToSubmit)}`);
+    createPerson(candidateToSubmit)
+      .then(() => {
+        console.log("Person submitted successfully");
+        props.setActiveModal(false);
+      })
+      .catch((error) => {
+        console.error("Error submitting person:", error);
+      });
+  };
+
 
   useEffect(() => {
-    getProjectNamesAndIds().then((data) => setProjectIds(data));
     getPositionNamesAndIds().then((data) => setJobPositionIds(data));
   }, []);
 
   return (
-    <Form className="form-group-person">
+    <Form className="form-group-person" onSubmit={submitForm} validated={validated}>
       <div className="top-form">
         <div className="leftside-top-form">
           <Form.Group className="mb-3 personal-image">
@@ -54,13 +110,14 @@ const RegisterBillingForm = (props: Props) => {
                 type="file"
                 onChange={(e) => {
                   if (e.target.files && e.target.files[0]) {
-                    setProfilePic(URL.createObjectURL(e.target.files[0]));
+                    setProfilePic(e.target.files[0]);
+                    setProfilePicPath(peopleProfilePath + uuidv4());
                   }
                 }}
               />
               <figure className="personal-figure">
                 <img
-                  src={!profilePic ? ProfilePicPlaceholder : profilePic}
+                  src={!profilePic ? ProfilePicPlaceholder : URL.createObjectURL(profilePic)}
                   className="personal-avatar"
                   alt="avatar"
                 ></img>
@@ -256,72 +313,6 @@ const RegisterBillingForm = (props: Props) => {
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-2 row-width-form">
-          <Form.Label column sm={5} bsPrefix="label-style text-start">
-            Razón de Bench
-          </Form.Label>
-          <Col sm={7}>
-            <Form.Control
-              type="text"
-              placeholder="Introduzca su razón de bench"
-              value={reasonBench}
-              bsPrefix="encora-purple-input form-control"
-              onChange={(e) => setReasonBench(e.target.value)}
-            />
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-2 row-width-form">
-          <Form.Label column sm={5} bsPrefix="label-style text-start">
-            Acción Propuesta
-          </Form.Label>
-          <Col sm={7}>
-            <Form.Control
-              as="select"
-              value={proposedAction}
-              bsPrefix="encora-purple-input form-control"
-              onChange={(e) =>
-                setProposedAction(e.target.value as ProposedAction)
-              }
-            >
-              <option selected>Ninguno</option>
-              {Object.keys(proposedActionOptions).map(
-                (proposedActionOption) => (
-                  <option
-                    key={proposedActionOption}
-                    value={proposedActionOption}
-                  >
-                    {
-                      proposedActionOptions[
-                        proposedActionOption as ProposedAction
-                      ]
-                    }
-                  </option>
-                )
-              )}
-            </Form.Control>
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-2 row-width-form">
-          <Form.Label column sm={5} bsPrefix="label-style text-start">
-            Proyecto
-          </Form.Label>
-          <Col sm={7}>
-            <Form.Control
-              as="select"
-              value={selectedProjectId}
-              onChange={(e) => selectedSetProjectId(e.target.value)}
-            >
-              <option selected>Ninguno</option>
-              {projectIds.map((project) => (
-                <option key={project.id} value={project.id}>
-                  {project.name}
-                </option>
-              ))}
-            </Form.Control>
-          </Col>
-        </Form.Group>
 
         <Form.Group as={Row} className="mb-2 row-width-form">
           <Form.Label column sm={5} bsPrefix="label-style text-start">
@@ -360,7 +351,3 @@ const RegisterBillingForm = (props: Props) => {
 };
 
 export default RegisterBillingForm;
-
-{
-  /*  */
-}

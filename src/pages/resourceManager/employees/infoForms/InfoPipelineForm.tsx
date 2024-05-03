@@ -3,18 +3,73 @@ import ProfilePicPlaceholder from "../../../../assets/profilepic_placeholder.png
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
-import {
-  genderOptions,
-  techStackOptions,
-  divisionOptions,
-  regionOptions,
-} from "../Options";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router";
+import { getPersonByIdAndDates} from "../../../../api/PersonAPI";
+import { getCandidateByPersonID } from "../../../../api/CandidateAPI";
+import { formatDate } from "../../../../utils/Dates";
 
-interface Props {
-  setActiveModal: (active: boolean) => void;
-}
+const InfoPipelineForm = () => {
 
-const InfoPipelineForm = (props: Props) => {
+  const [status, setStatus] = useState<string>("");
+  const [profilePic, setProfilePic] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [gender, setGender] = useState<Gender | "Ninguno">("Ninguno");
+  const [title, setTitle] = useState<string>("");
+  const [techStack, setTechStack] = useState<TechStack | "Ninguno">("Ninguno");
+  const [division, setDivision] = useState<Division | "Ninguno">("Ninguno");
+  const [region, setRegion] = useState<Region | "Ninguno">("Ninguno");
+  const [expectedSalary, setExpectedSalary] = useState<number>(0);
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [createdDate, setCreatedDate] = useState<string>("");
+  const [lastUpdate, setLastUpdate] = useState<string>("");
+
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+
+
+  useEffect(() => {
+    if (id) {
+      getPersonByIdAndDates(Number(id)).then((data) => {
+        if(!data) {
+          return;
+        }
+          setName(data.name);
+          setPhoneNumber(data.phone);
+          setEmail(data.email);
+          setTitle(data.title);
+          setStatus("Pipeline");
+          setTechStack(data.tech_stack);
+          setDivision(data.division);
+          setRegion(data.region);
+          setGender(data.gender);
+          getCandidateByPersonID(Number(id)).then((candidate) => {
+            if(!candidate) {
+              return;
+            }
+            setExpectedSalary(candidate.expected_salary);
+          });
+          console.log(data.created_at);
+          setCreatedDate(formatDate(data.created_at.toString()));
+          setLastUpdate(formatDate(data.updated_at.toString()));
+      });
+    }
+  }, [
+    id,
+    name,
+    phoneNumber,
+    email,
+    title,
+    status,
+    techStack,
+    division,
+    region,
+    expectedSalary,
+    createdDate,
+    lastUpdate,
+  ]);
+
   return (
     <Form className="form-group-person">
       <div className="top-form">
@@ -42,7 +97,7 @@ const InfoPipelineForm = (props: Props) => {
               <Form.Control
                 disabled
                 type="text"
-                placeholder="Introduzca su nombre"
+                value={name}
                 bsPrefix="encora-purple-input form-control"
               />
             </Col>
@@ -55,7 +110,8 @@ const InfoPipelineForm = (props: Props) => {
             <Col sm={7}>
               <Form.Control
                 disabled
-                as="select"
+                type="text"
+                value={gender}
                 bsPrefix="encora-purple-input form-control"
               ></Form.Control>
             </Col>
@@ -72,7 +128,7 @@ const InfoPipelineForm = (props: Props) => {
             <Form.Control
               disabled
               type="text"
-              placeholder="Introduzca su título de Trabajo"
+              value={title}
               bsPrefix="encora-purple-input form-control"
             />
           </Col>
@@ -85,7 +141,8 @@ const InfoPipelineForm = (props: Props) => {
           <Col sm={7}>
             <Form.Control
               disabled
-              as="select"
+              type="text"
+              value={techStack}
               bsPrefix="encora-purple-input form-control"
             ></Form.Control>
           </Col>
@@ -98,7 +155,8 @@ const InfoPipelineForm = (props: Props) => {
           <Col sm={7}>
             <Form.Control
               disabled
-              as="select"
+              type="text"
+              value={division}
               bsPrefix="encora-purple-input form-control"
             ></Form.Control>
           </Col>
@@ -111,7 +169,8 @@ const InfoPipelineForm = (props: Props) => {
           <Col sm={7}>
             <Form.Control
               disabled
-              as="select"
+              type="text"
+              value={region}
               bsPrefix="encora-purple-input form-control"
             ></Form.Control>
           </Col>
@@ -125,7 +184,7 @@ const InfoPipelineForm = (props: Props) => {
             <Form.Control
               disabled
               type="text"
-              placeholder="Introduzca su salario esperado en pesos"
+              value={expectedSalary}
               bsPrefix="encora-purple-input form-control"
             />
           </Col>
@@ -139,7 +198,7 @@ const InfoPipelineForm = (props: Props) => {
             <Form.Control
               disabled
               type="text"
-              placeholder="Introduzca el télefono de contacto"
+              value={phoneNumber}
               bsPrefix="encora-purple-input form-control"
             />
           </Col>
@@ -153,7 +212,7 @@ const InfoPipelineForm = (props: Props) => {
             <Form.Control
               disabled
               type="text"
-              placeholder="Introduzca su correo de contacto"
+              value={email}
               bsPrefix="encora-purple-input form-control"
             />
           </Col>
@@ -167,6 +226,7 @@ const InfoPipelineForm = (props: Props) => {
             <Form.Control
               disabled
               type="text"
+              value={id}
               bsPrefix="encora-purple-input form-control"
             />
           </Col>
@@ -179,7 +239,8 @@ const InfoPipelineForm = (props: Props) => {
           <Col sm={7}>
             <Form.Control
               disabled
-              type="date"
+              type="text"
+              value={createdDate}
               bsPrefix="encora-purple-input form-control"
             />
           </Col>
@@ -192,7 +253,8 @@ const InfoPipelineForm = (props: Props) => {
           <Col sm={7}>
             <Form.Control
               disabled
-              type="date"
+              type="text"
+              value={lastUpdate}
               bsPrefix="encora-purple-input form-control"
             />
           </Col>
@@ -202,7 +264,7 @@ const InfoPipelineForm = (props: Props) => {
       <div className="button-wrapper">
         <button
           className="btn btn-primary encora-purple-button"
-          onClick={() => props.setActiveModal(false)}
+          onClick={() => navigate("/resource/people")}
         >
           Finalizar
         </button>

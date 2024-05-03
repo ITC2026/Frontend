@@ -1,12 +1,12 @@
 import ProjectModifyForm from "./ProjectModifyForm";
 import "./ProjectModifyWrapper.css";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, Outlet } from "react-router-dom";
 import TableView from "../../../../components/table/Table";
 import { useState, useEffect } from "react";
 import { getPositionsByProject } from "../../../../utils/Project/GetPositionFromProject";
 import { JobPositionModal } from "../../../../components/accountManager/job_positions/forms/JobPositionModal";
 import { Container, Row, Col } from "react-bootstrap";
-import ArrowLeft from "../../../../assets/arrow-left.png";
+import { ReturnButton } from "../../../../components/ReturnButton/ReturnButton";
 import { job_position_structure } from "../../../../components/accountManager/projects/struct/JobPositionStruct";
 
 /**
@@ -33,31 +33,21 @@ const ProjectModifyWrapper = () => {
   const [showRegisterPositions, setShowRegisterPositions] =
     useState<boolean>(false);
 
-  const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams();
-
-  useEffect(() => {
-    console.log(`Register: ${showRegisterPositions}`);
-  }, [showRegisterPositions]);
 
   useEffect(() => {
     getPositionsByProject(Number(id)).then((positions) => {
       setJobPositions(positions);
     });
-  }, [location, id, showRegisterPositions, setShowRegisterPositions]);
+  }, [location, id, showRegisterPositions]);
 
   return (
     <Container className="project-modify-wrapper">
       <Row className="project-modify-content">
         <Col>
           <div className="project-modify-return">
-            <a
-              onClick={() => navigate("/account_manager/projects")}
-              id="modify-id"
-            >
-              <img src={ArrowLeft} key="arrow-left" />
-            </a>
+            <ReturnButton />
             <h1> Modificar Proyecto </h1>
           </div>
           <ProjectModifyForm />
@@ -71,17 +61,22 @@ const ProjectModifyWrapper = () => {
               showEdit={true}
             >
               <button
-                className="project-register encora-purple-button text-light"
+                className="project-register encora-purple-button"
                 onClick={() => setShowRegisterPositions(true)}
               >
-                Agregar posición.
+                Agregar Posición
               </button>
             </TableView>
 
             {showRegisterPositions && (
-              <JobPositionModal setActiveModal={setShowRegisterPositions} />
+              <JobPositionModal
+                setActiveModal={() => {
+                  setShowRegisterPositions(false);
+                }}
+              />
             )}
           </div>
+          <Outlet />
         </Col>
       </Row>
     </Container>

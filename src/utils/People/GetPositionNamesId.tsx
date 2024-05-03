@@ -1,5 +1,4 @@
-import { getAllProjects } from "../../api/ProjectAPI";
-import { Position } from "../../types";
+import { getAllPositions } from "../../api/PositionAPI";
 
 interface Options { 
     id: string;
@@ -7,7 +6,7 @@ interface Options {
 }
 const getPositionNamesAndIds = async (): Promise<Options[]> => {
     try {
-        const positionList: Position[] | undefined = await getAllProjects();
+        const positionList: Position[] | undefined = await getAllPositions();
         if (!positionList) return [];
         const options = positionList.map((project) => ({
             id: project.id.toString(),

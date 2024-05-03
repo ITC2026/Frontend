@@ -1,3 +1,4 @@
+
 .nav-link {
   margin-right: 2rem;
 }
@@ -13,7 +14,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90vw;
+  width: 100%;
 }
 
 h1 {
@@ -21,17 +22,24 @@ h1 {
 }
 
 .project-register {
-  padding: 5%;
+  width: 16rem !important;
+
   border-radius: 10px;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+
+  margin-top: auto;
+  margin-bottom: auto;
+  justify-content: center;
+  margin-right: 0.1rem !important;
+  
 }
 
-.project-page {
-  margin-top: 2rem;
-}
+
 
 .project-table {
   display: flex;
-  width: 90vw;
+  width: 100%;
   height: 85vh;
   justify-content: center;
 }

@@ -49,12 +49,12 @@
       "icon": "bi-journal-code"
     },
     {
-      "route": "/people",
+      "route": "/postulates",
       "isSelected": true,
       "icon": "bi-person-workspace"
     },
     {
-      "route": "/people",
+      "route": "/postulates",
       "isSelected": false,
       "icon": "bi-person-workspace"
     },
@@ -85,12 +85,12 @@
       "icon": "bi-gear"
     },
     {
-      "route": "/employees",
+      "route": "/people",
       "isSelected": true,
       "icon": "bi-person-lines-fill"
     },
     {
-      "route": "/employees",
+      "route": "/people",
       "isSelected": false,
       "icon": "bi-person-lines"
     }

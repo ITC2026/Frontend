@@ -6,7 +6,7 @@ import { modifyProject, deleteProject } from "../../../../api/ProjectAPI";
 import ShortModal from "../../../../components/modal/ShortModal";
 import { formatDate } from "../../../../utils/Dates";
 import { getProjectById } from "../../../../api/ProjectAPI";
-import "./ProjectModifyForm.css"
+import "./ProjectModifyForm.css";
 
 const ProjectModifyForm = () => {
   const [showConfirmationDelete, setShowConfirmationDelete] =
@@ -33,7 +33,6 @@ const ProjectModifyForm = () => {
   }, []);
 
   const handleDeleteProject = () => {
-    console.log("Delete project");
     deleteProject(Number(id))
       .then(() => {
         console.log("Project deleted successfully");
@@ -202,32 +201,34 @@ const ProjectModifyForm = () => {
           onClick={() => setShowConfirmationDelete(true)}
         >
           {" "}
-          Delete Project
+          Eliminar Proyecto
         </button>
 
         <button
           type="button"
-          className="btn btn-warning"
+          className="btn encora-purple-button"
           onClick={() => setShowConfirmationModify(true)}
         >
-          Modify
+          Modificar
         </button>
       </div>
       {showConfirmationModify && (
         <ShortModal
           typeOfModal="modify"
+          customText = "Estás a punto de modificar un proyecto. Esta acción se puede modificar en un futuro. ¿Estás seguro?"
           btnArray={[
-            <button key="modify" type="submit" className="btn btn-warning">
-              Modify
+            <button key="modify" type="submit" className="btn encora-purple-button">
+              Modificar
             </button>,
           ]}
-          onClose={() => setShowConfirmationModify(false)}
+          setActiveModal={() => setShowConfirmationModify(false)}
         />
       )}
 
       {showConfirmationDelete && (
         <ShortModal
           typeOfModal="delete"
+          customText="Estás a punto de eliminar un proyecto. Esta acción es irreversible y no se puede deshacer. ¿Estás seguro?"
           btnArray={[
             <button
               key="delete"
@@ -235,10 +236,10 @@ const ProjectModifyForm = () => {
               className="btn btn-danger"
               onClick={handleDeleteProject}
             >
-              Delete
+              Eliminar Proyecto
             </button>,
           ]}
-          onClose={() => setShowConfirmationDelete(false)}
+          setActiveModal={() => setShowConfirmationDelete(false)}
         />
       )}
     </Form>

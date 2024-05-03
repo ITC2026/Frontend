@@ -1,56 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { createPerson } from "../../../api/PersonAPI";
 import  getPostulates  from '../functions/forPostulates/getPostulates';
 import TableStaffer from '../../../components/staffer/TableStaffer';
-import getProjectTitleFromID from '../functions/forPostulates/getProjectTitleForPerson';
-import getPositionTitleFromID from '../functions/forPostulates/getPositionTitleForPerson';
+import getTitlesFromID from '../functions/forPostulates/getTitlesFromID';
+import orderPeopleTables from '../functions/orderTables'
 import './PostulatesPage.css';
 
 const PostulatesPage: React.FC = () => {
     const [view, setView] = useState<'Bench' | 'Pipeline'>('Bench');
     const [postulates, setPostulates] = useState<Person[]>([]);
-    const [person, setPerson] = useState<CreatePersonAttributes>();
 
-    const personInject: CreatePersonAttributes = {
-        "first_name": "Polo",
-        "last_name": "Hernandez",
-        "profile_picture": "https://example.com/profiles/johndoe.jpg",
-        "gender": "Male",
-        "phone": "123-456-7890",
-        "email": "anemail@gmail.com",
-        "title": "Software Engineer",
-        "tech_stack": ".NET",
-        "division": "MEXICO",
-        "region": "CUU",
-        "movement_reason": "Porque sí",
-        "expected_salary": 10,
-        "status": "Pipeline"
-    }
-
-    const benchInject: CreatePersonAttributes = {
-            "salary": 30000,
-            "job_grade": "C6",
-            "proposed_action": "Project Search",
-            "employee_status": "On Hired",
-            "employee_reason": "Intern",
-            "first_name": "Renato",
-            "last_name": "Maligon",
-            "profile_picture": "https://example.com/profiles/johndoe.jpg",
-            "gender": "Male",
-            "phone": "123-456-7890",
-            "email": "mymail@gmail.com",
-            "title": "Software Engineer",
-            "tech_stack": "Java",
-            "division": "USA",
-            "region": "CUU",
-            "movement_reason": "Porque sí",
-            "expected_salary": 10,
-            "status": "Bench"
-        }
-
-    const personBlueprint = {
-        "first_name": "Nombre",
-        "last_name": "",
+    const postitulateBlueprint = {
+        "name": "Nombre",
         "project_name": "Proyecto al que fue postulado",
         "position_name": "Posición de Trabajo",
         "division": "Division"
@@ -61,36 +21,25 @@ const PostulatesPage: React.FC = () => {
             if (!data) {
                 return
             }
-            const personPositionPromises = await Promise.all(
+            const postulatePromises = await Promise.all(
                 data.map(async (person : Person) => {
-                    const position = await getPositionTitleFromID(person.id);
-                    return {...person , position_name: position};
+                    const titles = await getTitlesFromID(person.id);
+                    return {...person , project_name: titles[0] , position_name: titles[1]};
                 
             }));
-            setPostulates(personPositionPromises);
-            
-            const personProjectPromises = await Promise.all(
-                personPositionPromises.map(async (person : Person) => {
-                    const project = await getProjectTitleFromID(person.id);
-                    return {...person , project_name: project};
-            }));
-            setPostulates(personProjectPromises);
+            setPostulates(await orderPeopleTables(postulatePromises));
             console.log(data);
         });
-    }, [view, person]);
+    }, [view]);
 
-    useEffect(() => {
-        if (person) {
-            createPerson(person).then(() => {
-                setPerson(undefined);
-            }).catch((err: Error )=> {
-                console.error("Error creating person:", err);
-            });
-        }
-    }, [person]);
-
-    const filterPeopleByStatus = (people: Person[], status: string) => {
+    const filterPostulateByStatus = (people: Person[], status: string) => {
         return people.filter((person) => person.status === status);
+    }
+
+    const modifyButton = () => {
+        return (
+            <i className='bi bi-pencil-fill'></i>
+        );
     }
 
     return (
@@ -102,8 +51,7 @@ const PostulatesPage: React.FC = () => {
             <div className="project-table-container">
                 <h1 className="table-title">Lista de Postulados</h1>
                 <div className="table-wrapper">
-                    <button className='button' onClick={() => setPerson(view === 'Bench' ? benchInject : personInject)}>Agrega Un Postulado</button>
-                    <TableStaffer entity={filterPeopleByStatus(postulates, view)} types={personBlueprint} categories='Person' /> 
+                    <TableStaffer entity={filterPostulateByStatus(postulates, view)} types={postitulateBlueprint} buttonArr={[modifyButton()]} showInfoButton={true}/> 
                 </div>
             </div>
         </div>

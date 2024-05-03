@@ -1,5 +1,5 @@
 import Form from "react-bootstrap/Form";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./JobPositionForm.css";
 import { useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -74,8 +74,6 @@ export const JobPositionForm = (props: Prop) => {
     });
   };
 
-  useEffect(() => {}, [id]);
-
   return (
     <>
       <Form onSubmit={handleSubmit}>
@@ -149,7 +147,7 @@ export const JobPositionForm = (props: Prop) => {
                   Select a posting type
                 </option>
                 <option value="New Head Count">New Head Count</option>
-                <option value="Back-fill Replacement">Replacement</option>
+                <option value="Back-fill Replacement">Back-Fill Replacement</option>
               </Form.Control>
             </Form.Group>
 
@@ -187,6 +185,7 @@ export const JobPositionForm = (props: Prop) => {
                 <option value="USA">USA</option>
                 <option value="MEXICO">MEXICO</option>
                 <option value="BRAZIL">BRAZIL</option>
+                <option value="CSA">CSA</option>
               </Form.Control>
             </Form.Group>
 
@@ -202,7 +201,21 @@ export const JobPositionForm = (props: Prop) => {
                 <option disabled value="">
                   Select your region
                 </option>
+
+                <option value="CDMX">CDMX</option>
+                <option value="CUU">CUU</option>
                 <option value="HMO">HMO</option>
+                <option value="MID">MID</option>
+                <option value="SLP">SLP</option>
+                <option value="CAMPINA">CAMPINA</option>
+                <option value="SAO PAULO">SAO PAULO</option>
+                <option value="COLOMBIA">COLOMBIA</option>
+                <option value="PERU">PERU</option>
+                <option value="COSTA RICA">COSTA RICA</option>
+                <option value="ARGENTINA">ARGENTINA</option>
+                <option value="DOMINICANA">DOMINICANA</option>
+                <option value="DALLAS">DALLAS</option>
+                <option value="PHOENIX">PHOENIX</option>
               </Form.Control>
             </Form.Group>
 
@@ -218,7 +231,21 @@ export const JobPositionForm = (props: Prop) => {
                 <option disabled value="">
                   Select your Tech Stack
                 </option>
+
+                <option value="Java">Java</option>
+                <option value="React">React</option>
+                <option value="Python">Python</option>
+                <option value="Automation">Automation</option>
+                <option value="Golang">Golang</option>
                 <option value="Javascript">Javascript</option>
+                <option value=".NET">.NET</option>
+                <option value="Angular">Angular</option>
+                <option value="Appian">Appian</option>
+                <option value="PowerApps">PowerApps</option>
+                <option value="Manual Tester">Manual Tester</option>
+                <option value="Kotlin">Kotlin</option>
+                <option value="UX">UX</option>
+                <option value="iOS">iOS</option>
               </Form.Control>
             </Form.Group>
 
@@ -237,9 +264,12 @@ export const JobPositionForm = (props: Prop) => {
             </div>
           </div>
         </div>
-        <Button className="encora-purple-button" type="submit">
-          Registrar proyecto
-        </Button>
+        <div className="action-buttons">
+          <Button className="encora-purple-button" type="submit">
+            Registrar Proyecto
+          </Button>
+        </div>
+
       </Form>
     </>
   );

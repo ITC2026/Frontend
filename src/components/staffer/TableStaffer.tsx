@@ -17,9 +17,11 @@ interface Props {
 
 const TableStaffer = (prop: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [addApplication, setAddApplication] = useState<boolean>(false);
 
   const { id } = useParams();
   const positionID = parseInt(id as string);
+  console.log(positionID);
 
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term);
@@ -60,6 +62,8 @@ const TableStaffer = (prop: Props) => {
         application_status: "Waiting on Client Response"
       };
       await createApplication(addApplication);
+      setAddApplication(true);
+      setAddApplication(false);
     };
   
     const addButton = (id : number) => {

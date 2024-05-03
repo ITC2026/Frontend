@@ -37,7 +37,7 @@ const CandidatesPage: React.FC = () => {
             <div className="project-table-container">
                 <h1 className="table-title">Lista de Candidatos</h1>
                 <div className="table-wrapper">
-                    <TableStaffer entity={filterPostulateByStatus(candidates, view)} types={candidateBlueprint} showAddButton={true}/> 
+                    <TableStaffer entity={filterPostulateByStatus(candidates, view)} types={candidateBlueprint} showInfoButton={true} showAddButton={true}/> 
                 </div>
             </div>
         </div>

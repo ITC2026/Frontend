@@ -16,7 +16,7 @@ const getPostulatesForPosition = async (positionID: number) => {
         const postulatesForPositionApps : Person[] = postulates.filter((postulate) =>
             posApps.some((pos) => pos.person_id === postulate.id)) as Person[];
 
-        const allPostulates = postulatesForPosition.concat(postulatesForPositionApps);
+        const allPostulates = postulatesForPositionApps.concat(postulatesForPosition);
         return allPostulates;            
     }
     catch (error) {

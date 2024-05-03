@@ -9,9 +9,10 @@ import getPostulatesForPosition from '../functions/forPositions/getPostulatesFor
 
 const PositionsPage: React.FC = () => {
     const [positions, setPositions] = useState<Position[]>([]);
+    const [position, setPosition] = useState<Position>();
     const [view, setView] = useState<"Position 1" | "Position 2">("Position 1");
     const [postulates, setPostulates] = useState<Person[]>([]);
-    const [position, setPosition] = useState<Position>();
+    
 
     const { id }  = useParams();
     const projectId = parseInt(id as string);
@@ -45,7 +46,7 @@ const PositionsPage: React.FC = () => {
                 console.error('No data fetched');
             }
         });
-    }, [view]);
+    }, [view,positions,position]);
 
     // const filterPositionsByType = (people: Person[] | undefined, posting_type: string) => {
     //     if (!people) {

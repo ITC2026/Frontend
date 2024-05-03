@@ -161,3 +161,18 @@ a:hover {
   background: #6a9628 !important;
   color: white !important;
 }
+
+.blue-encora-button {
+  background: #40C1EF !important;
+  border: 0;
+}
+
+.blue-encora-button:hover {
+  background: #e0fcb6 !important;
+  color: #40C1EF !important;
+}
+
+.blue-encora-button:active {
+  background: #2a7d9b !important;
+  color: white !important;
+}

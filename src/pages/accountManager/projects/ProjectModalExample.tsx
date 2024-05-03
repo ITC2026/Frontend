@@ -10,7 +10,7 @@ interface Props {
 const ProjectModal = (prop: Props) => {
   return (
     <LargeModal
-      titleModal="Register Project"
+      titleModal="Registrar Proyecto"
       formContent={<ProjectForm setActiveModal={prop.setActiveModal} />}
     />
   );

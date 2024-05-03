@@ -16,7 +16,6 @@ const PositionsPage: React.FC = () => {
   const [demandCuration, setDemandCuration] = useState<string>("");
   const [projectTitle, setProjectTitle] = useState<string>("");
   const [showingId, setShowingId] = useState<number>(0);
-  const [routing, setRouting] = useState<number>(0); 
   const { id } = useParams();
   const location = useLocation();
 
@@ -52,7 +51,6 @@ const PositionsPage: React.FC = () => {
             );
             const applicationId = await getApplicationIDFromPersonPositionID(person.id, showingId);
 
-            setRouting(applicationId)
             return {
                 ...person,
                 application_status: appStatus,
@@ -110,7 +108,6 @@ const PositionsPage: React.FC = () => {
             }}
             showInfoButton={true}
             showEditButton={true}
-            routing={routing}
           />
         </div>
         <Outlet />

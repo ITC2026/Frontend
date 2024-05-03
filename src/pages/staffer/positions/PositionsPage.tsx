@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./PositionsPage.css";
 import { Link } from "react-router-dom";
 import TableStaffer from "../../../components/staffer/TableStaffer";
-import  getProjectPositions  from '../functions/forPositions/getProjectPositions';
-import { fetchPositionsData } from '../functions/forPositions/fetchPositionsData';
+import getProjectPositions from '../functions/forPositions/getProjectPositions';
 import { useParams } from 'react-router-dom';
 import getPostulates from '../functions/forPostulates/getPostulates';
 
@@ -14,11 +13,11 @@ const PositionsPage: React.FC = () => {
     const [view, setView] = useState<"Position 1" | "Position 2">("Position 1");
     const [postulates, setPostulates] = useState<Person[]>([]);
 
-    const { id }  = useParams();
+    const { id } = useParams();
     const projectId = parseInt(id as string);
 
-    
-    useEffect(() => { 
+
+    useEffect(() => {
         getPostulates().then((data) => {
             if (data) {
                 setPostulates(data);
@@ -27,9 +26,9 @@ const PositionsPage: React.FC = () => {
             }
         });
     }, []);
-    
+
     useEffect(() => {
-        getProjectPositions(projectId).then((data : Position[]) => {
+        getProjectPositions(projectId).then((data: Position[]) => {
             if (data) {
                 setPositions(data);
             } else {
@@ -46,7 +45,7 @@ const PositionsPage: React.FC = () => {
     // };
 
     const posTitles = (position: string) => {
-        var whichPos : number = 0;
+        var whichPos: number = 0;
         if (position === "Position 1") {
             whichPos = 0;
         } else if (position === "Position 2") {
@@ -55,17 +54,21 @@ const PositionsPage: React.FC = () => {
         return (positions && positions[whichPos]?.position_title as string);
     };
 
+    const handleViewChange = (position: "Position 1" | "Position 2") => {
+        setView(position);
+    };
+
     return (
         <div className="positions-page">
             <h1>Posiciones de Proyecto</h1>
             <h2>{posTitles(view)}</h2>
-            
+
             <div className="buttons-container">
-                <button className="button" onClick={() => setView("Position 1")}>
+                <button className={`button ${view === "Position 1" ? "selected" : ""}`} onClick={() => handleViewChange("Position 1")}>
                     <div className="button-title">{posTitles("Position 1")}</div>
                     <div className="button-vacancies">Vacantes Disponibles: 2 / 6</div>
                 </button>
-                <button className="button" onClick={() => setView("Position 2")}>
+                <button className={`button ${view === "Position 2" ? "selected" : ""}`} onClick={() => handleViewChange("Position 2")}>
                     <div className="button-title">{posTitles("Position 2")}</div>
                     <div className="button-vacancies">Vacantes Disponibles: 3 / 5</div>
                 </button>

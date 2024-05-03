@@ -127,3 +127,8 @@
 .button1:hover {
     background-color: #4a2a7e;
 }
+
+.button.selected {
+    background-color: rgb(63, 19, 113);
+    color: white;
+}

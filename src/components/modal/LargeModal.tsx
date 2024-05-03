@@ -15,7 +15,7 @@ const LargeModal = ({ titleModal, formContent, header }: Props) => {
   return (
     <div className="overlay background-gray">
       <div className="large-modal white">
-        {/* <div className="modal-header">{header}</div> */}
+        <div className="modal-header">{header}</div>
         <h1>{titleModal}</h1>
 
         {formContent}

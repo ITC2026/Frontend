@@ -3,17 +3,19 @@ import TableView from "../../../components/table/Table";
 import { getAllProjects } from "../../../api/ProjectAPI";
 import { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import ProjectModal from "./ProjectModalExample";
+import ProjectRegisterForm from "../projects/register/ProjectRegisterForm";
 import getClientFromID from "../../../utils/Project/GetClientFromProject";
 import { TabNav } from "../../../components/accountManager/projects/TabNav";
 import { getExpirationDateFromProject } from "../../../utils/Project/GetExpirationDateFromProject";
 import { project_structure } from "../../../components/accountManager/projects/struct/ProjectStruct";
+import { useNavigate } from "react-router-dom";
 
 const ProjectPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selected, setSelected] = useState<string>("Proyectos en Preparación");
   const [registerProject, setRegisterProject] = useState<boolean>(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const toggleRegisterProject = () => {
     setRegisterProject((prev) => !prev);
@@ -29,17 +31,17 @@ const ProjectPage = () => {
           data.map(async (project: Project) => {
             const client = await getClientFromID(project.client_id);
             return { ...project, client_name: client };
-          }),
+          })
         );
 
         const projectWithExpiration = await Promise.all(
           projectsWithClient.map(async (project: Project) => {
             const expiration = await getExpirationDateFromProject(
-              String(project.id),
+              String(project.id)
             );
             if (!expiration) return project;
             return { ...project, expiration };
-          }),
+          })
         );
 
         setProjects(projectWithExpiration);
@@ -83,7 +85,7 @@ const ProjectPage = () => {
           >
             <button
               className="project-register encora-purple-button text-light"
-              onClick={toggleRegisterProject}
+              onClick={() => navigate("/account_manager/projects/register")}
             >
               {" "}
               Registrar Proyecto{" "}
@@ -91,13 +93,6 @@ const ProjectPage = () => {
           </TableView>
         )}
       </div>
-
-      {registerProject && (
-        <ProjectModal
-          isActive={registerProject}
-          setActiveModal={toggleRegisterProject}
-        />
-      )}
     </div>
   );
 };

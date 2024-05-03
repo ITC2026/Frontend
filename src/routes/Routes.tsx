@@ -7,6 +7,7 @@ import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper
 import ModalPage from "../pages/ModalPage/ModalPage";
 import ProjectInfoWrapper from "../pages/accountManager/projects/ProjectInfoWrapper";
 import ProjectModifyWrapper from "../pages/accountManager/projects/modify/ProjectModifyWrapper";
+import ProjectRegisterWrapper from "../pages/accountManager/projects/register/ProjectRegisterWrapper";
 import JobPositionPage from "../pages/accountManager/JobPositions/JobPosition";
 import JobPositionModify from "../pages/accountManager/JobPositions/JobPositionModify";
 import OpeningTablePage from "../pages/accountManager/JobPositions/Openings/OpeningTablePage";
@@ -89,6 +90,10 @@ const router = createBrowserRouter([
             element: <ProjectInfoWrapper />,
           },
         ],
+      },
+      {
+        path: "projects/register",
+        element: <ProjectRegisterWrapper />,
       },
       {
         path: "projects/edit/:id/",

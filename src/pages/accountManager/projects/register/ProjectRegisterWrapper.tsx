@@ -1,5 +1,6 @@
-import ProjectModifyForm from "./ProjectModifyForm";
-import "./ProjectModifyWrapper.css";
+import ProjectModifyForm from "../modify/ProjectModifyForm";
+import ProjectRegisterForm from "../../projects/register/ProjectRegisterForm";
+import "../modify/ProjectModifyWrapper.css";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import TableView from "../../../../components/table/Table";
 import { useState, useEffect } from "react";
@@ -28,7 +29,7 @@ import { job_position_structure } from "../../../../components/accountManager/pr
 }
  */
 
-const ProjectModifyWrapper = () => {
+const ProjectRegisterWrapper = () => {
   const [jobPositions, setJobPositions] = useState<Position[]>([]);
   const [showRegisterPositions, setShowRegisterPositions] =
     useState<boolean>(false);
@@ -58,11 +59,11 @@ const ProjectModifyWrapper = () => {
             >
               <img src={ArrowLeft} key="arrow-left" />
             </a>
-            <h1> Modificar Proyecto </h1>
+            <h1> Registrar Proyecto </h1>
           </div>
-          <ProjectModifyForm />
+          <ProjectRegisterForm />
 
-          <h2 className="table-position-subtitle"> Posiciones del Proyecto </h2>
+          {/* <h2 className="table-position-subtitle"> Posiciones del Proyecto </h2>
           <div className="table-positions">
             <TableView
               entity={jobPositions}
@@ -81,11 +82,11 @@ const ProjectModifyWrapper = () => {
             {showRegisterPositions && (
               <JobPositionModal setActiveModal={setShowRegisterPositions} />
             )}
-          </div>
+          </div> */}
         </Col>
       </Row>
     </Container>
   );
 };
 
-export default ProjectModifyWrapper;
+export default ProjectRegisterWrapper;

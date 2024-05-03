@@ -6,17 +6,22 @@ interface ShortModalProps {
   typeOfModal: ShortModalType;
   btnArray?: React.ReactElement[];
   setActiveModal: (active: boolean) => void;
+  customText?: string;
 }
 
-const renderModalContent = (typeOfModal: ShortModalType) => {
+const renderModalContent = (
+  typeOfModal: ShortModalType,
+  customText?: string
+) => {
   switch (typeOfModal) {
     case "register":
       return (
         <>
           <h1 className="heading-form">¿Desea Continuar?</h1>
           <div className="form-group">
-          Estás a punto de registrar un elemento. Esta acción es irreversible y
-            no se puede deshacer. ¿Estás seguro?
+            {customText
+              ? customText
+              : "Estás a punto de modificar un elemento. Esta acción es irreversible y no se puede deshacer. ¿Estás seguro?."}
           </div>
         </>
       );
@@ -25,8 +30,9 @@ const renderModalContent = (typeOfModal: ShortModalType) => {
         <>
           <h1 className="heading-form">¿Desea Continuar?</h1>
           <div className="form-group">
-          Estás a punto de modificar un elemento. Esta acción es irreversible y
-            no se puede deshacer. ¿Estás seguro?
+            {customText
+              ? customText
+              : "Estás a punto de modificar un elemento. Esta acción es irreversible y no se puede deshacer. ¿Estás seguro?"}
           </div>
         </>
       );
@@ -35,28 +41,34 @@ const renderModalContent = (typeOfModal: ShortModalType) => {
         <>
           <h1 className="heading-form">Advertencia</h1>
           <div className="form-group">
-            Estás a punto de eliminar un elemento. Esta acción es irreversible y
-            no se puede deshacer. ¿Estás seguro?
+            {customText
+              ? customText
+              : "Estás a punto de modificar un elemento. Esta acción es irreversible y no se puede deshacer. ¿Estás seguro?"}
           </div>
         </>
       );
-      case "state":
-        return (
-          <Form>
-            <h1 className="heading-form">¿Desea Continuar?</h1>
-            <div className="form-group"></div>
-          </Form>
-        );
+    case "state":
+      return (
+        <Form>
+          <h1 className="heading-form">¿Desea Continuar?</h1>
+          <div className="form-group"></div>
+        </Form>
+      );
     default:
       break;
   }
 };
 
-const ShortModal = ({ typeOfModal, btnArray, setActiveModal }: ShortModalProps) => {
+const ShortModal = ({
+  typeOfModal,
+  btnArray,
+  setActiveModal,
+  customText,
+}: ShortModalProps) => {
   return (
     <div className={`overlay background-gray`}>
       <div className="short-modal white">
-        {renderModalContent(typeOfModal)}
+        {renderModalContent(typeOfModal, customText)}
         <div className="button-wrapper">
           {btnArray && btnArray.map((btn) => btn)}
           <button

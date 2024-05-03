@@ -1,13 +1,15 @@
 import Form from "react-bootstrap/Form";
-import getClientNamesAndIds from "../../../utils/Clients/GetClientNamesID";
+import getClientNamesAndIds from "../../../../utils/Clients/GetClientNamesID";
 import React, { useEffect, useState } from "react";
-import { createProject } from "../../../api/ProjectAPI";
+import { createProject } from "../../../../api/ProjectAPI";
+import { useNavigate } from "react-router-dom";
+import ShortModal from "../../../../components/modal/ShortModal";
+import { Button } from "react-bootstrap";
+// interface Props {
+//   setActiveModal: (active: boolean) => void;
+// }
 
-interface Props {
-  setActiveModal: (active: boolean) => void;
-}
-
-const ProjectForm = (prop: Props) => {
+const ProjectForm = () => {
   const [clients, setClients] = useState<{ id: string; name: string }[]>([]);
   const [projectName, setProjectName] = useState<string>("");
   const [projectDescription, setProjectDescription] = useState<string>("");
@@ -15,6 +17,12 @@ const ProjectForm = (prop: Props) => {
   const [startingDate, setStartingDate] = useState<string>("");
   const [expirationDate, setExpirationDate] = useState<string>("");
   const [hasExpirationDate, setHasExpirationDate] = useState<boolean>(false);
+
+  const [modifyId, setModifyId] = useState<number>(0);
+  const [showConfirmationModify, setShowConfirmationModify] =
+    useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getClientNamesAndIds().then((data) => setClients(data));
@@ -36,9 +44,10 @@ const ProjectForm = (prop: Props) => {
     console.log(`Submitting project: ${JSON.stringify(projectToSubmit)}`);
 
     createProject(projectToSubmit)
-      .then(() => {
+      .then((res) => {
+        setShowConfirmationModify(true);
+        setModifyId(res.id);
         console.log("Project submitted successfully");
-        prop.setActiveModal(false);
       })
       .catch((error) => {
         console.error("Error submitting project:", error);
@@ -112,18 +121,42 @@ const ProjectForm = (prop: Props) => {
           onChange={(e) => setExpirationDate(e.target.value)}
         />
       </Form.Group>
+      {showConfirmationModify && (
+        <ShortModal
+          typeOfModal="register"
+          setActiveModal={() => {
+            setShowConfirmationModify(false);
+          }}
+          customText="Estás a punto de registrar el proyecto que acabas de registrar. ¿Estás seguro de que quiere registrar dicho proyecto? "
+          btnArray={[
+            <button
+              className=" btn encora-purple-button"
+              onClick={() =>
+                navigate(`/account_manager/projects/edit/${modifyId}`)
+              }
+            >
+              Añadir Posición
+            </button>,
+            <button
+              className=" btn red-encora-button"
+              onClick={() => navigate(`/account_manager/projects/`)}
+            >
+              Añadir Proyecto Sin Posición
+            </button>,
+          ]}
+        />
+      )}
+      <div className="action-buttons">
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={() => navigate("/account_manager/projects")}
+        >
+          Close
+        </button>
 
-      <button
-        type="button"
-        className="btn btn-secondary"
-        onClick={() => prop.setActiveModal(false)}
-      >
-        Close
-      </button>
-
-      <button type="submit" className="btn btn-primary">
-        Submit
-      </button>
+        <button className="btn encora-purple-button">Submit</button>
+      </div>
     </Form>
   );
 };

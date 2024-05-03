@@ -102,14 +102,16 @@ const ProjectInfo = () => {
         <Form.Label>Fecha de Expiracion</Form.Label>
         <Form.Control type="date" defaultValue={expirationDate} disabled />
       </Form.Group>
+      <div className="action-buttons">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => navigate("/account_manager/projects")}
+            >
+              Cerrar
+            </button>
+      </div>
 
-      <button
-        type="button"
-        className="btn btn-secondary"
-        onClick={() => navigate("/account_manager/projects")}
-      >
-        Close
-      </button>
     </Form>
   );
 };

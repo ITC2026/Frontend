@@ -303,7 +303,7 @@ const JobPositionModifyForm = (prop: Props) => {
       {onlyModify && (
         <>
           <Button className="encora-purple-button" type="submit">
-            Modificar posición
+            Modificar Posición
           </Button>
 
           <Button
@@ -312,7 +312,7 @@ const JobPositionModifyForm = (prop: Props) => {
             }}
           >
             {" "}
-            Eliminar posición{" "}
+            Eliminar Posición{" "}
           </Button>
         </>
       )}
@@ -329,7 +329,7 @@ const JobPositionModifyForm = (prop: Props) => {
                 handleDelete();
               }}
             >
-              Delete Position
+              Eliminar Posición
             </button>,
           ]}
           setActiveModal={() => setShowConfirmationDelete(false)}

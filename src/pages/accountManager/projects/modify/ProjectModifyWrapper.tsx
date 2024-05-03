@@ -61,10 +61,10 @@ const ProjectModifyWrapper = () => {
               showEdit={true}
             >
               <button
-                className="project-register encora-purple-button text-light"
+                className="project-register encora-purple-button"
                 onClick={() => setShowRegisterPositions(true)}
               >
-                Agregar posición.
+                Agregar Posición
               </button>
             </TableView>
 

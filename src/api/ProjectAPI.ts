@@ -48,7 +48,7 @@ export const getProjectById = async (id: number) => {
     const project: Project = await res.data.payload;
     return project;
   } catch (err) {
-    console.log(err);
+    console.log("Error fetching project by id. :)");
   }
 };
 

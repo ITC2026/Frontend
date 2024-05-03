@@ -112,10 +112,11 @@
     width: auto;
     height: auto;
     margin-top: 50px;
-    position: absolute;
-    right: 30%;
-    bottom: 7%;
+    position: sticky; /* Cambia a fixed */
+    margin-right: 0px; /* Ajusta según sea necesario */
+    bottom: 50px; /* Ajusta según sea necesario */
 }
+
 
 .button1 h1 {
     color: white;
@@ -126,4 +127,16 @@
 
 .button1:hover {
     background-color: #4a2a7e;
+}
+
+.button.selected {
+    background-color: #2D1154;
+    color: white;
+}
+
+.positions-page {
+    background-color: #ffffff; 
+    padding: 20px;
+    max-height: 100vh; 
+    overflow-y: auto; 
 }

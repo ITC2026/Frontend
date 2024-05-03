@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import SearchBar from "../searchbar/SearchBar";
 import { Link } from "react-router-dom";
+import { createApplication } from "../../api/ApplicationAPI";
+import { useParams } from "react-router-dom";
 import "../table/Table.css";
 
 
@@ -9,11 +11,15 @@ interface Props {
   entity: Project[] | Position[] | Opening[] | Person[];
   types: { [key: string]: string };
   showInfoButton?: boolean;
+  showAddButton?: boolean;
   buttonArr?: React.ReactElement | React.ReactElement[] | JSX.Element[];
 }
 
 const TableStaffer = (prop: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const { id } = useParams();
+  const positionID = parseInt(id as string);
 
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term);
@@ -44,6 +50,27 @@ const TableStaffer = (prop: Props) => {
         <Link to={`positions/${id}`}>
           <i className="bi bi-person-plus-fill"></i>
         </Link>
+      );
+    };
+
+    const handleAddButton = async (candidate_id : number) => {
+      const addApplication = {
+        person_id: candidate_id,
+        position_id: positionID,
+        application_status: "Waiting on Client Response"
+      };
+      await createApplication(addApplication);
+    };
+  
+    const addButton = (id : number) => {
+      handleAddButton(id);
+    };
+
+    const addApplicationButton = (id:number) => {
+      return (
+        <button>
+          <i onClick={() => addButton(id)} className="bi bi-plus-circle-fill"></i>
+        </button>
       );
     };
 
@@ -82,6 +109,9 @@ const TableStaffer = (prop: Props) => {
                   ) : null}
                   {prop.showInfoButton === false ? (
                     openingsButton(entity.id) 
+                  ) : null}
+                  {prop.showAddButton === true ? (
+                    addApplicationButton(entity.id)
                   ) : null}
                   {prop.buttonArr ? prop.buttonArr : null}
                 </td>

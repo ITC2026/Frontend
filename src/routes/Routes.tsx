@@ -132,7 +132,7 @@ const router = createBrowserRouter([
         element: <PositionsPage />,
       },
       {
-        path: "projects/positions/:id/candidates",
+        path: "projects/positions/:id/:id/candidates",
         element: <CandidatesPage />
       },
       {

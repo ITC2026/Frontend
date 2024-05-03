@@ -227,3 +227,4 @@ interface CreateUserAttributes extends Optional<User, 'id'> {}
 interface CreateEmployeeAttributes extends Optional<Employee, 'id'> {}
 interface CreateClientAttributes extends Optional<Client, 'employees'> {}
 interface CreateCandidateAttributes extends Optional<Candidate, 'id'> {}
+interface CreateApplicationAtributes extends Optional<Application, 'id'> {}

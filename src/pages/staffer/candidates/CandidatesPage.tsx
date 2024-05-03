@@ -28,12 +28,6 @@ const CandidatesPage: React.FC = () => {
         return people.filter((person) => person.status === status);
     }
 
-    const addButton = () => {
-        return (
-            <i className='bi bi-plus-circle-fill'></i>
-        );
-    }
-
     return (
         <div className='postulates-page'>
             <div className="top-status-wrapper">
@@ -43,7 +37,7 @@ const CandidatesPage: React.FC = () => {
             <div className="project-table-container">
                 <h1 className="table-title">Lista de Candidatos</h1>
                 <div className="table-wrapper">
-                    <TableStaffer entity={filterPostulateByStatus(candidates, view)} types={candidateBlueprint} buttonArr={[addButton()]} showInfoButton={true}/> 
+                    <TableStaffer entity={filterPostulateByStatus(candidates, view)} types={candidateBlueprint} showAddButton={true}/> 
                 </div>
             </div>
         </div>

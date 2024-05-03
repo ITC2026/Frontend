@@ -82,7 +82,7 @@ const PositionsPage: React.FC = () => {
             <div className="project-table-container">
                 <h1 className="table-title">{posTitles(view)}</h1>
                 <div className="table-wrapper">
-                    <Link to={"candidates"}>
+                    <Link to={`${position?.id}/candidates`}>
                         <button className="button1">
                             <h1>Añadir Candidato</h1>
                         </button>

@@ -33,7 +33,6 @@ const ProjectModifyForm = () => {
   }, []);
 
   const handleDeleteProject = () => {
-    console.log("Delete project");
     deleteProject(Number(id))
       .then(() => {
         console.log("Project deleted successfully");

@@ -28,7 +28,7 @@ const JobPositionTable = () => {
 
       setJobPositions(filteredPositionsWithProject);
     });
-  }, [location]);
+  }, [location, setJobPositions]);
 
   return (
     <div className="job-position-page">

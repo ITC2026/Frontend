@@ -5,12 +5,9 @@
     justify-content: right;
     display: flex;
     flex-direction: row;
-
+    padding-right: 2.5rem;
 }
-.titulo{
-    margin-right: 60rem;
 
-}
 
 .extension{
     margin-right: 50rem;
@@ -18,35 +15,30 @@
 
 .agregar{
     border-radius: 10px;
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
-   padding-left: 5%;
-   padding-right: 5%;
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+    width: 16rem !important;
     margin-top: auto;
     margin-bottom: auto;
     justify-content: center;
     margin-right: 0.8rem !important;
-    
 }
 .container {
-    width: 100%; /* Adjust the value as needed */
-    height: 500px;
-
+    width: 100% !important; /* Adjust the value as needed */
+    
+    margin-left: 0px !important;
+    margin-right: 0px !important;
 }
 .pagination-container{
-    position: absolute;
-    bottom: 0px;
-    list-style: none;
-    left: 50%;
-    transform: translateX(-50%);
+    
+    
+    margin-top: 30rem !important;
     display: flex; 
     justify-content: center;
-    color: white;
+    color: black;
 }
 
-.pagination .page-link {
-    color: purple; /* Set the text color to purple */
-}
+
 
 /* Change the background color of the active page link */
 .pagination .page-item.active .page-link {

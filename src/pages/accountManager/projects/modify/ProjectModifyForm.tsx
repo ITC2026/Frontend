@@ -201,23 +201,24 @@ const ProjectModifyForm = () => {
           onClick={() => setShowConfirmationDelete(true)}
         >
           {" "}
-          Delete Project
+          Eliminar Proyecto
         </button>
 
         <button
           type="button"
-          className="btn btn-warning"
+          className="btn encora-purple-button"
           onClick={() => setShowConfirmationModify(true)}
         >
-          Modify
+          Modificar
         </button>
       </div>
       {showConfirmationModify && (
         <ShortModal
           typeOfModal="modify"
+          customText = "Estás a punto de modificar un proyecto. Esta acción se puede modificar en un futuro. ¿Estás seguro?"
           btnArray={[
-            <button key="modify" type="submit" className="btn btn-warning">
-              Modify
+            <button key="modify" type="submit" className="btn encora-purple-button">
+              Modificar
             </button>,
           ]}
           setActiveModal={() => setShowConfirmationModify(false)}
@@ -227,6 +228,7 @@ const ProjectModifyForm = () => {
       {showConfirmationDelete && (
         <ShortModal
           typeOfModal="delete"
+          customText="Estás a punto de eliminar un proyecto. Esta acción es irreversible y no se puede deshacer. ¿Estás seguro?"
           btnArray={[
             <button
               key="delete"
@@ -234,7 +236,7 @@ const ProjectModifyForm = () => {
               className="btn btn-danger"
               onClick={handleDeleteProject}
             >
-              Delete
+              Eliminar Proyecto
             </button>,
           ]}
           setActiveModal={() => setShowConfirmationDelete(false)}

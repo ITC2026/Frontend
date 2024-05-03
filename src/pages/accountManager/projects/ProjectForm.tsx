@@ -113,17 +113,20 @@ const ProjectForm = (prop: Props) => {
         />
       </Form.Group>
 
-      <button
-        type="button"
-        className="btn btn-secondary"
-        onClick={() => prop.setActiveModal(false)}
-      >
-        Close
-      </button>
+      <div className="action-buttons">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => prop.setActiveModal(false)}
+            >
+              Cerrar
+            </button>
 
-      <button type="submit" className="btn btn-primary">
-        Submit
-      </button>
+            <button type="submit" className="btn encora-purple-button">
+              Registar Proyecto
+            </button>
+      </div>
+
     </Form>
   );
 };

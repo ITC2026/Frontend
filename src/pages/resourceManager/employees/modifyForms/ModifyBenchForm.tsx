@@ -13,7 +13,7 @@ import {
   proposedActionOptions,
   employeeStatusOptions,
 } from "../Options";
-import ShortModal from "../../../../components/modal/ShortModal";
+import SmallModal from "../../../../components/modal/SmallModal";
 import { modifyPerson } from "../../../../api/PersonAPI";
 import { getPersonById } from "../../../../api/PersonAPI";
 import { getEmployeeByPersonID } from "../../../../api/EmployeeAPI";
@@ -476,7 +476,7 @@ const ModifyBenchForm = () => {
           </div>
           </Form>
       {modal && (
-        <ShortModal
+        <SmallModal
         content={<ChangeStateBenchForm/>}
         onClose={() => setShowConfirmationModify(false)}
       />

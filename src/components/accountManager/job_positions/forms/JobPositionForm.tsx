@@ -264,9 +264,12 @@ export const JobPositionForm = (props: Prop) => {
             </div>
           </div>
         </div>
-        <Button className="encora-purple-button" type="submit">
-          Registrar proyecto
-        </Button>
+        <div className="action-buttons">
+          <Button className="encora-purple-button" type="submit">
+            Registrar Proyecto
+          </Button>
+        </div>
+
       </Form>
     </>
   );

@@ -20,7 +20,7 @@ import { getEmployeeByPersonID } from "../../../../api/EmployeeAPI";
 import { uploadFile } from "../../../../firebase/initialize";
 import { v4 as uuidv4 } from "uuid";
 import ChangeStateBillingForm from "./ChangeStateBillingForm";
-import ShortModal from "../../../../components/modal/ShortModal";
+import SmallModal from "../../../../components/modal/SmallModal";
 
 const peopleProfilePath = "people/profile/";
 
@@ -481,7 +481,7 @@ const ModifyBillingForm = () => {
         </div>
       </Form>
       {modal && (
-        <ShortModal
+        <SmallModal
         content={<ChangeStateBillingForm/>}
         onClose={() => setShowConfirmationModify(false)}
       />

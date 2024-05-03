@@ -20,16 +20,23 @@ interface Entity extends Project, Position, Opening, Person {}
 
 const TableView = (props: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'ascending' | 'descending' } | null>(null);
+  const [sortConfig, setSortConfig] = useState<{
+    key: string;
+    direction: "ascending" | "descending";
+  } | null>(null);
 
   const handleSearchTermChange = (term: string) => {
     setSearchTerm(term);
   };
 
   const handleSort = (key: string) => {
-    let direction = 'ascending';
-    if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
-      direction = 'descending';
+    let direction = "ascending";
+    if (
+      sortConfig &&
+      sortConfig.key === key &&
+      sortConfig.direction === "ascending"
+    ) {
+      direction = "descending";
     }
     setSortConfig({ key, direction });
   };
@@ -40,10 +47,10 @@ const TableView = (props: Props) => {
         const aValue = a[sortConfig.key]?.toString().toLowerCase() || "";
         const bValue = b[sortConfig.key]?.toString().toLowerCase() || "";
         if (aValue < bValue) {
-          return sortConfig.direction === 'ascending' ? -1 : 1;
+          return sortConfig.direction === "ascending" ? -1 : 1;
         }
         if (aValue > bValue) {
-          return sortConfig.direction === 'ascending' ? 1 : -1;
+          return sortConfig.direction === "ascending" ? 1 : -1;
         }
         return 0;
       });
@@ -52,7 +59,7 @@ const TableView = (props: Props) => {
 
   const filteredEntity = props.entity.filter((entity: Entity) => {
     const searchableFields = Object.values(entity)
-      .map(value => (value ? value.toString().toLowerCase() : ""))
+      .map((value) => (value ? value.toString().toLowerCase() : ""))
       .join(" ");
     return searchableFields.includes(searchTerm.toLowerCase());
   });
@@ -67,10 +74,21 @@ const TableView = (props: Props) => {
       <Table striped bordered responsive hover bsPrefix="custom-table">
         <thead>
           <tr>
-            {!props.hideIndex && <th className="encora-purple text-light">#</th>}
+            {!props.hideIndex && (
+              <th className="encora-purple text-light">#</th>
+            )}
             {Object.entries(props.categories).map(([key, category], index) => (
-              <th key={index} className="encora-purple text-light" onClick={() => handleSort(key)}>
-                {category} {sortConfig && sortConfig.key === key ? (sortConfig.direction === 'ascending' ? '↑' : '↓') : ''}
+              <th
+                key={index}
+                className="encora-purple text-light"
+                onClick={() => handleSort(key)}
+              >
+                {category}{" "}
+                {sortConfig && sortConfig.key === key
+                  ? sortConfig.direction === "ascending"
+                    ? "↑"
+                    : "↓"
+                  : ""}
               </th>
             ))}
             <th className="encora-purple text-light">Opciones</th>
@@ -82,15 +100,21 @@ const TableView = (props: Props) => {
               {!props.hideIndex && <td>{index + 1}</td>}
               {Object.keys(props.categories).map((key, index) => {
                 const value = entity[key];
-                if (props.categories[key] && props.categories[key].includes("Fecha") && value) {
-                  return <td key={index}>{formatTimestamp(value.toString())}</td>;
+                if (
+                  props.categories[key] &&
+                  props.categories[key].includes("Fecha") &&
+                  value
+                ) {
+                  return (
+                    <td key={index}>{formatTimestamp(value.toString())}</td>
+                  );
                 } else {
                   return <td key={index}>{value?.toString()}</td>;
                 }
               })}
               <td>
                 <div className="table-options">
-                  <Link to={`${entity.id}`}>
+                  <Link to={`info/${entity.id}`}>
                     <i className="bi bi-eye-fill table-element"></i>
                   </Link>
                   {props.showEdit && (

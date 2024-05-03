@@ -1,11 +1,11 @@
 import Form from "react-bootstrap/Form";
-import getClientNamesAndIds from "../../../utils/Clients/GetClientNamesID";
+import getClientNamesAndIds from "../../../../utils/Clients/GetClientNamesID";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { formatDate } from "../../../utils/Dates";
-import { getProjectById } from "../../../api/ProjectAPI";
+import { formatDate } from "../../../../utils/Dates";
+import { getProjectById } from "../../../../api/ProjectAPI";
 
-const ProjectInfo = () => {
+const ProjectInfoForm = () => {
   const [clients, setClients] = useState<{ id: string; name: string }[]>([]);
   const [projectName, setProjectName] = useState<string>("");
   const [projectDescription, setProjectDescription] = useState<string>("");
@@ -102,16 +102,17 @@ const ProjectInfo = () => {
         <Form.Label>Fecha de Expiracion</Form.Label>
         <Form.Control type="date" defaultValue={expirationDate} disabled />
       </Form.Group>
-
-      <button
-        type="button"
-        className="btn btn-secondary"
-        onClick={() => navigate("/account_manager/projects")}
-      >
-        Close
-      </button>
+      <div className="action-buttons">
+        <button
+          type="button"
+          className="btn btn-secondary "
+          onClick={() => navigate("/account_manager/projects")}
+        >
+          Cerrar
+        </button>
+      </div>
     </Form>
   );
 };
 
-export default ProjectInfo;
+export default ProjectInfoForm;

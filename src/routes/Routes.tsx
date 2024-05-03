@@ -5,7 +5,7 @@ import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
 import ModalPage from "../pages/ModalPage/ModalPage";
-import ProjectInfoWrapper from "../pages/accountManager/projects/ProjectInfoWrapper";
+import ProjectInfoWrapper from "../pages/accountManager/projects/info/ProjectInfoWrapper";
 import ProjectModifyWrapper from "../pages/accountManager/projects/modify/ProjectModifyWrapper";
 import ProjectRegisterWrapper from "../pages/accountManager/projects/register/ProjectRegisterWrapper";
 import JobPositionPage from "../pages/accountManager/JobPositions/JobPosition";
@@ -84,13 +84,12 @@ const router = createBrowserRouter([
             <ProjectPage />
           </>
         ),
-        children: [
-          {
-            path: ":id/",
-            element: <ProjectInfoWrapper />,
-          },
-        ],
       },
+      {
+        path: "projects/info/:id/",
+        element: <ProjectInfoWrapper />,
+      },
+
       {
         path: "projects/register",
         element: <ProjectRegisterWrapper />,

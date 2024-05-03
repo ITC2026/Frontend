@@ -12,7 +12,7 @@ export const JobPositionModal = (prop: Props) => {
       formContent={<JobPositionForm setActiveModal={prop.setActiveModal} />}
       header={
         <>
-          <ReturnButton /> 
+          <ReturnButton />
         </>
       }
     ></LargeModal>

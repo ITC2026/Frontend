@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import { useState, useEffect } from "react";
 import "./JobPositionForm.css";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { createPosition } from "../../../../api/PositionAPI";
 
@@ -76,6 +76,7 @@ export const JobPositionForm = (props: Prop) => {
 
   useEffect(() => {}, [id]);
 
+  const navigate = useNavigate();
   return (
     <>
       <Form onSubmit={handleSubmit}>
@@ -237,9 +238,14 @@ export const JobPositionForm = (props: Prop) => {
             </div>
           </div>
         </div>
-        <Button className="encora-purple-button" type="submit">
-          Registrar proyecto
-        </Button>
+        <div className="action-buttons">
+          <Button className="btn btn-secondary" onClick={() => navigate(0)}>
+            Cerrar
+          </Button>
+          <Button className="encora-purple-button" type="submit">
+            Registrar Posición
+          </Button>
+        </div>
       </Form>
     </>
   );

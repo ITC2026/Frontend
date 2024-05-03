@@ -1,5 +1,12 @@
-.resource-manager-wrapper { 
+.resource-manager-wrapper {
     display: flex;
     flex-direction: row;
+  
+
+}
+
+.resource-manager-content {
+    margin-left: 10rem;
     
+    margin-top: 2rem;
 }

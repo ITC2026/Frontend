@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import api from ".";
 import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const projectRoute = "/projects";
 
@@ -18,10 +19,11 @@ export const createProject = async (project: CreateProjectAttributes) => {
   try {
     const res = await api.post(projectRoute, project);
     const action = await res.data.payload;
-
+    toast.success("Proyecto creado exitosamente");
     return action;
   } catch (err) {
     if ((err as any).response && (err as any).response.status === 500) {
+      toast.error("Error interno del servidor");
       return "Internal Server Error";
     }
     console.log(err);
@@ -31,9 +33,11 @@ export const createProject = async (project: CreateProjectAttributes) => {
 export const deleteProject = async (id: number) => {
   try {
     const res = await api.delete(projectRoute, { data: { id } });
+    toast.success("Proyecto eliminado exitosamente");
     const action = await res.data.payload;
     return action;
   } catch (err) {
+    toast.error("Error al eliminar el proyecto");
     console.log(err);
   }
 };
@@ -44,7 +48,7 @@ export const getProjectById = async (id: number) => {
     const project: Project = await res.data.payload;
     return project;
   } catch (err) {
-    console.log(err);
+    console.log("Error fetching project by id. :)");
   }
 };
 

@@ -25,7 +25,7 @@ export const getOpeningById = async (id: number) => {
 };
 
 // Create an opening.
-export const createOpening = async (opening: Opening) => {
+export const createOpening = async (opening: CreateOpeningAttributes) => {
     try {
         const res = await api.post(openingRoute, opening);
         const action = await res.data.payload;

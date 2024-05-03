@@ -1,5 +1,3 @@
-
-
 .client-tab {
     width: 14rem;
     height: 16rem;
@@ -7,92 +5,122 @@
     margin-bottom: 1rem;
     margin-right: 50px;
     border-radius: 5px;
-    border: 1px solid ;
+    border: 1px solid;
     filter: drop-shadow(0px 15px 18.1px rgba(0, 0, 0, 0.10));
 
     display: flex;
     flex-direction: row;
-   
+
 }
-.card{
+
+.card {
     width: 16rem;
 }
-.settings{
+
+.settings {
     display: flex;
     border-color: rgba(0, 0, 0, 0);
     background-color: rgba(0, 0, 0, 0);
-    margin-left: auto; 
+    margin-left: auto;
     margin-top: 1rem;
 }
-.clientName{
+
+.clientName {
     display: flex;
     color: #6C757D;
     font-weight: 500;
     font-size: 1.25rem;
 }
-.clientDesc{
-    display:flex;
+
+.clientDesc {
+    display: flex;
     text-align: left;
     font-weight: 400;
     color: #6C757D;
     font-size: 1rem;
 }
-.client-img img {
-    
+
+.client-img {
     width: 100%;
-    height: auto;
+    height: 8rem;
+    background-color: #E1E1E1;
 }
 
-.contenido{
+.client-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    object-position: center;
+}
+
+
+.contenido {
     padding-top: 7px;
     margin-left: 7px;
     margin-right: 7px;
 }
-.abajo{
-    width:32px;
+
+.abajo {
+    width: 32px;
 
     position: absolute;
     bottom: 0px;
     justify-content: space-between;
     margin-bottom: 7px;
-   
-    display: flex; 
-    
+
+    display: flex;
+
     color: white;
 }
+
 .centro-1 {
-    padding-right:0px;
+    padding-right: 0px;
     padding-left: 0px;
     margin-right: 5px;
     background-color: transparent;
     border: 0px;
-    display: flex; /* Make the button a flex container */
-    justify-content: center; /* Center the icon horizontally */
-    align-items: center; /* Center the icon vertically */
-    height: 100%; /* Ensure the button takes up the full height of its container */
-    width: 30px; /* Ensure the button takes up the full width of its container */
-    margin-left: auto; /* Push the button to the right */
+    display: flex;
+    /* Make the button a flex container */
+    justify-content: center;
+    /* Center the icon horizontally */
+    align-items: center;
+    /* Center the icon vertically */
+    height: 100%;
+    /* Ensure the button takes up the full height of its container */
+    width: 30px;
+    /* Ensure the button takes up the full width of its container */
+    margin-left: auto;
+    /* Push the button to the right */
 }
+
 .centro-2 {
-    padding-right:0px;
+    padding-right: 0px;
     padding-left: 0px;
     background-color: transparent;
     border: 0px;
-    display: flex; /* Make the button a flex container */
-    justify-content: center; /* Center the icon horizontally */
-    align-items: center; /* Center the icon vertically */
-    height: 100%; /* Ensure the button takes up the full height of its container */
-    width: 30px; /* Ensure the button takes up the full width of its container */
-    margin-left: auto; /* Push the button to the right */
+    display: flex;
+    /* Make the button a flex container */
+    justify-content: center;
+    /* Center the icon horizontally */
+    align-items: center;
+    /* Center the icon vertically */
+    height: 100%;
+    /* Ensure the button takes up the full height of its container */
+    width: 30px;
+    /* Ensure the button takes up the full width of its container */
+    margin-left: auto;
+    /* Push the button to the right */
 }
-.centro-1:hover{
-    padding-right:0px;
+
+.centro-1:hover {
+    padding-right: 0px;
     padding-left: 0px;
     background-color: rgba(132, 132, 132, 0.401);
     display: flex;
 }
-.centro-2:hover{
-    padding-right:0px;
+
+.centro-2:hover {
+    padding-right: 0px;
     padding-left: 0px;
     background-color: rgba(132, 132, 132, 0.401);
     display: flex;

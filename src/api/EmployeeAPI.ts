@@ -25,7 +25,7 @@ export const getEmployeeById = async (id: number) => {
 };
 
 // Create an employee.
-export const createEmployee = async (employee: Employee) => {
+export const createEmployee = async (employee: CreateEmployeeAttributes) => {
     try {
         const res = await api.post(employeeRoute, employee);
         const action = await res.data.payload;

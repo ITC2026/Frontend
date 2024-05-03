@@ -25,7 +25,7 @@ export const getCandidateById = async (id: number) => {
 };
 
 // Create a candidate.
-export const createCandidate = async (candidate: Candidate) => {
+export const createCandidate = async (candidate: CreateCandidateAttributes) => {
     try {
         const res = await api.post(candidateRoute, candidate);
         const action = await res.data.payload;

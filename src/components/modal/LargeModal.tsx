@@ -22,7 +22,6 @@ const LargeModal = ({
         <div className="modal-header">{header}</div>
         <h1>{titleModal}</h1>
         <h3>{subtitleModal}</h3>
-
         {formContent}
       </div>
     </div>

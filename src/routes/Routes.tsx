@@ -11,6 +11,7 @@ import JobPositionPage from "../pages/accountManager/JobPositions/JobPosition";
 import JobPositionModify from "../pages/accountManager/JobPositions/JobPositionModify";
 import OpeningTablePage from "../pages/accountManager/JobPositions/Openings/OpeningTablePage";
 import OpeningWrapper from "../components/accountManager/opening/OpeningWrapper";
+import OpeningStatusModal from "../components/staffer/ProjectPositions/StatusModal";
 
 import FirebaseStorage from "../pages/firebaseStorage/FirebaseStorage";
 import ClientPage from "../pages/accountManager/clients/ClientPage";
@@ -27,13 +28,12 @@ import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
 import PositionsPage from "../pages/staffer/positions/PositionsPage";
 import CandidatesPage from "../pages/staffer/candidates/CandidatesPage";
 
-
-
 //Resource
 import ResourceWrapper from "../pages/resourceManager/ResourceManagerWrapper";
 import People from "../pages/resourceManager/People/People";
 import PersonModifyWrapper from "../pages/resourceManager/employees/modifyForms/PersonModifyWrapper";
 import PersonInfoWrapper from "../pages/resourceManager/employees/infoForms/PersonInfoWrapper";
+import { ApplicationModal } from "../pages/staffer/application/ApplicationModal";
 
 const router = createBrowserRouter([
   {
@@ -153,7 +153,10 @@ const router = createBrowserRouter([
     path: "staffer",
     element: (
       <>
-        <StafferWrapper route="/staffer" routes={["/", "/projects", "/postulates", "/postulates/"]} />
+        <StafferWrapper
+          route="/staffer"
+          routes={["/", "/projects", "/postulates", "/postulates/"]}
+        />
       </>
     ),
     children: [
@@ -172,10 +175,20 @@ const router = createBrowserRouter([
       {
         path: "projects/positions/:id",
         element: <PositionsPage />,
+        children: [
+          {
+            path: "edit/:id",
+            element: <OpeningStatusModal />,
+          },
+          {
+            path: ":id/",
+            element: <ApplicationModal />,
+          },
+        ],
       },
       {
         path: "projects/positions/:id1/:id2/candidates",
-        element: <CandidatesPage />
+        element: <CandidatesPage />,
       },
       {
         path: "postulates",

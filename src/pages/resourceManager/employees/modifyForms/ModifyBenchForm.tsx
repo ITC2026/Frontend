@@ -23,7 +23,6 @@ import { v4 as uuidv4 } from "uuid";
 const peopleProfilePath = "people/profile/";
 
 const ModifyBenchForm = () => {
-
   const [showConfirmationModify, setShowConfirmationModify] = useState<boolean>(false);
   const [profilePic, setProfilePic] = useState<File>();
   const [profilePicPath, setProfilePicPath] = useState<string>();

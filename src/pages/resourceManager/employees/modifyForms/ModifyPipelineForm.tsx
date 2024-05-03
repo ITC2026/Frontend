@@ -15,6 +15,7 @@ import { modifyPerson } from "../../../../api/PersonAPI";
 import { getPersonById } from "../../../../api/PersonAPI";
 import { uploadFile } from "../../../../firebase/initialize";
 import { v4 as uuidv4 } from "uuid";
+import ChangeStatePipelineForm from "./ChangeStatePipelineForm";
 
 const peopleProfilePath = "people/profile/";
 
@@ -40,6 +41,7 @@ const ModifyPipelineForm = () => {
 
   const [modal, setModal] = useState<boolean>(false);  
   const toggleModal = (_prev: boolean) => { setModal((prev) => !prev); };
+
   useEffect(() => {
     if (id) {
       getPersonById(Number(id)).then((data) => {
@@ -331,25 +333,12 @@ const ModifyPipelineForm = () => {
           onClick={() => setShowConfirmationModify(true)}>
             Modificar
           </button>
-
-          {showConfirmationModify && (
-            <ShortModal
-              typeOfModal="modify"
-              btnArray={[
-                <button key="modify" type="submit" className="btn btn-warning">
-                  Modificar
-                </button>,
-              ]}
-              onClose={() => setShowConfirmationModify(false)}
-            />
-          )}
-
         </div>
       </Form>
       {modal && (
         <ShortModal
-          typeOfModal="state"
-          setActiveModal={toggleModal}
+          content={<ChangeStatePipelineForm/>}
+          onClose={() => setShowConfirmationModify(false)}
         />
       )}
     </>

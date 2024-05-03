@@ -49,7 +49,7 @@ export const proposedActionOptions: Record<ProposedAction, string> = {
   "Upskilling Crosstraining": "Capacitación y Entrenamiento Cruzado",
   "Backup / Shadow other projects": "Respaldo / Sombra otros proyectos",
   "Resouce Pool": "Pool de Recursos",
-  "No Action Required": "No se Requiere Acción",
+  "No action required": "No se Requiere Acción",
   "Others": "Otros",
   "Attrition": "Desgaste"
 };
@@ -70,4 +70,10 @@ export const statusReasonOptions: Record<StatusReason, string> = {
   "Performance Issues / PIP": "Problemas de Rendimiento / PIP",
   "Other": "Otro",
   "Intern": "Internado"
+};
+
+export const employeeStatusOptions: Record<EmployeeStatus, string> = {
+  "On Hired": "Contratado",
+  "Layoff": "Despedido",
+  "Resigned": "Renunciado"
 };

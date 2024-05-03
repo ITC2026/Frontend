@@ -26,7 +26,7 @@ type TechStack = "Java" | "React" | "Python" | "Automation" | "Golang" | "Javasc
 "Appian" | "PowerApps" | "Manual Tester" | "Kotlin" | "UX"| "iOS";
 
 type ProposedAction = "Project Search" | "Using In Internal Project" | "Upskilling Crosstraining" |
-"Backup / Shadow other projects" | "Resouce Pool" | "No Action Required" | "Others" | "Attrition"; 
+"Backup / Shadow other projects" | "Resouce Pool" | "No action required" | "Others" | "Attrition"; 
 
 type StatusReason = "In Training" | "Induction / Orientation" | "Shadow Resources" |
 "Awaiting Client Confirmation Joining" | "Maternity Leave" | "Sabbatical / Other Leave" | "Previous Client Attrition" |

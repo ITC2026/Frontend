@@ -22,6 +22,7 @@ import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
 //Resource
 import ResourceWrapper from "../pages/resourceManager/ResourceManagerWrapper";
 import People from "../pages/resourceManager/People/People";
+import PersonModifyWrapper from "../pages/resourceManager/employees/modifyForms/PersonModifyWrapper";
 
 
 const router = createBrowserRouter([
@@ -171,6 +172,17 @@ const router = createBrowserRouter([
             <People />
           </>
         ),
+        children: [
+          {
+            path: "edit",
+            children: [
+              {
+                path: ":id/",
+                element: <PersonModifyWrapper />,
+              },
+            ],
+          },
+        ],
       },
       {
         path: "settings",

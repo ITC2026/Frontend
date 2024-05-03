@@ -56,3 +56,19 @@ export const deleteEmployee = async (id: number) => {
         console.log(err);
     }
 };
+
+export const getEmployeeByPersonID = async (id: number) => {
+    try {
+        const res = await api.get(employeeRoute);
+        const employees_by_person: Employee[] = await res.data.payload;
+        const employee_by_person = employees_by_person.find((employee) => employee.person_id === id);
+        if (!employee_by_person) {
+            return "";
+        }
+        return employee_by_person || null;
+
+    } catch (error) {
+      console.error("Error fetching employee from ID:", error);
+      return null;
+    }
+}

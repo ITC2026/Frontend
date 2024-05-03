@@ -4,7 +4,6 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
 import { useState, useEffect } from "react";
-import getProjectNamesAndIds from "../../../../utils/People/GetProjectNamesId";
 import getPositionNamesAndIds from "../../../../utils/People/GetPositionNamesId";
 import { createPerson } from "../../../../api/PersonAPI";
 
@@ -14,10 +13,7 @@ import {
   divisionOptions,
   regionOptions,
   jobGradeOptions,
-  proposedActionOptions,
-  statusReasonOptions,
 } from "../Options";
-import getClientNamesAndIds from "../../../../utils/Clients/GetClientNamesID";
 
 interface Props {
   setActiveModal: (active: boolean) => void;
@@ -35,18 +31,13 @@ const RegisterBillingForm = (props: Props) => {
   const [expectedSalary, setExpectedSalary] = useState<number>(0);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [reasonBench, setReasonBench] = useState<StatusReason | "Ninguno">("Ninguno");
-  const [proposedAction, setProposedAction] = useState<ProposedAction | "Ninguno">("Ninguno");
-  const [projectIds, setProjectIds] = useState<{ id: string; name: string }[]>([]);
-  const [clientsIds, setClientsIds] = useState<{ id: string; name: string }[]>([]);
-  const [selectedProjectId, selectedSetProjectId] = useState<string>("");
   const [jobPositionIds, setJobPositionIds] = useState<{ id: string; name: string }[]>([]);
   const [selectedJobPositionId, selectedSetJobPositionId] = useState<string>("");
-  const [selectedClientId, setSelectedClientId] = useState<string>("");
-
   const general_status = "Billing";
   const salary: number = 1111;
   const employee_status = "On Hired";
+  const proposedAction = "No action required";
+  const reasonBench = "Other";
 
   const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -66,25 +57,21 @@ const RegisterBillingForm = (props: Props) => {
       job_grade: jobGrade,
       proposed_action: proposedAction,
       employee_status: employee_status,
-      employee_reason: reasonBench,
-      client_id: selectedClientId,
-      project_id: selectedProjectId,
+      employee_reason: reasonBench
     };
-    console.log(`Submitting project: ${JSON.stringify(candidateToSubmit)}`);
+    console.log(`Submitting person: ${JSON.stringify(candidateToSubmit)}`);
     createPerson(candidateToSubmit)
       .then(() => {
-        console.log("Project submitted successfully");
+        console.log("Person submitted successfully");
         props.setActiveModal(false);
       })
       .catch((error) => {
-        console.error("Error submitting project:", error);
+        console.error("Error submitting person:", error);
       });
   };
 
 
   useEffect(() => {
-    getProjectNamesAndIds().then((data) => setProjectIds(data));
-    getClientNamesAndIds().then((data) => setClientsIds(data));
     getPositionNamesAndIds().then((data) => setJobPositionIds(data));
   }, []);
 
@@ -301,109 +288,6 @@ const RegisterBillingForm = (props: Props) => {
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-2 row-width-form">
-          <Form.Label column sm={5} bsPrefix="label-style text-start">
-            Razón de Billing
-          </Form.Label>
-          <Col sm={7}>
-            <Form.Control
-              as="select"
-              value={reasonBench}
-              bsPrefix="encora-purple-input form-control"
-              onChange={(e) => 
-                setReasonBench(e.target.value as StatusReason)
-              }
-              >
-              <option selected>Ninguno</option>
-              {Object.keys(statusReasonOptions).map(
-                (statusReasonOption) => (
-                  <option
-                    key={statusReasonOption}
-                    value={statusReasonOption}
-                  >
-                    {
-                      statusReasonOptions[
-                        statusReasonOption as StatusReason
-                      ]
-                    }
-                  </option>
-                )
-              )}
-              </Form.Control>
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-2 row-width-form">
-          <Form.Label column sm={5} bsPrefix="label-style text-start">
-            Acción Propuesta
-          </Form.Label>
-          <Col sm={7}>
-            <Form.Control
-              as="select"
-              value={proposedAction}
-              bsPrefix="encora-purple-input form-control"
-              onChange={(e) =>
-                setProposedAction(e.target.value as ProposedAction)
-              }
-            >
-              <option selected>Ninguno</option>
-              {Object.keys(proposedActionOptions).map(
-                (proposedActionOption) => (
-                  <option
-                    key={proposedActionOption}
-                    value={proposedActionOption}
-                  >
-                    {
-                      proposedActionOptions[
-                        proposedActionOption as ProposedAction
-                      ]
-                    }
-                  </option>
-                )
-              )}
-            </Form.Control>
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-2 row-width-form">
-          <Form.Label column sm={5} bsPrefix="label-style text-start">
-            Cliente
-          </Form.Label>
-          <Col sm={7}>
-            <Form.Control
-              as="select"
-              value={selectedClientId}
-              onChange={(e) => setSelectedClientId(e.target.value)}
-            >
-              <option selected>Ninguno</option>
-              {clientsIds.map((client) => (
-                <option key={client.id} value={client.id}>
-                  {client.name}
-                </option>
-              ))}
-            </Form.Control>
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-2 row-width-form">
-          <Form.Label column sm={5} bsPrefix="label-style text-start">
-            Proyecto
-          </Form.Label>
-          <Col sm={7}>
-            <Form.Control
-              as="select"
-              value={selectedProjectId}
-              onChange={(e) => selectedSetProjectId(e.target.value)}
-            >
-              <option selected>Ninguno</option>
-              {projectIds.map((project) => (
-                <option key={project.id} value={project.id}>
-                  {project.name}
-                </option>
-              ))}
-            </Form.Control>
-          </Col>
-        </Form.Group>
 
         <Form.Group as={Row} className="mb-2 row-width-form">
           <Form.Label column sm={5} bsPrefix="label-style text-start">
@@ -442,7 +326,3 @@ const RegisterBillingForm = (props: Props) => {
 };
 
 export default RegisterBillingForm;
-
-{
-  /*  */
-}

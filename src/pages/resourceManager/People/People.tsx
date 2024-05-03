@@ -66,8 +66,6 @@ const PersonsPage = () => {
     return true;
   });
 
-  console.log(selected);
-
   const handleTableChange = (type: string) => {
     setSelected(type);
   };

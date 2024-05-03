@@ -57,6 +57,7 @@ const RegisterBenchForm = (props: Props) => {
       proposed_action: proposedAction,
       employee_status: employee_status,
       employee_reason: reasonBench,
+      profile_picture: profilePic,
     };
     console.log(`Submitting person: ${JSON.stringify(candidateToSubmit)}`);
     createPerson(candidateToSubmit)

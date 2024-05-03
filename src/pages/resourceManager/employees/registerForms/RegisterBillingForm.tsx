@@ -57,7 +57,8 @@ const RegisterBillingForm = (props: Props) => {
       job_grade: jobGrade,
       proposed_action: proposedAction,
       employee_status: employee_status,
-      employee_reason: reasonBench
+      employee_reason: reasonBench,
+      profile_picture: profilePic,
     };
     console.log(`Submitting person: ${JSON.stringify(candidateToSubmit)}`);
     createPerson(candidateToSubmit)

@@ -1,3 +1,4 @@
+import "./TabNav.css"
 interface PropTab {
   selected: string;
   setSelected: (selected: string) => void;
@@ -11,6 +12,7 @@ export const TabNav = (props: PropTab) => {
   ];
 
   return (
+    <div className="ajuste">
     <ul className="nav nav-pills nav-fill">
       {projectTypeList.map((type: string, index: number) => (
         <li key={index} className="nav-item">
@@ -24,5 +26,6 @@ export const TabNav = (props: PropTab) => {
         </li>
       ))}
     </ul>
+    </div>
   );
 };

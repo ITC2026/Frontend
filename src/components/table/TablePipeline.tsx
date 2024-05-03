@@ -124,7 +124,7 @@ const TablePipeline = (props: Props) => {
   });
 
   return (
-    <div>
+    <div className='todo'>
       <div className="table-header">
         <div className="children-container">{props.children}</div>
 
@@ -142,7 +142,7 @@ const TablePipeline = (props: Props) => {
                 </th>
               )
             )}
-            <th className="encora-purple text-light">Options</th>
+            <th className="encora-purple text-light">Opciones</th>
           </tr>
         </thead>
         <tbody>

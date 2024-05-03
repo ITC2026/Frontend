@@ -15,16 +15,16 @@ const ClientModifyForm = () => {
   const [clientName, setClientName] = useState<string>("");
   const [clientDescription, setClientDescription] = useState<string>("");
   const [hasHighGrowth, setHasHighGrowth] = useState<boolean>(false);
-  const [selectedDivision, setSelectedDivision] = useState<Division>();
+  const [selectedDivision, setSelectedDivision] = useState<Division>("USA");
   const [validated, setValidated] = useState(false);
   const [logoFile, setLogoFile] = useState<File>();
   const [logoPath, setLogoPath] = useState<string>();
+  const [originalLogoPath, setOriginalLogoPath] = useState<string>("");
   const [contractFile, setContractFile] = useState<File>();
   const [contractPath, setContractPath] = useState<string>();
+  const [originalContractPath, setOriginalContractPath] = useState<string>("");
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  let originalContractPath = "";
-  let originalLogoPath = "";
 
   const handleDeleteClient = () => {
     console.log("Delete client");
@@ -47,9 +47,9 @@ const ClientModifyForm = () => {
         }
         setClientName(data.client_name);
         setClientDescription(data.client_desc);
-        originalContractPath = data.contract_pdf_url;
+        setOriginalContractPath(data.contract_pdf_url);
         setContractPath(data.contract_pdf_url);
-        originalLogoPath = data.logo_url
+        setOriginalLogoPath(data.logo_url); 
         setLogoPath(data.logo_url);
         setHasHighGrowth(data.high_growth);
         setSelectedDivision(data.division);
@@ -81,16 +81,12 @@ const ClientModifyForm = () => {
     let urlLogo = originalLogoPath;
     let urlContract = originalContractPath;
 
-    if (originalLogoPath !== logoPath) {
-      if (logoPath && logoFile) {
-        urlLogo = await uploadFile(logoFile, logoPath);
-      }
+    if (originalLogoPath !== logoPath && logoPath && logoFile) {
+      urlLogo = await uploadFile(logoFile, logoPath);
     } 
 
-    if (originalContractPath !== contractPath) {
-      if (contractPath && contractFile) {
-        urlContract = await uploadFile(contractFile, contractPath);
-      }
+    if (originalContractPath !== contractPath && contractPath && contractFile) {
+      urlContract = await uploadFile(contractFile, contractPath);
     }
 
     const clientToModify: CreateClientAttributes = {
@@ -102,6 +98,7 @@ const ClientModifyForm = () => {
       division: selectedDivision,
     };
 
+    console.log(urlContract, urlLogo);
     const id_num = Number(id);
 
     modifyClient(id_num, clientToModify)

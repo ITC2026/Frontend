@@ -105,11 +105,9 @@ type PeopleStatus = "Pipeline" | "Bench" | "Billing";
 
 type EmployeeStatus = "On Hired" | "Layoff" | "Resigned";
 
-  
 interface Person { 
 id: number;
-first_name: string;
-last_name: string;
+name: string;
 profile_picture: string;
 gender: Gender; // Part of a type.
 phone: string;

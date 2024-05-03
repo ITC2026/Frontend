@@ -20,8 +20,25 @@
   flex-direction: column;
   justify-content: space-between;  
   overflow-y: auto;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+@media screen and (max-width: 1440px) {
+  .large-modal {
+    width: 61.59375rem;
+    height: 41.625rem;
+  }
+
+  .large-modal h1 {
+    font-size: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .large-modal .bottom-form {
+    height: auto;
+    flex-wrap: nowrap;
+  }
 }
 
 @media screen and (max-width: 1440px) {

@@ -4,7 +4,6 @@ import App from "../App";
 import LoginPage from "../pages/login/LoginPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import AccountManagerWrapper from "../pages/accountManager/AccountManagerWrapper";
-import ProjectPage from "../pages/accountManager/projects/Projects";
 import ModalPage from "../pages/ModalPage/ModalPage";
 import ProjectInfoWrapper from "../pages/accountManager/projects/ProjectInfoWrapper";
 import ProjectModifyWrapper from "../pages/accountManager/projects/modify/ProjectModifyWrapper";
@@ -13,7 +12,9 @@ import JobPositionModify from "../pages/accountManager/JobPositions/JobPositionM
 import OpeningTablePage from "../pages/accountManager/JobPositions/Openings/OpeningTablePage";
 
 import FirebaseStorage from "../pages/firebaseStorage/FirebaseStorage";
-import ClientPage from "../pages/accountManager/Clientes/ClientPage";
+import ClientPage from "../pages/accountManager/clients/ClientPage";
+import ProjectPage from "../pages/accountManager/projects/Projects";
+import ClientWrapper from "../pages/accountManager/clients/ClientWrapper";
 
 import ChartStaffer from "../pages/dashboards/DashboardStaffer";
 import ChartAccount from "../pages/dashboards/DashboardAccount";
@@ -23,8 +24,6 @@ import StafferWrapper from "../pages/staffer/StafferWrapper";
 import ProjectsPage from "../pages/staffer/projects/ProjectsPage";
 import PostulatesPage from "../pages/staffer/postulates/PostulatesPage";
 import PositionsPage from "../pages/staffer/positions/PositionsPage";
-
-
 
 //Resource
 import ResourceWrapper from "../pages/resourceManager/ResourceManagerWrapper";
@@ -66,6 +65,16 @@ const router = createBrowserRouter([
             <ClientPage />
           </>
         ),
+        children: [
+          {
+            path: ":id/",
+            element: <ClientWrapper modalType="modify" />,
+          },
+          {
+            path: "info/:id/",
+            element: <ClientWrapper modalType="read" />,
+          },
+        ],
       },
       {
         path: "projects",
@@ -118,7 +127,10 @@ const router = createBrowserRouter([
     path: "staffer",
     element: (
       <>
-        <StafferWrapper route="/staffer" routes={["/", "/projects", "/people", "/people/"]} />
+        <StafferWrapper
+          route="/staffer"
+          routes={["/", "/projects", "/people", "/people/"]}
+        />
       </>
     ),
     children: [
@@ -126,7 +138,7 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <>
-            <ChartStaffer/>,
+            <ChartStaffer />,
           </>
         ),
       },
@@ -145,7 +157,7 @@ const router = createBrowserRouter([
           {
             path: ":id",
           },
-        ]
+        ],
       },
       {
         path: "settings",
@@ -177,7 +189,7 @@ const router = createBrowserRouter([
         path: "employees",
         element: (
           <>
-          <Employee/>,
+            <Employee />,
           </>
         ),
       },
@@ -202,6 +214,14 @@ const router = createBrowserRouter([
   {
     path: "/firebaseStorage",
     element: <FirebaseStorage />,
+  },
+  {
+    path: "resource",
+    element: (
+      <>
+        <ChartResource />
+      </>
+    ),
   },
 ]);
 

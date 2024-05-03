@@ -1,5 +1,5 @@
 import Form from "react-bootstrap/Form";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { createClient } from "../../api/ClientAPI";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -13,24 +13,11 @@ interface Props {
   setActiveModal: (active: boolean) => void;
 }
 
-const handleSubmitClient = async (e: React.FormEvent) => {
-  if (logoFile && logoPath && contractFile && contractPath) {
-    e.preventDefault();
-    const urlLogo = await uploadFile(logoFile, logoPath);
-    console.log(urlLogo);
-    const urlContract = await uploadFile(contractFile, contractPath);
-    console.log(urlContract);
-  }
-};
-
 const ClientRegisterForm = (prop: Props) => {
-  const [contractPdfUrl, setContractPdfUrl] = useState<string>("");
-  const [logoUrl, setLogoUrl] = useState<string>("");
   const [clientName, setClientName] = useState<string>("");
   const [clientDescription, setClientDescription] = useState<string>("");
   const [hasHighGrowth, setHasHighGrowth] = useState<boolean>(false);
   const [selectedDivision, setSelectedDivision] = useState<Division>();
-
   const [validated, setValidated] = useState(false);
   const [logoFile, setLogoFile] = useState<File>();
   const [logoPath, setLogoPath] = useState<string>();
@@ -43,7 +30,6 @@ const ClientRegisterForm = (prop: Props) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
-
       event.stopPropagation();
       console.log("Form is invalid");
       setValidated(true);
@@ -129,10 +115,10 @@ const ClientRegisterForm = (prop: Props) => {
           <Form.Control
             //required
             accept=".pdf"
-            value={contractPdfUrl}
             onChange={(e) => {
-              if (e.target.files && e.target.files.length > 0) {
-                setContractFile(e.target.files[0]);
+              const target = e.target as HTMLInputElement;
+              if (target.files && target.files.length > 0) {
+                setContractFile(target.files[0]);
                 setContractPath(clientContractPath + uuidv4());
               }
             }}
@@ -153,10 +139,10 @@ const ClientRegisterForm = (prop: Props) => {
           <Form.Control
             // required
             accept="image/png, image/jpeg"
-            value={logoUrl}
             onChange={(e) => {
-              if (e.target.files && e.target.files.length > 0) {
-                setLogoFile(e.target.files[0]);
+              const target = e.target as HTMLInputElement;
+              if (target.files && target.files.length > 0) {
+                setLogoFile(target.files[0]);
                 setLogoPath(clientLogoPath + uuidv4());
               }
             }}

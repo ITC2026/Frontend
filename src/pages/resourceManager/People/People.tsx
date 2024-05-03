@@ -18,24 +18,23 @@ const pipeline_structure = {
 };
 
 const bench_structure = {
-person_id: "Nombre",
-division: "División",
-title: "Titulo de trabajo",
-tech_stack: "Tech Stack",
-proposed_action: "Acción Propuesta", 
-days_on_bench: "Días en el bench"
-}
+  person_id: "Nombre",
+  division: "División",
+  title: "Titulo de trabajo",
+  tech_stack: "Tech Stack",
+  proposed_action: "Acción Propuesta",
+  days_on_bench: "Días en el bench",
+};
 
 const billing_structure = {
-person_id: "Nombre",
-division: "División",
-client_id: "Cliente",
-title: "Titulo de trabajo",
-project_id: "Proyecto",
-billing_rate: "Billing Rate",
-salary: "Salario"
-}
-
+  person_id: "Nombre",
+  division: "División",
+  client_id: "Cliente",
+  title: "Titulo de trabajo",
+  project_id: "Proyecto",
+  billing_rate: "Billing Rate",
+  salary: "Salario",
+};
 
 const PersonsPage = () => {
   const [people, setPeople] = useState<Person[]>([]);
@@ -80,21 +79,36 @@ const PersonsPage = () => {
           <TablePipeline
             entity={filteredPeople}
             categories={pipeline_structure}
-          />
+          >
+            <button
+              className="project-register encora-purple-button text-light"
+              onClick={toggleRegisterPerson}
+            >
+              Registrar en Pipeline
+            </button>
+          </TablePipeline>
         );
       case "Bench":
         return (
-          <TableBench
-            entity={filteredPeople}
-            categories={bench_structure}
-          />
+          <TableBench entity={filteredPeople} categories={bench_structure}>
+            <button
+              className="project-register encora-purple-button text-light"
+              onClick={toggleRegisterPerson}
+            >
+              Registrar en Bench
+            </button>
+          </TableBench>
         );
       case "Billing":
         return (
-          <TableBilling
-            entity={filteredPeople}
-            categories={billing_structure}
-          />
+          <TableBilling entity={filteredPeople} categories={billing_structure}>
+            <button
+              className="project-register encora-purple-button text-light"
+              onClick={toggleRegisterPerson}
+            >
+              Registrar en Billing
+            </button>
+          </TableBilling>
         );
       default:
         return null;
@@ -107,7 +121,11 @@ const PersonsPage = () => {
         {["Pipeline", "Bench", "Billing"].map((type: string, index: number) => (
           <li key={index} className="nav-item">
             <a
-              className={`nav-link ${selected === type ? "encora-purple active text-light" : "text-body"}`}
+              className={`nav-link ${
+                selected === type
+                  ? "encora-purple active text-light"
+                  : "text-body"
+              }`}
               onClick={() => handleTableChange(type)}
             >
               {type}
@@ -120,40 +138,20 @@ const PersonsPage = () => {
           <h1>Personas</h1>
         </div>
         <Outlet />
-        {selected === "Pipeline" && (
-          <div className="project-register-wrapper">
-            <button
-              className="project-register encora-purple-button text-light"
-              onClick={toggleRegisterPerson}
-            >
-              Registrar en Pipeline
-            </button>
-          </div>
-        )}
+        {selected === "Pipeline" && <div className=""></div>}
         {selected === "Bench" && (
-          <div className="project-register-wrapper">
-            <button
-              className="project-register encora-purple-button text-light"
-              onClick={toggleRegisterPerson}
-            >
-              Registrar en Bench
-            </button>
-          </div>
+          <div className="project-register-wrapper"></div>
         )}
         {selected === "Billing" && (
-          <div className="project-register-wrapper">
-            <button
-              className="project-register encora-purple-button text-light"
-              onClick={toggleRegisterPerson}
-            >
-              Registrar en Billing
-            </button>
-          </div>
+          <div className="project-register-wrapper"></div>
         )}
       </div>
       <div className="project-table">{renderTable()}</div>
       {registerPerson && (
-        <PeopleModal currentTable={selected} setActiveModal={toggleRegisterPerson} />
+        <PeopleModal
+          currentTable={selected}
+          setActiveModal={toggleRegisterPerson}
+        />
       )}
     </div>
   );

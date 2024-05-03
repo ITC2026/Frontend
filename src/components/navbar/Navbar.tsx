@@ -47,8 +47,10 @@ const Navbar = (props: Props) => {
       (item) => item.route === route
     );
 
-    {/** If it can find the proper icon with the received route*/}
-    if (iconInfo) { 
+    {
+      /** If it can find the proper icon with the received route*/
+    }
+    if (iconInfo) {
       return iconInfo.isSelected === undefined || iconInfo.isSelected === true
         ? iconInfo.icon
         : iconInfo.isSelected;

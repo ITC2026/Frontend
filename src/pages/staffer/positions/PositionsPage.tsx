@@ -6,12 +6,16 @@ import getProjectPositions from '../functions/forPositions/getProjectPositions';
 import { useParams } from 'react-router-dom';
 import getPostulatesForPosition from '../functions/forPositions/getPostulatesForPosition';
 import getPostulateApplicationProgress from '../functions/forPositions/getPostulateApplicationProgress';
+import getPositionVacancies from '../functions/forPositions/getPositionVacancies';
+import getDemandCuration from '../functions/forPositions/getDemandCuration';
 
 const PositionsPage: React.FC = () => {
     const [positions, setPositions] = useState<Position[]>([]);
     const [position, setPosition] = useState<Position>();
     const [view, setView] = useState<"Position 1" | "Position 2">("Position 1");
     const [postulates, setPostulates] = useState<Person[]>([]);
+    const [vacancies, setVacancies] = useState<number>(0);  
+    const [demandCuration, setDemandCuration] = useState<string>("");
     
 
     const { id } = useParams();
@@ -53,12 +57,27 @@ const PositionsPage: React.FC = () => {
         });
     }, [view,positions,position]);
 
-    // const filterPositionsByType = (people: Person[] | undefined, posting_type: string) => {
-    //     if (!people) {
-    //         return [];
-    //     }
-    //     return people.filter((position) => position.posting_type === posting_type);
-    // };
+    const handleVacancies = () => {
+        getPositionVacancies(position?.id as number).then((data: number) => {
+            setVacancies(data);
+        });
+        return;
+    }
+
+    useEffect(() => {
+        handleVacancies();
+    }, [position]);
+
+    const handleDemandCuration = () => {
+        getDemandCuration(projectId, position as Position).then((data: string) => {
+            setDemandCuration(data);
+        });
+        return;
+    }
+
+    useEffect(() => {
+        handleDemandCuration();
+    }, [position]);
 
     const posTitles = (position: string) => {
         var whichPos: number = 0;
@@ -73,6 +92,7 @@ const PositionsPage: React.FC = () => {
     const handleViewChange = (position: "Position 1" | "Position 2") => {
         setView(position);
     };
+
 
     return (
         <div className="positions-page">
@@ -100,20 +120,20 @@ const PositionsPage: React.FC = () => {
                     <div className="position-details">
                         <div className="detail-column">
                             <div className="detail-row">
-                                <h3>Tech Stack:</h3>
-                                <h3>Division:</h3>
+                                <h3><b>Tech Stack:</b> {position?.tech_stack}</h3>
+                                <h3><b>Division:</b> {position?.division}</h3>
                             </div>
                             <div className="detail-row">
-                                <h3>Demand Type:</h3>
-                                <h3>Vacantes Disponibles:</h3>
+                                <h3><b>Demand Curation:</b> {demandCuration}</h3>
+                                <h3><b>Vacantes Disponibles: </b> {vacancies}</h3>
                             </div>
                             <div className="detail-row">
-                                <h3>Region:</h3>
-                                <h3>Tarifa:</h3>
+                                <h3><b>Region:</b> {position?.region}</h3>
+                                <h3><b>Tarifa:</b> {position?.bill_rate}</h3>
                             </div>
                             <div className="detail-row">
-                                <h3>Posting Type:</h3>
-                                <h3>Horas de trabajo a la semana:</h3>
+                                <h3><b>Posting Type:</b> {position?.posting_type}</h3>
+                                <h3><b>Horas de trabajo a la semana:</b> {position?.working_hours}</h3>
                             </div>
                         </div>
                     </div>

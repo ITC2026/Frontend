@@ -14,7 +14,7 @@ const getPostulateApplicationProgress = async (positionID: number, postulates: P
             }
             return postulateApplication.application_status;
         }
-        return postulateOpening.opening_status;
+        return postulateOpening.opening_status === "Filled" ? "Accepted" : "No Progress";
     } catch (error) {
         console.error("Error getting application status:", error);
         return "Error";

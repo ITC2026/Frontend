@@ -1,17 +1,17 @@
 import LargeModal from "../../../../components/modal/LargeModal";
 
-import ModifyBenchForm from "./ModifyBenchForm";
-import ModifyBillingForm from "./ModifyBillingForm";
-import ModifyPipelineForm from "./ModifyPipelineForm";
+import InfoBenchForm from "./InfoBenchForm";
+import InfoBillingForm from "./InfoBillingForm";
+import InfoPipelineForm from "./InfoPipelineForm";
 
 import { getPersonById } from "../../../../api/PersonAPI";
 
-import "./PersonModifyWrapper.css";
+import "../modifyForms/PersonModifyWrapper.css";
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
-const PersonModifyWrapper = () => {
+const PersonInfoWrapper = () => {
 
     const { id } = useParams<{ id: string }>();
 
@@ -34,25 +34,25 @@ const PersonModifyWrapper = () => {
     if (person.status === "Pipeline") {
     return (
       <LargeModal
-        titleModal={`Modificando a ${person.name}`}
-        formContent={<ModifyPipelineForm />}
+        titleModal={`Información de ${person.name}`}
+        formContent={<InfoPipelineForm />}
       />
     );
     } else if (person.status === "Bench") {
     return (
       <LargeModal
-      titleModal={`Modificando a ${person.name}`}
-      formContent={<ModifyBenchForm />}
+        titleModal={`Información de ${person.name}`}
+        formContent={<InfoBenchForm />}
       />
     );
     } else if (person.status === "Billing") {
     return (
       <LargeModal
-      titleModal={`Modificando a ${person.name}`}
-      formContent={<ModifyBillingForm />}
+        titleModal={`Información de ${person.name}`}
+        formContent={<InfoBillingForm />}
       />
     );
     }
 };
 
-export default PersonModifyWrapper;
+export default PersonInfoWrapper;

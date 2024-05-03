@@ -213,6 +213,42 @@ id: number;
 expected_salary: number;
 person_id: number; // Foreign key.
 }
+interface GetPersonAttributes {
+    id: number;
+    name: string;
+    profile_picture: string;
+    gender: Gender; // Part of a type.
+    phone: string;
+    email: string;
+    title: string;
+    tech_stack: TechStack; // Part of a type.
+    division: Division; // Part of a type.
+    region: Region; // Part of a type.
+    status: PeopleStatus; // Part of a type.
+    movement_reason: string;
+    expected_salary: number;
+    project_name: string;
+    position_name: string;
+    created_at: Date;
+    updated_at: Date;
+    clients: Client[];
+    projects: Project[];
+}
+
+// Employee interface.
+interface GetEmployeeAttributes {
+    id: number;
+    salary: number;
+    job_grade: JobGrade; // Part of a type.
+    proposed_action: ProposedAction; // Part of a type.
+    employee_status: EmployeeStatus; // Part of a type.
+    employee_reason: StatusReason;
+    contract_start_date: Date; 
+    last_movement_at: Date;
+    person_id: number; // Foreign Key.
+    createdAt: Date;
+    updatedAt: Date;
+}
 
 
 interface CreatePersonAttributes extends Optional<Person, 'id' | 'profile_picture' | 'movement_reason' | 'project_name' | 'position_name'> {}

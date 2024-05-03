@@ -6,8 +6,6 @@ import getAllFilledOpenings from "./getAllFilledOpenings";
 const getProjectForPerson = async (id: number) => {
     try {
 
-        console.log("ESTE ES EL ID DE TU PERSONA: ", id);
-
         const openings = await getAllFilledOpenings();
         if (!openings) {
             return "";

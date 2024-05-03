@@ -116,3 +116,13 @@ export const getPositionOfPersonByIDResource = async (id: number) => {
         throw err;
     }
 }
+
+export const getPersonByIdAndDates = async (id: number) => {
+    try {
+        const res = await api.get(`${personRoute}/${id}`);
+        const person: GetPersonAttributes = await res.data.payload
+        return person;
+    } catch (err) {
+        console.log(err);
+    }
+};

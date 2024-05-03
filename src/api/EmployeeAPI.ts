@@ -72,3 +72,14 @@ export const getEmployeeByPersonID = async (id: number) => {
       return null;
     }
 }
+
+export const getEmployeeByIdAndDates = async (id: number) => {
+    try {
+        const res = await api.get(`${employeeRoute}/${id}`);
+        const employee: GetEmployeeAttributes = await res.data.payload
+        console.log(employee);
+        return employee;
+    } catch (err) {
+        console.log(err);
+    }
+};

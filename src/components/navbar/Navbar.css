@@ -1,11 +1,11 @@
 .navbar-account-manager {
-  display: absolute;
-  position: fixed;
-  height: 100vh;
-  width: 5rem;
-  background-color: #2d1154;
-  left: 0;
-  margin-right: 5rem;
+    display: absolute;
+    position:fixed;
+    height: 100vh;
+    width: 5rem;
+    background-color: #2D1154;
+    left: 0;
+    margin-right: 5rem;
 }
 
 .navbar-wrap {

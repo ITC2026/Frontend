@@ -1,11 +1,10 @@
 .resource-manager-wrapper {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
+
 }
 
 .resource-manager-content {
-  margin-right: 10rem;
-  margin-left: 10rem;
-  margin-top: 2rem;
-  width: 100%;
+    margin-left: 10rem;
+    margin-top: 2rem;
 }

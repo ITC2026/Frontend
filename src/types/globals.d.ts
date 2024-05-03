@@ -1,9 +1,18 @@
-
 type TypesOfRoles = "Admin" | "Account" | "Resource" | "Staffer";
 
 type Action = "Create" | "Update" | "Delete";
 
-type Type = "Clients" | "Projects" | "Positions" | "Openings" | "Applications" | "People" | "Users";
+type Type =
+  | "Clients"
+  | "Projects"
+  | "Positions"
+  | "Openings"
+  | "Applications"
+  | "People"
+  | "Users";
+
+type Entity = Project | Position | Opening | Person;
+type EntityKey = keyof Project | keyof Position | keyof Opening | keyof Person;
 
 type ProjectStatus = "In Preparation" | "Active" | "Closed";
 
@@ -13,31 +22,87 @@ type PostingType = "New Head Count" | "Back-Fill Replacement";
 
 type OpeningStatus = "New" | "Filled" | "Closed" | "In Progress" | "On Standby";
 
-type OpeningReason = "In Progress" | "On Standby" | "Hired" | "Replacement" | "Budget Problem" | "Filled By Itself" |
-"Filled By Another" | "No replied";
+type OpeningReason =
+  | "In Progress"
+  | "On Standby"
+  | "Hired"
+  | "Replacement"
+  | "Budget Problem"
+  | "Filled By Itself"
+  | "Filled By Another"
+  | "No replied";
 
-type ApplicationStatus = "Accepted" | "Schedule For Interview" | "Rejected" | "Waiting on Client Response" | "On Hold";
+type ApplicationStatus =
+  | "Accepted"
+  | "Schedule For Interview"
+  | "Rejected"
+  | "Waiting on Client Response"
+  | "On Hold";
 
 type Gender = "Male" | "Female" | "Nonbinary" | "Did Not Want to Say";
 
-type JobGrade = "C3"| "C4" | "C5" | "C6";
+type JobGrade = "C3" | "C4" | "C5" | "C6";
 
-type TechStack = "Java" | "React" | "Python" | "Automation" | "Golang" | "Javascript" | ".NET" | "Angular" | 
-"Appian" | "PowerApps" | "Manual Tester" | "Kotlin" | "UX"| "iOS";
+type TechStack =
+  | "Java"
+  | "React"
+  | "Python"
+  | "Automation"
+  | "Golang"
+  | "Javascript"
+  | ".NET"
+  | "Angular"
+  | "Appian"
+  | "PowerApps"
+  | "Manual Tester"
+  | "Kotlin"
+  | "UX"
+  | "iOS";
 
-type ProposedAction = "Project Search" | "Using In Internal Project" | "Upskilling Crosstraining" |
-"Backup / Shadow other projects" | "Resouce Pool" | "No action required" | "Others" | "Attrition"; 
+type ProposedAction =
+  | "Project Search"
+  | "Using In Internal Project"
+  | "Upskilling Crosstraining"
+  | "Backup / Shadow other projects"
+  | "Resouce Pool"
+  | "No action required"
+  | "Others"
+  | "Attrition";
 
-type StatusReason = "In Training" | "Induction / Orientation" | "Shadow Resources" |
-"Awaiting Client Confirmation Joining" | "Maternity Leave" | "Sabbatical / Other Leave" | "Previous Client Attrition" |
-"Previous Client HC Reduction" | "Transition Between Projects" | "No Available Projects" | "Internal Project" |
-"Moved To Billing" | "Performance Issues / PIP" | "Other" | "Intern"; 
-
+type StatusReason =
+  | "In Training"
+  | "Induction / Orientation"
+  | "Shadow Resources"
+  | "Awaiting Client Confirmation Joining"
+  | "Maternity Leave"
+  | "Sabbatical / Other Leave"
+  | "Previous Client Attrition"
+  | "Previous Client HC Reduction"
+  | "Transition Between Projects"
+  | "No Available Projects"
+  | "Internal Project"
+  | "Moved To Billing"
+  | "Performance Issues / PIP"
+  | "Other"
+  | "Intern";
 
 type Division = "BRAZIL" | "MEXICO" | "CSA" | "USA";
 
-type Region = "CDMX" | "CUU" | "HMO" | "MID" | "SLP" | "CAMPINA" | "SAO PAULO" | "COLOMBIA" | "PERU" | "COSTA RICA" |
-"ARGENTINA" | "DOMINICANA" | "DALLAS" | "PHOENIX";
+type Region =
+  | "CDMX"
+  | "CUU"
+  | "HMO"
+  | "MID"
+  | "SLP"
+  | "CAMPINA"
+  | "SAO PAULO"
+  | "COLOMBIA"
+  | "PERU"
+  | "COSTA RICA"
+  | "ARGENTINA"
+  | "DOMINICANA"
+  | "DALLAS"
+  | "PHOENIX";
 
 type PeopleStatus = "Pipeline" | "Bench" | "Billing";
 
@@ -62,156 +127,157 @@ position_name: string;
 }
 
 interface Opening {
-id: number;
-opening_status: OpeningStatus; // Part of a type.
-opening_reason: OpeningReason; // Part of a type.
-start_date: Date;
-has_expiration_date: boolean;
-position_id: number;
-person_id: number;
-person: Person;
+  id: number;
+  opening_status: OpeningStatus; // Part of a type.
+  opening_reason: OpeningReason; // Part of a type.
+  expiration_date: Date;
+  has_expiration_date: boolean;
+  position_id: number;
+  person_id: number;
+  person: Person;
 }
 
 interface Position {
-id: number;
-position_title: string;
-division: Division; // Part of a type.
-region: Region; // Part of a type.
-tech_stack: TechStack; // Part of a type.
-bill_rate: number;
-posting_type: PostingType; // Part of a type.
-is_cross_division: boolean;
-is_exclusive: boolean;
-working_hours: number;
-openings: Opening[];
-project_id: number;
+  id: number;
+  position_title: string;
+  division: Division; // Part of a type.
+  region: Region; // Part of a type.
+  tech_stack: TechStack; // Part of a type.
+  bill_rate: number;
+  posting_type: PostingType; // Part of a type.
+  is_cross_division: boolean;
+  is_exclusive: boolean;
+  working_hours: number;
+  openings: Opening[];
+  project_id: number;
 }
 
 // Position Comment interface
 interface CommentPosition {
-id: number;
-comment: string;
-position_id: number;
+  id: number;
+  comment: string;
+  position_id: number;
 }
 
 interface Project {
-id: number;
-project_title: string;
-project_description: string;
-start_date: Date;
-has_expiration_date: boolean;
-general_status: ProjectStatus; // Part of a type.
-positions: Position[];
-client_id: number;
-client_name: string;
+  id: number;
+  project_title: string;
+  project_description: string;
+  start_date: Date;
+  has_expiration_date: boolean;
+  general_status: ProjectStatus; // Part of a type.
+  positions: Position[];
+  client_id: number;
+  expiration_date?: ExpirationDateProject;
 }
 
 // Roles interface.
-interface Role { 
-id: number;
-role_name: TypesOfRoles; // Part of a type.
-users: User[];
+interface Role {
+  id: number;
+  role_name: TypesOfRoles; // Part of a type.
+  users: User[];
 }
 
 // User Interface.
 interface User {
-id: number;
-username: string;
-password: string;
-email: string;
-division: Division; // Part of a type.
-roles: Role[];
+  id: number;
+  username: string;
+  password: string;
+  email: string;
+  division: Division; // Part of a type.
+  roles: Role[];
 }
 
 // RoleUserRelation interface.
-interface RoleUserRelation { 
-role_id: number; // Foreign key.
-user_id: number; // Foreign key.
+interface RoleUserRelation {
+  role_id: number; // Foreign key.
+  user_id: number; // Foreign key.
 }
 
 // Ticket Log interface.
-interface TicketLog { 
-id: number;
-action: ActionType; // Part of a type.
-user_id: number; // Foreign key.
-entity_id: number; // Foreign key.
+interface TicketLog {
+  id: number;
+  action: ActionType; // Part of a type.
+  user_id: number; // Foreign key.
+  entity_id: number; // Foreign key.
 }
 
 // Entity interface.
 interface Entity {
-id: number;
-type: Type; // Part of a type.
-isDeleted: boolean;
-belongs_to_id: number; // Foreign key.
+  id: number;
+  type: Type; // Part of a type.
+  isDeleted: boolean;
+  belongs_to_id: number; // Foreign key.
 }
 
 // Employee interface.
 interface Employee {
-id: number;
-salary: number;
-job_grade: JobGrade; // Part of a type.
-proposed_action: ProposedAction; // Part of a type.
-employee_status: EmployeeStatus; // Part of a type.
-employee_reason: StatusReason;
-contract_start_date: Date; 
-last_movement_at: Date;
-person_id: number; // Foreign Key.
+  id: number;
+  salary: number;
+  job_grade: JobGrade; // Part of a type.
+  proposed_action: ProposedAction; // Part of a type.
+  employee_status: EmployeeStatus; // Part of a type.
+  employee_reason: StatusReason;
+  contract_start_date: Date;
+  last_movement_at: Date;
+  person_id: number; // Foreign Key.
 }
 
 // Client interface.
 interface Client {
-id: number;
-contract_pdf_url: string;
-logo_url: string;
-client_name: string;
-client_desc: string;
-high_growth: boolean;
-division: Division; // Part of a type.
-projects: Project[];
-employees: Employee[];
+  id: number;
+  contract_pdf_url: string;
+  logo_url: string;
+  client_name: string;
+  client_desc: string;
+  high_growth: boolean;
+  division: Division; // Part of a type.
+  projects: Project[];
+  employees: Employee[];
 }
 
 // ClientEmployeeRelation interface.
 interface ClientEmployeeRelation {
-client_id: number; // Foreign key.
-employee_id: number; // Foreign key.
+  client_id: number; // Foreign key.
+  employee_id: number; // Foreign key.
 }
 
 // ExpirationDateProject interface.
-interface ExpirationDateProject { // Falta. (ruta con minusculas)
-id: number;
-expiration_date: Date;
-project_id: number; // Foreign key. 
+interface ExpirationDateProject {
+  // Falta. (ruta con minusculas)
+  id: number;
+  expiration_date: Date;
+  project_id: number; // Foreign key.
 }
 
 // ClosedProject interface.
 interface ClosedProject {
-id: number;
-closed_status: ClosedStatus; // Part of a type.
-closed_reason: string;
-project_id: number; // Foreign key.
+  id: number;
+  closed_status: ClosedStatus; // Part of a type.
+  closed_reason: string;
+  project_id: number; // Foreign key.
 }
 
 // ExpirationDateOpening interface.
-interface ExpirationDateOpening { 
-id: number;
-expiration_date: Date;
-opening_id: number; // Foreign key.
+interface ExpirationDateOpening {
+  id: number;
+  expiration_date: Date;
+  opening_id: number; // Foreign key.
 }
 
 // Applications interface.
 interface Application {
-id: number;
-application_status: ApplicationStatus; // Part of a type,
-position_id: number; // Foreign key.
-person_id: number; // Foreign key.
+  id: number;
+  application_status: ApplicationStatus; // Part of a type,
+  position_id: number; // Foreign key.
+  person_id: number; // Foreign key.
 }
 
 // Candidate interface.
 interface Candidate {
-id: number;
-expected_salary: number;
-person_id: number; // Foreign key.
+  id: number;
+  expected_salary: number;
+  person_id: number; // Foreign key.
 }
 interface GetPersonAttributes {
     id: number;

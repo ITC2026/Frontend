@@ -1,0 +1,74 @@
+{
+  "status": "Success",
+  "message": "Applications retrieved successfully",
+  "payload": [
+    {
+      "id": 1,
+      "application_status": "Waiting on Client Response",
+      "position_id": 12,
+      "person_id": 2,
+      "createdAt": "2024-05-03T14:26:09.308Z",
+      "updatedAt": "2024-05-03T14:26:09.308Z",
+      "deletedAt": null,
+      "person": {
+        "id": 2,
+        "profile_picture": "https://firebasestorage.googleapis.com/v0/b/fir-encora.appspot.com/o/people%2Fprofile%2F64e20210-6c32-4076-81fd-07dea02eee0f?alt=media&token=717c712a-c17f-4a59-842f-79d27f82137c",
+        "name": "Andrés Sandoval",
+        "gender": "Nonbinary",
+        "phone": "6442254145",
+        "email": "autummata@gmail.com",
+        "title": "Chambeador ",
+        "tech_stack": "Automation",
+        "division": "MEXICO",
+        "region": "MID",
+        "status": "Pipeline",
+        "movement_reason": null,
+        "created_at": "2024-05-03T12:37:22.838Z",
+        "updated_at": "2024-05-03T12:37:22.838Z",
+        "deletedAt": null,
+        "employee": null,
+        "candidate": {
+          "id": 2,
+          "expected_salary": 10000,
+          "person_id": 2,
+          "created_at": "2024-05-03T12:37:22.894Z",
+          "updated_at": "2024-05-03T12:37:22.894Z"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "application_status": "On Hold",
+      "position_id": 12,
+      "person_id": 1,
+      "createdAt": "2024-05-03T14:56:32.711Z",
+      "updatedAt": "2024-05-03T14:56:32.711Z",
+      "deletedAt": null,
+      "person": {
+        "id": 1,
+        "profile_picture": "https://firebasestorage.googleapis.com/v0/b/fir-encora.appspot.com/o/people%2Fprofile%2Fd87da095-db32-425f-8e13-70a537cb6222?alt=media&token=5bda633b-362d-4201-b74d-707ce309b9cd",
+        "name": "Ramon Dormilon",
+        "gender": "Male",
+        "phone": "22223222aa",
+        "email": "at@gmail.com",
+        "title": "Web Dev",
+        "tech_stack": "Golang",
+        "division": "MEXICO",
+        "region": "HMO",
+        "status": "Pipeline",
+        "movement_reason": null,
+        "created_at": "2024-05-03T12:12:58.160Z",
+        "updated_at": "2024-05-03T12:12:58.160Z",
+        "deletedAt": null,
+        "employee": null,
+        "candidate": {
+          "id": 1,
+          "expected_salary": 1000,
+          "person_id": 1,
+          "created_at": "2024-05-03T12:12:58.195Z",
+          "updated_at": "2024-05-03T12:12:58.195Z"
+        }
+      }
+    }
+  ]
+}

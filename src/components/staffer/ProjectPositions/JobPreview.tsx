@@ -12,6 +12,7 @@ const JobPreview = (prop: Props) => {
   const [openingTotal, setOpeningTotal] = useState<number>(0);
   const position_id = prop.position.id;
 
+
   useEffect(() => {
     getOpeningsFromJobID(position_id).then((openings) => {
       if (!openings) {
@@ -19,7 +20,6 @@ const JobPreview = (prop: Props) => {
       }
       setOpeningTotal(openings.length);
       const openingsLeft = openings.filter((opening) => opening === "Filled");
-      console.log(JSON.stringify(openingsLeft));
       setOpeningsLeft(openingsLeft.length);
     });
   }, [position_id]);

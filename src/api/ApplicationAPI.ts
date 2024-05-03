@@ -36,9 +36,9 @@ export const createApplication = async (application: CreateApplicationAtributes)
 };
 
 // Modify an application.
-export const modifyApplication = async (id: number, tApplication: Application) => {
+export const modifyApplication = async (id: number, tApplication: CreateApplicationAtributes) => {
     try {
-        const res = await api.patch(`${applicationRoute}/${id}`, {data: tApplication});
+        const res = await api.patch(`${applicationRoute}/${id}`, tApplication);
         const application: Application = await res.data.payload;
         return application;
     } catch (err) {

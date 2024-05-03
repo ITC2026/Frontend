@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./PositionsPage.css";
-import { Link } from "react-router-dom";
 import TableStaffer from "../../../components/staffer/TableStaffer";
 import getProjectPositions from "../functions/forPositions/getProjectPositions";
-import { useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import {
+  useParams,
+  useLocation,
+  Outlet,
+  useNavigate,
+  Link,
+} from "react-router-dom";
 import getPostulatesForPosition from "../functions/forPositions/getPostulatesForPosition";
 import getPostulateApplicationProgress from "../functions/forPositions/getPostulateApplicationProgress";
 import getPositionVacancies from "../functions/forPositions/getPositionVacancies";
@@ -13,6 +17,7 @@ import getDemandCuration from "../functions/forPositions/getDemandCuration";
 import { JobPreviewList } from "../../../components/staffer/ProjectPositions/JobPreviewList";
 import { getProjectById } from "../../../api/ProjectAPI";
 import { JobPositionPreviewInfo } from "../../../components/staffer/ProjectPositions/JobPositionPreviewInfo/JobPosPreviewInfo";
+import { formatDate } from "../../../utils/Dates";
 
 const PositionsPage: React.FC = () => {
   const [positions, setPositions] = useState<Position[]>([]);
@@ -21,9 +26,9 @@ const PositionsPage: React.FC = () => {
   const [postulates, setPostulates] = useState<Person[]>([]);
   const [vacancies, setVacancies] = useState<number>(0);
   const [demandCuration, setDemandCuration] = useState<string>("");
-
   const [projectTitle, setProjectTitle] = useState<string>("");
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [showingId, setShowingId] = useState<number>(0);
 
@@ -53,39 +58,34 @@ const PositionsPage: React.FC = () => {
     });
   }, [projectId]);
 
-  useEffect(() => {
-    if (view === "Position 1") {
-      setPosition(positions[0]);
-    } else if (view === "Position 2") {
-      setPosition(positions[1]);
-    } else {
-      console.error("Invalid position");
-    }
-  }),
-    [view, positions];
+  const generateUniqueId = () => {
+    return Math.floor(Math.random() * 100000);
+  };
 
   useEffect(() => {
-    getPostulatesForPosition(position?.id as number).then(async (data) => {
+    getPostulatesForPosition(showingId).then(async (data) => {
       if (!data) {
         return;
       }
 
-      const postulatePromises: Person[] = await Promise.all(
+      const postulatePromises = await Promise.all(
         data.map(async (person: Person) => {
-          const appStatus: string = await getPostulateApplicationProgress(
-            position?.id as number,
-            data as Person[]
+          const appStatus = await getPostulateApplicationProgress(
+            showingId,
+            person.id
           );
           return {
             ...person,
             application_status: appStatus,
-            application_date: "05/03/2023",
+            application_date: formatDate(new Date()),
+            id: person.id || generateUniqueId(),
           };
         })
       );
+
       setPostulates(postulatePromises.filter(Boolean) as Person[]);
     });
-  }, [view, positions, position]);
+  }, [showingId, location]);
 
   const handleVacancies = () => {
     getPositionVacancies(position?.id as number).then((data: number) => {
@@ -153,8 +153,10 @@ const PositionsPage: React.FC = () => {
               application_date: "Fecha de Postulación",
             }}
             showInfoButton={true}
+            showEditButton={true}
           />
         </div>
+        <Outlet />
       </div>
     </div>
   );

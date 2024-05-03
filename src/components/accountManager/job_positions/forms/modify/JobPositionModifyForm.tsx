@@ -6,7 +6,9 @@ import { useState, useEffect } from "react";
 import {
   modifyPosition,
   getPositionById,
+  deletePosition,
 } from "../../../../../api/PositionAPI";
+import ShortModal from "../../../../modal/ShortModal";
 
 interface Props {
   type: string;
@@ -28,6 +30,9 @@ const JobPositionModifyForm = (prop: Props) => {
 
   const [onlyInfo, setOnlyInfo] = useState<boolean>(false);
   const [onlyModify, setOnlyModify] = useState<boolean>(false);
+
+  const [showConfirmationDelete, setShowConfirmationDelete] =
+    useState<boolean>(false);
 
   useEffect(() => {
     if (prop.type === "Info") {
@@ -62,8 +67,6 @@ const JobPositionModifyForm = (prop: Props) => {
     };
 
     modifyPosition(Number(id), jobPositionToSubmit).then(() => {
-      console.log("Changed :)");
-
       if (prop.origin == "Project") {
         console.log("This is activated, btw.");
         navigate(`/account_manager/projects/${id}`);
@@ -254,9 +257,41 @@ const JobPositionModifyForm = (prop: Props) => {
         </div>
       </div>
       {onlyModify && (
-        <Button className="encora-purple-button" type="submit">
-          Modificar posición
-        </Button>
+        <>
+          <Button className="encora-purple-button" type="submit">
+            Modificar posición
+          </Button>
+
+          <Button
+            onClick={() => {
+              setShowConfirmationDelete(true);
+            }}
+          >
+            {" "}
+            Eliminar posición{" "}
+          </Button>
+        </>
+      )}
+
+      {showConfirmationDelete && (
+        <ShortModal
+          typeOfModal="delete"
+          btnArray={[
+            <button
+              key="delete"
+              type="button"
+              className="btn btn-danger"
+              onClick={() => {
+                deletePosition(Number(id)).then(() => {
+                  navigate("/account_manager/positions/");
+                });
+              }}
+            >
+              Delete Position
+            </button>,
+          ]}
+          setActiveModal={() => setShowConfirmationDelete(false)}
+        />
       )}
     </Form>
   );

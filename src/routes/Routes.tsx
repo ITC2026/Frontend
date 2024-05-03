@@ -32,7 +32,6 @@ import People from "../pages/resourceManager/People/People";
 import PersonModifyWrapper from "../pages/resourceManager/employees/modifyForms/PersonModifyWrapper";
 import PersonInfoWrapper from "../pages/resourceManager/employees/infoForms/PersonInfoWrapper";
 
-
 const router = createBrowserRouter([
   {
     path: "login",
@@ -100,13 +99,13 @@ const router = createBrowserRouter([
         children: [
           {
             path: ":id/",
-            element: <JobPositionModify type = "Info" />,
+            element: <JobPositionModify origin="Project" type="Info" />,
           },
           {
             path: "edit/:id/",
-            element: <JobPositionModify type = "Modify"/>,
-          }
-        ]
+            element: <JobPositionModify origin="Project" type="Modify" />,
+          },
+        ],
       },
       {
         path: "settings",
@@ -126,7 +125,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "edit/:id/",
-            element: <JobPositionModify type = "Modify" />,
+            element: <JobPositionModify type="Modify" />,
           },
         ],
       },
@@ -136,13 +135,13 @@ const router = createBrowserRouter([
         children: [
           {
             path: "edit/:id/",
-            element: <OpeningWrapper type = "Modify" />,
+            element: <OpeningWrapper type="Modify" />,
           },
           {
             path: ":id/",
-            element: <OpeningWrapper type = "Info" />,
-          }
-        ]
+            element: <OpeningWrapper type="Info" />,
+          },
+        ],
       },
     ],
     errorElement: <ErrorPage />,
@@ -227,9 +226,9 @@ const router = createBrowserRouter([
               {
                 path: ":id/",
                 element: <PersonModifyWrapper />,
-              }
-            ]
-          }
+              },
+            ],
+          },
         ],
       },
       {

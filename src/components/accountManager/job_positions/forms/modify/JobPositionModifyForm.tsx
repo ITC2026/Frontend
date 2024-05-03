@@ -10,6 +10,7 @@ import {
 
 interface Props {
   type: string;
+  origin?: string;
 }
 
 const JobPositionModifyForm = (prop: Props) => {
@@ -62,7 +63,13 @@ const JobPositionModifyForm = (prop: Props) => {
 
     modifyPosition(Number(id), jobPositionToSubmit).then(() => {
       console.log("Changed :)");
-      navigate("/account_manager/positions/");
+
+      if (prop.origin == "Project") {
+        console.log("This is activated, btw.");
+        navigate(`/account_manager/projects/${id}`);
+      } else {
+        navigate("/account_manager/positions/");
+      }
     });
   };
 
@@ -248,7 +255,7 @@ const JobPositionModifyForm = (prop: Props) => {
       </div>
       {onlyModify && (
         <Button className="encora-purple-button" type="submit">
-          Modificar proyecto
+          Modificar posición
         </Button>
       )}
     </Form>

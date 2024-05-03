@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 interface Props {
   type: string;
+  origin? : string; 
 }
 
 const JobPositionModify = (prop: Props) => {
@@ -26,7 +27,7 @@ const JobPositionModify = (prop: Props) => {
     <>
       <LargeModal
         titleModal={title}
-        formContent={<JobPositionModifyForm type={prop.type} />}
+        formContent={<JobPositionModifyForm type={prop.type} origin = {prop.origin}/>}
         header={<ReturnButton />}
       />
     </>

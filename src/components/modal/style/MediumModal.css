@@ -1,0 +1,40 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+  }
+  
+  .medium-modal {
+    width: 39.3125rem;
+    height: 29.3125rem;
+    border-radius: 0.625rem;
+    padding: 2.5rem;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .heading-form {
+    margin-bottom: 3.25rem;
+  }
+  
+  .form-group {
+    height: 32rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  
+  .button-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+    column-gap: 2.19rem;
+  }

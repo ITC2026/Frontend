@@ -1,10 +1,9 @@
 import "./style/ShortModal.css";
+import { ReactElement } from "react";
 import { ShortModalType } from "./modalType";
-import Form from "react-bootstrap/Form";
 
 interface ShortModalProps {
-  typeOfModal: ShortModalType;
-  btnArray?: React.ReactElement[];
+  content: ReactElement;
   setActiveModal: (active: boolean) => void;
   customText?: string;
 }

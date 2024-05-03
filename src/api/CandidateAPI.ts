@@ -56,3 +56,19 @@ export const deleteCandidate = async (id: number) => {
         console.log(err);
     }
 };
+
+export const getCandidateByPersonID = async (id: number) => {
+    try {
+        const res = await api.get(candidateRoute);
+        const candidates_by_person: Candidate[] = await res.data.payload;
+        const candidate_by_person = candidates_by_person.find((employee) => employee.person_id === id);
+        if (!candidate_by_person) {
+            return "";
+        }
+        return candidate_by_person || null;
+
+    } catch (error) {
+      console.error("Error fetching employee from ID:", error);
+      return null;
+    }
+}

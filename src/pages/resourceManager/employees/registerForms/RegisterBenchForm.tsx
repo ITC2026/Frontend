@@ -11,7 +11,9 @@ import {
   regionOptions,
   jobGradeOptions,
   proposedActionOptions,
+  statusReasonOptions,
 } from "../Options";
+import { createPerson } from "../../../../api/PersonAPI";
 
 interface Props {
   setActiveModal: (active: boolean) => void;
@@ -29,11 +31,47 @@ const RegisterBenchForm = (props: Props) => {
   const [expectedSalary, setExpectedSalary] = useState<number>(0);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [reasonBench, setReasonBench] = useState<string>("");
+  const [reasonBench, setReasonBench] = useState<StatusReason | "Ninguno">("Ninguno");
   const [proposedAction, setProposedAction] = useState<ProposedAction | "Ninguno">("Ninguno");
 
+  const general_status = "Bench";
+  const salary: number = 1111;
+  const employee_status = "On Hired";
+
+  const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const candidateToSubmit: CreatePersonAttributes = {
+      name: name,
+      phone: phoneNumber,
+      email: email,
+      title: title,
+      tech_stack: techStack,
+      division: division,
+      region: region,
+      gender: gender,
+      expected_salary: expectedSalary,
+      status: general_status,
+      salary: salary,
+      job_grade: jobGrade,
+      proposed_action: proposedAction,
+      employee_status: employee_status,
+      employee_reason: reasonBench,
+      profile_picture: profilePic,
+    };
+    console.log(`Submitting person: ${JSON.stringify(candidateToSubmit)}`);
+    createPerson(candidateToSubmit)
+      .then(() => {
+        console.log("Person submitted successfully");
+        props.setActiveModal(false);
+      })
+      .catch((error) => {
+        console.error("Error submitting person:", error);
+      });
+  };
+
   return (
-    <Form className="form-group-person">
+    <Form className="form-group-person" onSubmit={submitForm}>
       <div className="top-form">
         <div className="leftside-top-form">
           <Form.Group className="mb-3 personal-image">
@@ -251,12 +289,29 @@ const RegisterBenchForm = (props: Props) => {
           </Form.Label>
           <Col sm={7}>
             <Form.Control
-              type="text"
-              placeholder="Introduzca su razón de bench"
+              as="select"
               value={reasonBench}
               bsPrefix="encora-purple-input form-control"
-              onChange={(e) => setReasonBench(e.target.value)}
-            />
+              onChange={(e) => 
+                setReasonBench(e.target.value as StatusReason)
+              }
+              >
+              <option selected>Ninguno</option>
+              {Object.keys(statusReasonOptions).map(
+                (statusReasonOption) => (
+                  <option
+                    key={statusReasonOption}
+                    value={statusReasonOption}
+                  >
+                    {
+                      statusReasonOptions[
+                        statusReasonOption as StatusReason
+                      ]
+                    }
+                  </option>
+                )
+              )}
+              </Form.Control>
           </Col>
         </Form.Group>
 

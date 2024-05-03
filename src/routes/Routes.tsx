@@ -27,7 +27,10 @@ import PositionsPage from "../pages/staffer/positions/PositionsPage";
 
 //Resource
 import ResourceWrapper from "../pages/resourceManager/ResourceManagerWrapper";
-import Employee from "../pages/resourceManager/employees/Employee";
+import People from "../pages/resourceManager/People/People";
+import PersonModifyWrapper from "../pages/resourceManager/employees/modifyForms/PersonModifyWrapper";
+import PersonInfoWrapper from "../pages/resourceManager/employees/infoForms/PersonInfoWrapper";
+
 
 const router = createBrowserRouter([
   {
@@ -186,12 +189,27 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "employees",
+        path: "people",
         element: (
           <>
-            <Employee />,
+            <People />
           </>
         ),
+        children: [
+          {
+            path: ":id/",
+            element: <PersonInfoWrapper />,
+          },
+          {
+            path: "edit",
+            children: [
+              {
+                path: ":id/",
+                element: <PersonModifyWrapper />,
+              }
+            ]
+          }
+        ],
       },
       {
         path: "settings",

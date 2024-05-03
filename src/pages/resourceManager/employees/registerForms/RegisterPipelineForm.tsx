@@ -10,10 +10,12 @@ import {
   divisionOptions,
   regionOptions,
 } from "../Options";
+import { createPerson } from "../../../../api/PersonAPI";
 
 interface Props {
   setActiveModal: (active: boolean) => void;
 }
+
 
 const RegisterPipelineForm = (props: Props) => {
   const [profilePic, setProfilePic] = useState<string>("");
@@ -26,9 +28,37 @@ const RegisterPipelineForm = (props: Props) => {
   const [expectedSalary, setExpectedSalary] = useState<number>(0);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const general_status = "Pipeline";
+  
+  const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const candidateToSubmit: CreatePersonAttributes = {
+      name: name,
+      phone: phoneNumber,
+      email: email,
+      title: title,
+      tech_stack: techStack,
+      division: division,
+      region: region,
+      gender: gender,
+      expected_salary: expectedSalary,
+      status: general_status,
+      profile_picture: profilePic,
+    };
+    console.log(`Submitting person: ${JSON.stringify(candidateToSubmit)}`);
+    createPerson(candidateToSubmit)
+      .then(() => {
+        console.log("Person submitted successfully");
+        props.setActiveModal(false);
+      })
+      .catch((error) => {
+        console.error("Error submitting person:", error);
+      });
+  };
 
   return (
-    <Form className="form-group-person">
+    <Form className="form-group-person" onSubmit={submitForm}>
       <div className="top-form">
         <div className="leftside-top-form">
           <Form.Group className="mb-3 personal-image">

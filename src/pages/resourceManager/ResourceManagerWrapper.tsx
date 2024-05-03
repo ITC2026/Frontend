@@ -6,7 +6,7 @@ interface Props {
   route: string;
 }
 
-const resourceManagerRoutes: string[] = ["/", "/employees"];
+const resourceManagerRoutes: string[] = ["/", "/people"];
 
 const ResourceManagerWrapper = (props: Props) => {
   return (

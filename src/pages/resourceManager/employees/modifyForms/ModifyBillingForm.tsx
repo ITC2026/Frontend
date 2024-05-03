@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
 import { useState, useEffect } from "react";
+import {useParams, useNavigate} from "react-router";
 import getProjectNamesAndIds from "../../../../utils/People/GetProjectNamesId";
 import getPositionNamesAndIds from "../../../../utils/People/GetPositionNamesId";
 import {
@@ -15,12 +16,16 @@ import {
   proposedActionOptions,
 } from "../Options";
 import ShortModal from "../../../../components/modal/ShortModal";
+import { modifyPerson } from "../../../../api/PersonAPI";
+import { getPersonById } from "../../../../api/PersonAPI";
+import { getEmployeeByPersonID } from "../../../../api/EmployeeAPI";
 
-interface Props {
-  setActiveModal: (active: boolean) => void;
-}
+const ModifyBillingForm = () => {
 
-const ModifyBillingForm = (props: Props) => {
+  const [showConfirmationModify, setShowConfirmationModify] =
+    useState<boolean>(false);
+
+  const [status, setStatus] = useState<string>("Billing");
   const [profilePic, setProfilePic] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [gender, setGender] = useState<Gender | "Ninguno">("Ninguno");
@@ -38,18 +43,90 @@ const ModifyBillingForm = (props: Props) => {
   const [selectedProjectId, selectedSetProjectId] = useState<string>("");
   const [jobPositionIds, setJobPositionIds] = useState<{ id: string; name: string }[]>([]);
   const [selectedJobPositionId, selectedSetJobPositionId] = useState<string>("");
+  const [salary, setSalary] = useState<number>(0);
+  const [employee_status, setEmployeeStatus] = useState<EmployeeStatus | "Ninguno">("Ninguno");
+
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
 
   const [modal, setModal] = useState<boolean>(false);  
   const toggleModal = (_prev: boolean) => { setModal((prev) => !prev); };
+
+  
+
+  useEffect(() => {
+    if (id) {
+      getPersonById(Number(id)).then((data) => {
+        if(!data) {
+          return;
+        }
+          setName(data.name);
+          setPhoneNumber(data.phone);
+          setEmail(data.email);
+          setTitle(data.title);
+          setStatus("Billing");
+          setTechStack(data.tech_stack);
+          setDivision(data.division);
+          setRegion(data.region);
+          setGender(data.gender);
+          setExpectedSalary(data.expected_salary);
+          getEmployeeByPersonID(Number(id)).then((employee) => {
+            if(!employee) {
+              return;
+            }
+          setSalary(employee.salary);
+          setJobGrade(employee.job_grade);
+          setProposedAction(employee.proposed_action);
+          setEmployeeStatus(employee.employee_status);
+          setReasonBench(employee.employee_reason);
+          });
+    });
+  }
+  }, [id]);
 
   useEffect(() => {
     getProjectNamesAndIds().then((data) => setProjectIds(data));
     getPositionNamesAndIds().then((data) => setJobPositionIds(data));
   }, []);
 
+  const handleModifyPerson = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const candidateToSubmit: CreatePersonAttributes = {
+      name: name,
+      phone: phoneNumber,
+      email: email,
+      title: title,
+      tech_stack: techStack,
+      division: division,
+      region: region,
+      gender: gender,
+      expected_salary: expectedSalary,
+      status: status,
+      salary: salary,
+      job_grade: jobGrade,
+      proposed_action: proposedAction,
+      employee_status: employee_status,
+      employee_reason: reasonBench,
+    };
+    const id_num = Number(id);
+    console.log(JSON.stringify(candidateToSubmit));
+
+    modifyPerson(id_num, candidateToSubmit)
+      .then(() => {
+        setShowConfirmationModify(false);
+        console.log("Person submitted successfully");
+        navigate("/resource/people");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Error modifying person:", error);
+      });
+  };
+
   return (
     <>
-      <Form className="form-group-person">
+      <Form className="form-group-person" onSubmit={handleModifyPerson}>
         <div className="top-form">
           <div className="leftside-top-form">
             <Form.Group className="mb-3 personal-image">
@@ -350,8 +427,13 @@ const ModifyBillingForm = (props: Props) => {
         </div>
 
         <div className="button-wrapper">
-          <button type="submit" className="btn btn-primary encora-purple-button">
-            Modificar
+
+          <button
+            type="button"
+            className="btn btn-primary gray-button"
+            onClick={() => navigate("/resource/people")}
+          >
+            Cancelar
           </button>
 
           <button 
@@ -362,12 +444,27 @@ const ModifyBillingForm = (props: Props) => {
             Cambiar Estado
           </button>
 
-          <button
-            className="btn btn-primary gray-button"
-            onClick={() => props.setActiveModal(false)}
-          >
-            Cancelar
+          <button 
+          type="submit" 
+          className="btn btn-primary encora-purple-button"
+          onClick={() => setShowConfirmationModify(true)}>
+            Modificar
           </button>
+
+          {showConfirmationModify && (
+            <ShortModal
+              typeOfModal="modify"
+              btnArray={[
+                <button key="modify" type="submit" className="btn btn-warning">
+                  Modificar
+                </button>,
+              ]}
+              onClose={() => setShowConfirmationModify(false)}
+            />
+          )
+
+          }
+
         </div>
       </Form>
       {modal && (

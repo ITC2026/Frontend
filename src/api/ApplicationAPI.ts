@@ -25,7 +25,7 @@ export const getApplicationById = async (id: number) => {
 };
 
 // Create an application.
-export const createApplication = async (application: Application) => {
+export const createApplication = async (application: CreateApplicationAtributes) => {
     try {
         const res = await api.post(applicationRoute, application);
         const action = await res.data.payload;

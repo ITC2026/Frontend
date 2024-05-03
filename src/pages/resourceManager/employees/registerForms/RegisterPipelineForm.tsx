@@ -67,7 +67,7 @@ const RegisterPipelineForm = (props: Props) => {
       gender: gender,
       expected_salary: expectedSalary,
       status: general_status,
-      profile_picture: profilePic,
+      profile_picture: urlProfilePic,
     };
     console.log(`Submitting person: ${JSON.stringify(candidateToSubmit)}`);
     createPerson(candidateToSubmit)

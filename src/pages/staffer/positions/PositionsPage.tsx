@@ -4,28 +4,16 @@ import { Link } from "react-router-dom";
 import TableStaffer from "../../../components/staffer/TableStaffer";
 import getProjectPositions from '../functions/forPositions/getProjectPositions';
 import { useParams } from 'react-router-dom';
-import getPostulates from '../functions/forPostulates/getPostulates';
-
-
+import getPostulatesForPosition from '../functions/forPositions/getPostulatesForPosition';
 
 const PositionsPage: React.FC = () => {
     const [positions, setPositions] = useState<Position[]>([]);
     const [view, setView] = useState<"Position 1" | "Position 2">("Position 1");
     const [postulates, setPostulates] = useState<Person[]>([]);
+    const [position, setPosition] = useState<Position>();
 
     const { id } = useParams();
     const projectId = parseInt(id as string);
-
-
-    useEffect(() => {
-        getPostulates().then((data) => {
-            if (data) {
-                setPostulates(data);
-            } else {
-                console.error('No data fetched');
-            }
-        });
-    }, []);
 
     useEffect(() => {
         getProjectPositions(projectId).then((data: Position[]) => {
@@ -36,6 +24,27 @@ const PositionsPage: React.FC = () => {
             }
         });
     }, [projectId]);
+
+    useEffect(() => {
+        if (view === "Position 1") {
+            setPosition(positions[0]);
+        }
+        else if (view === "Position 2") {
+            setPosition(positions[1]);
+        } else {
+            console.error("Invalid position");
+        }
+    }), [view, positions];
+
+    useEffect(() => { 
+        getPostulatesForPosition(position?.id as number ).then((data) => {
+            if (data) {
+                setPostulates(data);
+            } else {
+                console.error('No data fetched');
+            }
+        });
+    }, [view]);
 
     // const filterPositionsByType = (people: Person[] | undefined, posting_type: string) => {
     //     if (!people) {

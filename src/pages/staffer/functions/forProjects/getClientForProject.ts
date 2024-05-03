@@ -1,29 +1,25 @@
 import { getClientById } from "../../../../api/ClientAPI";
 import { getProjectById } from "../../../../api/ProjectAPI";
 
-const getClientIDofProject = async (id: number)  => {
+const getClientIDofProject = async (id: number): Promise<number> => {
     try {
         const project = await getProjectById(id);
         if (!project) return 0;
-        const { client_id } = project;
-        return client_id;
-    } catch (err) {
-        console.error("Error fetching project from ID:", err);
+        return project.client_id as number;
+    } catch (error) {
+        console.error("Error fetching project from ID:", error);
         return 0;
     }
-}
+};
 
-
-
-const getClientNameByProjectID = async (id: number)  => {
+const getClientNameByProjectID = async (id: number): Promise<string> => {
     try {
-        const num = await getClientIDofProject(id);
-        const client = await getClientById(num);
+        const clientId = await getClientIDofProject(id);
+        const client = await getClientById(clientId);
         if (!client) return "No Client Found";
-        const clientName = client.client_name.toString() as string;
-        return clientName;
-    } catch (err) {
-        console.error("Error fetching client from ID:", err);
+        return client.client_name.toString();
+    } catch (error) {
+        console.error("Error fetching client from ID:", error);
         return "";
     }
 };

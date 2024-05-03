@@ -20,7 +20,6 @@ interface Props {
   setActiveModal: (active: boolean) => void;
 }
 
-
 const RegisterPipelineForm = (props: Props) => {
   const [profilePic, setProfilePic] = useState<File>();
   const [profilePicPath, setProfilePicPath] = useState<string>();

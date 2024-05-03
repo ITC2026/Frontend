@@ -1,5 +1,4 @@
 import "../style/profilePic.css";
-import ProfilePicPlaceholder from "../../../../assets/profilepic_placeholder.png";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
@@ -19,14 +18,18 @@ import ShortModal from "../../../../components/modal/ShortModal";
 import { modifyPerson } from "../../../../api/PersonAPI";
 import { getPersonById } from "../../../../api/PersonAPI";
 import { getEmployeeByPersonID } from "../../../../api/EmployeeAPI";
+import { uploadFile } from "../../../../firebase/initialize";
+import { v4 as uuidv4 } from "uuid";
+
+const peopleProfilePath = "people/profile/";
 
 const ModifyBillingForm = () => {
 
-  const [showConfirmationModify, setShowConfirmationModify] =
-    useState<boolean>(false);
-
+  const [showConfirmationModify, setShowConfirmationModify] = useState<boolean>(false);
   const [status, setStatus] = useState<string>("Billing");
-  const [profilePic, setProfilePic] = useState<string>("");
+  const [profilePic, setProfilePic] = useState<File>();
+  const [profilePicPath, setProfilePicPath] = useState<string>();
+  const [originalProfilePicPath, setOriginalProfilePicPath] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [gender, setGender] = useState<Gender | "Ninguno">("Ninguno");
   const [title, setTitle] = useState<string>("");
@@ -45,6 +48,7 @@ const ModifyBillingForm = () => {
   const [selectedJobPositionId, selectedSetJobPositionId] = useState<string>("");
   const [salary, setSalary] = useState<number>(0);
   const [employee_status, setEmployeeStatus] = useState<EmployeeStatus | "Ninguno">("Ninguno");
+  const [validated, setValidated] = useState(false);
 
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
@@ -52,14 +56,14 @@ const ModifyBillingForm = () => {
   const [modal, setModal] = useState<boolean>(false);  
   const toggleModal = (_prev: boolean) => { setModal((prev) => !prev); };
 
-  
-
   useEffect(() => {
     if (id) {
       getPersonById(Number(id)).then((data) => {
         if(!data) {
           return;
         }
+          setOriginalProfilePicPath(data.profile_picture);
+          setProfilePicPath(data.profile_picture);
           setName(data.name);
           setPhoneNumber(data.phone);
           setEmail(data.email);
@@ -89,10 +93,31 @@ const ModifyBillingForm = () => {
     getPositionNamesAndIds().then((data) => setJobPositionIds(data));
   }, []);
 
-  const handleModifyPerson = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleModifyPerson = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      console.log("Form is invalid");
+      setValidated(true);
+      return;
+    }
+
+    setValidated(true);
+    let urlProfilePic = originalProfilePicPath;
+
+    if (originalProfilePicPath !== profilePicPath) {
+      if (!profilePic || !profilePicPath) {
+        console.log("Profile Pic File is missing");
+        return;
+      }
+      urlProfilePic = await uploadFile(profilePic, profilePicPath);
+    } 
+
     const candidateToSubmit: CreatePersonAttributes = {
+      profile_pic: urlProfilePic,
       name: name,
       phone: phoneNumber,
       email: email,
@@ -126,7 +151,7 @@ const ModifyBillingForm = () => {
 
   return (
     <>
-      <Form className="form-group-person" onSubmit={handleModifyPerson}>
+      <Form className="form-group-person" onSubmit={handleModifyPerson} validated={validated}>
         <div className="top-form">
           <div className="leftside-top-form">
             <Form.Group className="mb-3 personal-image">
@@ -135,14 +160,16 @@ const ModifyBillingForm = () => {
                   accept="image/png, image/jpeg"
                   type="file"
                   onChange={(e) => {
-                    if (e.target.files && e.target.files[0]) {
-                      setProfilePic(URL.createObjectURL(e.target.files[0]));
+                    const target = e.target as HTMLInputElement;
+                    if (target.files && target.files.length > 0) {
+                      setProfilePic(target.files[0]);
+                      setProfilePicPath(peopleProfilePath + uuidv4());
                     }
                   }}
                 />
                 <figure className="personal-figure">
                   <img
-                    src={!profilePic ? ProfilePicPlaceholder : profilePic}
+                    src={!profilePic ? originalProfilePicPath : URL.createObjectURL(profilePic)}
                     className="personal-avatar"
                     alt="avatar"
                   ></img>

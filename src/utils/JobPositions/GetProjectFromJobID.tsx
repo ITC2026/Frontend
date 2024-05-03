@@ -6,7 +6,6 @@ export const getProjectTitleFromJobID = async (
 ): Promise<string | null> => {
   try {
     const position = await getPositionById(positionId);
-    console.log(JSON.stringify(position));
 
     if (!position || !position.project_id) {
       console.log("Position not found or missing project_id");

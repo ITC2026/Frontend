@@ -39,7 +39,7 @@ const ProjectsPage = () => {
   }, [setProjects]);
 
   const filteredProjects = (projects: Project[]) => {
-    return projects.filter((project) => (project.general_status === "Active"));
+    return projects.filter((project) => ((project.general_status === "Active" || project.general_status === "In Preparation") && project.opening_progress !== "No Positions"));
   };
 
 
@@ -48,7 +48,7 @@ const ProjectsPage = () => {
       <div className="project-table-container">
         <h1 className="table-title">Lista de Proyectos</h1>
         <div className="table-wrapper">
-          <TableStaffer entity={filteredProjects(projects)} types={projectBlueprint} showInfoButton={false}/>
+          <TableStaffer entity={filteredProjects(projects)} types={projectBlueprint} showInfoButton={false} />
         </div>
       </div>
     </div>

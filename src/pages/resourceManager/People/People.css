@@ -1,37 +1,33 @@
 .nav-link {
-    margin-right: 2rem;
+  margin-right: 2rem;
 }
 
 .project-header {
-    display: flex;
-    flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .project-header-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 90vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90vw;
 }
 
 h1 {
-    text-align: left;
-}
-.project-register {
-    padding: 5%;
-        border-radius: 10px;
-        width: 15rem;
+  text-align: left;
 }
 
-.project-page {
-    margin-top: 2rem;
+.project-register {
+  padding: 5%;
+  border-radius: 10px;
 }
 
 .project-table {
-    display: flex;
-    width: 90vw;
-    height: 85vh;
-    justify-content: center;
+  display: flex;
+  width: 90vw;
+  height: 85vh;
+  justify-content: left;
 }

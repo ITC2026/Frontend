@@ -58,7 +58,7 @@ const TableView = (props: Props) => {
   });
 
   return (
-    <div>
+    <div className="todo">
       <div className="table-header">
         <div className="children-container">{props.children}</div>
         <SearchBar onSearchTermChange={handleSearchTermChange} />

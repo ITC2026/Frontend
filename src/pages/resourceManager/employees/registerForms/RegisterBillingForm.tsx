@@ -4,9 +4,6 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
 import { useState, useEffect } from "react";
-import getPositionNamesAndIds from "../../../../utils/People/GetPositionNamesId";
-import { createPerson } from "../../../../api/PersonAPI";
-
 import {
   genderOptions,
   techStackOptions,
@@ -14,13 +11,20 @@ import {
   regionOptions,
   jobGradeOptions,
 } from "../Options";
+import getPositionNamesAndIds from "../../../../utils/People/GetPositionNamesId";
+import { createPerson } from "../../../../api/PersonAPI";
+import { uploadFile } from "../../../../firebase/initialize";
+import { v4 as uuidv4 } from "uuid";
+
+const peopleProfilePath = "people/profile/";
 
 interface Props {
   setActiveModal: (active: boolean) => void;
 }
 
 const RegisterBillingForm = (props: Props) => {
-  const [profilePic, setProfilePic] = useState<string>("");
+  const [profilePic, setProfilePic] = useState<File>();
+  const [profilePicPath, setProfilePicPath] = useState<string>();
   const [name, setName] = useState<string>("");
   const [gender, setGender] = useState<Gender | "Ninguno">("Ninguno");
   const [title, setTitle] = useState<string>("");
@@ -33,14 +37,33 @@ const RegisterBillingForm = (props: Props) => {
   const [email, setEmail] = useState<string>("");
   const [jobPositionIds, setJobPositionIds] = useState<{ id: string; name: string }[]>([]);
   const [selectedJobPositionId, selectedSetJobPositionId] = useState<string>("");
+  const [validated, setValidated] = useState(false);
+
   const general_status = "Billing";
   const salary: number = 1111;
   const employee_status = "On Hired";
   const proposedAction = "No action required";
   const reasonBench = "Other";
 
-  const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      console.log("Form is invalid");
+      setValidated(true);
+      return;
+    }
+
+    setValidated(true);
+    if (!profilePic || !profilePicPath) {
+      console.log("Files are missing");
+      return;
+    }
+
+    const urlProfilePic = await uploadFile(profilePic, profilePicPath);
 
     const candidateToSubmit: CreatePersonAttributes = {
       name: name,
@@ -58,7 +81,7 @@ const RegisterBillingForm = (props: Props) => {
       proposed_action: proposedAction,
       employee_status: employee_status,
       employee_reason: reasonBench,
-      profile_picture: profilePic,
+      profile_picture: urlProfilePic,
     };
     console.log(`Submitting person: ${JSON.stringify(candidateToSubmit)}`);
     createPerson(candidateToSubmit)
@@ -77,7 +100,7 @@ const RegisterBillingForm = (props: Props) => {
   }, []);
 
   return (
-    <Form className="form-group-person" onSubmit={submitForm}>
+    <Form className="form-group-person" onSubmit={submitForm} validated={validated}>
       <div className="top-form">
         <div className="leftside-top-form">
           <Form.Group className="mb-3 personal-image">
@@ -87,13 +110,14 @@ const RegisterBillingForm = (props: Props) => {
                 type="file"
                 onChange={(e) => {
                   if (e.target.files && e.target.files[0]) {
-                    setProfilePic(URL.createObjectURL(e.target.files[0]));
+                    setProfilePic(e.target.files[0]);
+                    setProfilePicPath(peopleProfilePath + uuidv4());
                   }
                 }}
               />
               <figure className="personal-figure">
                 <img
-                  src={!profilePic ? ProfilePicPlaceholder : profilePic}
+                  src={!profilePic ? ProfilePicPlaceholder : URL.createObjectURL(profilePic)}
                   className="personal-avatar"
                   alt="avatar"
                 ></img>

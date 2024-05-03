@@ -115,6 +115,7 @@ const PersonsPage = () => {
 
   return (
     <div className="project-page">
+      <div className="ajuste">
       <ul className="nav nav-pills nav-fill">
         {["Pipeline", "Bench", "Billing"].map((type: string, index: number) => (
           <li key={index} className="nav-item">
@@ -131,6 +132,7 @@ const PersonsPage = () => {
           </li>
         ))}
       </ul>
+      </div>
       <div className="project-header">
         <div className="project-header-title">
           <h1>Personas</h1>

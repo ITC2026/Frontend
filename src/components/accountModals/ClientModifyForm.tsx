@@ -5,23 +5,26 @@ import Row from "react-bootstrap/Row";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getClientById, modifyClient, deleteClient } from "../../api/ClientAPI";
+import { uploadFile } from "../../firebase/initialize";
+import { v4 as uuidv4 } from "uuid";
+
+const clientLogoPath = "clients/logo/";
+const clientContractPath = "clients/contract/";
 
 const ClientModifyForm = () => {
-  const [contractPdfUrl, setContractPdfUrl] = useState<string>("");
-  const [logoUrl, setLogoUrl] = useState<string>("");
   const [clientName, setClientName] = useState<string>("");
   const [clientDescription, setClientDescription] = useState<string>("");
   const [hasHighGrowth, setHasHighGrowth] = useState<boolean>(false);
   const [selectedDivision, setSelectedDivision] = useState<Division>();
-
   const [validated, setValidated] = useState(false);
   const [logoFile, setLogoFile] = useState<File>();
   const [logoPath, setLogoPath] = useState<string>();
   const [contractFile, setContractFile] = useState<File>();
   const [contractPath, setContractPath] = useState<string>();
-
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+  let originalContractPath = "";
+  let originalLogoPath = "";
 
   const handleDeleteClient = () => {
     console.log("Delete client");
@@ -35,6 +38,7 @@ const ClientModifyForm = () => {
       });
   };
 
+
   useEffect(() => {
     if (id) {
       getClientById(Number(id)).then((data) => {
@@ -43,8 +47,10 @@ const ClientModifyForm = () => {
         }
         setClientName(data.client_name);
         setClientDescription(data.client_desc);
-        setContractPdfUrl(data.contract_pdf_url);
-        setLogoUrl(data.logo_url);
+        originalContractPath = data.contract_pdf_url;
+        setContractPath(data.contract_pdf_url);
+        originalLogoPath = data.logo_url
+        setLogoPath(data.logo_url);
         setHasHighGrowth(data.high_growth);
         setSelectedDivision(data.division);
       });
@@ -53,18 +59,47 @@ const ClientModifyForm = () => {
     id,
     setClientName,
     setClientDescription,
-    setContractPdfUrl,
-    setLogoUrl,
+    setContractPath,
+    setLogoPath,
     setHasHighGrowth,
     setSelectedDivision,
   ]);
 
-  const handleModifyClient = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleModifyClient = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      console.log("Form is invalid");
+      setValidated(true);
+      return;
+    }
+
+    setValidated(true);
+    let urlLogo = originalLogoPath;
+    let urlContract = originalContractPath;
+
+    if (originalLogoPath !== logoPath) {
+      if (!logoFile || !logoPath) {
+        console.log("Logo File is missing");
+        return;
+      }
+      urlLogo = await uploadFile(logoFile, logoPath);
+    } 
+
+    if (originalContractPath !== contractPath) {
+      if (!contractFile || !contractPath) {
+        console.log("Contract File is missing");
+        return;
+      }
+      urlContract = await uploadFile(contractFile, contractPath);
+    }
+
     const clientToModify: CreateClientAttributes = {
-      contract_pdf_url: contractPdfUrl,
-      logo_url: logoUrl,
+      contract_pdf_url: urlContract,
+      logo_url: urlLogo,
       client_name: clientName,
       client_desc: clientDescription,
       high_growth: hasHighGrowth,
@@ -127,15 +162,21 @@ const ClientModifyForm = () => {
         </Form.Label>
         <Col sm={6}>
           <Form.Control
+            //required
             accept=".pdf"
             onChange={(e) => {
-              if (e.target.files && e.target.files.length > 0) {
-                setContractFile(e.target.files[0]);
+              const target = e.target as HTMLInputElement;
+              if (target.files && target.files.length > 0) {
+                setContractFile(target.files[0]);
+                setContractPath(clientContractPath + uuidv4());
               }
             }}
             type="file"
             bsPrefix="encora-purple-input form-control"
           />
+          <Form.Control.Feedback type="invalid">
+            Please provide a valid zip.
+          </Form.Control.Feedback>
         </Col>
       </Form.Group>
 
@@ -145,16 +186,22 @@ const ClientModifyForm = () => {
         </Form.Label>
         <Col sm={6}>
           <Form.Control
+            // required
             accept="image/png, image/jpeg"
             onChange={(e) => {
-              if (e.target.files && e.target.files.length > 0) {
-                setLogoFile(e.target.files[0]);
+              const target = e.target as HTMLInputElement;
+              if (target.files && target.files.length > 0) {
+                setLogoFile(target.files[0]);
+                setLogoPath(clientLogoPath + uuidv4());
               }
             }}
             type="file"
             bsPrefix="encora-purple-input form-control"
           />
         </Col>
+        <Form.Control.Feedback type="invalid">
+          Please provide a valid zip.
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group as={Row} className="mb-4 row-width-form">

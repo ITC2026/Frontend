@@ -165,7 +165,7 @@ const TableBench = (props: Props) => {
   });
 
   return (
-    <div>
+    <div className='todo'>
       <div className="table-header">
         <div className="children-container">{props.children}</div>
         <SearchBar onSearchTermChange={handleSearchTermChange} />
@@ -180,7 +180,7 @@ const TableBench = (props: Props) => {
                 {category}
               </th>
             ))}
-            <th className="encora-purple text-light">Options</th>
+            <th className="encora-purple text-light">Opciones</th>
           </tr>
         </thead>
         <tbody>

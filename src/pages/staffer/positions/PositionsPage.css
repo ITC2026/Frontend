@@ -1,0 +1,142 @@
+.positions-page {
+    background-color: #ffffff; 
+    padding: 20px;
+}
+
+.project-table-container {
+    background-color: white;
+    color: white;
+    max-height: 50rem;
+    padding: 20px;
+    width: 100%;
+}
+
+.table-title {
+    font-size: 48px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 70px;
+    margin-top: 30px;
+}
+
+.table-wrapper {
+    height: 600px;
+    overflow-y: auto;
+}
+.table-wrapper .button-register {
+    display: inline-flex;
+    width: 10rem;
+    padding: 6px 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4.8px;
+    background-color: #2D1154;
+    border: 1px solid #2D1154;
+}
+
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px; 
+    margin-left: 20px;
+    width: 70%;
+}
+
+.buttons-container button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    border: 2px solid black;
+    border-radius: 0;
+    background-color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    margin-right: 30px;
+    width: 50%;
+    padding: 10px 20px;
+}
+
+.button-title {
+    font-size: 24px;
+    text-decoration: underline;
+    margin-bottom: 30px;
+}
+
+.button-vacancies {
+    font-size: 16px;
+    font-weight: bold;
+    color: #8b7f9b;
+}
+
+.buttons-container button:hover {
+    background: #8b7f9b;
+    color:#ffffff;
+}
+
+.table-header {
+    margin-top: 20px;
+}
+
+.position-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    background-color: white;
+    width: 100%;
+}
+
+.position-details .detail-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; 
+    width: 100%; 
+}
+
+.position-details h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.button1 {
+    background-color: #2D1154;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: normal;
+    font-size: 14px;
+    padding: 5px 10px;
+    width: auto;
+    height: auto;
+    margin-top: 50px;
+    position: sticky; /* Cambia a fixed */
+    margin-right: 0px; /* Ajusta según sea necesario */
+    bottom: 50px; /* Ajusta según sea necesario */
+}
+
+
+.button1 h1 {
+    color: white;
+    font-weight: normal;
+    font-size: 18px;
+    margin: 0;
+}
+
+.button1:hover {
+    background-color: #4a2a7e;
+}
+
+.button.selected {
+    background-color: #2D1154;
+    color: white;
+}
+
+.positions-page {
+    background-color: #ffffff; 
+    padding: 20px;
+    max-height: 100vh; 
+    overflow-y: auto; 
+}

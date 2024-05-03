@@ -1,0 +1,61 @@
+.project-table-container {
+    background-color: white;
+    color: white;
+    max-height: 400px;
+    padding: 20px;
+    width: 100%;
+}
+
+.table-title {
+    font-size: 48px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 70px;
+    margin-top: 30px;
+}
+
+.table-wrapper {
+    height: 600px;
+    overflow-y: auto;
+}
+
+.projects-page {
+
+    background-color: #ffffff; 
+    
+    padding: 20px;
+}
+
+.top-status-wrapper button {
+    display: inline-flex;
+    padding: 6px 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4.8px;
+    border: 1px solid #2D1154;
+}
+
+.button-is-selected {
+    background: #2D1154;
+    color:#ffffff;
+}
+
+.button-not-selected {
+    background: #f8f7f9;
+    color:#000000;
+}
+
+
+.top-status-wrapper button:hover {
+    background: #8b7f9b;
+    color:#ffffff;
+}   
+
+.top-status-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 20rem;
+    justify-self: left;
+}

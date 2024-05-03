@@ -1,0 +1,12 @@
+Form {
+    text-align: left;
+}
+
+.action-buttons {
+    width: 100%;
+    text-align: right;
+}
+
+.action-buttons>* {
+    margin-left: 3rem;
+}

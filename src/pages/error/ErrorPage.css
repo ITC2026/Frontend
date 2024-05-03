@@ -1,0 +1,15 @@
+.error-message {
+  margin-top: 25%;
+  margin-left: 10%;
+}
+
+.error-title {
+  margin-bottom: 1.94rem;
+  width: 53.125rem;
+}
+
+.error-description {
+  margin-bottom: 2.37rem;
+  width: 53.125rem;
+  height: 7.75rem;
+}

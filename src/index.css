@@ -2,15 +2,32 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
+  margin: 0 auto;
+  text-align: center;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  color: #000;
+  font-family: Inter;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
+  text-align: left;
+}
+
+h2 {
+  color: #757575;
+  font-family: Inter;
+  font-size: 1.875rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
+  text-align: left;
 }
 
 a {
@@ -18,51 +35,144 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+/* Colors */
+
+.purple-300 {
+  background: #c1b2d4;
+  border-color: #c1b2d4;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.encora-purple {
+  background: #44197e !important;
+  border-color: #44197e;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.purple-700 {
+  background: #2d1154 !important;
+  border-color: #2d1154;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.white {
+  background: white;
+  border-color: white;
+}
+
+.background-gray {
+  background: #283343bf;
+  border-color: #283343bf;
+}
+
+/* Input Colors */
+
+.encora-purple-button,
+.encora-purple-input::file-selector-button {
+  background: #44197e !important;
+  border: 0;
+  color: white !important;
+  transition: 0.2s all;
+}
+
+.encora-purple-button:hover {
+  background: #c1b2d4 !important;
+  color: #44197e !important;
+}
+
+.encora-purple-button:active {
+  background: #2d1154 !important;
+  color: white !important;
+}
+
+.encora-purple-check {
+  border-color: #44197e !important;
+}
+
+.encora-purple-check:checked {
+  background-color: #44197e !important;
+  border: 0 !important;
+}
+
+.encora-purple-check:focus,
+.encora-purple-input:focus {
+  border-color: #dad1e5 !important;
+  box-shadow: 0 0 0 0.2rem #f8f3ff !important;
+}
+
+.gray-button {
+  background: #a3a3a3 !important;
+  border: 0;
+}
+
+.gray-button:hover {
+  background: #d1d1d1 !important;
+  color: #a3a3a3 !important;
+}
+
+.gray-button:active {
+  background: #616161 !important;
+  color: white !important;
+}
+
+.red-encora-button {
+  background: #ff564d !important;
+  border: 0;
+}
+
+.red-encora-button:hover {
+  background: #ffc7c4 !important;
+  color: #ff564d !important;
+}
+
+.red-encora-button:active {
+  background: #86352d !important;
+  color: white !important;
+}
+
+.green-encora-button {
+  background: #8fc745 !important;
+  border: 0;
+}
+
+.green-encora-button:hover {
+  background: #e0fcb6 !important;
+  color: #8fc745 !important;
+}
+
+.green-encora-button:active {
+  background: #6a9628 !important;
+  color: white !important;
+}
+
+.green-encora-button {
+  background: #8fc745 !important;
+  border: 0;
+}
+
+.green-encora-button:hover {
+  background: #e0fcb6 !important;
+  color: #8fc745 !important;
+}
+
+.green-encora-button:active {
+  background: #6a9628 !important;
+  color: white !important;
+}
+
+.blue-encora-button {
+  background: #40C1EF !important;
+  border: 0;
+}
+
+.blue-encora-button:hover {
+  background: #e0fcb6 !important;
+  color: #40C1EF !important;
+}
+
+.blue-encora-button:active {
+  background: #2a7d9b !important;
+  color: white !important;
 }

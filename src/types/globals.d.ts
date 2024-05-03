@@ -11,6 +11,9 @@ type Type =
   | "People"
   | "Users";
 
+type Entity = Project | Position | Opening | Person;
+type EntityKey = keyof Project | keyof Position | keyof Opening | keyof Person;
+
 type ProjectStatus = "In Preparation" | "Active" | "Closed";
 
 type ClosedStatus = "Completed" | "Cancelled";

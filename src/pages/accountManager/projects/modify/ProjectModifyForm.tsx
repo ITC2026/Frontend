@@ -6,6 +6,8 @@ import { modifyProject, deleteProject } from "../../../../api/ProjectAPI";
 import ShortModal from "../../../../components/modal/ShortModal";
 import { formatDate } from "../../../../utils/Dates";
 import { getProjectById } from "../../../../api/ProjectAPI";
+import "./ProjectModifyForm.css"
+
 const ProjectModifyForm = () => {
   const [showConfirmationDelete, setShowConfirmationDelete] =
     useState<boolean>(false);
@@ -56,6 +58,7 @@ const ProjectModifyForm = () => {
         setExpirationDate(
           formatDate(String(data.expiration_date?.expiration_date))
         );
+        setSelectedStatus(data.general_status);
       });
     }
   }, [id]);
@@ -192,31 +195,24 @@ const ProjectModifyForm = () => {
         </div>
       )}
 
-      <button
-        type="button"
-        className="btn btn-secondary"
-        onClick={() => navigate("/account_manager/projects")}
-      >
-        Close
-      </button>
+      <div className="action-buttons">
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={() => setShowConfirmationDelete(true)}
+        >
+          {" "}
+          Delete Project
+        </button>
 
-      <button
-        type="button"
-        className="btn btn-danger"
-        onClick={() => setShowConfirmationDelete(true)}
-      >
-        {" "}
-        Delete Project
-      </button>
-
-      <button
-        type="button"
-        className="btn btn-warning"
-        onClick={() => setShowConfirmationModify(true)}
-      >
-        Modify
-      </button>
-
+        <button
+          type="button"
+          className="btn btn-warning"
+          onClick={() => setShowConfirmationModify(true)}
+        >
+          Modify
+        </button>
+      </div>
       {showConfirmationModify && (
         <ShortModal
           typeOfModal="modify"

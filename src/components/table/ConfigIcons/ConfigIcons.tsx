@@ -1,5 +1,6 @@
 import { OpeningButton } from "../../../components/accountManager/job_positions/table/OpeningButton";
 
+
 interface Props {
   entity?: string;
   id: number;

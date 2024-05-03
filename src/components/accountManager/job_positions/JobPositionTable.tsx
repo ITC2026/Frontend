@@ -22,7 +22,7 @@ const JobPositionTable = () => {
       );
       setJobPositions(positionWithProject);
     });
-  }, [jobPositions]);
+  }, []);
 
   return (
     <div className="job-position-page">

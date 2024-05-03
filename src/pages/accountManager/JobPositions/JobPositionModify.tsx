@@ -1,4 +1,4 @@
-import { JobPositionForm } from "../../../components/accountManager/job_positions/forms/JobPositionForm";
+import JobPositionModifyForm from "../../../components/accountManager/job_positions/forms/modify/JobPositionModifyForm";
 import LargeModal from "../../../components/modal/LargeModal";
 import { ReturnButton } from "../../../components/ReturnButton/ReturnButton";
 
@@ -6,8 +6,8 @@ const JobPositionModify = () => {
   return (
     <>
       <LargeModal
-        titleModal="Registro de Posición"
-        formContent={<JobPositionForm />}
+        titleModal="Modificación de Posición"
+        formContent={<JobPositionModifyForm/>}
         header={<ReturnButton />}
       />
     </>

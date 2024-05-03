@@ -1,24 +1,31 @@
 import { getAllApplications } from "../../../../api/ApplicationAPI";
 import { getAllOpenings } from "../../../../api/OpeningAPI";
-const getPostulateApplicationProgress = async (positionID: number, postulates: Person[]) => {
+
+const getPostulateApplicationProgress = async (positionID: number, postulateID: number) => {
     try {
+        // Fetch all openings and filter those relevant to the given position
         const openings = await getAllOpenings() as Opening[];
         const posOpenings = openings.filter((opening) => opening.position_id === positionID);
-        const postulateOpening = posOpenings.find((opening) => postulates.map((postulate) => postulate.id).includes(opening.person_id)) as Opening;
-        if (!postulateOpening) {
-            const applications = await getAllApplications() as Application[];
-            const posApplications = applications.filter((application) => application.position_id === positionID);
-            const postulateApplication = posApplications.find((application) => postulates.map((postulate) => postulate.id).includes(application.person_id)) as Application;
-            if (!postulateApplication) {
-                return "No Progress";
-            }
-            return postulateApplication.application_status;
+        
+        // Find the specific opening related to the postulate ID
+        const postulateOpening = posOpenings.find((opening) => opening.person_id === postulateID);
+
+        // If an opening exists and it is filled, return "Accepted"
+        if (postulateOpening && postulateOpening.opening_status === "Filled") {
+            return "Accepted";
         }
-        return postulateOpening.opening_status === "Filled" ? "Accepted" : "No Progress";
+
+        // If no relevant opening is filled, check applications
+        const applications = await getAllApplications() as Application[];
+        const posApplications = applications.filter((application) => application.position_id === positionID);
+        const postulateApplication = posApplications.find((application) => application.person_id === postulateID);
+
+        // Return the application status if an application exists, otherwise "No Progress"
+        return postulateApplication ? postulateApplication.application_status : "No Progress";
     } catch (error) {
         console.error("Error getting application status:", error);
         return "Error";
     }
 };
 
-export default getPostulateApplicationProgress;
+export default getPostulateApplicationProgress; 

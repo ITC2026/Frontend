@@ -1,0 +1,10 @@
+.job-preview {
+    padding: 2rem;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    border: 3px solid black;
+    border-radius: 10px;
+    width: 30rem; /* Width of each child, may need adjustment based on number of items */
+    flex-shrink: 0; /* Prevents the items from shrinking */
+
+}

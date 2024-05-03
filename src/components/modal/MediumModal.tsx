@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 
 interface MediumModalProps {
   content: ReactElement;
-  setActiveModal: (active: boolean) => void;
+  setActiveModal?: (active: boolean) => void;
 }
 
 const MediumModal = ({ content, setActiveModal }: MediumModalProps) => {

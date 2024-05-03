@@ -14,13 +14,12 @@ const ClientPage = () => {
   const [clients, setClients] = useState<Client[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const location = useLocation();
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>("");
   useEffect(() => {
     !registerVisible &&
       getAllClients().then((data: Client[] | undefined) =>
         setClients(data || [])
       );
-    console.log(clients);
   }, [registerVisible, location]);
 
   const totalPages = Math.ceil(clients.length / pageSize);
@@ -30,25 +29,23 @@ const ClientPage = () => {
   };
 
   useEffect(() => {
-    const filteredClients = clients.filter(client =>
-        client.client_name.toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredClients = clients.filter((client) =>
+      client.client_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setClients(filteredClients);
-}, [searchTerm]);
-useEffect(() => {
- 
-  if (searchTerm === '') {
+  }, [searchTerm]);
+  useEffect(() => {
+    if (searchTerm === "") {
       getAllClients().then((data: Client[] | undefined) =>
-          setClients(data || [])
+        setClients(data || [])
       );
-  } else {
-      
-      const filteredClients = clients.filter(client =>
-          client.client_name.toLowerCase().includes(searchTerm.toLowerCase())
+    } else {
+      const filteredClients = clients.filter((client) =>
+        client.client_name.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setClients(filteredClients);
-  }
-}, [searchTerm]);
+    }
+  }, [searchTerm]);
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const currentClients = clients.slice(startIndex, endIndex);
@@ -74,35 +71,30 @@ useEffect(() => {
 
   return (
     <div>
-
       <Outlet />
       <h1 className="titulo">Clientes</h1>
-      
+
       <div className="botoncito">
-        
         <button
           className="agregar btn encora-purple-button"
           onClick={() => setRegisterVisible(true)}
         >
           Registrar Cliente
         </button>
-        
+
         <SearchBar onSearchTermChange={setSearchTerm} />
-        
-        </div>
-        <div className="mostrar">
-          {registerVisible && (
-            //<RegistrarCliente setActiveModal={setRegisterVisible} />
-            <LargeModal
-              titleModal="Registrar Cliente"
-              formContent={
-                <ClientRegisterForm setActiveModal={setRegisterVisible} />
-              }
-            />
-          )}
-        </div>
-      
-      
+      </div>
+      <div className="mostrar">
+        {registerVisible && (
+          //<RegistrarCliente setActiveModal={setRegisterVisible} />
+          <LargeModal
+            titleModal="Registrar Cliente"
+            formContent={
+              <ClientRegisterForm setActiveModal={setRegisterVisible} />
+            }
+          />
+        )}
+      </div>
 
       <div className="container">
         <div className="row">

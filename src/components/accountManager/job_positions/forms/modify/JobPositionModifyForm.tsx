@@ -26,6 +26,7 @@ const JobPositionModifyForm = (prop: Props) => {
   const [region, setRegion] = useState<string>("");
   const [techStack, setTechStack] = useState<string>("");
   const [isExclusive, setIsExclusive] = useState<boolean>(false);
+  const [projectId, setProjectId] = useState<number>(0);
   const [billRate, setBillRate] = useState<number>(0);
 
   const [onlyInfo, setOnlyInfo] = useState<boolean>(false);
@@ -47,6 +48,19 @@ const JobPositionModifyForm = (prop: Props) => {
 
   const navigate = useNavigate();
   const { id } = useParams();
+  
+  const handleDelete = () => {
+    deletePosition(Number(id)).then(() => {
+      if (prop.origin == "Project") {
+        console.log("This is activated, btw.");
+        navigate(`/account_manager/projects/edit/${projectId}`);
+      } else {
+        navigate("/account_manager/positions/");
+      }
+    });
+  }
+
+
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -63,13 +77,13 @@ const JobPositionModifyForm = (prop: Props) => {
       tech_stack: techStack,
       is_exclusive: isExclusive,
       bill_rate: billRate,
-      project_id: id,
+      project_id: projectId,
     };
 
     modifyPosition(Number(id), jobPositionToSubmit).then(() => {
       if (prop.origin == "Project") {
         console.log("This is activated, btw.");
-        navigate(`/account_manager/projects/${id}`);
+        navigate(`/account_manager/projects/edit/${projectId}`);
       } else {
         navigate("/account_manager/positions/");
       }
@@ -93,6 +107,7 @@ const JobPositionModifyForm = (prop: Props) => {
         setTechStack(data.tech_stack);
         setIsExclusive(data.is_exclusive);
         setBillRate(data.bill_rate);
+        setProjectId(data.project_id);
       });
     }
   }, [id]);
@@ -169,7 +184,9 @@ const JobPositionModifyForm = (prop: Props) => {
                 Select a posting type
               </option>
               <option value="New Head Count">New Head Count</option>
-              <option value="Back-fill Replacement">Replacement</option>
+              <option value="Back-fill Replacement">
+                Back-Fill Replacement
+              </option>
             </Form.Control>
           </Form.Group>
 
@@ -206,7 +223,8 @@ const JobPositionModifyForm = (prop: Props) => {
               </option>
               <option value="USA">USA</option>
               <option value="MEXICO">MEXICO</option>
-              <option value="BRAZIL">BRAZIL</option>
+              <option value="BRAZIL">BRAZIL</option>{" "}
+              <option value="CSA">CSA</option>
             </Form.Control>
           </Form.Group>
 
@@ -221,7 +239,20 @@ const JobPositionModifyForm = (prop: Props) => {
               <option disabled value="">
                 Select your region
               </option>
+              <option value="CDMX">CDMX</option>
+              <option value="CUU">CUU</option>
               <option value="HMO">HMO</option>
+              <option value="MID">MID</option>
+              <option value="SLP">SLP</option>
+              <option value="CAMPINA">CAMPINA</option>
+              <option value="SAO PAULO">SAO PAULO</option>
+              <option value="COLOMBIA">COLOMBIA</option>
+              <option value="PERU">PERU</option>
+              <option value="COSTA RICA">COSTA RICA</option>
+              <option value="ARGENTINA">ARGENTINA</option>
+              <option value="DOMINICANA">DOMINICANA</option>
+              <option value="DALLAS">DALLAS</option>
+              <option value="PHOENIX">PHOENIX</option>
             </Form.Control>
           </Form.Group>
 
@@ -237,7 +268,20 @@ const JobPositionModifyForm = (prop: Props) => {
               <option disabled value="">
                 Select your Tech Stack
               </option>
+              <option value="Java">Java</option>
+              <option value="React">React</option>
+              <option value="Python">Python</option>
+              <option value="Automation">Automation</option>
+              <option value="Golang">Golang</option>
               <option value="Javascript">Javascript</option>
+              <option value=".NET">.NET</option>
+              <option value="Angular">Angular</option>
+              <option value="Appian">Appian</option>
+              <option value="PowerApps">PowerApps</option>
+              <option value="Manual Tester">Manual Tester</option>
+              <option value="Kotlin">Kotlin</option>
+              <option value="UX">UX</option>
+              <option value="iOS">iOS</option>
             </Form.Control>
           </Form.Group>
 
@@ -282,9 +326,7 @@ const JobPositionModifyForm = (prop: Props) => {
               type="button"
               className="btn btn-danger"
               onClick={() => {
-                deletePosition(Number(id)).then(() => {
-                  navigate("/account_manager/positions/");
-                });
+                handleDelete();
               }}
             >
               Delete Position
